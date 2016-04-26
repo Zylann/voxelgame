@@ -1,0 +1,68 @@
+[gd_scene load_steps=5 format=1]
+
+[ext_resource path="res://gpu_generator.gd" type="Script" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
+
+[sub_resource type="CanvasItemShader" id=4]
+
+_code = { "fragment":"vec2 pos = floor(UV * 64.0);\nfloat a = fract(sin(dot(pos ,vec2(12.9898,78.233))) * 438.5453);\nvec4 col = vec4(a, a, a, 1.0);\n\nCOLOR = col;\n", "fragment_ofs":0, "light":"", "light_ofs":0, "vertex":"", "vertex_ofs":0 }
+
+[sub_resource type="CanvasItemMaterial" id=5]
+
+shader/shader = SubResource( 4 )
+shader/shading_mode = 0
+
+[node name="ShaderGen" type="Node"]
+
+[node name="Viewport" type="Viewport" parent="."]
+
+rect = Rect2( 0, 0, 0, 0 )
+own_world = false
+world = null
+transparent_bg = false
+render_target/enabled = true
+render_target/v_flip = false
+render_target/clear_on_new_frame = true
+render_target/filter = false
+render_target/gen_mipmaps = false
+render_target/update_mode = 2
+audio_listener/enable_2d = false
+audio_listener/enable_3d = false
+physics/object_picking = false
+gui/disable_input = false
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+anchor_mode = 0
+rotating = false
+current = false
+zoom = Vector2( 1, 1 )
+limit/left = -10000000
+limit/top = -10000000
+limit/right = 10000000
+limit/bottom = 10000000
+drag_margin/h_enabled = true
+drag_margin/v_enabled = true
+smoothing/enable = false
+smoothing/speed = 5.0
+drag_margin/left = 0.2
+drag_margin/top = 0.2
+drag_margin/right = 0.2
+drag_margin/bottom = 0.2
+script/script = ExtResource( 1 )
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+
+material/material = SubResource( 5 )
+polygon = Vector2Array( 0, 0, 64, 0, 64, 64, 0, 64 )
+uv = Vector2Array( 0, 0, 64, 0, 64, 64, 0, 64 )
+color = Color( 1, 1, 1, 1 )
+offset = Vector2( 0, 0 )
+texture/texture = ExtResource( 2 )
+texture/offset = Vector2( 0, 0 )
+texture/scale = Vector2( 1, 1 )
+texture/rotation = 0.0
+invert/enable = false
+invert/border = 100.0
+
+
