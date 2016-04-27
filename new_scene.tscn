@@ -1,9 +1,8 @@
-[gd_scene load_steps=10 format=1]
+[gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://debug_camera.gd" type="Script" id=1]
 [ext_resource path="res://generator.gd" type="Script" id=2]
 [ext_resource path="res://terrain.png" type="Texture" id=3]
-[ext_resource path="res://block.gd" type="Script" id=4]
 
 [sub_resource type="FixedMaterial" id=1]
 
@@ -81,44 +80,7 @@ textures/glow_tc = 0
 textures/normal_tc = 0
 textures/shade_param_tc = 0
 
-[sub_resource type="FixedMaterial" id=3]
-
-flags/visible = true
-flags/double_sided = false
-flags/invert_faces = false
-flags/unshaded = false
-flags/on_top = false
-flags/lightmap_on_uv2 = true
-flags/colarray_is_srgb = true
-params/blend_mode = 0
-params/depth_draw = 1
-params/line_width = 1.0
-fixed_flags/use_alpha = false
-fixed_flags/use_color_array = false
-fixed_flags/use_point_size = false
-fixed_flags/discard_alpha = false
-fixed_flags/use_xy_normalmap = false
-params/diffuse = Color( 1, 1, 1, 1 )
-params/specular = Color( 0, 0, 0, 1 )
-params/emission = Color( 0, 0, 0, 1 )
-params/specular_exp = 40
-params/detail_mix = 1.0
-params/normal_depth = 1
-params/shader = 0
-params/shader_param = 0.5
-params/glow = 0
-params/point_size = 1.0
-uv_xform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-textures/diffuse_tc = 0
-textures/detail_tc = 0
-textures/specular_tc = 0
-textures/emission_tc = 0
-textures/specular_exp_tc = 0
-textures/glow_tc = 0
-textures/normal_tc = 0
-textures/shade_param_tc = 0
-
-[sub_resource type="Environment" id=4]
+[sub_resource type="Environment" id=3]
 
 ambient_light/enabled = true
 ambient_light/color = Color( 0.378906, 0.378906, 0.378906, 1 )
@@ -162,22 +124,12 @@ bcs/contrast = 1.0
 bcs/saturation = 1.0
 srgb/enabled = false
 
-[sub_resource type="Animation" id=5]
-
-length = 1.0
-loop = false
-step = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath(".")
-tracks/0/interp = 1
-tracks/0/keys = { "cont":true, "times":FloatArray(  ), "transitions":FloatArray(  ), "values":[  ] }
-
 [node name="Node" type="Node"]
 
 [node name="Camera" type="Camera" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 0.815509, -0.351713, 0.459612, 0, 0.794154, 0.607717, -0.578744, -0.495599, 0.64764, 18.1809, 22.9505, 25.3826 )
+transform/local = Transform( 0.815509, -0.351713, 0.459612, 0, 0.794154, 0.607717, -0.578744, -0.495599, 0.64764, 18.1809, 4.88061, 25.3826 )
 projection = 0
 fov = 80.0
 near = 0.1
@@ -189,6 +141,7 @@ environment = null
 h_offset = 0.0
 v_offset = 0.0
 script/script = ExtResource( 1 )
+__meta__ = { "_editor_collapsed":true }
 sensitivity = 0.4
 min_angle = -90
 max_angle = 90
@@ -261,125 +214,16 @@ phase_2/color = Color( 0, 0, 0, 1 )
 phase_3/pos = 1.0
 phase_3/color = Color( 0, 0, 0, 1 )
 
-[node name="TestCube" type="TestCube" parent="."]
-
-_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.63175, 0, 0 )
-layers = 1
-geometry/visible = true
-geometry/material_override = null
-geometry/cast_shadow = true
-geometry/receive_shadows = true
-geometry/range_begin = 0.0
-geometry/range_end = 0.0
-geometry/extra_cull_margin = 0.0
-geometry/billboard = false
-geometry/billboard_y = false
-geometry/depth_scale = false
-geometry/visible_in_all_rooms = false
-geometry/use_baked_light = false
-geometry/baked_light_tex_id = 0
-
-[node name="TestCube1" type="TestCube" parent="."]
-
-_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.63175, 0, 2.12836 )
-layers = 1
-geometry/visible = true
-geometry/material_override = null
-geometry/cast_shadow = true
-geometry/receive_shadows = true
-geometry/range_begin = 0.0
-geometry/range_end = 0.0
-geometry/extra_cull_margin = 0.0
-geometry/billboard = false
-geometry/billboard_y = false
-geometry/depth_scale = false
-geometry/visible_in_all_rooms = false
-geometry/use_baked_light = false
-geometry/baked_light_tex_id = 0
-
-[node name="TestCube2" type="TestCube" parent="."]
-
-_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.39143, 0, 0 )
-layers = 1
-geometry/visible = true
-geometry/material_override = null
-geometry/cast_shadow = true
-geometry/receive_shadows = true
-geometry/range_begin = 0.0
-geometry/range_end = 0.0
-geometry/extra_cull_margin = 0.0
-geometry/billboard = false
-geometry/billboard_y = false
-geometry/depth_scale = false
-geometry/visible_in_all_rooms = false
-geometry/use_baked_light = false
-geometry/baked_light_tex_id = 0
-
-[node name="TestCube3" type="TestCube" parent="."]
-
-_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.63175, 2.18131, 0 )
-layers = 1
-geometry/visible = true
-geometry/material_override = null
-geometry/cast_shadow = true
-geometry/receive_shadows = true
-geometry/range_begin = 0.0
-geometry/range_end = 0.0
-geometry/extra_cull_margin = 0.0
-geometry/billboard = false
-geometry/billboard_y = false
-geometry/depth_scale = false
-geometry/visible_in_all_rooms = false
-geometry/use_baked_light = false
-geometry/baked_light_tex_id = 0
-
 [node name="VoxelMap" type="Node" parent="."]
 
 script/script = ExtResource( 2 )
 material = SubResource( 1 )
 transparent_material = SubResource( 2 )
 
-[node name="Block" type="MeshInstance" parent="."]
-
-_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-visibility/visible = false
-layers = 1
-geometry/visible = true
-geometry/material_override = SubResource( 3 )
-geometry/cast_shadow = true
-geometry/receive_shadows = true
-geometry/range_begin = 0.0
-geometry/range_end = 0.0
-geometry/extra_cull_margin = 0.0
-geometry/billboard = false
-geometry/billboard_y = false
-geometry/depth_scale = false
-geometry/visible_in_all_rooms = false
-geometry/use_baked_light = false
-geometry/baked_light_tex_id = 0
-mesh/mesh = null
-mesh/skeleton = NodePath("..")
-script/script = ExtResource( 4 )
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-environment = SubResource( 4 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-
-playback/process_mode = 1
-playback/default_blend_time = 0.0
-root/root = NodePath("..")
-anims/NewAnim = SubResource( 5 )
-playback/active = true
-playback/speed = 1.0
-blend_times = [  ]
-autoplay = ""
+environment = SubResource( 3 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 

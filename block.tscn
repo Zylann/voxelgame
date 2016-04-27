@@ -1,6 +1,7 @@
 [gd_scene load_steps=2 format=1]
 
-[ext_resource path="res://block.gd" type="Script" id=1]
+[ext_resource path="res://block_node.gd" type="Script" id=1]
+
 
 [node name="Block" type="MeshInstance"]
 
