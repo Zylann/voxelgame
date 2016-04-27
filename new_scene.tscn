@@ -4,7 +4,7 @@
 [ext_resource path="res://voxel_map.gd" type="Script" id=2]
 [ext_resource path="res://terrain.png" type="Texture" id=3]
 
-[sub_resource type="FixedMaterial" id=4]
+[sub_resource type="FixedMaterial" id=1]
 
 flags/visible = true
 flags/double_sided = false
@@ -42,7 +42,7 @@ textures/glow_tc = 0
 textures/normal_tc = 0
 textures/shade_param_tc = 0
 
-[sub_resource type="FixedMaterial" id=5]
+[sub_resource type="FixedMaterial" id=2]
 
 flags/visible = true
 flags/double_sided = true
@@ -217,8 +217,8 @@ phase_3/color = Color( 0, 0, 0, 1 )
 [node name="VoxelMap" type="Node" parent="."]
 
 script/script = ExtResource( 2 )
-solid_material = SubResource( 4 )
-transparent_material = SubResource( 5 )
+solid_material = SubResource( 1 )
+transparent_material = SubResource( 2 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 
