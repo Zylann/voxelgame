@@ -1,15 +1,30 @@
 
+# Infinite terrain of voxels.
+# Voxels are divided in blocks in all directions (like octants in Gridmap).
+# It is a lot faster than Gridmap because geometry is merged in one mesh per block.
+# Voxels are usually cubes, but they can of any shape (see voxel_type.gd).
+# One thread is used to generate and bake geometry.
+
+# TODO Immerge blocks that are too far away (they currently flood the memory at some point)
+# TODO Voxel edition
+# TODO Physics
+# TODO Generate structures (trees, caves, old buildings... everything that is not made of a single voxel)
+# TODO Move data crunching to a C++ module for faster generation and mesh baking
+# TODO Ambient occlusion with vertex colors
+# TODO Import .obj to voxel types
+# TODO Move to a 2D Chunk-based generation system? More convenient for terrains (but keep Blocks for graphics)
+
 extends Node
 
 const BLOCK_SIZE = 16
 const SORT_TIME = 1
-const TILE_SIZE = 16
+#const TILE_SIZE = 16
 
-export(Material) var material = null
+export(Material) var solid_material = null
 export(Material) var transparent_material = null
+var view_radius = 8
 var min_y = -2
 var max_y = 2
-var view_radius = 8
 
 var VoxelType = preload("voxel_type.gd")
 
@@ -36,6 +51,7 @@ var _outer_positions = []
 var _precalc_neighboring = []
 
 
+# BLOCK_SIZE * BLOCK_SIZE * BLOCK_SIZE voxel buffer used in VoxelMaps
 class Block:
 	var voxel_map = null
 	var voxels = []
@@ -193,7 +209,8 @@ func set_voxel(pos, id):
 	block.voxels[rz+1][ry+1][rx+1] = id
 	block.need_update = true
 	
-	# TODO The following is not needed if the meshing process could just take copies with neighboring
+	# TODO The following is not needed if the meshing process could just take copies with neighboring,
+	# So we don't need to keep boundaries information for all the lifetime of blocks
 	
 	if rx == 0:
 		var nblock = _blocks[bpos-Vector3(1,0,0)]
@@ -312,7 +329,7 @@ func generate_block(pos):
 		st_solid.begin(Mesh.PRIMITIVE_TRIANGLES)
 		st_transparent.begin(Mesh.PRIMITIVE_TRIANGLES)
 		
-		st_solid.set_material(material)
+		st_solid.set_material(solid_material)
 		st_transparent.set_material(transparent_material)
 		
 		make_mesh(voxels, st_solid, st_transparent)
@@ -404,6 +421,10 @@ func _is_face_visible(vt, other_vt):
 
 func make_mesh(cubes, st_solid, st_transparent):
 	
+	# Note: the data must be padded with border voxels,
+	# so iteration starts at 1 and there is no need to check boundaries.
+	# This trades performance over a bit of memory.
+	
 	for z in range(1, cubes.size()-1):
 		var plane = cubes[z]
 		for y in range(1, plane.size()-1):
@@ -420,7 +441,7 @@ func make_mesh(cubes, st_solid, st_transparent):
 					var ppos = Vector3(x,y,z)
 					var pos = ppos-Vector3(1,1,1)
 					
-					# Side faces
+					# Side faces (full cubes only have side faces)
 					if voxel_type.model_side_vertices.size() != 0:
 						for side in range(0,6):
 							var npos = ppos + _side_normals[side]

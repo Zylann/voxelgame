@@ -1,4 +1,7 @@
 
+# Generic debug camera controller. Use anywhere.
+# Nothing game-related, no reference from and to outside.
+
 extends Camera
 
 
