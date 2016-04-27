@@ -32,11 +32,11 @@ func _process(delta):
 	if abs(forward.y) < 1.0:
 		_forward = Vector3(forward.x, 0, forward.z).normalized()
 	
-	if Input.is_key_pressed(KEY_Z):
+	if Input.is_key_pressed(KEY_Z) or Input.is_key_pressed(KEY_W):
 		motor += _forward
 	if Input.is_key_pressed(KEY_S):
 		motor -= _forward
-	if Input.is_key_pressed(KEY_Q):
+	if Input.is_key_pressed(KEY_Q) or Input.is_key_pressed(KEY_A):
 		motor -= right
 	if Input.is_key_pressed(KEY_D):
 		motor += right
