@@ -2,14 +2,13 @@
 
 [ext_resource path="res://block_node.gd" type="Script" id=1]
 
-
 [node name="Block" type="MeshInstance"]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 layers = 1
 geometry/visible = true
 geometry/material_override = null
-geometry/cast_shadow = true
+geometry/cast_shadow = 1
 geometry/receive_shadows = true
 geometry/range_begin = 0.0
 geometry/range_end = 0.0

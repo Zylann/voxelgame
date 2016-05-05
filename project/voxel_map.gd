@@ -22,20 +22,9 @@ const SORT_TIME = 1
 
 export(Material) var solid_material = null
 export(Material) var transparent_material = null
-var view_radius = 8
-var min_y = -2
-var max_y = 2
-
-var VoxelType = preload("voxel_type.gd")
-
-var _side_normals = [
-	Vector3(-1,0,0),
-	Vector3(1,0,0),
-	Vector3(0,-1,0),
-	Vector3(0,1,0),
-	Vector3(0,0,-1),
-	Vector3(0,0,1)
-]
+var view_radius = 4
+var min_y = -4
+var max_y = 4
 
 var _blocks = {}
 var _generating_blocks = {}
@@ -50,11 +39,14 @@ var _priority_positions = []
 var _outer_positions = []
 var _precalc_neighboring = []
 
+var _noise = OsnNoise.new()
+var _mesh_builder = VoxelMeshBuilder.new()
+var _library = VoxelLibrary.new()
 
-# BLOCK_SIZE * BLOCK_SIZE * BLOCK_SIZE voxel buffer used in VoxelMaps
+
 class Block:
 	var voxel_map = null
-	var voxels = []
+	var voxels = VoxelBuffer.new()
 	var pos = Vector3(0,0,0)
 	var mesh = null
 	var node = null
@@ -64,24 +56,7 @@ class Block:
 	var need_update = false
 	
 	func _init():
-		pass
-		#voxels = create_voxel_grid(BLOCK_SIZE+2,BLOCK_SIZE+2,BLOCK_SIZE+2)
-	
-	static func create_voxel_grid(sx,sy,sz):
-		var grid = []
-		grid.resize(sz)
-		for z in range(0, sz):
-			var plane = []
-			plane.resize(sy)
-			grid[z] = plane
-			for y in range(0, sy):
-				var line = []
-				#var line = IntArray()
-				line.resize(sx)
-				plane[y] = line
-				for x in range(0, sx):
-					line[x] = 0
-		return grid
+		voxels.create(BLOCK_SIZE+2,BLOCK_SIZE+2,BLOCK_SIZE+2)
 	
 	func is_generated():
 		return has_generated and has_structures
@@ -131,6 +106,10 @@ class BlockRequest:
 
 
 func _ready():
+	_noise.set_seed(131183)
+	
+	_library.set_atlas_size(4)
+	
 	_camera = get_parent().get_node("Camera")
 	
 	_load_voxel_types()
@@ -149,40 +128,16 @@ func _precalculate_neighboring():
 					_precalc_neighboring.append(Vector3(x,y,z))
 
 
-func add_voxel_type(id, name):
-	var vt = VoxelType.new(id, name)
-	if id >= _voxel_types.size():
-		_voxel_types.resize(id+1)
-	_voxel_types[id] = vt
-	return vt
-
-
 func _load_voxel_types():
-	add_voxel_type(0, "air") \
-		.set_geom(VoxelType.GEOM_EMPTY) \
-		.set_transparent(true)
+	_library.create_voxel(0, "air").set_transparent()
+	_library.create_voxel(1, "grass_dirt").set_cube_geometry().set_cube_uv_tbs_sides(Vector2(0,0), Vector2(0,1), Vector2(1,0))
+	_library.create_voxel(2, "dirt").set_cube_geometry().set_cube_uv_all_sides(Vector2(1,0))
+	_library.create_voxel(3, "log").set_cube_geometry().set_cube_uv_tbs_sides(Vector2(3,0), Vector2(3,0), Vector2(2,0))
+	_library.create_voxel(4, "water").set_transparent().set_cube_geometry(15.0/16.0).set_cube_uv_all_sides(Vector2(2,1)).set_material_id(1)
 	
-	add_voxel_type(1, "grassy_dirt") \
-		.set_tbs_atlas_pos(Vector2(0,0), Vector2(1,0), Vector2(0,1))
-	
-	add_voxel_type(2, "bush") \
-		.set_all_atlas_pos(Vector2(1,1)) \
-		.set_geom(VoxelType.GEOM_XQUAD) \
-		.set_transparent(true)
-
-	add_voxel_type(3, "log") \
-		.set_tbs_atlas_pos(Vector2(3,0), Vector2(3,0), Vector2(2,0))
-	
-	add_voxel_type(4, "dirt") \
-		.set_all_atlas_pos(Vector2(1,0))
-		
-	add_voxel_type(5, "water") \
-		.set_all_atlas_pos(Vector2(2,1)) \
-		.set_transparent(true) \
-		.set_geom(VoxelType.GEOM_LIQUID)
-		
-	for vt in _voxel_types:
-		vt.compile()
+	_mesh_builder.set_library(_library)
+	_mesh_builder.set_material(solid_material, 0)
+	_mesh_builder.set_material(transparent_material, 1)
 
 
 func _precalculate_priority_positions():
@@ -276,8 +231,11 @@ func _process(delta):
 			# Closer blocks are loaded first
 			var pos = _pending_blocks[_pending_blocks.size()-1]
 			_pending_blocks.pop_back()
-			_thread.start(self, "generate_block_thread", BlockRequest.new(pos, BlockRequest.TYPE_GENERATE))
 			_generating_blocks[pos] = true
+			var arg = BlockRequest.new(pos, BlockRequest.TYPE_GENERATE)
+			#_thread.start(self, "generate_block_thread", arg)
+			#print("generate " + str(pos))
+			spawn_block(generate_block(arg.block_pos))
 			
 			# Visible blocks are loaded first
 #			var hbs = Vector3(0.5, 0.5, 0.5) * BLOCK_SIZE
@@ -296,6 +254,7 @@ func generate_block_thread(request):
 		var block = generate_block(request.block_pos)
 		# Call the main thread to wait
 		call_deferred("thread_finished")
+		#_generating_blocks.erase(block.pos) # Enable only without thread!
 		return block
 	else:
 		print("Unknown request type " + str(request.type))
@@ -310,40 +269,22 @@ func thread_finished():
 func generate_block(pos):
 	var time_before = OS.get_ticks_msec()
 	
-	#var time_before = OS.get_ticks_msec()
-	var voxels = Block.create_voxel_grid(BLOCK_SIZE+2, BLOCK_SIZE+2, BLOCK_SIZE+2)
-	#print("Create: " + str(OS.get_ticks_msec() - time_before) + "ms")
+	var block = Block.new()
+	block.pos = pos
 	
 	#time_before = OS.get_ticks_msec()
-	var empty = generate_random(voxels, pos * BLOCK_SIZE)
+	var empty = generate_3d(block.voxels, pos * BLOCK_SIZE)
 	#print("Generate: " + str(OS.get_ticks_msec() - time_before) + "ms")
 
 	var mesh = null
 	if empty:
-		voxels = null
+		block.voxels = null
 	else:
 		#time_before = OS.get_ticks_msec()
-		var st_solid = SurfaceTool.new()
-		var st_transparent = SurfaceTool.new()
-		
-		st_solid.begin(Mesh.PRIMITIVE_TRIANGLES)
-		st_transparent.begin(Mesh.PRIMITIVE_TRIANGLES)
-		
-		st_solid.set_material(solid_material)
-		st_transparent.set_material(transparent_material)
-		
-		make_mesh(voxels, st_solid, st_transparent)
-		#st.index()
-		
-		mesh = st_solid.commit()
-		st_transparent.commit(mesh)
-		
+		mesh = _mesh_builder.build(block.voxels)
 		#print("Bake: " + str(OS.get_ticks_msec() - time_before) + "ms")
 
-	var block = Block.new()
 	block.voxel_map = self
-	block.voxels = voxels
-	block.pos = pos
 	block.mesh = mesh
 	block.gen_time = OS.get_ticks_msec() - time_before
 	
@@ -353,17 +294,80 @@ func generate_block(pos):
 func spawn_block(block):
 	if block.mesh != null:
 		var mesh_instance = preload("res://block.tscn").instance()
-		mesh_instance.set_mesh(block.mesh)
 		mesh_instance.set_translation(block.pos * BLOCK_SIZE)
+		mesh_instance.spawn()
+		mesh_instance.set_mesh(block.mesh)
 		mesh_instance.voxel_map = self
 		add_child(mesh_instance)
 		block.node = mesh_instance
-		mesh_instance.spawn()
 	_blocks[block.pos] = block
-	print("Gen time: " + str(block.gen_time) + " (empty=" + str(block.mesh == null) + ")")
+	#print("Gen time: " + str(block.gen_time) + " (empty=" + str(block.mesh == null) + ")")
 
 
-func generate_random(cubes, offset):
+func generate_test(cubes, offset):
+	cubes.set_voxel(1, 1,1,1)
+	
+	cubes.set_voxel(1, 3,1,1)
+	cubes.set_voxel(1, 3,1,2)
+	
+	cubes.set_voxel(1, 5,1,1)
+	cubes.set_voxel(1, 5,1,2)
+	cubes.set_voxel(1, 5,2,1)
+
+	cubes.set_voxel(1, 8,1,1)
+	cubes.set_voxel(1, 8,2,1)
+	cubes.set_voxel(1, 7,1,1)
+
+	cubes.set_voxel(1, 11,1,1)
+	cubes.set_voxel(1, 11,2,1)
+	cubes.set_voxel(1, 10,1,1)
+	cubes.set_voxel(1, 10,1,2)
+	
+	for x in range(4,7):
+		for z in range(4,7):
+			cubes.set_voxel(1, x, 2, z)
+			cubes.set_voxel(1, x+5, 2, z)
+	cubes.set_voxel(1, 5,3,5)
+	cubes.set_voxel(1, 5,1,5)
+	
+	return false
+
+
+func generate_3d(cubes, offset):
+	var ox = offset.x
+	var oy = offset.y
+	var oz = offset.z
+	var empty = true
+	var bs = cubes.get_size_x()
+	
+	var noise1 = OsnFractalNoise.new()
+	noise1.set_source_noise(_noise)
+	noise1.set_period(100)
+	noise1.set_octaves(4)
+	
+	var dirt = 1
+	if oy < 0:
+		dirt = 2
+
+	for z in range(0, bs):
+		for x in range(0, bs):
+			for y in range(0, bs):
+				var gy = y+oy
+				var h = noise1.get_noise_3d(x+ox+2, gy, z+oz)
+				if h < 1-gy*0.01 - 1:
+					cubes.set_voxel(dirt, x, y, z)
+					empty = false
+				else:
+					if gy < 0:
+						cubes.set_voxel(4, x, y, z)
+					else:
+						cubes.set_voxel(0, x, y, z)
+						empty = false
+	
+	return empty
+
+
+func generate_heightmap(cubes, offset):
 	var ox = offset.x
 	var oy = offset.y
 	var oz = offset.z
@@ -373,31 +377,33 @@ func generate_random(cubes, offset):
 	
 	var dirt = 1
 	if oy < 0:
-		dirt = 4
-		
-	var air = 0
-	if oy < 0:
-		air = 5
+		dirt = 2
 	
-	var bs = cubes.size()
+	var bs = cubes.get_size_x()
+	
+	var noise1 = OsnFractalNoise.new()
+	noise1.set_source_noise(_noise)
+	noise1.set_period(128)
+	noise1.set_octaves(4)
 	
 	for z in range(0, bs):
 		for x in range(0, bs):
-			#var h = 8.0*(cos((ox+x)/8.0) + sin((oz+z)/8.0)) + 8 - oy
-			var n1 = preload("Simplex.gd").simplex2(ns1*(ox+x), ns1*(oz+z))
-			var n2 = preload("Simplex.gd").simplex2(ns2*(ox+x+100.0), ns2*(oz+z))
-			var h = 16.0*n1 + 4.0*n2 + 8 - oy
+			
+			var h = 16.0 * noise1.get_noise_2d(ox+x, oz+z) - oy
+			
 			if h >= 0:
 				if h < bs:
 					empty = false
 					for y in range(0, h):
-						cubes[z][y][x] = dirt
+						cubes.set_voxel(dirt, x,y,z)
+						#cubes[z][y][x] = dirt
 					for y in range(h, bs):
-						cubes[z][y][x] = air
-					if oy == -BLOCK_SIZE:
-						cubes[z][bs-1][x] = 0
-					if oy >= 0 and randf() < 0.2:
-						cubes[z][h][x] = 2
+						cubes.set_voxel(0, x,y,z)
+						#cubes[z][y][x] = air
+#					if oy == -BLOCK_SIZE:
+#						cubes[z][bs-1][x] = 0
+#					if oy >= 0 and randf() < 0.2:
+#						cubes[z][h][x] = 2
 #					if randf() < 0.01:
 #						var th = h+1+randi()%8
 #						if th > bs:
@@ -407,65 +413,12 @@ func generate_random(cubes, offset):
 				else:
 					empty = false
 					for y in range(0, bs):
-						cubes[z][y][x] = 1
+						cubes.set_voxel(dirt, x,y,z)
 			else:
 				for y in range(0, bs):
-					cubes[z][y][x] = air
+					cubes.set_voxel(0, x,y,z)
 	
 	return empty
-
-
-func _is_face_visible(vt, other_vt):
-	return other_vt.id == 0 or (other_vt.is_transparent and other_vt != vt)
-
-
-func make_mesh(cubes, st_solid, st_transparent):
-	
-	# Note: the data must be padded with border voxels,
-	# so iteration starts at 1 and there is no need to check boundaries.
-	# This trades performance over a bit of memory.
-	
-	for z in range(1, cubes.size()-1):
-		var plane = cubes[z]
-		for y in range(1, plane.size()-1):
-			var line = plane[y]
-			for x in range(1, line.size()-1):
-				var voxel_id = line[x]
-				if voxel_id != 0:
-					var voxel_type = _voxel_types[voxel_id]
-					
-					var st = st_solid
-					if voxel_type.is_transparent:
-						st = st_transparent
-					
-					var ppos = Vector3(x,y,z)
-					var pos = ppos-Vector3(1,1,1)
-					
-					# Side faces (full cubes only have side faces)
-					if voxel_type.model_side_vertices.size() != 0:
-						for side in range(0,6):
-							var npos = ppos + _side_normals[side]
-							if _is_face_visible(voxel_type, _voxel_types[cubes[npos.z][npos.y][npos.x]]):
-								st.add_normal(_side_normals[side])
-								var uvs = voxel_type.model_side_uv[side]
-								var vertices = voxel_type.model_side_vertices[side]
-								for vi in range(0,vertices.size()):
-									st.add_uv(uvs[vi])
-									st.add_vertex(pos + vertices[vi])
-					
-					if voxel_type.geom_type == VoxelType.GEOM_XQUAD:
-						pos.x += rand_range(-0.15, 0.15)
-						pos.z += rand_range(-0.15, 0.15)
-					
-					# Model faces
-					if voxel_type.model_vertices.size() != 0:
-						var vertices = voxel_type.model_vertices
-						var uvs = voxel_type.model_uv
-						var normals = voxel_type.model_normals
-						for vi in range(0, vertices.size()):
-							st.add_uv(uvs[vi])
-							st.add_normal(normals[vi])
-							st.add_vertex(pos + vertices[vi])
 
 
 
