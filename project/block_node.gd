@@ -12,7 +12,7 @@ var _anim_time = 0
 
 func _ready():
 	pass
-	
+
 
 func spawn():
 #	_spawn_material = FixedMaterial.new()
@@ -23,6 +23,7 @@ func spawn():
 	#set_material_override(_spawn_material)
 	#set_material_override(voxel_map.material)
 	_normal_pos = get_translation()
+	set_translation(Vector3(_normal_pos.x, _normal_pos.y - 64.0, _normal_pos.x))
 	set_process(true)
 
 
@@ -34,7 +35,7 @@ func _process(delta):
 		pos.y -= (1-k)*(1-k) * 64.0
 		set_translation(pos)
 	else:
-		set_translation(_normal_pos)
+		set_translation(_normal_pos) # here
 		set_process(false)
 	
 #	var color = _spawn_material.get_parameter(FixedMaterial.PARAM_DIFFUSE)
