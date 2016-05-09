@@ -14,6 +14,8 @@ export var capture_mouse = true
 var _yaw = 0
 var _pitch = 0
 var _forward = Vector3(0,0,0)
+var _current_speed = 0
+var _max_speed = 0
 
 
 func _ready():
@@ -21,6 +23,9 @@ func _ready():
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	set_process(true)
 	set_process_input(true)
+	_current_speed = speed
+	_max_speed = speed * 10
+
 
 func _process(delta):
 	var motor = Vector3(0,0,0)
@@ -45,7 +50,14 @@ func _process(delta):
 	if Input.is_key_pressed(KEY_SHIFT):
 		motor -= up
 	
-	set_translation(get_translation() + motor * (delta * speed))
+	set_translation(get_translation() + motor * (delta * _current_speed))
+	
+	if motor.length_squared() > 0:
+		_current_speed *= 1.02
+		if _current_speed > _max_speed:
+			_current_speed = _max_speed
+	else:
+		_current_speed = speed
 
 
 func _input(event):
