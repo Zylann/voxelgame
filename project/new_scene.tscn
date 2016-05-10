@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=8 format=1]
 
 [ext_resource path="res://debug_camera.gd" type="Script" id=1]
 [ext_resource path="res://voxel_map.gd" type="Script" id=2]
 [ext_resource path="res://terrain.png" type="Texture" id=3]
+[ext_resource path="res://grid.gd" type="Script" id=4]
 
 [sub_resource type="FixedMaterial" id=1]
 
@@ -214,7 +215,7 @@ phase_2/color = Color( 0, 0, 0, 1 )
 phase_3/pos = 1.0
 phase_3/color = Color( 0, 0, 0, 1 )
 
-[node name="VoxelMap" type="Node" parent="."]
+[node name="VoxelTerrain" type="VoxelTerrain" parent="."]
 
 script/script = ExtResource( 2 )
 solid_material = SubResource( 1 )
@@ -248,5 +249,26 @@ shadow/mode = 3
 shadow/max_distance = 32.0
 shadow/split_weight = 0.5
 shadow/zoffset_scale = 2.0
+
+[node name="Grid" type="MeshInstance" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+layers = 1
+geometry/visible = true
+geometry/material_override = null
+geometry/cast_shadow = 1
+geometry/receive_shadows = true
+geometry/range_begin = 0.0
+geometry/range_end = 0.0
+geometry/extra_cull_margin = 0.0
+geometry/billboard = false
+geometry/billboard_y = false
+geometry/depth_scale = false
+geometry/visible_in_all_rooms = false
+geometry/use_baked_light = false
+geometry/baked_light_tex_id = 0
+mesh/mesh = null
+mesh/skeleton = NodePath("..")
+script/script = ExtResource( 4 )
 
 
