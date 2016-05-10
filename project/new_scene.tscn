@@ -253,6 +253,7 @@ shadow/zoffset_scale = 2.0
 [node name="Grid" type="MeshInstance" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+visibility/visible = false
 layers = 1
 geometry/visible = true
 geometry/material_override = null

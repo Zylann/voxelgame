@@ -44,7 +44,6 @@ class Heightmap extends _Base:
 		var ox = offset.x
 		var oy = offset.y
 		var oz = offset.z
-		var empty = true
 		var ns1 = 0.01
 		var ns2 = 0.05
 		
@@ -62,36 +61,16 @@ class Heightmap extends _Base:
 		for z in range(0, bs):
 			for x in range(0, bs):
 				
-				var h = 16.0 * noise1.get_noise_2d(ox+x, oz+z) - oy
+				var h = floor(16.0 * noise1.get_noise_2d(ox+x, oz+z) - oy)
 				
 				if h >= 0:
 					if h < bs:
-						empty = false
-						for y in range(0, h):
-							voxels.set_voxel(dirt, x,y,z)
-							#voxels[z][y][x] = dirt
-						for y in range(h, bs):
-							voxels.set_voxel(0, x,y,z)
-							#voxels[z][y][x] = air
-	#					if oy == -BLOCK_SIZE:
-	#						voxels[z][bs-1][x] = 0
-	#					if oy >= 0 and randf() < 0.2:
-	#						voxels[z][h][x] = 2
-	#					if randf() < 0.01:
-	#						var th = h+1+randi()%8
-	#						if th > bs:
-	#							th = bs
-	#						for y in range(h, th):
-	#							voxels[z][y][x] = 3
+						voxels.fill_area(dirt, Vector3(x,0,z), Vector3(x+1,h,z+1))
+						voxels.fill_area(0, Vector3(x,h,z), Vector3(x+1,bs,z+1))
 					else:
-						empty = false
-						for y in range(0, bs):
-							voxels.set_voxel(dirt, x,y,z)
+						voxels.fill_area(dirt, Vector3(x,0,z), Vector3(x+1,bs,z+1))
 				else:
-					for y in range(0, bs):
-						voxels.set_voxel(0, x,y,z)
-
-		return empty
+					voxels.fill_area(0, Vector3(x,0,z), Vector3(x+1,bs,z+1))
 
 
 class Volume extends _Base:
