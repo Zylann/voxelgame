@@ -91,5 +91,3 @@ func _input(event):
 		if event.pressed and event.scancode == KEY_ESCAPE:
 			# Get the mouse back
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-
-

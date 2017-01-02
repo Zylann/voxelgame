@@ -93,7 +93,7 @@ background/energy = 1.0
 background/scale = 1.0
 background/glow = 0.0
 background/canvas_max_layer = null
-glow/enabled = true
+glow/enabled = false
 glow/blur_passes = 1
 glow/blur_scale = 1
 glow/blur_strength = 1
@@ -114,10 +114,10 @@ hdr/min_luminance = 0.4
 hdr/max_luminance = 8.0
 hdr/exposure_adj_speed = 0.5
 fog/enabled = true
-fog/begin = 0.01
+fog/begin = 32.0
 fog/begin_color = Color( 0, 0, 0, 1 )
 fog/end_color = Color( 0.443137, 0.643137, 0.670588, 1 )
-fog/attenuation = 0.707107
+fog/attenuation = 2.14355
 fog/bg = true
 bcs/enabled = false
 bcs/brightness = 1.0
@@ -129,6 +129,7 @@ srgb/enabled = false
 
 [node name="Camera" type="Camera" parent="."]
 
+editor/display_folded = true
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0 )
 projection = 0
@@ -142,7 +143,6 @@ environment = null
 h_offset = 0.0
 v_offset = 0.0
 script/script = ExtResource( 1 )
-__meta__ = { "_editor_collapsed":true }
 sensitivity = 0.4
 min_angle = -90
 max_angle = 90
