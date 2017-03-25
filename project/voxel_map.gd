@@ -1,7 +1,7 @@
 
 extends VoxelTerrain
 
-const CustomProvider = preload("provider.gd")
+#const CustomProvider = preload("provider.gd")
 
 export(Material) var solid_material = null
 export(Material) var transparent_material = null
@@ -23,7 +23,20 @@ func _ready():
 	mesher.set_material(solid_material, 0)
 	mesher.set_material(transparent_material, 1)
 	
-	set_provider(CustomProvider.new())
+	#set_provider(CustomProvider.new())
+	var provider = VoxelProviderTest.new()
+	provider.set_mode(VoxelProviderTest.MODE_WAVES)
+	provider.set_pattern_size(Vector3(10,20,10))
+	set_provider(provider)
+#	var map = get_map()
+#	for x in range(0, 50):
+#		for y in range(0, 50):
+#			for z in range(0, 50):
+#				var v = 0
+#				if randf() < 0.1:
+#					v = 1+randi()%2
+#				map.set_voxel(v, x, y-10, z)
+#	map.set_voxel(0, 50,50,50)
 
 	force_load_blocks(Vector3(0,0,0), Vector3(12,4,12))
 #	var Testouille = preload("debug_camera.gd")

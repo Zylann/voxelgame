@@ -30,8 +30,8 @@ func _ready():
 			st.add_vertex(Vector3(-rv, x, y))
 			st.add_vertex(Vector3(rv, x, y))
 
-	var mesh = st.commit()
-	set_mesh(mesh)
+	mesh = st.commit()
+	#set_mesh(mesh)
 
 
 

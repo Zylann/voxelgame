@@ -27,10 +27,14 @@ func _ready():
 	_max_speed = speed * 10
 
 
+func get_forward():
+	return get_transform().basis * Vector3(0,0,-1)
+
+
 func _process(delta):
 	var motor = Vector3(0,0,0)
 	
-	var forward = get_transform().basis * Vector3(0,0,-1)
+	var forward = get_forward()
 	var right = get_transform().basis * Vector3(1,0,0)
 	var up = Vector3(0,1,0)
 	
@@ -85,9 +89,15 @@ func _input(event):
 			
 			# Apply rotations
 			set_rotation(Vector3(0, deg2rad(_yaw), 0))
-			rotate_x(deg2rad(_pitch))
+			rotate(get_transform().basis.x.normalized(), -deg2rad(_pitch))
 	
 	elif event.type == InputEvent.KEY:
-		if event.pressed and event.scancode == KEY_ESCAPE:
-			# Get the mouse back
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		if event.pressed:
+			if event.scancode == KEY_ESCAPE:
+				# Get the mouse back
+				Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			
+			elif event.scancode == KEY_I:
+				var pos = get_translation()
+				var fw = get_forward()
+				print("Position: ", pos, ", Forward: ", fw)
