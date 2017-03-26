@@ -281,4 +281,9 @@ speed = 4.0
 gravity = 30.0
 jump_force = 10.0
 
+[node name="interaction" parent="CharacterAvatar"]
 
+terrain_path = NodePath("../../VoxelTerrain")
+
+
+[editable path="CharacterAvatar"]

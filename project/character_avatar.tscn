@@ -1,12 +1,47 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://character_controller.gd" type="Script" id=1]
 [ext_resource path="res://mouse_look.gd" type="Script" id=2]
+[ext_resource path="res://avatar_interaction.gd" type="Script" id=3]
 
 [sub_resource type="CapsuleShape" id=1]
 
 radius = 0.4
 height = 0.85
+
+[sub_resource type="FixedSpatialMaterial" id=2]
+
+flags_transparent = false
+flags_unshaded = false
+flags_on_top = false
+flags_use_point_size = false
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = false
+params_diffuse_mode = 0
+params_blend_mode = 0
+params_cull_mode = 0
+params_depth_draw_mode = 0
+params_line_width = 2.0
+params_point_size = 1.0
+albedo_color = Color( 1, 1, 1, 1 )
+specular_mode = 0
+specular_color = Color( 0.1, 0.1, 0.1, 1 )
+specular_metalness = 0.1
+specular_roughness = 0.0
+emission_enabled = false
+normal_enabled = false
+rim_enabled = false
+clearcoat_enabled = false
+anisotropy_enabled = false
+ao_enabled = false
+height_enabled = false
+subsurf_scatter_enabled = false
+refraction_enabled = false
+detail_enabled = false
+uv1_scale = Vector2( 1, 1 )
+uv1_offset = Vector2( 0, 0 )
+uv2_scale = Vector2( 1, 1 )
+uv2_offset = Vector2( 0, 0 )
 
 [node name="CharacterAvatar" type="KinematicBody"]
 
@@ -57,5 +92,22 @@ sensitivity = 0.4
 min_angle = -90
 max_angle = 90
 capture_mouse = true
+
+[node name="interaction" type="Node" parent="."]
+
+script = ExtResource( 3 )
+terrain_path = null
+cursor_material = SubResource( 2 )
+
+[node name="debug_label" type="Label" parent="."]
+
+margin_right = 137.0
+margin_bottom = 14.0
+rect_clip_content = false
+mouse_filter = 2
+size_flags_vertical = 0
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
 
