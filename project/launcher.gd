@@ -12,4 +12,4 @@ func _ready():
 
 
 func _on_Node_pressed():
-	get_tree().change_scene("res://new_scene.tscn")
+	get_tree().change_scene("res://main.tscn")
