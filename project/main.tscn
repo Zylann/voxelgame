@@ -1,81 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://debug_camera.gd" type="Script" id=1]
-[ext_resource path="res://voxel_map.gd" type="Script" id=2]
-[ext_resource path="res://terrain.png" type="Texture" id=3]
-[ext_resource path="res://grid.gd" type="Script" id=4]
+[ext_resource path="res://voxel_map.gd" type="Script" id=1]
+[ext_resource path="res://terrain.png" type="Texture" id=2]
+[ext_resource path="res://grid.gd" type="Script" id=3]
+[ext_resource path="res://character_avatar.tscn" type="PackedScene" id=4]
 
-[sub_resource type="FixedSpatialMaterial" id=1]
-
-flags_transparent = false
-flags_unshaded = false
-flags_on_top = false
-flags_use_point_size = false
-vertex_color_use_as_albedo = true
-vertex_color_is_srgb = false
-params_diffuse_mode = 0
-params_blend_mode = 0
-params_cull_mode = 0
-params_depth_draw_mode = 0
-params_line_width = 1.0
-params_point_size = 1.0
-albedo_color = Color( 1, 1, 1, 1 )
-albedo_texture = ExtResource( 3 )
-specular_mode = 0
-specular_color = Color( 0.1, 0.1, 0.1, 1 )
-specular_metalness = 0.1
-specular_roughness = 0.0
-emission_enabled = false
-normal_enabled = false
-rim_enabled = false
-clearcoat_enabled = false
-anisotropy_enabled = false
-ao_enabled = false
-height_enabled = false
-subsurf_scatter_enabled = false
-refraction_enabled = false
-detail_enabled = false
-uv1_scale = Vector2( 1, 1 )
-uv1_offset = Vector2( 0, 0 )
-uv2_scale = Vector2( 1, 1 )
-uv2_offset = Vector2( 0, 0 )
-
-[sub_resource type="FixedSpatialMaterial" id=2]
-
-flags_transparent = true
-flags_unshaded = false
-flags_on_top = false
-flags_use_point_size = false
-vertex_color_use_as_albedo = false
-vertex_color_is_srgb = false
-params_diffuse_mode = 0
-params_blend_mode = 0
-params_cull_mode = 0
-params_depth_draw_mode = 0
-params_line_width = 1.0
-params_point_size = 1.0
-albedo_color = Color( 0.7, 0.7, 0.7, 1 )
-albedo_texture = ExtResource( 3 )
-specular_mode = 0
-specular_color = Color( 0.1, 0.1, 0.1, 1 )
-specular_metalness = 0.1
-specular_roughness = 0.0
-emission_enabled = false
-normal_enabled = false
-rim_enabled = false
-clearcoat_enabled = false
-anisotropy_enabled = false
-ao_enabled = false
-height_enabled = false
-subsurf_scatter_enabled = false
-refraction_enabled = false
-detail_enabled = false
-uv1_scale = Vector2( 1, 1 )
-uv1_offset = Vector2( 0, 0 )
-uv2_scale = Vector2( 1, 1 )
-uv2_offset = Vector2( 0, 0 )
-
-[sub_resource type="Environment" id=3]
+[sub_resource type="Environment" id=1]
 
 background_mode = 0
 background_skybox_scale = 1.0
@@ -87,7 +17,7 @@ ambient_light_energy = 1.0
 ambient_light_skybox_contribution = 0.0
 ss_reflections_enabled = false
 ss_reflections_max_steps = 64
-ss_reflections_accel = 0.04
+ss_reflections_accel = 0.0
 ss_reflections_fade = 2.0
 ss_reflections_depth_tolerance = 0.2
 ss_reflections_accel_smooth = true
@@ -139,40 +69,130 @@ adjustment_brightness = 1.0
 adjustment_contrast = 1.0
 adjustment_saturation = 1.0
 
+[sub_resource type="FixedSpatialMaterial" id=2]
+
+flags_transparent = false
+flags_unshaded = false
+flags_on_top = false
+flags_use_point_size = false
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = false
+params_diffuse_mode = 0
+params_blend_mode = 0
+params_cull_mode = 0
+params_depth_draw_mode = 0
+params_line_width = 1.0
+params_point_size = 1.0
+albedo_color = Color( 1, 1, 1, 1 )
+albedo_texture = ExtResource( 2 )
+specular_mode = 0
+specular_color = Color( 0, 0, 0, 1 )
+specular_metalness = 0.0
+specular_roughness = 0.0
+emission_enabled = false
+normal_enabled = false
+rim_enabled = false
+clearcoat_enabled = false
+anisotropy_enabled = false
+ao_enabled = false
+height_enabled = false
+subsurf_scatter_enabled = false
+refraction_enabled = false
+detail_enabled = false
+uv1_scale = Vector2( 1, 1 )
+uv1_offset = Vector2( 0, 0 )
+uv2_scale = Vector2( 1, 1 )
+uv2_offset = Vector2( 0, 0 )
+
+[sub_resource type="FixedSpatialMaterial" id=3]
+
+flags_transparent = true
+flags_unshaded = false
+flags_on_top = false
+flags_use_point_size = false
+vertex_color_use_as_albedo = false
+vertex_color_is_srgb = false
+params_diffuse_mode = 0
+params_blend_mode = 0
+params_cull_mode = 0
+params_depth_draw_mode = 0
+params_line_width = 1.0
+params_point_size = 1.0
+albedo_color = Color( 0.7, 0.7, 0.7, 1 )
+albedo_texture = ExtResource( 2 )
+specular_mode = 0
+specular_color = Color( 0.1, 0.1, 0.1, 1 )
+specular_metalness = 0.1
+specular_roughness = 0.0
+emission_enabled = false
+normal_enabled = false
+rim_enabled = false
+clearcoat_enabled = false
+anisotropy_enabled = false
+ao_enabled = false
+height_enabled = false
+subsurf_scatter_enabled = false
+refraction_enabled = false
+detail_enabled = false
+uv1_scale = Vector2( 1, 1 )
+uv1_offset = Vector2( 0, 0 )
+uv2_scale = Vector2( 1, 1 )
+uv2_offset = Vector2( 0, 0 )
+
+[sub_resource type="FixedSpatialMaterial" id=4]
+
+flags_transparent = false
+flags_unshaded = false
+flags_on_top = false
+flags_use_point_size = false
+vertex_color_use_as_albedo = false
+vertex_color_is_srgb = false
+params_diffuse_mode = 0
+params_blend_mode = 0
+params_cull_mode = 0
+params_depth_draw_mode = 0
+params_line_width = 1.0
+params_point_size = 1.0
+albedo_color = Color( 1, 1, 1, 1 )
+albedo_texture = ExtResource( 2 )
+specular_mode = 0
+specular_color = Color( 0.1, 0.1, 0.1, 1 )
+specular_metalness = 0.1
+specular_roughness = 0.0
+emission_enabled = false
+normal_enabled = false
+rim_enabled = false
+clearcoat_enabled = false
+anisotropy_enabled = false
+ao_enabled = false
+height_enabled = false
+subsurf_scatter_enabled = false
+refraction_enabled = false
+detail_enabled = false
+uv1_scale = Vector2( 1, 1 )
+uv1_offset = Vector2( 0, 0 )
+uv2_scale = Vector2( 1, 1 )
+uv2_offset = Vector2( 0, 0 )
+
 [node name="Node" type="Node"]
 
-[node name="Camera" type="Camera" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-projection = 0
-fov = 80.0
-near = 0.1
-far = 500.0
-keep_aspect = 1
-current = false
-cull_mask = 1048575
-environment = null
-h_offset = 0.0
-v_offset = 0.0
-script = ExtResource( 1 )
-sensitivity = 0.4
-min_angle = -90
-max_angle = 90
-speed = 10.0
-capture_mouse = true
+environment = SubResource( 1 )
 
 [node name="VoxelTerrain" type="VoxelTerrain" parent="."]
 
-script = ExtResource( 2 )
-solid_material = SubResource( 1 )
-transparent_material = SubResource( 2 )
+script = ExtResource( 1 )
+solid_material = SubResource( 2 )
+transparent_material = SubResource( 3 )
 
 [node name="TestCube" type="TestCube" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.58428 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.0723, -4.58428 )
 layers = 1
-material_override = null
+material_override = SubResource( 4 )
 cast_shadow = 1
 extra_cull_margin = 0.0
 use_as_billboard = false
@@ -185,9 +205,10 @@ lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
+[node name="Grid" type="MeshInstance" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+visible = false
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -203,12 +224,7 @@ lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
 mesh = null
 skeleton = NodePath("..")
-script = ExtResource( 4 )
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-
-_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-environment = SubResource( 3 )
+script = ExtResource( 3 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 
@@ -257,5 +273,12 @@ directional_shadow_split_3 = 0.5
 directional_shadow_blend_splits = false
 directional_shadow_normal_bias = 0.1
 directional_shadow_bias_split_scale = 0.1
+
+[node name="CharacterAvatar" parent="." instance=ExtResource( 4 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 22.0569, 0 )
+speed = 4.0
+gravity = 30.0
+jump_force = 10.0
 
 

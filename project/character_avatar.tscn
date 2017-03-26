@@ -1,0 +1,61 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://character_controller.gd" type="Script" id=1]
+[ext_resource path="res://mouse_look.gd" type="Script" id=2]
+
+[sub_resource type="CapsuleShape" id=1]
+
+radius = 0.4
+height = 0.85
+
+[node name="CharacterAvatar" type="KinematicBody"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+input_ray_pickable = true
+input_capture_on_drag = false
+shape_count = 1
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+shapes/0/trigger = false
+collision_layer = 1
+collision_mask = 1
+collide_with/static = true
+collide_with/kinematic = true
+collide_with/rigid = true
+collide_with/character = true
+collision/margin = 0.001
+script = ExtResource( 1 )
+speed = 5.0
+gravity = 9.8
+jump_force = 8.0
+head = NodePath("Camera")
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="Camera" type="Camera" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.702764, 0 )
+projection = 0
+fov = 90.0
+near = 0.1
+far = 500.0
+keep_aspect = 1
+current = false
+cull_mask = 1048575
+environment = null
+h_offset = 0.0
+v_offset = 0.0
+script = ExtResource( 2 )
+sensitivity = 0.4
+min_angle = -90
+max_angle = 90
+capture_mouse = true
+
+
