@@ -42,25 +42,14 @@ func _ready():
 	mesher.set_occlusion_darkness(1.0)
 	
 	set_generate_collisions(true)
+	set_viewer(get_parent().get_node("CharacterAvatar").get_path())
 	
 	#set_provider(CustomProvider.new())
 	var provider = VoxelProviderTest.new()
 	provider.set_mode(VoxelProviderTest.MODE_WAVES)
 	provider.set_pattern_size(Vector3(10,5,10))
 	set_provider(provider)
-#	var map = get_map()
-#	for x in range(0, 50):
-#		for y in range(0, 50):
-#			for z in range(0, 50):
-#				var v = 0
-#				if randf() < 0.1:
-#					v = 1+randi()%2
-#				map.set_voxel(v, x, y-10, z)
-#	map.set_voxel(0, 50,50,50)
 
-	force_load_blocks(Vector3(0,0,0), Vector3(16,4,16))
-#	var Testouille = preload("debug_camera.gd")
-#	var t = Testouille.new()
-#	t.lolance()
+	make_blocks_dirty(Vector3(-16,-4,-16), Vector3(33,8,33))
 
 
