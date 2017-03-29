@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://character_controller.gd" type="Script" id=1]
 [ext_resource path="res://mouse_look.gd" type="Script" id=2]
 [ext_resource path="res://avatar_interaction.gd" type="Script" id=3]
+[ext_resource path="res://crosshair.png" type="Texture" id=4]
+[ext_resource path="res://center.gd" type="Script" id=5]
 
 [sub_resource type="CapsuleShape" id=1]
 
@@ -52,7 +54,7 @@ shape_count = 1
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 shapes/0/trigger = false
-collision_layer = 1
+collision_layer = 3
 collision_mask = 1
 collide_with/static = true
 collide_with/kinematic = true
@@ -64,6 +66,7 @@ speed = 5.0
 gravity = 9.8
 jump_force = 8.0
 head = NodePath("Camera")
+terrain = null
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 
@@ -109,5 +112,11 @@ size_flags_vertical = 0
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
+
+[node name="crosshair" type="Sprite" parent="."]
+
+position = Vector2( 510.693, 285.793 )
+texture = ExtResource( 4 )
+script = ExtResource( 5 )
 
 

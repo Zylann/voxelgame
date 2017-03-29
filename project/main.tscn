@@ -236,11 +236,11 @@ light_energy = 1.0
 light_negative = false
 light_specular = 0.5
 light_cull_mask = -1
-shadow_enabled = false
+shadow_enabled = true
 shadow_color = Color( 0, 0, 0, 1 )
-shadow_bias = 0.1
+shadow_bias = 0.2
 shadow_contact = 0.0
-shadow_max_distance = 0.0
+shadow_max_distance = 100.0
 editor_only = false
 directional_shadow_mode = 2
 directional_shadow_split_1 = 0.1
@@ -276,14 +276,28 @@ directional_shadow_bias_split_scale = 0.1
 
 [node name="CharacterAvatar" parent="." instance=ExtResource( 4 )]
 
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 22.0569, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16.4052, 0 )
 speed = 4.0
 gravity = 30.0
-jump_force = 10.0
+jump_force = 9.0
+terrain = NodePath("../VoxelTerrain")
 
-[node name="interaction" parent="CharacterAvatar"]
+[node name="TestCube2" type="TestCube" parent="."]
 
-terrain_path = NodePath("../../VoxelTerrain")
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.230466, -1.27516, -5.9037 )
+layers = 1
+material_override = null
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_as_billboard = false
+use_as_y_billboard = false
+use_depth_scale = false
+visible_in_all_rooms = false
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
 
 
-[editable path="CharacterAvatar"]

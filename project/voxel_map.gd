@@ -47,7 +47,7 @@ func _ready():
 	#set_provider(CustomProvider.new())
 	var provider = VoxelProviderTest.new()
 	provider.set_mode(VoxelProviderTest.MODE_WAVES)
-	provider.set_pattern_size(Vector3(10,5,10))
+	provider.set_pattern_size(Vector3(10,8,10))
 	set_provider(provider)
 
 	make_blocks_dirty(Vector3(-16,-4,-16), Vector3(33,8,33))

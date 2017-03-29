@@ -5,6 +5,10 @@ export var gravity = 9.8
 export var jump_force = 5.0
 export(NodePath) var head = null
 
+# Not used in this script, but might be useful for child nodes because
+# this controller will most likely be on the root
+export(NodePath) var terrain = null
+
 var _velocity = Vector3()
 var _grounded = false
 var _head = null
