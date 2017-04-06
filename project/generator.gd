@@ -41,6 +41,7 @@ class Grid extends _Base:
 
 class Heightmap extends _Base:
 	var _noise2 = OsnNoise.new()
+	var channel = Voxel.CHANNEL_TYPE
 	
 	func _init():
 		_noise2.set_seed(_noise.get_seed() + 1)
@@ -87,15 +88,17 @@ class Heightmap extends _Base:
 				
 				if h >= 0:
 					if h < bs:
-						voxels.fill_area(dirt, Vector3(x,0,z), Vector3(x+1,h,z+1))
-						voxels.fill_area(air, Vector3(x,h,z), Vector3(x+1,bs,z+1))
+						voxels.fill_area(dirt, Vector3(x,0,z), Vector3(x+1,h,z+1), channel)
+						voxels.fill_area(air, Vector3(x,h,z), Vector3(x+1,bs,z+1), channel)
 					else:
-						voxels.fill_area(dirt, Vector3(x,0,z), Vector3(x+1,bs,z+1))
+						voxels.fill_area(dirt, Vector3(x,0,z), Vector3(x+1,bs,z+1), channel)
 				else:
-					voxels.fill_area(air, Vector3(x,0,z), Vector3(x+1,bs,z+1))
+					voxels.fill_area(air, Vector3(x,0,z), Vector3(x+1,bs,z+1), channel)
 
 
 class Volume extends _Base:
+	var channel = Voxel.CHANNEL_TYPE
+	
 	func generate(voxels, offset):
 		offset *= 16
 		var ox = offset.x
@@ -119,13 +122,13 @@ class Volume extends _Base:
 					var gy = y+oy
 					var h = noise1.get_noise_3d(x+ox+2, gy, z+oz)
 					if h < 1-gy*0.005 - 1:
-						voxels.set_voxel(dirt, x, y, z)
+						voxels.set_voxel(dirt, x, y, z, channel)
 						empty = false
 					else:
 						if gy < 0:
-							voxels.set_voxel(4, x, y, z)
+							voxels.set_voxel(4, x, y, z, channel)
 						else:
-							voxels.set_voxel(0, x, y, z)
+							voxels.set_voxel(0, x, y, z, channel)
 							empty = false
 		
 		return empty
@@ -159,4 +162,44 @@ class Test extends _Base:
 		voxels.set_voxel(1, 5,1,5)
 		
 		return false
+
+
+class Mixed extends _Base:
+	var heightmap_generator = null
+	
+	func _init():
+		heightmap_generator = Heightmap.new()
+		heightmap_generator.channel = Voxel.CHANNEL_TYPE
+		
+	func generate(voxels, offset):
+		heightmap_generator.generate(voxels, offset)
+		
+		var noise1 = OsnFractalNoise.new()
+		noise1.set_source_noise(_noise)
+		noise1.set_period(100)
+		noise1.set_octaves(4)
+		
+		offset *= 16
+		var ox = offset.x
+		var oy = offset.y
+		var oz = offset.z
+		var empty = true
+		var bs = voxels.get_size_x()
+		var channel = Voxel.CHANNEL_ISOLEVEL
+		
+		#voxels.fill(255, Voxel.CHANNEL_ISOLEVEL)
+		
+		for z in range(0, bs):
+			for x in range(0, bs):
+				for y in range(0, bs):
+					var gy = y+oy
+					var h = noise1.get_noise_3d(x+ox+2, gy, z+oz)
+					if h < -0.2:
+						voxels.set_voxel(255, x,y,z, channel)
+						empty = false
+		
+		return empty
+
+
+
 

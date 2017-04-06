@@ -6,7 +6,7 @@ var _generator = null
 
 
 func _init():
-	_generator = Generators.Volume.new()
+	_generator = Generators.Mixed.new()
 
 
 func emerge_block(out_buffer, block_pos):

@@ -50,7 +50,7 @@ func _fixed_process(delta):
 		elif Input.is_action_just_pressed("action2"):
 			var pos = hit.prev_position
 			if can_place_voxel_at(pos):
-				_terrain.get_storage().set_voxel_v(1, pos)
+				_terrain.get_storage().set_voxel_v(2, pos)
 				_terrain.make_voxel_dirty(pos)
 			else:
 				print("Can't place here!")

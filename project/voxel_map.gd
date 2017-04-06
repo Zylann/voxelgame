@@ -1,7 +1,7 @@
 
 extends VoxelTerrain
 
-#const CustomProvider = preload("provider.gd")
+const CustomProvider = preload("provider.gd")
 
 export(Material) var solid_material = null
 export(Material) var transparent_material = null
@@ -37,19 +37,18 @@ func _ready():
 	var mesher = get_mesher()
 	mesher.set_library(_library)
 	mesher.set_material(solid_material, 0)
-	mesher.set_material(transparent_material, 1)
+	#mesher.set_material(transparent_material, 1)
 	mesher.set_occlusion_enabled(true)
-	mesher.set_occlusion_darkness(1.0)
+	mesher.set_occlusion_darkness(0.5)
 	
 	set_generate_collisions(true)
 	set_viewer(get_parent().get_node("CharacterAvatar").get_path())
 	
-	#set_provider(CustomProvider.new())
-	var provider = VoxelProviderTest.new()
-	provider.set_mode(VoxelProviderTest.MODE_WAVES)
-	provider.set_pattern_size(Vector3(10,8,10))
-	set_provider(provider)
+	set_provider(CustomProvider.new())
+	#var provider = VoxelProviderTest.new()
+#	provider.set_mode(VoxelProviderTest.MODE_WAVES)
+#	provider.set_pattern_size(Vector3(10,8,10))
+#	set_provider(provider)
 
-	make_blocks_dirty(Vector3(-16,-4,-16), Vector3(33,8,33))
-
-
+	make_blocks_dirty(Vector3(-8,-4,-8), Vector3(17,9,17))
+	#make_blocks_dirty(Vector3(-16,-8,-16), Vector3(33,17,33))

@@ -91,7 +91,7 @@ environment = null
 h_offset = 0.0
 v_offset = 0.0
 script = ExtResource( 2 )
-sensitivity = 0.4
+sensitivity = 0.3
 min_angle = -90
 max_angle = 90
 capture_mouse = true
@@ -104,8 +104,8 @@ cursor_material = SubResource( 2 )
 
 [node name="debug_label" type="Label" parent="."]
 
-margin_right = 137.0
-margin_bottom = 14.0
+margin_right = 379.0
+margin_bottom = 325.0
 rect_clip_content = false
 mouse_filter = 2
 size_flags_vertical = 0

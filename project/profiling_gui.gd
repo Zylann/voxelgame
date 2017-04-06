@@ -22,3 +22,10 @@ func save_json(infos, path):
 	else:
 		print("Could not dump profiling info (error " + str(ret) + ")")
 
+
+func _process(delta):
+	var m = OS.get_dynamic_memory_usage()
+	var mb = m / 1000000
+	var mbr = m % 1000000
+	set_text(str(mb) + "." + str(mbr) + " Mb")
+

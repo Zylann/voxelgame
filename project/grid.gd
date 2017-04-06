@@ -1,7 +1,8 @@
 
 extends MeshInstance
 
-var step = 16
+export var size = 4
+export var step = 16
 
 
 func _ready():
@@ -12,23 +13,22 @@ func _ready():
 	
 	st.add_color(Color(0,0,0))
 	
-	var r = 4
-	var rv = 4 * step
+	var wsize = step * size
 	
-	for i in range(-r, r):
-		for j in range(-r, r):
+	for i in range(0, size+1):
+		for j in range(0, size+1):
 			
 			var x = i * step
 			var y = j * step
 			
-			st.add_vertex(Vector3(x, -rv, y))
-			st.add_vertex(Vector3(x, rv, y))
+			st.add_vertex(Vector3(x, 0, y))
+			st.add_vertex(Vector3(x, wsize, y))
 			
-			st.add_vertex(Vector3(x, y, -rv))
-			st.add_vertex(Vector3(x, y, rv))
+			st.add_vertex(Vector3(x, y, 0))
+			st.add_vertex(Vector3(x, y, wsize))
 			
-			st.add_vertex(Vector3(-rv, x, y))
-			st.add_vertex(Vector3(rv, x, y))
+			st.add_vertex(Vector3(0, x, y))
+			st.add_vertex(Vector3(wsize, x, y))
 
 	mesh = st.commit()
 	#set_mesh(mesh)
