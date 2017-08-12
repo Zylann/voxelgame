@@ -16,16 +16,16 @@ func _ready():
 
 
 func _input(event):
-	if event.type == InputEvent.MOUSE_BUTTON:
+	if event is InputEventMouseButton:
 		if event.pressed and Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
 			if capture_mouse:
 				# Capture the mouse
 				Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
-	elif event.type == InputEvent.MOUSE_MOTION:
+	elif event is InputEventMouseMotion:
 		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED || not capture_mouse:
 			# Get mouse delta
-			var motion = event.relative_pos
+			var motion = event.relative
 			
 			# Add to rotations
 			_yaw -= motion.x * sensitivity
@@ -42,7 +42,7 @@ func _input(event):
 			set_rotation(Vector3(0, deg2rad(_yaw), 0))
 			rotate(get_transform().basis.x.normalized(), -deg2rad(_pitch))
 	
-	elif event.type == InputEvent.KEY:
+	elif event is InputEventKey:
 		if event.pressed:
 			if event.scancode == KEY_ESCAPE:
 				# Get the mouse back

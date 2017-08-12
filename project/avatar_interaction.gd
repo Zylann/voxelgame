@@ -42,13 +42,17 @@ func _fixed_process(delta):
 	
 	# These inputs have to be in _fixed_process because they rely on collision queries
 	if hit != null:
-		if Input.is_action_just_pressed("action1"):
+		var has_cube = _terrain.get_storage().get_voxel_v(hit.position) != 0
+		
+		if Input.is_action_just_pressed("action1") and has_cube:
 			var pos = hit.position
 			_terrain.get_storage().set_voxel_v(0, pos)
 			_terrain.make_voxel_dirty(pos)
 		
 		elif Input.is_action_just_pressed("action2"):
 			var pos = hit.prev_position
+			if has_cube == false:
+				pos = hit.position
 			if can_place_voxel_at(pos):
 				_terrain.get_storage().set_voxel_v(2, pos)
 				_terrain.make_voxel_dirty(pos)
@@ -59,7 +63,7 @@ func _fixed_process(delta):
 func can_place_voxel_at(pos):
 	var space_state = get_viewport().get_world().get_direct_space_state()
 	var params = PhysicsShapeQueryParameters.new()
-	params.set_layer_mask(COLLISION_LAYER_AVATAR)
+	params.set_collision_layer(COLLISION_LAYER_AVATAR)
 	params.set_transform(Transform(Basis(), pos + Vector3(1,1,1)*0.5))
 	var shape = BoxShape.new()
 	var ex = 0.5

@@ -11,12 +11,13 @@
 radius = 0.4
 height = 0.85
 
-[sub_resource type="FixedSpatialMaterial" id=2]
+[sub_resource type="SpatialMaterial" id=2]
 
 flags_transparent = false
 flags_unshaded = false
 flags_on_top = false
 flags_use_point_size = false
+flags_fixed_size = false
 vertex_color_use_as_albedo = true
 vertex_color_is_srgb = false
 params_diffuse_mode = 0
@@ -25,6 +26,7 @@ params_cull_mode = 0
 params_depth_draw_mode = 0
 params_line_width = 2.0
 params_point_size = 1.0
+params_billboard_mode = 0
 albedo_color = Color( 1, 1, 1, 1 )
 specular_mode = 0
 specular_color = Color( 0.1, 0.1, 0.1, 1 )
@@ -47,7 +49,6 @@ uv2_offset = Vector2( 0, 0 )
 
 [node name="CharacterAvatar" type="KinematicBody"]
 
-_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 input_ray_pickable = true
 input_capture_on_drag = false
 shape_count = 1
@@ -70,7 +71,6 @@ terrain = null
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 
-_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
 shape = SubResource( 1 )
 trigger = false
@@ -78,7 +78,6 @@ _update_shape_index = 0
 
 [node name="Camera" type="Camera" parent="."]
 
-_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.702764, 0 )
 projection = 0
 fov = 90.0
@@ -118,5 +117,24 @@ max_lines_visible = -1
 position = Vector2( 510.693, 285.793 )
 texture = ExtResource( 4 )
 script = ExtResource( 5 )
+
+[node name="OmniLight" type="OmniLight" parent="."]
+
+layers = 1
+light_color = Color( 1, 1, 0.533333, 1 )
+light_energy = 1.0
+light_negative = false
+light_specular = 0.5
+light_cull_mask = -1
+shadow_enabled = false
+shadow_color = Color( 0, 0, 0, 1 )
+shadow_bias = 0.1
+shadow_contact = 0.0
+shadow_max_distance = 0.0
+editor_only = false
+omni_range = 10.0
+omni_attenuation = 2.54912
+omni_shadow_mode = 1
+omni_shadow_detail = 1
 
 

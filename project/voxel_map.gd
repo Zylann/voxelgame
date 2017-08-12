@@ -39,16 +39,16 @@ func _ready():
 	mesher.set_material(solid_material, 0)
 	#mesher.set_material(transparent_material, 1)
 	mesher.set_occlusion_enabled(true)
-	mesher.set_occlusion_darkness(0.5)
+	mesher.set_occlusion_darkness(1.0)
 	
 	set_generate_collisions(true)
 	set_viewer(get_parent().get_node("CharacterAvatar").get_path())
 	
-	set_provider(CustomProvider.new())
-	#var provider = VoxelProviderTest.new()
-#	provider.set_mode(VoxelProviderTest.MODE_WAVES)
-#	provider.set_pattern_size(Vector3(10,8,10))
-#	set_provider(provider)
-
+	#set_provider(CustomProvider.new())
+	var provider = VoxelProviderTest.new()
+	provider.set_mode(VoxelProviderTest.MODE_WAVES)
+	provider.set_pattern_size(Vector3(10,8,10))
+	set_provider(provider)
+	
 	make_blocks_dirty(Vector3(-8,-4,-8), Vector3(17,9,17))
 	#make_blocks_dirty(Vector3(-16,-8,-16), Vector3(33,17,33))

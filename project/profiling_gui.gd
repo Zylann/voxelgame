@@ -2,7 +2,7 @@ extends Label
 
 
 func _input(event):
-	if event.type == InputEvent.KEY and event.pressed == false:
+	if event is InputEventKey and event.pressed == false:
 		if event.scancode == KEY_F4:
 			var terrain = get_parent().get_node("VoxelTerrain")
 			if terrain.has_method("get_profiling_info") == false:
@@ -24,8 +24,12 @@ func save_json(infos, path):
 
 
 func _process(delta):
-	var m = OS.get_dynamic_memory_usage()
+	var dm = OS.get_dynamic_memory_usage()
+	var sm = OS.get_static_memory_usage()
+	set_text(_format_memory(dm) + "\n" + _format_memory(sm))
+
+
+func _format_memory(m):
 	var mb = m / 1000000
 	var mbr = m % 1000000
-	set_text(str(mb) + "." + str(mbr) + " Mb")
-
+	return str(mb) + "." + str(mbr) + " Mb"

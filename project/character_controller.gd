@@ -18,7 +18,7 @@ func _ready():
 	_head = get_node(head)
 	
 	# FIX
-	set_shape_transform(0, Transform().rotated(Vector3(1,0,0), PI/2.0))
+	#set_shape_transform(0, Transform().rotated(Vector3(1,0,0), PI/2.0))
 
 
 func _fixed_process(delta):
@@ -51,13 +51,16 @@ func _fixed_process(delta):
 	
 	var rem = move(motion)
 	
-	if is_colliding():
-		var n = get_collision_normal()
-		var k = 1.0#clamp(n.y, 0, 1)
-		rem = n.slide(rem)*k
-		_velocity = n.slide(_velocity)*k
-		_grounded = true
-		move(rem)
-	else:
-		_grounded = false
+	# TODO Fix it, obsolete code
+	# if is_colliding():
+	# 	var n = get_collision_normal()
+	# 	var k = 1.0#clamp(n.y, 0, 1)
+	# 	rem = rem.slide(n)*k
+	# 	_velocity = _velocity.slide(n)*k
+	# 	#rem = n.slide(rem)*k
+	# 	#_velocity = n.slide(_velocity)*k
+	# 	_grounded = true
+	# 	move(rem)
+	# else:
+	# 	_grounded = false
 	#get_node("debug").set_text("Grounded=" + str(_grounded))
