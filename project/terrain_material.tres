@@ -25,7 +25,7 @@ params_use_alpha_scissor = false
 albedo_color = Color( 1, 1, 1, 1 )
 albedo_texture = ExtResource( 1 )
 metallic = 0.0
-metallic_specular = 0.5
+metallic_specular = 0.0
 metallic_texture_channel = 0
 roughness = 0.0
 roughness_texture_channel = 0
@@ -47,4 +47,5 @@ uv2_scale = Vector3( 1, 1, 1 )
 uv2_offset = Vector3( 0, 0, 0 )
 uv2_triplanar = false
 uv2_triplanar_sharpness = 1.0
+_sections_unfolded = [ "Metallic", "Roughness" ]
 

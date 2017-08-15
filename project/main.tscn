@@ -1,36 +1,58 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=16 format=2]
 
-[ext_resource path="res://voxel_map.gd" type="Script" id=1]
-[ext_resource path="res://terrain_material.tres" type="Material" id=2]
-[ext_resource path="res://terrain.png" type="Texture" id=3]
+[ext_resource path="res://terrain_material.tres" type="Material" id=1]
+[ext_resource path="res://terrain_marerial_transparent.tres" type="Material" id=2]
+[ext_resource path="res://voxel_map.gd" type="Script" id=3]
 [ext_resource path="res://grid.gd" type="Script" id=4]
 [ext_resource path="res://character_avatar.tscn" type="PackedScene" id=5]
 [ext_resource path="res://axes.tscn" type="PackedScene" id=6]
 [ext_resource path="res://profiling_gui.gd" type="Script" id=7]
 
-[sub_resource type="Environment" id=1]
+[sub_resource type="ProceduralSky" id=1]
 
-background_mode = 0
+radiance_size = 4
+sky_top_color = Color( 0.268204, 0.522478, 0.847656, 1 )
+sky_horizon_color = Color( 0.556863, 0.823529, 0.909804, 1 )
+sky_curve = 0.25
+sky_energy = 1.0
+ground_bottom_color = Color( 0.101961, 0.145098, 0.188235, 1 )
+ground_horizon_color = Color( 0.482353, 0.788235, 0.952941, 1 )
+ground_curve = 0.01
+ground_energy = 1.0
+sun_color = Color( 1, 1, 1, 1 )
+sun_latitude = 35.0
+sun_longitude = 0.0
+sun_angle_min = 1.0
+sun_angle_max = 100.0
+sun_curve = 0.0176777
+sun_energy = 16.0
+texture_size = 2
+_sections_unfolded = [ "Sky", "Sun" ]
+
+[sub_resource type="Environment" id=2]
+
+background_mode = 2
+background_sky = SubResource( 1 )
 background_sky_scale = 1.0
 background_color = Color( 0, 0, 0, 1 )
 background_energy = 1.0
 background_canvas_max_layer = 0
-ambient_light_color = Color( 0.242188, 0.242188, 0.242188, 1 )
+ambient_light_color = Color( 0.0546875, 0.0546875, 0.0546875, 1 )
 ambient_light_energy = 1.0
 ambient_light_sky_contribution = 1.0
-fog_enabled = false
-fog_color = Color( 0.5, 0.6, 0.7, 1 )
+fog_enabled = true
+fog_color = Color( 0.552734, 0.818359, 0.908691, 1 )
 fog_sun_color = Color( 1, 0.9, 0.7, 1 )
 fog_sun_amount = 0.0
 fog_depth_enabled = true
-fog_depth_begin = 10.0
+fog_depth_begin = 40.0
 fog_depth_curve = 1.0
 fog_transmit_enabled = false
 fog_transmit_curve = 1.0
 fog_height_enabled = false
-fog_height_min = 0.0
-fog_height_max = 100.0
-fog_height_curve = 1.0
+fog_height_min = -100.0
+fog_height_max = -50.0
+fog_height_curve = 0.965937
 tonemap_mode = 0
 tonemap_exposure = 1.0
 tonemap_white = 1.0
@@ -83,54 +105,45 @@ adjustment_enabled = false
 adjustment_brightness = 1.0
 adjustment_contrast = 1.0
 adjustment_saturation = 1.0
+_sections_unfolded = [ "Ambient Light", "Background", "Fog" ]
 
-[sub_resource type="SpatialMaterial" id=2]
+[sub_resource type="VoxelProviderTest" id=3]
 
-flags_transparent = true
-flags_unshaded = false
-flags_vertex_lighting = false
-flags_on_top = false
-flags_use_point_size = false
-flags_fixed_size = false
-vertex_color_use_as_albedo = false
-vertex_color_is_srgb = false
-params_diffuse_mode = 0
-params_specular_mode = 0
-params_blend_mode = 0
-params_cull_mode = 0
-params_depth_draw_mode = 0
-params_line_width = 1.0
-params_point_size = 1.0
-params_billboard_mode = 0
-params_grow = false
-params_use_alpha_scissor = false
-albedo_color = Color( 0.7, 0.7, 0.7, 1 )
-albedo_texture = ExtResource( 3 )
-metallic = 0.0
-metallic_specular = 0.5
-metallic_texture_channel = 0
-roughness = 0.0
-roughness_texture_channel = 0
-emission_enabled = false
-normal_enabled = false
-rim_enabled = false
-clearcoat_enabled = false
-anisotropy_enabled = false
-ao_enabled = false
-depth_enabled = false
-subsurf_scatter_enabled = false
-refraction_enabled = false
-detail_enabled = false
-uv1_scale = Vector3( 1, 1, 1 )
-uv1_offset = Vector3( 0, 0, 0 )
-uv1_triplanar = false
-uv1_triplanar_sharpness = 1.0
-uv2_scale = Vector3( 1, 1, 1 )
-uv2_offset = Vector3( 0, 0, 0 )
-uv2_triplanar = false
-uv2_triplanar_sharpness = 1.0
+mode = 1
+voxel_type = 1
+pattern_size = Vector3( 10, 10, 10 )
+pattern_offset = Vector3( 0, 0, 0 )
 
-[sub_resource type="SpatialMaterial" id=3]
+[sub_resource type="Voxel" id=4]
+
+voxel_name = ""
+color = Color( 1, 1, 1, 1 )
+transparent = true
+material_id = 0
+geometry_type = 0
+
+[sub_resource type="Voxel" id=5]
+
+voxel_name = ""
+color = Color( 1, 1, 1, 1 )
+transparent = false
+material_id = 0
+geometry_type = 1
+cube_geometry/padding_y = 0.0
+cube_tiles/left = null
+cube_tiles/right = null
+cube_tiles/bottom = null
+cube_tiles/top = null
+cube_tiles/back = null
+cube_tiles/front = null
+
+[sub_resource type="VoxelLibrary" id=6]
+
+atlas_size = 4
+voxels/0 = SubResource( 4 )
+voxels/1 = SubResource( 5 )
+
+[sub_resource type="SpatialMaterial" id=7]
 
 flags_transparent = false
 flags_unshaded = false
@@ -175,7 +188,7 @@ uv2_offset = Vector3( 0, 0, 0 )
 uv2_triplanar = false
 uv2_triplanar_sharpness = 1.0
 
-[sub_resource type="CubeMesh" id=4]
+[sub_resource type="CubeMesh" id=8]
 
 size = Vector3( 2, 2, 2 )
 subdivide_width = 0
@@ -186,18 +199,30 @@ subdivide_depth = 0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 
-environment = SubResource( 1 )
+environment = SubResource( 2 )
 
 [node name="VoxelTerrain" type="VoxelTerrain" parent="."]
 
-script = ExtResource( 1 )
-solid_material = ExtResource( 2 )
-transparent_material = SubResource( 2 )
+provider = SubResource( 3 )
+voxel_library = SubResource( 6 )
+view_distance = 64
+viewer_path = NodePath("")
+generate_collisions = true
+material/0 = ExtResource( 1 )
+material/1 = ExtResource( 2 )
+material/2 = null
+material/3 = null
+material/4 = null
+material/5 = null
+material/6 = null
+material/7 = null
+script = ExtResource( 3 )
+_sections_unfolded = [ "material" ]
 
 [node name="Grid" type="MeshInstance" parent="."]
 
 layers = 1
-material_override = SubResource( 3 )
+material_override = SubResource( 7 )
 cast_shadow = 1
 extra_cull_margin = 0.0
 visible_in_all_rooms = false
@@ -223,7 +248,7 @@ light_specular = 0.5
 light_cull_mask = -1
 shadow_enabled = true
 shadow_color = Color( 0, 0, 0, 1 )
-shadow_bias = 0.2
+shadow_bias = 0.1
 shadow_contact = 0.0
 shadow_max_distance = 100.0
 editor_only = false
@@ -233,6 +258,7 @@ directional_shadow_split_2 = 0.2
 directional_shadow_split_3 = 0.5
 directional_shadow_blend_splits = false
 directional_shadow_normal_bias = 0.1
+_sections_unfolded = [ "Directional Shadow", "Light", "Shadow" ]
 
 [node name="CharacterAvatar" parent="." instance=ExtResource( 5 )]
 
@@ -273,9 +299,9 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 4 )
+mesh = SubResource( 8 )
 skeleton = NodePath("..")
-material/0 = ExtResource( 2 )
+material/0 = ExtResource( 1 )
 _sections_unfolded = [ "material" ]
 
 
