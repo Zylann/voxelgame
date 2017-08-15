@@ -54,8 +54,9 @@ func _fixed_process(delta):
 			if has_cube == false:
 				pos = hit.position
 			if can_place_voxel_at(pos):
-				_terrain.get_storage().set_voxel_v(2, pos)
+				_terrain.get_storage().set_voxel_v(1, pos)
 				_terrain.make_voxel_dirty(pos)
+				print("Place voxel at ", pos)
 			else:
 				print("Can't place here!")
 
