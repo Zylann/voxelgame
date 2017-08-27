@@ -1,5 +1,7 @@
 extends KinematicBody
 
+const BoxPhysics = preload("res://box_physics.gd")
+
 export var speed = 5.0
 export var gravity = 9.8
 export var jump_force = 5.0
@@ -43,13 +45,19 @@ func _fixed_process(delta):
 	_velocity.z = motor.z
 	_velocity.y -= gravity * delta
 	
-	if _grounded and Input.is_key_pressed(KEY_SPACE):
+	#if _grounded and Input.is_key_pressed(KEY_SPACE):
+	if Input.is_key_pressed(KEY_SPACE):
 		_velocity.y = jump_force
-		_grounded = false
+		#_grounded = false
 	
 	var motion = _velocity * delta
 	
-	var rem = move(motion)
+	motion = move_with_box_physics(motion)
+	
+	assert(delta > 0)
+	_velocity = motion / delta
+	
+	#var rem = move(motion)
 	
 	# TODO Fix it, obsolete code
 	# if is_colliding():
@@ -64,3 +72,60 @@ func _fixed_process(delta):
 	# else:
 	# 	_grounded = false
 	#get_node("debug").set_text("Grounded=" + str(_grounded))
+
+
+# TODO There is room for optimization, but I'll leave it like this for now, it doesn't cause any lag
+func move_with_box_physics(motion):
+	var debug3d = get_node("../Debug3D")
+	
+	var pos = get_translation()
+	var box = BoxPhysics.box_from_center_extents(pos, Vector3(0.4, 0.9, 0.4))
+	
+	var expanded_box = BoxPhysics.expand_with_vector(box, motion)
+	debug3d.draw_wire_box(expanded_box, Color(0,1,0,1))
+	
+	var potential_boxes = []
+	
+	# Collect collisions with the terrain
+	if has_node(terrain):
+		var voxel_terrain = get_node(terrain)
+		var voxels = voxel_terrain.get_storage()
+		
+		var min_x = int(floor(expanded_box.position.x))
+		var min_y = int(floor(expanded_box.position.y))
+		var min_z = int(floor(expanded_box.position.z))
+		
+		var max_x = int(ceil(expanded_box.end.x))
+		var max_y = int(ceil(expanded_box.end.y))
+		var max_z = int(ceil(expanded_box.end.z))
+		
+		var x = min_x
+		var y = min_y
+		var z = min_z
+		
+		while z < max_z:
+			while y < max_y:
+				while x < max_x:
+					
+					var voxel_type = voxels.get_voxel(x,y,z, 0)
+					if voxel_type != 0:
+						var voxel_box = Rect3(Vector3(x,y,z), Vector3(1,1,1))
+						potential_boxes.append(voxel_box)
+						debug3d.draw_wire_box(voxel_box)
+					
+					x += 1
+				x = min_x
+				y += 1
+			y = min_y
+			z += 1
+	
+	motion = BoxPhysics.get_motion(box, motion, potential_boxes)
+	move(motion)
+	return motion
+
+
+
+
+
+
+
