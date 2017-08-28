@@ -23,6 +23,18 @@ func _ready():
 	#set_shape_transform(0, Transform().rotated(Vector3(1,0,0), PI/2.0))
 
 
+func _input(event):
+	if event is InputEventKey:
+		if event.pressed:
+			if event.scancode == KEY_1:
+				var light = get_node("../DirectionalLight")
+				light.shadow_enabled = not light.shadow_enabled
+				
+			elif event.scancode == KEY_2:
+				OS.set_use_vsync(not OS.is_vsync_enabled())
+				print("Vsync: ", OS.is_vsync_enabled())
+
+
 func _fixed_process(delta):
 	
 	var forward = _head.get_transform().basis.z.normalized()
@@ -76,13 +88,13 @@ func _fixed_process(delta):
 
 # TODO There is room for optimization, but I'll leave it like this for now, it doesn't cause any lag
 func move_with_box_physics(motion):
-	var debug3d = get_node("../Debug3D")
+	#var debug3d = get_node("../Debug3D")
 	
 	var pos = get_translation()
 	var box = BoxPhysics.box_from_center_extents(pos, Vector3(0.4, 0.9, 0.4))
 	
 	var expanded_box = BoxPhysics.expand_with_vector(box, motion)
-	debug3d.draw_wire_box(expanded_box, Color(0,1,0,1))
+	#debug3d.draw_wire_box(expanded_box, Color(0,1,0,1))
 	
 	var potential_boxes = []
 	
@@ -111,7 +123,7 @@ func move_with_box_physics(motion):
 					if voxel_type != 0:
 						var voxel_box = Rect3(Vector3(x,y,z), Vector3(1,1,1))
 						potential_boxes.append(voxel_box)
-						debug3d.draw_wire_box(voxel_box)
+						#debug3d.draw_wire_box(voxel_box)
 					
 					x += 1
 				x = min_x

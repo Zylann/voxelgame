@@ -1,13 +1,14 @@
 [gd_scene load_steps=18 format=2]
 
-[ext_resource path="res://terrain_material.tres" type="Material" id=1]
-[ext_resource path="res://terrain_marerial_transparent.tres" type="Material" id=2]
-[ext_resource path="res://voxel_map.gd" type="Script" id=3]
-[ext_resource path="res://grid.gd" type="Script" id=4]
-[ext_resource path="res://character_avatar.tscn" type="PackedScene" id=5]
-[ext_resource path="res://axes.tscn" type="PackedScene" id=6]
-[ext_resource path="res://profiling_gui.gd" type="Script" id=7]
-[ext_resource path="res://debug3d.gd" type="Script" id=8]
+[ext_resource path="res://provider_heightmap.tres" type="VoxelProvider" id=1]
+[ext_resource path="res://terrain_material.tres" type="Material" id=2]
+[ext_resource path="res://terrain_marerial_transparent.tres" type="Material" id=3]
+[ext_resource path="res://voxel_map.gd" type="Script" id=4]
+[ext_resource path="res://grid.gd" type="Script" id=5]
+[ext_resource path="res://character_avatar.tscn" type="PackedScene" id=6]
+[ext_resource path="res://axes.tscn" type="PackedScene" id=7]
+[ext_resource path="res://profiling_gui.gd" type="Script" id=8]
+[ext_resource path="res://debug3d.gd" type="Script" id=9]
 
 [sub_resource type="ProceduralSky" id=1]
 
@@ -40,7 +41,7 @@ background_energy = 1.0
 background_canvas_max_layer = 0
 ambient_light_color = Color( 0.0546875, 0.0546875, 0.0546875, 1 )
 ambient_light_energy = 1.0
-ambient_light_sky_contribution = 1.0
+ambient_light_sky_contribution = 0.7
 fog_enabled = true
 fog_color = Color( 0.552734, 0.818359, 0.908691, 1 )
 fog_sun_color = Color( 1, 0.9, 0.7, 1 )
@@ -99,23 +100,16 @@ glow_intensity = 0.8
 glow_strength = 1.0
 glow_bloom = 0.0
 glow_blend_mode = 2
-glow_hdr_threshold = 1.0
+glow_hdr_threshold = 0.5
 glow_hdr_scale = 2.0
 glow_bicubic_upscale = false
 adjustment_enabled = false
 adjustment_brightness = 1.0
 adjustment_contrast = 1.0
 adjustment_saturation = 1.0
-_sections_unfolded = [ "Ambient Light", "Background", "Fog" ]
+_sections_unfolded = [ "Ambient Light", "Background", "Fog", "Glow" ]
 
-[sub_resource type="VoxelProviderTest" id=3]
-
-mode = 1
-voxel_type = 1
-pattern_size = Vector3( 10, 10, 10 )
-pattern_offset = Vector3( 0, 0, 0 )
-
-[sub_resource type="Voxel" id=4]
+[sub_resource type="Voxel" id=3]
 
 voxel_name = ""
 color = Color( 1, 1, 1, 1 )
@@ -123,7 +117,7 @@ transparent = true
 material_id = 0
 geometry_type = 0
 
-[sub_resource type="Voxel" id=5]
+[sub_resource type="Voxel" id=4]
 
 voxel_name = ""
 color = Color( 1, 1, 1, 1 )
@@ -138,13 +132,13 @@ cube_tiles/top = null
 cube_tiles/back = null
 cube_tiles/front = null
 
-[sub_resource type="VoxelLibrary" id=6]
+[sub_resource type="VoxelLibrary" id=5]
 
 atlas_size = 4
-voxels/0 = SubResource( 4 )
-voxels/1 = SubResource( 5 )
+voxels/0 = SubResource( 3 )
+voxels/1 = SubResource( 4 )
 
-[sub_resource type="SpatialMaterial" id=7]
+[sub_resource type="SpatialMaterial" id=6]
 
 flags_transparent = false
 flags_unshaded = false
@@ -189,14 +183,7 @@ uv2_offset = Vector3( 0, 0, 0 )
 uv2_triplanar = false
 uv2_triplanar_sharpness = 1.0
 
-[sub_resource type="CubeMesh" id=8]
-
-size = Vector3( 2, 2, 2 )
-subdivide_width = 0
-subdivide_height = 0
-subdivide_depth = 0
-
-[sub_resource type="SpatialMaterial" id=9]
+[sub_resource type="SpatialMaterial" id=7]
 
 flags_transparent = false
 flags_unshaded = true
@@ -242,6 +229,9 @@ uv2_triplanar = false
 uv2_triplanar_sharpness = 1.0
 _sections_unfolded = [ "Emission", "Flags", "Vertex Color" ]
 
+[sub_resource type="QuadMesh" id=8]
+
+
 [node name="Node" type="Node"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -250,27 +240,26 @@ environment = SubResource( 2 )
 
 [node name="VoxelTerrain" type="VoxelTerrain" parent="."]
 
-provider = SubResource( 3 )
-voxel_library = SubResource( 6 )
-view_distance = 32
-viewer_path = NodePath("")
+provider = ExtResource( 1 )
+voxel_library = SubResource( 5 )
+view_distance = 256
+viewer_path = NodePath("../CharacterAvatar")
 generate_collisions = true
-material/0 = ExtResource( 1 )
-material/1 = ExtResource( 2 )
+material/0 = ExtResource( 2 )
+material/1 = ExtResource( 3 )
 material/2 = null
 material/3 = null
 material/4 = null
 material/5 = null
 material/6 = null
 material/7 = null
-script = ExtResource( 3 )
-_sections_unfolded = [ "material" ]
+script = ExtResource( 4 )
 
 [node name="Grid" type="MeshInstance" parent="."]
 
 visible = false
 layers = 1
-material_override = SubResource( 7 )
+material_override = SubResource( 6 )
 cast_shadow = 1
 extra_cull_margin = 0.0
 use_in_baked_light = false
@@ -280,13 +269,13 @@ lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
 mesh = null
 skeleton = NodePath("..")
-script = ExtResource( 4 )
+script = ExtResource( 5 )
 size = 4
 step = 16
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 
-transform = Transform( 0.875835, -0.352595, 0.329529, 0, 0.682806, 0.7306, -0.48261, -0.639885, 0.598026, 0, 0, 0 )
+transform = Transform( -0.985468, 0.124099, -0.11598, 0.0154004, 0.745271, 0.666584, 0.169159, 0.655111, -0.736353, 1.51966, 19.7004, 14.0879 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
 light_energy = 1.0
@@ -308,12 +297,14 @@ directional_shadow_blend_splits = false
 directional_shadow_normal_bias = 0.1
 _sections_unfolded = [ "Directional Shadow", "Light", "Shadow" ]
 
-[node name="CharacterAvatar" parent="." instance=ExtResource( 5 )]
+[node name="CharacterAvatar" parent="." instance=ExtResource( 6 )]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25, 17 )
 terrain = NodePath("../VoxelTerrain")
 
-[node name="axes" parent="." instance=ExtResource( 6 )]
+[node name="axes" parent="." instance=ExtResource( 7 )]
+
+visible = false
 
 [node name="ProfilingInfo" type="Label" parent="."]
 
@@ -332,11 +323,27 @@ size_flags_vertical = 0
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
+[node name="Debug3D" type="MeshInstance" parent="."]
 
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.47068, 0, 0 )
+layers = 1
+material_override = SubResource( 7 )
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+mesh = null
+skeleton = NodePath("..")
+script = ExtResource( 9 )
+_sections_unfolded = [ "Geometry" ]
+
+[node name="MeshInstance2" type="MeshInstance" parent="."]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.24619, 16.9203, 17.301 )
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -348,23 +355,6 @@ lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
 mesh = SubResource( 8 )
 skeleton = NodePath("..")
-material/0 = ExtResource( 1 )
-_sections_unfolded = [ "material" ]
-
-[node name="Debug3D" type="MeshInstance" parent="."]
-
-layers = 1
-material_override = SubResource( 9 )
-cast_shadow = 1
-extra_cull_margin = 0.0
-use_in_baked_light = false
-lod_min_distance = 0.0
-lod_min_hysteresis = 0.0
-lod_max_distance = 0.0
-lod_max_hysteresis = 0.0
-mesh = null
-skeleton = NodePath("..")
-script = ExtResource( 8 )
-_sections_unfolded = [ "Geometry" ]
+material/0 = null
 
 

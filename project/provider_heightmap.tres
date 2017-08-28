@@ -1,0 +1,8 @@
+[gd_resource type="VoxelProvider" load_steps=2 format=2]
+
+[ext_resource path="res://provider_heightmap.gd" type="Script" id=1]
+
+[resource]
+
+script = ExtResource( 1 )
+
