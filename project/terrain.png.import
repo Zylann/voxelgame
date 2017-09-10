@@ -8,6 +8,8 @@ path="res://.import/terrain.png-84a626877af7de08ecf24965bda52835.stex"
 
 compress/mode=3
 compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/normal_map=0
 flags/repeat=true
 flags/filter=false
 flags/mipmaps=false
@@ -15,6 +17,8 @@ flags/anisotropic=false
 flags/srgb=0
 process/fix_alpha_border=true
 process/premult_alpha=false
+process/HDR_as_SRGB=false
 stream=false
 size_limit=0
 detect_3d=false
+svg/scale=1.0

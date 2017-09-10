@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://character_controller.gd" type="Script" id=1]
 [ext_resource path="res://mouse_look.gd" type="Script" id=2]
@@ -6,18 +6,14 @@
 [ext_resource path="res://crosshair.png" type="Texture" id=4]
 [ext_resource path="res://center.gd" type="Script" id=5]
 
-[sub_resource type="CapsuleShape" id=1]
-
-radius = 0.4
-height = 0.85
-
-[sub_resource type="SpatialMaterial" id=2]
+[sub_resource type="SpatialMaterial" id=1]
 
 flags_transparent = false
 flags_unshaded = false
 flags_vertex_lighting = false
-flags_on_top = false
+flags_no_depth_test = false
 flags_use_point_size = false
+flags_world_triplanar = false
 flags_fixed_size = false
 vertex_color_use_as_albedo = true
 vertex_color_is_srgb = false
@@ -45,6 +41,7 @@ anisotropy_enabled = false
 ao_enabled = false
 depth_enabled = false
 subsurf_scatter_enabled = false
+transmission_enabled = false
 refraction_enabled = false
 detail_enabled = false
 uv1_scale = Vector3( 1, 1, 1 )
@@ -56,32 +53,21 @@ uv2_offset = Vector3( 0, 0, 0 )
 uv2_triplanar = false
 uv2_triplanar_sharpness = 1.0
 
-[sub_resource type="CubeMesh" id=3]
+[sub_resource type="CubeMesh" id=2]
 
 size = Vector3( 0.8, 1.8, 0.8 )
 subdivide_width = 0
 subdivide_height = 0
 subdivide_depth = 0
 
-[node name="CharacterAvatar" type="KinematicBody"]
+[node name="CharacterAvatar" type="Spatial"]
 
-input_ray_pickable = true
-input_capture_on_drag = false
-collision_layer = 3
-collision_mask = 1
-collision/safe_margin = 0.001
 script = ExtResource( 1 )
 speed = 5.0
 gravity = 40.0
 jump_force = 8.0
 head = NodePath("Camera")
 terrain = null
-
-[node name="CollisionShape" type="CollisionShape" parent="."]
-
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
-shape = SubResource( 1 )
-disabled = false
 
 [node name="Camera" type="Camera" parent="."]
 
@@ -91,7 +77,7 @@ fov = 90.0
 near = 0.1
 far = 500.0
 keep_aspect = 1
-current = false
+current = true
 cull_mask = 1048575
 environment = null
 h_offset = 0.0
@@ -109,7 +95,7 @@ distance = 4.0
 
 script = ExtResource( 3 )
 terrain_path = null
-cursor_material = SubResource( 2 )
+cursor_material = SubResource( 1 )
 
 [node name="debug_label" type="Label" parent="."]
 
@@ -146,7 +132,6 @@ shadow_enabled = false
 shadow_color = Color( 0, 0, 0, 1 )
 shadow_bias = 0.1
 shadow_contact = 0.0
-shadow_max_distance = 0.0
 shadow_reverse_cull_face = false
 editor_only = false
 omni_range = 10.0
@@ -165,7 +150,7 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 3 )
+mesh = SubResource( 2 )
 skeleton = NodePath("..")
 material/0 = null
 

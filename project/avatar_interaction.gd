@@ -7,6 +7,7 @@ const COLLISION_LAYER_AVATAR = 2
 
 var _terrain = null
 var _cursor = null
+
 onready var _head = get_parent().get_node("Camera")
 
 

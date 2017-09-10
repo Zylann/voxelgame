@@ -1,4 +1,4 @@
-extends KinematicBody
+extends Spatial
 
 const BoxPhysics = preload("res://box_physics.gd")
 
@@ -132,7 +132,10 @@ func move_with_box_physics(motion):
 			z += 1
 	
 	motion = BoxPhysics.get_motion(box, motion, potential_boxes)
-	move(motion)
+	# TODO If any Godot physics is used here, it will break box physics and you'll fall through the map!
+	# TODO Latest KinematicBody fucks up my motion, no idea why. Changed to Spatial
+	#move_and_slide(motion)
+	global_translate(motion)
 	return motion
 
 
