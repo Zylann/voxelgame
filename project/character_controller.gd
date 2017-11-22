@@ -35,7 +35,7 @@ func _input(event):
 				print("Vsync: ", OS.is_vsync_enabled())
 
 
-func _fixed_process(delta):
+func _physics_process(delta):
 	
 	var forward = _head.get_transform().basis.z.normalized()
 	forward = Plane(Vector3(0, 1, 0), 0).project(forward)
@@ -121,7 +121,7 @@ func move_with_box_physics(motion):
 					
 					var voxel_type = voxels.get_voxel(x,y,z, 0)
 					if voxel_type != 0:
-						var voxel_box = Rect3(Vector3(x,y,z), Vector3(1,1,1))
+						var voxel_box = AABB(Vector3(x,y,z), Vector3(1,1,1))
 						potential_boxes.append(voxel_box)
 						#debug3d.draw_wire_box(voxel_box)
 					
