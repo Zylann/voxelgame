@@ -66,7 +66,7 @@ func can_place_voxel_at(pos):
 	var space_state = get_viewport().get_world().get_direct_space_state()
 	var params = PhysicsShapeQueryParameters.new()
 	params.collision_mask = COLLISION_LAYER_AVATAR
-	params.set_transform(Transform(Basis(), pos + Vector3(1,1,1)*0.5))
+	params.transform = Transform(Basis(), pos + Vector3(1,1,1)*0.5)
 	var shape = BoxShape.new()
 	var ex = 0.5
 	shape.extents = Vector3(ex, ex, ex)
