@@ -4,6 +4,14 @@ importer="texture"
 type="StreamTexture"
 path="res://.import/noise_distorted.png-a3823ac1452b83d7bf69c4608544df15.stex"
 
+[deps]
+
+source_file="res://noise_distorted.png"
+source_md5="3048d4e9921396cabc83128c53b31c8e"
+
+dest_files=[ "res://.import/noise_distorted.png-a3823ac1452b83d7bf69c4608544df15.stex" ]
+dest_md5="37ac926c28fa539457d8a3d41bea0357"
+
 [params]
 
 compress/mode=0

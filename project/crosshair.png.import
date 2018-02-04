@@ -4,6 +4,14 @@ importer="texture"
 type="StreamTexture"
 path="res://.import/crosshair.png-b7f9cb2e0fc32a087972fec001d3421e.stex"
 
+[deps]
+
+source_file="res://crosshair.png"
+source_md5="e0e5e462c5fbccc9a82ae4c611ec4a18"
+
+dest_files=[ "res://.import/crosshair.png-b7f9cb2e0fc32a087972fec001d3421e.stex" ]
+dest_md5="14f65ad2b588350a186af38f3106c4d7"
+
 [params]
 
 compress/mode=0

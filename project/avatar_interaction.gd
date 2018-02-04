@@ -28,7 +28,7 @@ func get_pointed_voxel():
 	return hit
 
 
-func _fixed_process(delta):
+func _physics_process(delta):
 	if _terrain == null:
 		return
 	
@@ -65,7 +65,7 @@ func _fixed_process(delta):
 func can_place_voxel_at(pos):
 	var space_state = get_viewport().get_world().get_direct_space_state()
 	var params = PhysicsShapeQueryParameters.new()
-	params.set_collision_layer(COLLISION_LAYER_AVATAR)
+	params.collision_mask = COLLISION_LAYER_AVATAR
 	params.set_transform(Transform(Basis(), pos + Vector3(1,1,1)*0.5))
 	var shape = BoxShape.new()
 	var ex = 0.5

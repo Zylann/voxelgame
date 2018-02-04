@@ -118,4 +118,4 @@ static func calculate_y_offset(box, other, motion_y):
 
 
 static func box_from_center_extents(center, extents):
-	return Rect3(center - extents, 2.0*extents)
+	return AABB(center - extents, 2.0*extents)
