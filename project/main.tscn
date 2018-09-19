@@ -35,7 +35,7 @@ _sections_unfolded = [ "Sky", "Sun" ]
 
 background_mode = 2
 background_sky = SubResource( 1 )
-background_sky_scale = 1.0
+background_sky_custom_fov = 0.0
 background_color = Color( 0, 0, 0, 1 )
 background_energy = 1.0
 background_canvas_max_layer = 0
@@ -76,8 +76,11 @@ ssao_radius2 = 0.0
 ssao_intensity2 = 1.0
 ssao_bias = 0.01
 ssao_light_affect = 0.0
+ssao_ao_channel_affect = 0.0
 ssao_color = Color( 0, 0, 0, 1 )
-ssao_blur = true
+ssao_quality = 0
+ssao_blur = 1
+ssao_edge_sharpness = 4.0
 dof_blur_far_enabled = false
 dof_blur_far_distance = 128.0
 dof_blur_far_transition = 10.0
@@ -140,6 +143,7 @@ voxels/1 = SubResource( 4 )
 
 [sub_resource type="SpatialMaterial" id=6]
 
+render_priority = 0
 flags_transparent = false
 flags_unshaded = false
 flags_vertex_lighting = false
@@ -147,6 +151,10 @@ flags_no_depth_test = false
 flags_use_point_size = false
 flags_world_triplanar = false
 flags_fixed_size = false
+flags_albedo_tex_force_srgb = false
+flags_do_not_receive_shadows = false
+flags_disable_ambient_light = false
+flags_ensure_correct_normals = false
 vertex_color_use_as_albedo = false
 vertex_color_is_srgb = false
 params_diffuse_mode = 0
@@ -157,6 +165,7 @@ params_depth_draw_mode = 0
 params_line_width = 1.0
 params_point_size = 1.0
 params_billboard_mode = 0
+params_billboard_keep_scale = false
 params_grow = false
 params_use_alpha_scissor = false
 albedo_color = Color( 0.7, 0.7, 0.7, 1 )
@@ -184,9 +193,12 @@ uv2_scale = Vector3( 1, 1, 1 )
 uv2_offset = Vector3( 0, 0, 0 )
 uv2_triplanar = false
 uv2_triplanar_sharpness = 1.0
+proximity_fade_enable = false
+distance_fade_mode = 0
 
 [sub_resource type="SpatialMaterial" id=7]
 
+render_priority = 0
 flags_transparent = false
 flags_unshaded = true
 flags_vertex_lighting = false
@@ -194,6 +206,10 @@ flags_no_depth_test = false
 flags_use_point_size = false
 flags_world_triplanar = false
 flags_fixed_size = false
+flags_albedo_tex_force_srgb = false
+flags_do_not_receive_shadows = false
+flags_disable_ambient_light = false
+flags_ensure_correct_normals = false
 vertex_color_use_as_albedo = true
 vertex_color_is_srgb = false
 params_diffuse_mode = 0
@@ -204,6 +220,7 @@ params_depth_draw_mode = 0
 params_line_width = 1.0
 params_point_size = 1.0
 params_billboard_mode = 0
+params_billboard_keep_scale = false
 params_grow = false
 params_use_alpha_scissor = false
 albedo_color = Color( 1, 1, 1, 1 )
@@ -231,19 +248,22 @@ uv2_scale = Vector3( 1, 1, 1 )
 uv2_offset = Vector3( 0, 0, 0 )
 uv2_triplanar = false
 uv2_triplanar_sharpness = 1.0
+proximity_fade_enable = false
+distance_fade_mode = 0
 _sections_unfolded = [ "Emission", "Flags", "Vertex Color" ]
 
 [sub_resource type="QuadMesh" id=8]
 
+custom_aabb = AABB( 0, 0, 0, 0, 0, 0 )
+flip_faces = false
+size = Vector2( 1, 1 )
 
 [node name="Node" type="Node"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-
 environment = SubResource( 2 )
 
 [node name="VoxelTerrain" type="VoxelTerrain" parent="."]
-
 provider = ExtResource( 1 )
 voxel_library = SubResource( 5 )
 view_distance = 256
@@ -260,7 +280,6 @@ material/7 = null
 script = ExtResource( 4 )
 
 [node name="Grid" type="MeshInstance" parent="."]
-
 visible = false
 layers = 1
 material_override = SubResource( 6 )
@@ -278,15 +297,16 @@ size = 4
 step = 16
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
-
 transform = Transform( -0.985468, 0.124099, -0.11598, 0.0154004, 0.745271, 0.666584, 0.169159, 0.655111, -0.736353, 1.51966, 19.7004, 14.0879 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
 light_energy = 1.0
+light_indirect_energy = 1.0
 light_negative = false
 light_specular = 0.5
+light_bake_mode = 1
 light_cull_mask = -1
-shadow_enabled = true
+shadow_enabled = false
 shadow_color = Color( 0, 0, 0, 1 )
 shadow_bias = 0.1
 shadow_contact = 0.0
@@ -304,16 +324,13 @@ directional_shadow_max_distance = 200.0
 _sections_unfolded = [ "Directional Shadow", "Light", "Shadow" ]
 
 [node name="CharacterAvatar" parent="." instance=ExtResource( 6 )]
-
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 58.0914, 17 )
 terrain = NodePath("../VoxelTerrain")
 
 [node name="axes" parent="." instance=ExtResource( 7 )]
-
 visible = false
 
 [node name="ProfilingInfo" type="Label" parent="."]
-
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -324,6 +341,7 @@ margin_bottom = 34.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
+mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 0
 percent_visible = 1.0
@@ -332,7 +350,6 @@ max_lines_visible = -1
 script = ExtResource( 8 )
 
 [node name="Debug3D" type="MeshInstance" parent="."]
-
 layers = 1
 material_override = SubResource( 7 )
 cast_shadow = 1
@@ -348,7 +365,6 @@ script = ExtResource( 9 )
 _sections_unfolded = [ "Geometry" ]
 
 [node name="MeshInstance2" type="MeshInstance" parent="."]
-
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.24619, 16.9203, 17.301 )
 layers = 1
 material_override = null
@@ -362,5 +378,4 @@ lod_max_hysteresis = 0.0
 mesh = SubResource( 8 )
 skeleton = NodePath("..")
 material/0 = null
-
 
