@@ -60,7 +60,7 @@ func _input(event):
 			
 			elif event.scancode == KEY_I:
 				var pos = get_translation()
-				var fw = get_forward()
+				var fw = -transform.basis.z
 				print("Position: ", pos, ", Forward: ", fw)
 
 
