@@ -63,7 +63,7 @@ subdivide_depth = 0
 [node name="CharacterAvatar" type="Spatial"]
 
 script = ExtResource( 1 )
-speed = 5.0
+speed = 10.0
 gravity = 40.0
 jump_force = 8.0
 head = NodePath("Camera")

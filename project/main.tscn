@@ -1,6 +1,6 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=20 format=2]
 
-[ext_resource path="res://provider_heightmap.tres" type="VoxelProvider" id=1]
+[ext_resource path="res://noise_distorted.png" type="Image" id=1]
 [ext_resource path="res://terrain_material.tres" type="Material" id=2]
 [ext_resource path="res://terrain_marerial_transparent.tres" type="Material" id=3]
 [ext_resource path="res://voxel_map.gd" type="Script" id=4]
@@ -112,7 +112,13 @@ adjustment_contrast = 1.0
 adjustment_saturation = 1.0
 _sections_unfolded = [ "Ambient Light", "Background", "Fog", "Glow" ]
 
-[sub_resource type="Voxel" id=3]
+[sub_resource type="VoxelProviderImage" id=3]
+
+image = ExtResource( 1 )
+channel = 0
+_sections_unfolded = [ "image" ]
+
+[sub_resource type="Voxel" id=4]
 
 voxel_name = ""
 color = Color( 1, 1, 1, 1 )
@@ -120,7 +126,7 @@ transparent = true
 material_id = 0
 geometry_type = 0
 
-[sub_resource type="Voxel" id=4]
+[sub_resource type="Voxel" id=5]
 
 voxel_name = ""
 color = Color( 1, 1, 1, 1 )
@@ -128,20 +134,38 @@ transparent = false
 material_id = 0
 geometry_type = 1
 cube_geometry/padding_y = 0.0
-cube_tiles/left = null
-cube_tiles/right = null
-cube_tiles/bottom = null
-cube_tiles/top = null
-cube_tiles/back = null
-cube_tiles/front = null
+cube_tiles/left = Vector2( 0, 0 )
+cube_tiles/right = Vector2( 0, 0 )
+cube_tiles/bottom = Vector2( 0, 0 )
+cube_tiles/top = Vector2( 0, 0 )
+cube_tiles/back = Vector2( 0, 0 )
+cube_tiles/front = Vector2( 0, 0 )
 
-[sub_resource type="VoxelLibrary" id=5]
+[sub_resource type="Voxel" id=6]
+
+voxel_name = ""
+color = Color( 1, 1, 1, 1 )
+transparent = false
+material_id = 0
+geometry_type = 1
+cube_geometry/padding_y = 0.0
+cube_tiles/left = Vector2( 1, 0 )
+cube_tiles/right = Vector2( 1, 0 )
+cube_tiles/bottom = Vector2( 1, 0 )
+cube_tiles/top = Vector2( 1, 0 )
+cube_tiles/back = Vector2( 1, 0 )
+cube_tiles/front = Vector2( 1, 0 )
+_sections_unfolded = [ "cube_tiles" ]
+
+[sub_resource type="VoxelLibrary" id=7]
 
 atlas_size = 4
-voxels/0 = SubResource( 3 )
-voxels/1 = SubResource( 4 )
+voxels/0 = SubResource( 4 )
+voxels/1 = SubResource( 5 )
+voxels/2 = SubResource( 6 )
+_sections_unfolded = [ "voxels" ]
 
-[sub_resource type="SpatialMaterial" id=6]
+[sub_resource type="SpatialMaterial" id=8]
 
 render_priority = 0
 flags_transparent = false
@@ -196,7 +220,7 @@ uv2_triplanar_sharpness = 1.0
 proximity_fade_enable = false
 distance_fade_mode = 0
 
-[sub_resource type="SpatialMaterial" id=7]
+[sub_resource type="SpatialMaterial" id=9]
 
 render_priority = 0
 flags_transparent = false
@@ -252,7 +276,7 @@ proximity_fade_enable = false
 distance_fade_mode = 0
 _sections_unfolded = [ "Emission", "Flags", "Vertex Color" ]
 
-[sub_resource type="QuadMesh" id=8]
+[sub_resource type="QuadMesh" id=10]
 
 custom_aabb = AABB( 0, 0, 0, 0, 0, 0 )
 flip_faces = false
@@ -264,8 +288,8 @@ size = Vector2( 1, 1 )
 environment = SubResource( 2 )
 
 [node name="VoxelTerrain" type="VoxelTerrain" parent="."]
-provider = ExtResource( 1 )
-voxel_library = SubResource( 5 )
+provider = SubResource( 3 )
+voxel_library = SubResource( 7 )
 view_distance = 256
 viewer_path = NodePath("../CharacterAvatar")
 generate_collisions = true
@@ -278,11 +302,12 @@ material/5 = null
 material/6 = null
 material/7 = null
 script = ExtResource( 4 )
+_sections_unfolded = [ "provider" ]
 
 [node name="Grid" type="MeshInstance" parent="."]
 visible = false
 layers = 1
-material_override = SubResource( 6 )
+material_override = SubResource( 8 )
 cast_shadow = 1
 extra_cull_margin = 0.0
 use_in_baked_light = false
@@ -351,7 +376,7 @@ script = ExtResource( 8 )
 
 [node name="Debug3D" type="MeshInstance" parent="."]
 layers = 1
-material_override = SubResource( 7 )
+material_override = SubResource( 9 )
 cast_shadow = 1
 extra_cull_margin = 0.0
 use_in_baked_light = false
@@ -375,7 +400,7 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 8 )
+mesh = SubResource( 10 )
 skeleton = NodePath("..")
 material/0 = null
 

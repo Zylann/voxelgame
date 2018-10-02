@@ -1,6 +1,8 @@
 tool
 extends VoxelProvider
 
+# IMPORTANT: This can run in a thread.
+# If you access it from outside, it's your job to make sure it's safe
 
 class OsnNoise:
     var iamaproxy = null
@@ -10,7 +12,7 @@ class OsnFractalNoise:
 
 var _noise = OsnNoise.new()
 var _noise2 = OsnNoise.new()
-var channel = Voxel.CHANNEL_TYPE
+var _channel = Voxel.CHANNEL_TYPE
 var _image = preload("res://noise_distorted.png")
 
 
@@ -51,7 +53,7 @@ func emerge_block_im(out_buffer, origin_in_voxels):
 			if h > 0:
 				if h > bs:
 					h = bs
-				out_buffer.fill_area(dirt, Vector3(x,0,z), Vector3(x+1,h,z+1), channel)
+				out_buffer.fill_area(dirt, Vector3(x,0,z), Vector3(x+1,h,z+1), _channel)
 			
 			x += 1
 		z += 1

@@ -47,16 +47,18 @@ func _physics_process(delta):
 		
 		if Input.is_action_just_pressed("action1") and has_cube:
 			var pos = hit.position
-			_terrain.get_storage().set_voxel_v(0, pos)
-			_terrain.make_voxel_dirty(pos)
+			do_sphere(pos, 5, 0)
+			#_terrain.get_storage().set_voxel_v(0, pos)
+			#_terrain.make_voxel_dirty(pos)
 		
 		elif Input.is_action_just_pressed("action2"):
 			var pos = hit.prev_position
 			if has_cube == false:
 				pos = hit.position
 			if can_place_voxel_at(pos):
-				_terrain.get_storage().set_voxel_v(1, pos)
-				_terrain.make_voxel_dirty(pos)
+				do_sphere(pos, 4, 2)
+				#_terrain.get_storage().set_voxel_v(2, pos)
+				#_terrain.make_voxel_dirty(pos)
 				print("Place voxel at ", pos)
 			else:
 				print("Can't place here!")
@@ -86,6 +88,19 @@ func _make_cursor():
 		mesh_instance.material_override = cursor_material
 	mesh_instance.set_scale(Vector3(1,1,1)*1.01)
 	return mesh_instance
+
+
+func do_sphere(center, r, type):
+	var storage = _terrain.get_storage()
+
+	for z in range(-r, r):
+		for x in range(-r, r):
+			for y in range(-r, r):
+				var pos = Vector3(x, y, z)
+				if pos.length() <= r:
+					storage.set_voxel_v(type, center + pos, 0)
+
+	_terrain.make_area_dirty(AABB(center - Vector3(r,r,r), 2*Vector3(r,r,r)))
 
 
 static func _add_wireframe_cube(st, pos, step, color):
