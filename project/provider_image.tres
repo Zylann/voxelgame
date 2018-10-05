@@ -1,0 +1,10 @@
+[gd_resource type="VoxelProviderImage" load_steps=2 format=2]
+
+[ext_resource path="res://noise_distorted.png" type="Image" id=1]
+
+[resource]
+
+image = ExtResource( 1 )
+channel = 0
+_sections_unfolded = [ "image" ]
+
