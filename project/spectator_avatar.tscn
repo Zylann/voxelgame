@@ -1,25 +1,13 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://debug_camera.gd" type="Script" id=1]
+[ext_resource path="res://mouse_look.gd" type="Script" id=1]
+[ext_resource path="res://spectator_avatar.gd" type="Script" id=2]
 
-[node name="Camera" type="Camera"]
+[node name="SpectatorAvatar" type="Spatial"]
+script = ExtResource( 2 )
+speed = 5.0
 
-_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-projection = 0
-fov = 80.0
-near = 0.1
-far = 500.0
-keep_aspect = 1
-current = false
-cull_mask = 1048575
-environment = null
-h_offset = 0.0
-v_offset = 0.0
+[node name="Camera" type="Camera" parent="."]
 script = ExtResource( 1 )
-sensitivity = 0.4
-min_angle = -90
-max_angle = 90
-speed = 10.0
-capture_mouse = true
-
-
+sensitivity = 0.2
+distance = 0.0

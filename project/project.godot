@@ -15,40 +15,18 @@ _global_script_class_icons={
 
 [application]
 
-run/main_scene="res://main.tscn"
-name="Voxel Game"
-main_scene="res://main.tscn"
-icon="res://icon.png"
+config/name="New Game Project"
+run/main_scene="res://dmc_test/main.tscn"
+config/icon="res://icon.png"
 
-[gdnative]
+[autoload]
 
-singletons=[  ]
+DDD="*res://ddd.gd"
 
-[input]
+[physics]
 
-action1={
-"deadzone": 0.5,
-"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
- ]
-}
-action2={
-"deadzone": 0.5,
-"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
- ]
-}
-
-[layer_names]
-
-3d_physics/layer_1="Default"
-3d_physics/layer_2="Avatar"
-
-[memory]
-
-multithread/thread_rid_pool_prealloc=60
+3d/physics_engine="Bullet"
 
 [rendering]
 
-viewport/default_clear_color=Color( 0.407806, 0.628906, 0.618542, 1 )
-quality/use_nearest_mipmap_filter=true
-shadows/directional_shadow_size=4096
-quality/hdr=false
+environment/default_environment="res://default_env.tres"
