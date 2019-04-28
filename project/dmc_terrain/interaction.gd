@@ -12,9 +12,6 @@ func _ready():
 
 
 func _input(event):
-	return
-	if not Input.is_key_pressed(KEY_CONTROL):
-		return
 	if event is InputEventMouseButton:
 		if event.pressed:
 			if event.button_index == BUTTON_LEFT:
@@ -64,8 +61,7 @@ func do_sphere(center, fradius, add):
 				if add:
 					res = min(d, e)
 				else:
-					res = max(d, e)
-				#print(res)
+					res = max(-d, e)
 				storage.set_voxel_f(res, x, y, z, channel)
 
 	_terrain.make_area_dirty(AABB(center - Vector3(r,r,r), 2*Vector3(r,r,r)))

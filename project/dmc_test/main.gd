@@ -7,15 +7,17 @@ var _geometric_error = 0.01
 var _mesh_instance = null
 var _debug_mesh_instance = null
 var _sphere_mesh_instance = null
+var _model_rotation = 0.0
 var _voxels = VoxelBuffer.new()
 var _mesher = VoxelMesherDMC.new()
 var _need_generate = false
+var _iso_scale = 1.0
 
 func _ready():
 	
 	_mesher.set_octree_mode(VoxelMesherDMC.OCTREE_NONE)
 
-	_voxels.create(18, 18, 18)
+	_voxels.create(20, 20, 20)
 	
 	_mesh_instance = MeshInstance.new()
 	_mesh_instance.material_override = SpatialMaterial.new()
@@ -43,7 +45,7 @@ func generate_with_stats():
 	for k in stats_average:
 		stats_average[k] = 0.0
 
-	var iterations = 100
+	var iterations = 1
 	for i in iterations:
 		generate()
 		var stats = _mesher.get_stats()
@@ -55,7 +57,7 @@ func generate_with_stats():
 
 	print("---")
 	print("Sphere at ", _sphere_position, ", radius ", _sphere_radius)
-	print("Geometric error: ", _geometric_error)
+	print("Geometric error: ", _geometric_error, ", iso_scale=", _iso_scale)
 	print(stats_average)
 
 	#------------------------------------------------------
@@ -74,17 +76,19 @@ func generate():
 	_voxels.fill_iso(1.0, VoxelBuffer.CHANNEL_ISOLEVEL)
 	
 	var vt = VoxelIsoSurfaceTool.new()
+	vt.set_iso_scale(_iso_scale)
 	vt.set_offset(Vector3(1, 1, 1)) # For padding
 	vt.set_buffer(_voxels)
-	vt.do_sphere(_sphere_position, _sphere_radius)
-	vt.do_sphere(_sphere_position + Vector3(5,2,3), _sphere_radius / 1.5)
-	vt.do_plane(make_plane(_sphere_position, Vector3(0,1,0)))
-	#raster_terrain(_voxels)
+	vt.do_cube(Transform(Basis(Vector3(1, 0, 0), _model_rotation), _sphere_position), Vector3(_sphere_radius, _sphere_radius, _sphere_radius))
+	#vt.do_sphere(_sphere_position, _sphere_radius)
+	#vt.do_sphere(_sphere_position + Vector3(5,2,3), _sphere_radius / 1.5)
+	#vt.do_plane(make_plane(_sphere_position, Vector3(0,1,0)))
 	
 	_mesher.set_mesh_mode(VoxelMesherDMC.MESH_NORMAL)
 	_mesher.set_geometric_error(_geometric_error)
 	var mesh = _mesher.build_mesh(_voxels)
 	_mesh_instance.mesh = mesh
+	_mesh_instance.material_override = load("res://dmc_terrain/dmc_terrain_material.tres")
 
 	if false:
 		_mesher.set_mesh_mode(VoxelMesherDMC.MODE_DEBUG_DUAL_GRID)
@@ -161,22 +165,29 @@ func _input(event):
 					_geometric_error = 0.0
 				_need_generate = true
 
+			elif event.scancode == KEY_KP_4:
+				_model_rotation -= PI / 32.0
+				_need_generate = true
+
+			elif event.scancode == KEY_KP_6:
+				_model_rotation += PI / 32.0
+				_need_generate = true
+
+			elif event.scancode == KEY_KP_7:
+				_iso_scale -= 0.1
+				if _iso_scale < 0.1:
+					_iso_scale = 0.1
+				_need_generate = true
+
+			elif event.scancode == KEY_KP_9:
+				_iso_scale += 0.1
+				_need_generate = true
+
 			elif event.scancode == KEY_P:
-				print_buffer_to_images(_voxels, VoxelBuffer.CHANNEL_ISOLEVEL, "isolevel", 10, false)
-				print_buffer_to_images(_voxels, VoxelBuffer.CHANNEL_GRADIENT_X, "gradient", 10, true)
+				print_buffer_to_images(_voxels, VoxelBuffer.CHANNEL_ISOLEVEL, "isolevel", 10)
 
 			elif event.scancode == KEY_R:
 				_need_generate = true
-
-
-static func raster_terrain(voxels):
-	var ci = VoxelBuffer.CHANNEL_ISOLEVEL
-	var noise = OpenSimplexNoise.new()
-	for z in voxels.get_size_z():
-		for y in voxels.get_size_y():
-			for x in voxels.get_size_x():
-				var n = noise.get_noise_3d(x, y, z)
-				voxels.set_voxel_iso(n, x, y, z, ci)
 
 
 func create_sphere(pos, r):
@@ -194,7 +205,7 @@ func create_sphere(pos, r):
 	return mi
 
 
-static func print_buffer_to_images(voxels, channel, fname, upscale, gradient):
+static func print_buffer_to_images(voxels, channel, fname, upscale):
 	
 	for y in voxels.get_size_y():
 		
@@ -206,10 +217,8 @@ static func print_buffer_to_images(voxels, channel, fname, upscale, gradient):
 		for z in voxels.get_size_z():
 			for x in voxels.get_size_x():
 				var r = 0.5 * voxels.get_voxel_iso(x, y, z, channel) + 0.5
-				if gradient:
-					var g = 0.5 * voxels.get_voxel_iso(x, y, z, channel + 1) + 0.5
-					var b = 0.5 * voxels.get_voxel_iso(x, y, z, channel + 2) + 0.5
-					im.set_pixel(x, z, Color(r, g, b))
+				if r < 0.5:
+					im.set_pixel(x, z, Color(r, r, r*0.5 + 0.5))
 				else:
 					im.set_pixel(x, z, Color(r, r, r))
 
