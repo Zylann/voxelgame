@@ -73,7 +73,7 @@ func generate_with_stats():
 
 
 func generate():
-	_voxels.fill_iso(1.0, VoxelBuffer.CHANNEL_ISOLEVEL)
+	_voxels.fill_f(1.0, VoxelBuffer.CHANNEL_ISOLEVEL)
 	
 	var vt = VoxelIsoSurfaceTool.new()
 	vt.set_iso_scale(_iso_scale)
@@ -216,7 +216,7 @@ static func print_buffer_to_images(voxels, channel, fname, upscale):
 
 		for z in voxels.get_size_z():
 			for x in voxels.get_size_x():
-				var r = 0.5 * voxels.get_voxel_iso(x, y, z, channel) + 0.5
+				var r = 0.5 * voxels.get_voxel_f(x, y, z, channel) + 0.5
 				if r < 0.5:
 					im.set_pixel(x, z, Color(r, r, r*0.5 + 0.5))
 				else:

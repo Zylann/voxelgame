@@ -71,7 +71,7 @@ func generate():
 				for y in range(0, voxels.get_size_y()):
 					var v = fractal_noise.get_noise_3d(x,y,z)
 					if true:
-						voxels.set_voxel_iso(v, x,y,z, 0)
+						voxels.set_voxel_f(v, x,y,z, 0)
 					else:
 						if v > 0:
 							v = 0
