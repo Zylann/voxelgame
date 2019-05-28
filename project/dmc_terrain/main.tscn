@@ -3,8 +3,8 @@
 [ext_resource path="res://dmc_terrain/interaction.gd" type="Script" id=1]
 [ext_resource path="res://dmc_terrain/dmc_terrain_material.tres" type="Material" id=2]
 [ext_resource path="res://blocky_terrain/noise_distorted.png" type="Image" id=3]
-[ext_resource path="res://spectator_avatar.tscn" type="PackedScene" id=4]
-[ext_resource path="res://axes.tscn" type="PackedScene" id=5]
+[ext_resource path="res://axes.tscn" type="PackedScene" id=4]
+[ext_resource path="res://spectator_avatar.tscn" type="PackedScene" id=5]
 
 [sub_resource type="ProceduralSky" id=1]
 sky_top_color = Color( 0.388235, 0.533333, 0.615686, 1 )
@@ -15,7 +15,7 @@ background_mode = 2
 background_sky = SubResource( 1 )
 ambient_light_sky_contribution = 0.5
 
-[sub_resource type="VoxelProviderImage" id=3]
+[sub_resource type="VoxelStreamImage" id=3]
 image = ExtResource( 3 )
 channel = 1
 
@@ -48,9 +48,9 @@ transform = Transform( 0.912457, -0.352848, 0.207171, 0, 0.506317, 0.862348, -0.
 shadow_enabled = true
 shadow_bias = 0.05
 
-[node name="Axes" parent="." instance=ExtResource( 5 )]
+[node name="Axes" parent="." instance=ExtResource( 4 )]
 
-[node name="SpectatorAvatar" parent="." instance=ExtResource( 4 )]
+[node name="SpectatorAvatar" parent="." instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 19.9349, 17.285 )
 speed = 20.0
 
