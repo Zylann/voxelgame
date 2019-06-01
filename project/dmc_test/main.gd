@@ -15,7 +15,7 @@ var _iso_scale = 1.0
 
 func _ready():
 	
-	_mesher.set_octree_mode(VoxelMesherDMC.OCTREE_NONE)
+	_mesher.set_simplify_mode(VoxelMesherDMC.SIMPLIFY_NONE)
 
 	_voxels.create(20, 20, 20)
 	

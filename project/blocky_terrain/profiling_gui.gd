@@ -14,9 +14,9 @@ func _process(delta):
 
 	var s = str("Dynamic memory: ", _format_memory(dm), \
 		"\nStatic memory: ", _format_memory(sm), \
-		"\nProvider: ", stats.provider.remaining_blocks, \
-		"\nUpdater (thread): ", stats.updater.remaining_blocks, \
 		"\nUpdater (main thread): ", stats.updater.remaining_main_thread_blocks)
+		#"\nProvider: ", stats.provider.remaining_blocks, \
+		#"\nUpdater (thread): ", stats.updater.remaining_blocks, \
 
 	set_text(s)
 
