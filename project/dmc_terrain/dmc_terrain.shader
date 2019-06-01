@@ -27,7 +27,7 @@ void vertex() {
 }
 
 void fragment() {
-	vec3 normal = v_world_normal;
+	vec3 normal = normalize(v_world_normal);
 	vec3 wpos = v_world_pos * 0.2;
 	vec3 blending = get_triplanar_blend(normal);
 	vec3 top_col = texture_triplanar(u_texture_top, wpos, blending).rgb;
