@@ -1,2 +1,4 @@
 .import/
 debug_data/
+*.vxb
+*.vxbm
