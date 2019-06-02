@@ -1,0 +1,67 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://fps_demo/scripts/Player.gd" type="Script" id=1]
+[ext_resource path="res://fps_demo/materials/gun-metal.material" type="Material" id=2]
+[ext_resource path="res://fps_demo/materials/player.material" type="Material" id=3]
+[ext_resource path="res://fps_demo/support/13283__schademans__pipe2.wav" type="AudioStream" id=4]
+
+[sub_resource type="CubeMesh" id=1]
+size = Vector3( 1, 2, 0.4 )
+
+[sub_resource type="SphereMesh" id=3]
+radius = 0.25
+height = 0.5
+
+[sub_resource type="CylinderMesh" id=2]
+
+[sub_resource type="RayShape" id=8]
+length = 2.0
+
+[sub_resource type="CapsuleShape" id=9]
+radius = 0.680461
+height = 0.505174
+
+[sub_resource type="ConvexPolygonShape" id=6]
+points = PoolVector3Array( -0.982432, -0.982623, -0.184098, -0.982432, -0.982623, 0.184098, -0.982432, 0.982623, -0.184098, -0.982432, 0.982623, 0.184098, -0.951084, -0.981837, -0.306584, -0.951084, 0.981837, 0.306584, -0.917023, -0.978309, -0.397223, -0.917023, -0.978309, 0.397223, -0.917023, 0.978309, -0.397223, -0.853813, -0.975892, -0.518323, -0.853813, -0.975892, 0.518323, -0.853813, 0.975892, -0.518323, -0.853813, 0.975892, 0.518323, -0.79176, -0.974761, -0.60913, -0.79176, -0.974761, 0.60913, -0.707103, -0.983887, -0.707097, -0.707103, -0.983887, 0.707097, -0.707103, 0.983887, -0.707097, -0.707103, 0.983887, 0.707097, -0.609138, 0.97476, -0.791754, -0.609138, 0.97476, 0.791754, -0.518332, -0.975889, -0.853807, -0.518332, -0.975889, 0.853807, -0.518332, 0.975889, -0.853807, -0.397393, 0.978225, -0.916943, -0.397393, 0.978225, 0.916943, -0.306598, -0.981834, -0.951079, -0.306598, -0.981834, 0.951079, -0.18408, -0.982434, -0.982434, -0.18408, -0.982434, 0.982434, -0.18408, 0.982434, -0.982434, -0.18408, 0.982434, 0.982434, 0.184038, -0.982441, -0.982441, 0.184038, -0.982441, 0.982441, 0.184038, 0.982441, -0.982441, 0.184038, 0.982441, 0.982441, 0.306731, -0.981785, 0.951032, 0.306731, 0.981785, -0.951032, 0.306731, 0.981785, 0.951032, 0.397198, -0.978324, -0.917035, 0.397198, 0.978324, 0.917035, 0.459081, -0.979594, 0.887733, 0.459081, 0.979594, -0.887733, 0.5183, -0.975911, -0.853827, 0.5183, 0.975911, -0.853827, 0.5183, 0.975911, 0.853827, 0.609111, -0.974785, 0.791775, 0.642894, -0.979738, -0.765301, 0.642894, 0.979738, -0.765301, 0.642894, 0.979738, 0.765301, 0.791813, -0.974646, -0.609058, 0.791813, -0.974646, 0.609058, 0.791813, 0.974646, -0.609058, 0.791813, 0.974646, 0.609058, 0.853885, -0.976024, -0.518202, 0.853885, -0.976024, 0.518202, 0.917016, 0.978348, -0.397238, 0.917016, 0.978348, 0.397238, 0.95108, -0.981878, -0.306596, 0.95108, -0.981878, 0.306596, 0.98243, -0.982666, -0.184106, 0.98243, -0.982666, 0.184106, 0.98243, 0.982666, -0.184106, 0.98243, 0.982666, 0.184106 )
+
+[node name="Player" type="KinematicBody"]
+script = ExtResource( 1 )
+
+[node name="CamNode" type="Spatial" parent="."]
+
+[node name="Camera" type="Camera" parent="CamNode"]
+current = true
+far = 8192.0
+
+[node name="Body" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
+mesh = SubResource( 1 )
+material/0 = ExtResource( 3 )
+
+[node name="Head" type="MeshInstance" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25561, 0 )
+mesh = SubResource( 3 )
+material/0 = ExtResource( 3 )
+
+[node name="Shoulder" type="Spatial" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 0.970296, 0.241922, 0, -0.241922, 0.970296, 0, 0.916597, 0 )
+
+[node name="Gun" type="MeshInstance" parent="Body/Shoulder"]
+transform = Transform( 0.1, 0, 0, 0, -3.27835e-08, -0.1, 0, 0.75, -4.37114e-09, 0.5, -0.017, -0.7 )
+mesh = SubResource( 2 )
+material/0 = ExtResource( 2 )
+
+[node name="BodyCollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
+shape = SubResource( 8 )
+
+[node name="CameraCollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0.173484, -0.207686 )
+shape = SubResource( 9 )
+
+[node name="GunCollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 0.1, 0, 0, 0, 0.18507, -0.0970296, 0, 0.742276, 0.0241922, 0.5, -0.268852, -0.675192 )
+shape = SubResource( 6 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )

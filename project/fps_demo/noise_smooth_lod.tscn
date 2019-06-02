@@ -1,0 +1,72 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://fps_demo/support/platform.tscn" type="PackedScene" id=1]
+[ext_resource path="res://fps_demo/support/player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://fps_demo/support/WorldEnvironment.tscn" type="PackedScene" id=3]
+[ext_resource path="res://fps_demo/support/UI.tscn" type="PackedScene" id=4]
+[ext_resource path="res://fps_demo/materials/grass-rock.material" type="Material" id=5]
+[ext_resource path="res://fps_demo/scripts/NoiseWorld.gd" type="Script" id=6]
+
+[sub_resource type="OpenSimplexNoise" id=1]
+
+[sub_resource type="VoxelStreamNoise" id=2]
+noise = SubResource( 1 )
+
+[node name="Spatial" type="Spatial"]
+script = ExtResource( 6 )
+
+[node name="UI_Noise" type="VBoxContainer" parent="."]
+margin_top = 37.0
+margin_right = 40.0
+margin_bottom = 123.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Seed" type="Label" parent="UI_Noise"]
+margin_right = 40.0
+margin_bottom = 14.0
+text = "Seed: "
+
+[node name="Octaves" type="Label" parent="UI_Noise"]
+margin_top = 18.0
+margin_right = 40.0
+margin_bottom = 32.0
+text = "Seed: "
+
+[node name="Period" type="Label" parent="UI_Noise"]
+margin_top = 36.0
+margin_right = 40.0
+margin_bottom = 50.0
+text = "Seed: "
+
+[node name="Persistence" type="Label" parent="UI_Noise"]
+margin_top = 54.0
+margin_right = 40.0
+margin_bottom = 68.0
+text = "Seed: "
+
+[node name="Lacunarity" type="Label" parent="UI_Noise"]
+margin_top = 72.0
+margin_right = 40.0
+margin_bottom = 86.0
+text = "Seed: "
+
+[node name="UI" parent="." instance=ExtResource( 4 )]
+
+[node name="WorldEnvironment" parent="." instance=ExtResource( 3 )]
+
+[node name="Platform" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1170.85, 197.34, 888.8 )
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1171, 202, 888 )
+WALK_SPEED = 40.0
+jump_is_jetpack = true
+
+[node name="VoxelTerrain" type="VoxelLodTerrain" parent="."]
+stream = SubResource( 2 )
+view_distance = 2048
+lod_count = 6
+viewer_path = NodePath("../Player")
+material = ExtResource( 5 )

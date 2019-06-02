@@ -1,0 +1,47 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://blocky_terrain/noise_distorted.png" type="Image" id=1]
+[ext_resource path="res://fps_demo/support/UI.tscn" type="PackedScene" id=2]
+[ext_resource path="res://fps_demo/support/WorldEnvironment.tscn" type="PackedScene" id=3]
+[ext_resource path="res://fps_demo/support/player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://fps_demo/materials/vertex-color.material" type="Material" id=5]
+[ext_resource path="res://fps_demo/support/platform.tscn" type="PackedScene" id=6]
+
+[sub_resource type="VoxelStreamImage" id=1]
+image = ExtResource( 1 )
+
+[sub_resource type="Voxel" id=2]
+transparent = true
+
+[sub_resource type="Voxel" id=3]
+geometry_type = 1
+cube_geometry/padding_y = 0.0
+cube_tiles/left = Vector2( 0, 0 )
+cube_tiles/right = Vector2( 0, 0 )
+cube_tiles/bottom = Vector2( 0, 0 )
+cube_tiles/top = Vector2( 0, 0 )
+cube_tiles/back = Vector2( 0, 0 )
+cube_tiles/front = Vector2( 0, 0 )
+
+[sub_resource type="VoxelLibrary" id=4]
+voxels/0 = SubResource( 2 )
+voxels/1 = SubResource( 3 )
+
+[node name="Spatial" type="Spatial"]
+
+[node name="UI" parent="." instance=ExtResource( 2 )]
+
+[node name="WorldEnvironment" parent="." instance=ExtResource( 3 )]
+
+[node name="Platform" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 50.18, -5.25 )
+
+[node name="Player" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 52, -5 )
+
+[node name="VoxelTerrain" type="VoxelTerrain" parent="."]
+stream = SubResource( 1 )
+voxel_library = SubResource( 4 )
+view_distance = 256
+viewer_path = NodePath("../Player")
+material/0 = ExtResource( 5 )

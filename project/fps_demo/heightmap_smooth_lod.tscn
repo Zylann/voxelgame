@@ -1,0 +1,77 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://blocky_terrain/noise_distorted.png" type="Image" id=1]
+[ext_resource path="res://fps_demo/support/platform.tscn" type="PackedScene" id=2]
+[ext_resource path="res://fps_demo/support/player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://fps_demo/support/WorldEnvironment.tscn" type="PackedScene" id=4]
+[ext_resource path="res://fps_demo/materials/grass-rock.material" type="Material" id=5]
+[ext_resource path="res://fps_demo/support/UI.tscn" type="PackedScene" id=6]
+[ext_resource path="res://fps_demo/materials/water.material" type="Material" id=8]
+[ext_resource path="res://fps_demo/textures/Rock12_col.jpg" type="Texture" id=9]
+[ext_resource path="res://fps_demo/textures/Rock12_nrm.jpg" type="Texture" id=10]
+[ext_resource path="res://fps_demo/textures/Rock12_AO.jpg" type="Texture" id=11]
+
+[sub_resource type="VoxelStreamImage" id=1]
+image = ExtResource( 1 )
+channel = 1
+
+[sub_resource type="PlaneMesh" id=2]
+material = ExtResource( 8 )
+size = Vector2( 2048, 2048 )
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_color = Color( 0.772549, 0.772549, 0.772549, 1 )
+albedo_texture = ExtResource( 9 )
+roughness = 0.91
+normal_enabled = true
+normal_scale = 1.0
+normal_texture = ExtResource( 10 )
+ao_enabled = true
+ao_light_affect = 1.0
+ao_texture = ExtResource( 11 )
+ao_on_uv2 = false
+ao_texture_channel = 4
+uv1_scale = Vector3( 100, 100, 1 )
+
+[sub_resource type="PlaneMesh" id=4]
+material = SubResource( 3 )
+size = Vector2( 2048, 2048 )
+
+[sub_resource type="BoxShape" id=5]
+extents = Vector3( 2048, 0.01, 2048 )
+
+[node name="Spatial" type="Spatial"]
+
+[node name="UI" parent="." instance=ExtResource( 6 )]
+
+[node name="WorldEnvironment" parent="." instance=ExtResource( 4 )]
+
+[node name="Platform" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1170.85, 197.34, 888.8 )
+
+[node name="Player" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1171, 202, 888 )
+WALK_SPEED = 20.0
+jump_is_jetpack = true
+
+[node name="VoxelTerrain" type="VoxelLodTerrain" parent="."]
+stream = SubResource( 1 )
+view_distance = 2048
+lod_count = 6
+viewer_path = NodePath("../Player")
+material = ExtResource( 5 )
+
+[node name="Water" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1024, 10, 1024 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Ground Plane" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1024, 0, 1024 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Ground Plane"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Ground Plane/StaticBody"]
+shape = SubResource( 5 )

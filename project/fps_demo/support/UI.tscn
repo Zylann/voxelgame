@@ -1,0 +1,32 @@
+[gd_scene format=2]
+
+[node name="UI" type="Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="VBox" type="VBoxContainer" parent="."]
+margin_right = 64.0
+margin_bottom = 49.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FPS" type="Label" parent="VBox"]
+margin_right = 64.0
+margin_bottom = 14.0
+text = "FPS: "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Position" type="Label" parent="VBox"]
+margin_top = 18.0
+margin_right = 64.0
+margin_bottom = 32.0
+text = "Position:: "
+__meta__ = {
+"_edit_use_anchors_": false
+}
