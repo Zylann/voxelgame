@@ -13,10 +13,13 @@ func _process(delta):
 	var stats = terrain.get_statistics()
 
 	var s = str("Dynamic memory: ", _format_memory(dm), \
-		"\nStatic memory: ", _format_memory(sm), \
-		"\nUpdater (main thread): ", stats.updater.remaining_main_thread_blocks)
-		#"\nProvider: ", stats.provider.remaining_blocks, \
-		#"\nUpdater (thread): ", stats.updater.remaining_blocks, \
+		"\nStatic memory: ", _format_memory(sm))
+
+	for i in len(stats.stream.remaining_blocks_per_thread):
+		s += str("\nStream[", i, "]: ", stats.stream.remaining_blocks_per_thread[i])
+
+	for i in len(stats.updater.remaining_blocks_per_thread):
+		s += str("\nUpdater[", i, "]: ", stats.updater.remaining_blocks_per_thread[i])
 
 	set_text(s)
 
