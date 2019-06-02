@@ -11,8 +11,8 @@ var _time_before_display_process_stats = 1.0
 func _process(delta):
 	var stats = _terrain.get_stats()
 	
-	for i in len(stats.provider.remaining_blocks_per_thread):
-		var remaining = stats.provider.remaining_blocks_per_thread[i]
+	for i in len(stats.stream.remaining_blocks_per_thread):
+		var remaining = stats.stream.remaining_blocks_per_thread[i]
 		DDD.set_text(str("Loading blocks [", i, "]"), str(remaining))
 
 	for i in len(stats.updater.remaining_blocks_per_thread):
@@ -22,7 +22,7 @@ func _process(delta):
 	DDD.set_text("Static memory", _format_memory(OS.get_static_memory_usage()))
 	DDD.set_text("Dynamic memory", _format_memory(OS.get_dynamic_memory_usage()))
 	DDD.set_text("Blocked lods", stats.blocked_lods)
-	DDD.set_text("Load sort time", stats.provider.sorting_time)
+	DDD.set_text("Load sort time", stats.stream.sorting_time)
 	DDD.set_text("Mesh sort time", stats.updater.sorting_time)
 
 	for k in stats.process:
