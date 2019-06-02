@@ -61,7 +61,7 @@ far = 800.0
 script = ExtResource( 1 )
 
 [node name="VoxelTerrain" type="VoxelTerrain" parent="."]
-provider = SubResource( 3 )
+stream = SubResource( 3 )
 voxel_library = SubResource( 6 )
 view_distance = 256
 viewer_path = NodePath("../SpectatorAvatar")

@@ -80,7 +80,7 @@ vertex_color_use_as_albedo = true
 environment = SubResource( 2 )
 
 [node name="VoxelTerrain" type="VoxelTerrain" parent="."]
-provider = ExtResource( 1 )
+stream = ExtResource( 1 )
 voxel_library = SubResource( 6 )
 view_distance = 256
 viewer_path = NodePath("../CharacterAvatar")
