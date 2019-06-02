@@ -1,11 +1,11 @@
 [gd_scene load_steps=18 format=2]
 
-[ext_resource path="res://blocky_terrain/provider_image.tres" type="VoxelStreamImage" id=1]
+[ext_resource path="res://blocky_terrain/character_avatar.tscn" type="PackedScene" id=1]
 [ext_resource path="res://blocky_terrain/terrain_material.tres" type="Material" id=2]
 [ext_resource path="res://blocky_terrain/terrain_marerial_transparent.tres" type="Material" id=3]
 [ext_resource path="res://axes.tscn" type="PackedScene" id=4]
 [ext_resource path="res://grid.gd" type="Script" id=5]
-[ext_resource path="res://blocky_terrain/character_avatar.tscn" type="PackedScene" id=6]
+[ext_resource path="res://blocky_terrain/provider_file_vxb.tres" type="VoxelStreamVXB" id=6]
 [ext_resource path="res://blocky_terrain/profiling_gui.gd" type="Script" id=8]
 [ext_resource path="res://blocky_terrain/debug3d.gd" type="Script" id=9]
 
@@ -80,7 +80,7 @@ vertex_color_use_as_albedo = true
 environment = SubResource( 2 )
 
 [node name="VoxelTerrain" type="VoxelTerrain" parent="."]
-provider = ExtResource( 1 )
+stream = ExtResource( 6 )
 voxel_library = SubResource( 6 )
 view_distance = 256
 viewer_path = NodePath("../CharacterAvatar")
@@ -98,7 +98,7 @@ size = 8
 transform = Transform( -0.985468, 0.124099, -0.11598, 0.0154004, 0.745271, 0.666584, 0.169159, 0.655111, -0.736353, 1.51966, 19.7004, 14.0879 )
 directional_shadow_normal_bias = 0.1
 
-[node name="CharacterAvatar" parent="." instance=ExtResource( 6 )]
+[node name="CharacterAvatar" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 58.0914, 17 )
 terrain = NodePath("../VoxelTerrain")
 

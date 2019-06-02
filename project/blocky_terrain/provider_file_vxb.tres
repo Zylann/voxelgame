@@ -1,0 +1,7 @@
+[gd_resource type="VoxelStreamVXB" load_steps=2 format=2]
+
+[ext_resource path="res://blocky_terrain/provider_image.tres" type="VoxelStreamImage" id=1]
+
+[resource]
+fallback_stream = ExtResource( 1 )
+directory = "res://blocky_terrain/save"
