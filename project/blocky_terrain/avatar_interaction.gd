@@ -1,5 +1,7 @@
 extends Node
 
+const Util = preload("res://common/util.gd")
+
 const COLLISION_LAYER_AVATAR = 2
 
 export(NodePath) var terrain_path = null
@@ -24,7 +26,15 @@ func _ready():
 		terrain_path = _terrain.get_path() # For correctness
 	else:
 		_terrain = get_node(terrain_path)
-	_cursor = _make_cursor()
+	
+	var mesh = Util.create_wirecube_mesh(Color(0,0,0))
+	var mesh_instance = MeshInstance.new()
+	mesh_instance.mesh = mesh
+	if cursor_material != null:
+		mesh_instance.material_override = cursor_material
+	mesh_instance.set_scale(Vector3(1,1,1)*1.01)
+	_cursor = mesh_instance
+	
 	_terrain.add_child(_cursor)
 	_terrain_tool = _terrain.get_voxel_tool()
 
@@ -43,7 +53,7 @@ func _physics_process(delta):
 	var hit = get_pointed_voxel()
 	if hit != null:
 		_cursor.show()
-		_cursor.set_translation(hit.position + Vector3(1,1,1)*0.5)
+		_cursor.set_translation(hit.position)
 		get_parent().get_node("debug_label").text = str(hit.position)
 	else:
 		_cursor.hide()
@@ -112,66 +122,8 @@ func can_place_voxel_at(pos):
 	return hits.size() == 0
 
 
-# Makes a 3D wireframe cube cursor
-func _make_cursor():
-	var st = SurfaceTool.new()
-	st.begin(Mesh.PRIMITIVE_LINES)
-	_add_wireframe_cube(st, -Vector3(1,1,1)*0.5, 1, Color(0,0,0))
-	var mesh = st.commit()
-	var mesh_instance = MeshInstance.new()
-	mesh_instance.mesh = mesh
-	if cursor_material != null:
-		mesh_instance.material_override = cursor_material
-	mesh_instance.set_scale(Vector3(1,1,1)*1.01)
-	return mesh_instance
-
-
 func do_sphere(center, r, type):
 	_terrain_tool.channel = VoxelBuffer.CHANNEL_TYPE
 	_terrain_tool.value = type
-	#_terrain_tool.do_sphere(center, r)
 	_terrain_tool.do_point(center)
-
-
-static func _add_wireframe_cube(st, pos, step, color):
-	
-	st.add_color(color)
-	
-	st.add_vertex(pos)
-	st.add_vertex(pos + Vector3(step, 0, 0))
-	
-	st.add_vertex(pos + Vector3(step, 0, 0))
-	st.add_vertex(pos + Vector3(step, 0, step))
-
-	st.add_vertex(pos + Vector3(step, 0, step))
-	st.add_vertex(pos + Vector3(0, 0, step))
-	
-	st.add_vertex(pos + Vector3(0, 0, step))
-	st.add_vertex(pos)
-
-
-	st.add_vertex(pos + Vector3(0, step, 0))
-	st.add_vertex(pos + Vector3(step, step, 0))
-	
-	st.add_vertex(pos + Vector3(step, step, 0))
-	st.add_vertex(pos + Vector3(step, step, step))
-
-	st.add_vertex(pos + Vector3(step, step, step))
-	st.add_vertex(pos + Vector3(0, step, step))
-	
-	st.add_vertex(pos + Vector3(0, step, step))
-	st.add_vertex(pos + Vector3(0, step, 0))
-
-
-	st.add_vertex(pos)
-	st.add_vertex(pos + Vector3(0, step, 0))
-
-	st.add_vertex(pos + Vector3(step, 0, 0))
-	st.add_vertex(pos + Vector3(step, step, 0))
-
-	st.add_vertex(pos + Vector3(step, 0, step))
-	st.add_vertex(pos + Vector3(step, step, step))
-
-	st.add_vertex(pos + Vector3(0, 0, step))
-	st.add_vertex(pos + Vector3(0, step, step))
 

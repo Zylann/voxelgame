@@ -9,8 +9,6 @@
 [ext_resource path="res://blocky_terrain/profiling_gui.gd" type="Script" id=8]
 [ext_resource path="res://blocky_terrain/debug3d.gd" type="Script" id=9]
 
-
-
 [sub_resource type="ProceduralSky" id=1]
 sky_top_color = Color( 0.268204, 0.522478, 0.847656, 1 )
 sky_horizon_color = Color( 0.556863, 0.823529, 0.909804, 1 )
@@ -86,7 +84,6 @@ stream = ExtResource( 1 )
 voxel_library = SubResource( 6 )
 view_distance = 256
 viewer_path = NodePath("../CharacterAvatar")
-generate_collisions = true
 material/0 = ExtResource( 2 )
 material/1 = ExtResource( 3 )
 
