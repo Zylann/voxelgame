@@ -1,7 +1,9 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://mouse_look.gd" type="Script" id=1]
-[ext_resource path="res://spectator_avatar.gd" type="Script" id=2]
+[ext_resource path="res://common/mouse_look.gd" type="Script" id=1]
+[ext_resource path="res://common/spectator_avatar.gd" type="Script" id=2]
+
+
 
 [node name="SpectatorAvatar" type="Spatial"]
 script = ExtResource( 2 )

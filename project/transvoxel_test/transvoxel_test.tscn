@@ -1,9 +1,12 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://transvoxel_test/transvoxel_test.gd" type="Script" id=1]
-[ext_resource path="res://axes.tscn" type="PackedScene" id=2]
-[ext_resource path="res://spectator_avatar.tscn" type="PackedScene" id=3]
-[ext_resource path="res://grid.gd" type="Script" id=4]
+[ext_resource path="res://common/axes.tscn" type="PackedScene" id=2]
+[ext_resource path="res://common/spectator_avatar.tscn" type="PackedScene" id=3]
+[ext_resource path="res://common/grid.gd" type="Script" id=4]
+
+
+
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0.7, 0.7, 0.7, 1 )

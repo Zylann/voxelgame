@@ -2,8 +2,8 @@
 
 [ext_resource path="res://dmc_terrain/main_lod.gd" type="Script" id=1]
 [ext_resource path="res://dmc_terrain/dmc_terrain_material.tres" type="Material" id=2]
-[ext_resource path="res://axes.tscn" type="PackedScene" id=3]
-[ext_resource path="res://spectator_avatar.tscn" type="PackedScene" id=4]
+[ext_resource path="res://common/spectator_avatar.tscn" type="PackedScene" id=3]
+[ext_resource path="res://common/axes.tscn" type="PackedScene" id=4]
 [ext_resource path="res://dmc_terrain/block_debug.gd" type="Script" id=5]
 
 [sub_resource type="ProceduralSky" id=1]
@@ -39,9 +39,9 @@ shadow_enabled = true
 shadow_bias = 0.05
 directional_shadow_max_distance = 1000.0
 
-[node name="Axes" parent="." instance=ExtResource( 3 )]
+[node name="Axes" parent="." instance=ExtResource( 4 )]
 
-[node name="SpectatorAvatar" parent="." instance=ExtResource( 4 )]
+[node name="SpectatorAvatar" parent="." instance=ExtResource( 3 )]
 speed = 100.0
 
 [node name="Camera" parent="SpectatorAvatar" index="0"]
@@ -57,9 +57,9 @@ material/0 = ExtResource( 2 )
 
 [node name="VoxelTerrain" type="VoxelLodTerrain" parent="."]
 stream = SubResource( 5 )
+lod_count = 8
 viewer_path = NodePath("../SpectatorAvatar")
 material = ExtResource( 2 )
-lod_count = 8
 generate_collisions = false
 
 [node name="BlockDebug" type="Control" parent="."]
