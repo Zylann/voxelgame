@@ -22,18 +22,6 @@ func _ready():
 	#set_shape_transform(0, Transform().rotated(Vector3(1,0,0), PI/2.0))
 
 
-func _input(event):
-	if event is InputEventKey:
-		if event.pressed:
-			if event.scancode == KEY_1:
-				var light = get_node("../DirectionalLight")
-				light.shadow_enabled = not light.shadow_enabled
-				
-			elif event.scancode == KEY_2:
-				OS.set_use_vsync(not OS.is_vsync_enabled())
-				print("Vsync: ", OS.is_vsync_enabled())
-
-
 func _physics_process(delta):
 	
 	var forward = _head.get_transform().basis.z.normalized()

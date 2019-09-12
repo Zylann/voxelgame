@@ -41,14 +41,14 @@ static func make_plane(pos, dir):
 
 func generate_with_stats():
 
-	var stats_average = _mesher.get_stats()
+	var stats_average = _mesher.get_statistics()
 	for k in stats_average:
 		stats_average[k] = 0.0
 
 	var iterations = 1
 	for i in iterations:
 		generate()
-		var stats = _mesher.get_stats()
+		var stats = _mesher.get_statistics()
 		for k in stats:
 			stats_average[k] += stats[k]
 

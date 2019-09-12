@@ -1,16 +1,21 @@
 extends Node
 
+const COLLISION_LAYER_AVATAR = 2
+
 export(NodePath) var terrain_path = null
 export(Material) var cursor_material = null
 
-const COLLISION_LAYER_AVATAR = 2
+onready var _light = get_node("../../DirectionalLight") # For debug shadow toggle
+onready var _head = get_parent().get_node("Camera")
 
 var _terrain = null
+var _terrain_tool = null
 var _cursor = null
 var _action_place = false
 var _action_remove = false
 
-onready var _head = get_parent().get_node("Camera")
+var _inventory = [1, 2]
+var _inventory_index = 0
 
 
 func _ready():
@@ -21,12 +26,13 @@ func _ready():
 		_terrain = get_node(terrain_path)
 	_cursor = _make_cursor()
 	_terrain.add_child(_cursor)
+	_terrain_tool = _terrain.get_voxel_tool()
 
 
 func get_pointed_voxel():
 	var origin = _head.get_global_transform().origin
 	var forward = -_head.get_transform().basis.z.normalized()
-	var hit = _terrain.raycast(origin, forward, 10)
+	var hit = _terrain_tool.raycast(origin, forward, 10)
 	return hit
 
 
@@ -45,22 +51,18 @@ func _physics_process(delta):
 	
 	# These inputs have to be in _fixed_process because they rely on collision queries
 	if hit != null:
-		var has_cube = _terrain.get_storage().get_voxel_v(hit.position) != 0
+		var has_cube = _terrain_tool.get_voxel(hit.position) != 0
 		
 		if _action_place and has_cube:
 			var pos = hit.position
 			do_sphere(pos, 5, 0)
-			#_terrain.get_storage().set_voxel_v(0, pos)
-			#_terrain.make_voxel_dirty(pos)
 		
 		elif _action_remove:
-			var pos = hit.prev_position
+			var pos = hit.previous_position
 			if has_cube == false:
 				pos = hit.position
 			if can_place_voxel_at(pos):
-				do_sphere(pos, 4, 2)
-				#_terrain.get_storage().set_voxel_v(2, pos)
-				#_terrain.make_voxel_dirty(pos)
+				do_sphere(pos, 4, _inventory[_inventory_index])
 				print("Place voxel at ", pos)
 			else:
 				print("Can't place here!")
@@ -72,10 +74,29 @@ func _physics_process(delta):
 func _input(event):
 	if event is InputEventMouseButton:
 		if event.pressed:
-			if event.button_index == BUTTON_LEFT:
-				_action_place = true
-			elif event.button_index == BUTTON_RIGHT:
-				_action_remove = true
+			match event.button_index:
+				BUTTON_LEFT:
+					_action_place = true
+				BUTTON_RIGHT:
+					_action_remove = true
+
+	elif event is InputEventKey:
+		if event.pressed:
+			match event.scancode:
+				KEY_1:
+					select_inventory(0)
+				KEY_2:
+					select_inventory(1)
+				KEY_L:
+					_light.shadow_enabled = not _light.shadow_enabled
+
+
+func select_inventory(i):
+	if i < 0 or i >= len(_inventory):
+		return
+	_inventory_index = i
+	var vi = _inventory[i]
+	print("Inventory select ", _terrain.voxel_library.get_voxel(vi).voxel_name, " (", vi, ")")
 
 
 func can_place_voxel_at(pos):
@@ -106,16 +127,10 @@ func _make_cursor():
 
 
 func do_sphere(center, r, type):
-	var storage = _terrain.get_storage()
-
-	for z in range(-r, r):
-		for x in range(-r, r):
-			for y in range(-r, r):
-				var pos = Vector3(x, y, z)
-				if pos.length() <= r:
-					storage.set_voxel_v(type, center + pos, 0)
-
-	_terrain.make_area_dirty(AABB(center - Vector3(r,r,r), 2*Vector3(r,r,r)))
+	_terrain_tool.channel = VoxelBuffer.CHANNEL_TYPE
+	_terrain_tool.value = type
+	#_terrain_tool.do_sphere(center, r)
+	_terrain_tool.do_point(center)
 
 
 static func _add_wireframe_cube(st, pos, step, color):

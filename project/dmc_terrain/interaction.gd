@@ -40,31 +40,12 @@ func _process(delta):
 
 
 func do_sphere(center, fradius, add):
-	var storage = _terrain.get_storage()
-	var r = int(floor(fradius)) + 2
-	var channel = VoxelBuffer.CHANNEL_ISOLEVEL
-	
-	var xc = int(floor(center.x))
-	var yc = int(floor(center.y))
-	var zc = int(floor(center.z))
-		
-	for zi in range(-r, r):
-		for xi in range(-r, r):
-			for yi in range(-r, r):
-				var x = xi + xc
-				var y = yi + yc
-				var z = zi + zc
-				var pos = Vector3(x, y, z)
-				var d = pos.distance_to(center) - fradius
-				var e = storage.get_voxel_f(x, y, z, channel)
-				var res
-				if add:
-					res = min(d, e)
-				else:
-					res = max(-d, e)
-				storage.set_voxel_f(res, x, y, z, channel)
-
-	_terrain.make_area_dirty(AABB(center - Vector3(r,r,r), 2*Vector3(r,r,r)))
+	var vt = _terrain.get_voxel_tool()
+	if add:
+		vt.mode = VoxelTool.MODE_ADD
+	else:
+		vt.mode = VoxelTool.MODE_REMOVE
+	vt.do_sphere(center, fradius)
 
 
 func print_map_slice():

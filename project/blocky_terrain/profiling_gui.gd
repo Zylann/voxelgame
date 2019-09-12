@@ -3,6 +3,12 @@ extends Label
 # Deferred because stats are reset everytime the terrain is processing,
 # so we make sure we get them always at the same point in time
 var _deferred_print_stats = false
+var _span_timer = 0.0
+var _span_timer_interval = 0.5
+var _previous_file_count = 0
+var _previous_time_spent_opening_files = 0
+var _file_openings_per_second = 0
+var _time_spent_opening_files_per_second = 0
 
 
 func _process(delta):
@@ -21,19 +27,37 @@ func _process(delta):
 	for i in len(stats.updater.remaining_blocks_per_thread):
 		s += str("\nUpdater[", i, "]: ", stats.updater.remaining_blocks_per_thread[i])
 
+	s += str("\nMain thread block updates: ", stats.remaining_main_thread_blocks)
+
+	_span_timer -= delta
+	if _span_timer <= 0.0:
+		_span_timer = _span_timer_interval
+
+		var file_openings = stats.stream.file_openings
+		var time_spent_opening_files = stats.stream.time_spent_opening_files
+
+		_file_openings_per_second = int((file_openings - _previous_file_count) / _span_timer)
+		_time_spent_opening_files_per_second = int((time_spent_opening_files - _previous_time_spent_opening_files) / _span_timer)
+
+		_previous_file_count = file_openings
+		_previous_time_spent_opening_files = time_spent_opening_files
+
+	s += str("\nFile openings per second: ", _file_openings_per_second)
+	s += str("\nTime spent opening files per second: ", _time_spent_opening_files_per_second, " us")
+
 	set_text(s)
 
-	if stats.updater.mesh_alloc_time > 15:
-		print("Mesh alloc time is ", stats.updater.mesh_alloc_time, " for ", stats.updater.updated_blocks)
+	#if stats.updater.mesh_alloc_time > 15:
+	#	print("Mesh alloc time is ", stats.updater.mesh_alloc_time, " for ", stats.updater.updated_blocks)
 
 	if _deferred_print_stats:
 		_deferred_print_stats = false
 
 		print(str("Time stats:", \
 			"\t\n", "time_detect_required_blocks:    ", stats.time_detect_required_blocks, " usec", \
-			"\t\n", "time_send_load_requests:        ", stats.time_send_load_requests, " usec", \
+			"\t\n", "time_request_blocks_to_load:    ", stats.time_request_blocks_to_load, " usec", \
 			"\t\n", "time_process_load_responses:    ", stats.time_process_load_responses, " usec", \
-			"\t\n", "time_send_update_requests:      ", stats.time_send_update_requests, " usec", \
+			"\t\n", "time_request_blocks_to_update:  ", stats.time_request_blocks_to_update, " usec", \
 			"\t\n", "time_process_update_responses:  ", stats.time_process_update_responses, " usec", \
 			"\t\n"))
 

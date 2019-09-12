@@ -3,7 +3,7 @@ extends Control
 onready var _terrain = get_node("../VoxelTerrain")
 
 export var block_y_offset = 0
-var _lod_index = 1
+var _lod_index = 0
 
 
 func _process(delta):

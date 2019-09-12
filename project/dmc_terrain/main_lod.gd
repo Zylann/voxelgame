@@ -7,9 +7,18 @@ var _process_stats = {}
 var _displayed_process_stats = {}
 var _time_before_display_process_stats = 1.0
 
+const _process_stat_names = [
+	"time_detect_required_blocks",
+	"time_request_blocks_to_load",
+	"time_process_load_responses",
+	"time_request_blocks_to_update",
+	"time_process_update_responses",
+	"updated_blocks"
+]
+
 
 func _process(delta):
-	var stats = _terrain.get_stats()
+	var stats = _terrain.get_statistics()
 	
 	for i in len(stats.stream.remaining_blocks_per_thread):
 		var remaining = stats.stream.remaining_blocks_per_thread[i]
@@ -19,14 +28,16 @@ func _process(delta):
 		var remaining = stats.updater.remaining_blocks_per_thread[i]
 		DDD.set_text(str("Meshing blocks [", i, "]"), str(remaining))
 
+	DDD.set_text("Main thread block updates", stats.remaining_main_thread_blocks)
 	DDD.set_text("Static memory", _format_memory(OS.get_static_memory_usage()))
 	DDD.set_text("Dynamic memory", _format_memory(OS.get_dynamic_memory_usage()))
 	DDD.set_text("Blocked lods", stats.blocked_lods)
 	DDD.set_text("Load sort time", stats.stream.sorting_time)
 	DDD.set_text("Mesh sort time", stats.updater.sorting_time)
+	DDD.set_text("Position", _avatar.translation)
 
-	for k in stats.process:
-		var v = stats.process[k]
+	for k in _process_stat_names:
+		var v = stats[k]
 		if k in _process_stats:
 			_process_stats[k] = max(_process_stats[k], v)
 		else:
@@ -57,7 +68,17 @@ func _input(event):
 				_print_map_state(_terrain, _avatar.global_transform.origin)
 
 			elif event.scancode == KEY_N:
-				pretty_print(_terrain.get_stats())
+				pretty_print(_terrain.get_statistics())
+
+			elif event.scancode == KEY_P:
+				get_tree().get_root().print_tree_pretty()
+
+			elif event.scancode == KEY_O:
+				var vp = get_viewport()
+				if vp.debug_draw == Viewport.DEBUG_DRAW_DISABLED:
+					vp.debug_draw = Viewport.DEBUG_DRAW_OVERDRAW
+				else:
+					vp.debug_draw = Viewport.DEBUG_DRAW_DISABLED
 
 
 static func pretty_print(d, depth=0):

@@ -11,3 +11,4 @@ speed = 5.0
 script = ExtResource( 1 )
 sensitivity = 0.2
 distance = 0.0
+far = 4000.0
