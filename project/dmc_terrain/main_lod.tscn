@@ -63,6 +63,7 @@ lod_count = 8
 generate_collisions = false
 
 [node name="BlockDebug" type="Control" parent="."]
+visible = false
 modulate = Color( 1, 1, 1, 0.8 )
 anchor_top = 1.0
 anchor_right = 1.0
