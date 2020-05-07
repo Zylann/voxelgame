@@ -7,7 +7,6 @@ const COLLISION_LAYER_AVATAR = 2
 export(NodePath) var terrain_path = null
 export(Material) var cursor_material = null
 
-onready var _light = get_node("../../DirectionalLight") # For debug shadow toggle
 onready var _head = get_parent().get_node("Camera")
 
 var _terrain = null
@@ -16,7 +15,7 @@ var _cursor = null
 var _action_place = false
 var _action_remove = false
 
-var _inventory = [1, 2]
+var _inventory = [1, 2, 3]
 var _inventory_index = 0
 
 
@@ -54,10 +53,10 @@ func _physics_process(delta):
 	if hit != null:
 		_cursor.show()
 		_cursor.set_translation(hit.position)
-		get_parent().get_node("debug_label").text = str(hit.position)
+		DDD.set_text("Pointed voxel", str(hit.position))
 	else:
 		_cursor.hide()
-		get_parent().get_node("debug_label").text = "---"
+		DDD.set_text("Pointed voxel", "---")
 	
 	# These inputs have to be in _fixed_process because they rely on collision queries
 	if hit != null:
@@ -97,8 +96,8 @@ func _input(event):
 					select_inventory(0)
 				KEY_2:
 					select_inventory(1)
-				KEY_L:
-					_light.shadow_enabled = not _light.shadow_enabled
+				KEY_3:
+					select_inventory(2)
 
 
 func select_inventory(i):

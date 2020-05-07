@@ -1,0 +1,14 @@
+[gd_resource type="VoxelGeneratorNoise2D" load_steps=3 format=2]
+
+[ext_resource path="res://smooth_terrain/terrain_curve.tres" type="Curve" id=1]
+
+[sub_resource type="OpenSimplexNoise" id=1]
+octaves = 6
+period = 256.0
+persistence = 0.4
+
+[resource]
+height_start = -100.0
+height_range = 400.0
+noise = SubResource( 1 )
+curve = ExtResource( 1 )

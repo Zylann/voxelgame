@@ -35,7 +35,7 @@ func _physics_process(delta):
 	if dir_len > 0.01:
 		
 		dir /= dir_len
-		
+		DDD.set_text("Speed", speed)
 		var motor = dir * (speed * delta)
 		
 		translate(motor)

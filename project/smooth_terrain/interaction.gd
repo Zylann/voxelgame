@@ -23,12 +23,21 @@ func _input(event):
 		if event.pressed:
 			if event.scancode == KEY_P:
 				print_map_slice()
+			elif event.scancode == KEY_K:
+				var p = Spatial.new()
+				p.translation = get_parent().translation
+				print("Freezing viewer tracking at ", p.translation)
+				get_parent().get_parent().add_child(p)
+				_terrain.set_viewer_path(p.get_path())
 
 
 func _process(delta):
 
 	var head_trans = _head.global_transform
 	var pointed_pos = head_trans.origin - 6.0 * head_trans.basis.z
+
+	if Input.is_mouse_button_pressed(BUTTON_RIGHT):
+		_action_remove = true
 
 	if _action_place:
 		do_sphere(pointed_pos, 3.5, true)

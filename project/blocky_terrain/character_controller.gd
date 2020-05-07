@@ -20,7 +20,6 @@ func _ready():
 
 
 func _physics_process(delta):
-	
 	var forward = _head.get_transform().basis.z.normalized()
 	forward = Plane(Vector3(0, 1, 0), 0).project(forward)
 	var right = _head.get_transform().basis.x.normalized()

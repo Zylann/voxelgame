@@ -8,7 +8,7 @@ static func create_wirecube_mesh(color = Color(1,1,1)):
 		Vector3(0, 1, 0),
 		Vector3(1, 1, 0),
 		Vector3(1, 1, 1),
-		Vector3(0, 1, 1),
+		Vector3(0, 1, 1)
 	])
 	var colors = PoolColorArray([
 		color, color, color, color,
@@ -38,4 +38,48 @@ static func create_wirecube_mesh(color = Color(1,1,1)):
 	var mesh = ArrayMesh.new()
 	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_LINES, arrays)
 	return mesh
+
+
+static func calculate_normals(positions, indices) -> PoolVector3Array:
+	var out_normals = PoolVector3Array()
+	
+	var tcounts = []
+	tcounts.resize(positions.size())
+	out_normals.resize(positions.size())
+	
+	for i in range(0, tcounts.size()):
+		tcounts[i] = 0
+	
+	var tri_count = indices.size() / 3
+	
+	var i = 0
+	while i < indices.size():
+		
+		var i0 = indices[i]
+		var i1 = indices[i+1]
+		var i2 = indices[i+2]
+		i += 3
+		
+		# TODO does triangle area matter?
+		# If it does then we don't need to normalize in triangle calculation since it will account for its length
+		var n = get_triangle_normal(positions[i0], positions[i1], positions[i2])
+		
+		out_normals[i0] += n
+		out_normals[i1] += n
+		out_normals[i2] += n
+		
+		tcounts[i0] += 1
+		tcounts[i1] += 1
+		tcounts[i2] += 1
+	
+	for j in range(out_normals.size()):
+		out_normals[j] = (out_normals[j] / float(tcounts[j])).normalized()
+	#print("DDD ", out_normals.size())
+	return out_normals
+
+
+static func get_triangle_normal(a: Vector3, b: Vector3, c: Vector3) -> Vector3:
+	var u = (a - b).normalized()
+	var v = (a - c).normalized()
+	return v.cross(u)
 

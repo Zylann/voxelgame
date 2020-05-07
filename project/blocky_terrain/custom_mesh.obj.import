@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/custom_mesh.obj-87fe42838aa24483eaffe897aca10e00.mesh"
+
+[deps]
+
+files=[ "res://.import/custom_mesh.obj-87fe42838aa24483eaffe897aca10e00.mesh" ]
+
+source_file="res://blocky_terrain/custom_mesh.obj"
+dest_files=[ "res://.import/custom_mesh.obj-87fe42838aa24483eaffe897aca10e00.mesh", "res://.import/custom_mesh.obj-87fe42838aa24483eaffe897aca10e00.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

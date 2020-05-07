@@ -1,31 +1,29 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://dmc_terrain/main_lod.gd" type="Script" id=1]
-[ext_resource path="res://dmc_terrain/dmc_terrain_material.tres" type="Material" id=2]
+[ext_resource path="res://smooth_terrain/main.gd" type="Script" id=1]
+[ext_resource path="res://smooth_terrain/transvoxel_terrain_material.tres" type="Material" id=2]
 [ext_resource path="res://common/spectator_avatar.tscn" type="PackedScene" id=3]
-[ext_resource path="res://common/axes.tscn" type="PackedScene" id=4]
-[ext_resource path="res://dmc_terrain/block_debug.gd" type="Script" id=5]
+[ext_resource path="res://smooth_terrain/interaction.gd" type="Script" id=6]
+[ext_resource path="res://smooth_terrain/voxel_generator_noise_2d_smooth.tres" type="VoxelGeneratorNoise2D" id=7]
 
 [sub_resource type="ProceduralSky" id=1]
-sky_top_color = Color( 0.388235, 0.533333, 0.615686, 1 )
+sky_top_color = Color( 0.611765, 0.764706, 0.8, 1 )
+ground_bottom_color = Color( 0.266667, 0.266667, 0.266667, 1 )
+ground_horizon_color = Color( 0.733333, 0.733333, 0.733333, 1 )
 sun_curve = 0.018301
 
 [sub_resource type="Environment" id=2]
 background_mode = 2
 background_sky = SubResource( 1 )
+background_color = Color( 1, 1, 1, 1 )
+ambient_light_energy = 0.1
 ambient_light_sky_contribution = 0.5
-fog_enabled = true
-
-[sub_resource type="SphereMesh" id=3]
-
-[sub_resource type="OpenSimplexNoise" id=4]
-octaves = 6
-period = 256.0
-persistence = 0.4
-
-[sub_resource type="VoxelStreamNoise" id=5]
-noise = SubResource( 4 )
-height_range = 1200.0
+fog_color = Color( 0.552734, 0.818359, 0.908691, 1 )
+fog_depth_begin = 100.0
+fog_depth_end = 1600.0
+fog_height_min = -100.0
+fog_height_max = -50.0
+fog_height_curve = 0.965937
 
 [node name="Node" type="Node"]
 script = ExtResource( 1 )
@@ -39,37 +37,29 @@ shadow_enabled = true
 shadow_bias = 0.05
 directional_shadow_max_distance = 1000.0
 
-[node name="Axes" parent="." instance=ExtResource( 4 )]
-
 [node name="SpectatorAvatar" parent="." instance=ExtResource( 3 )]
+transform = Transform( -0.386615, 0, 0.922241, 0, 1, 0, -0.922241, 0, -0.386615, 0, 0, 0 )
 speed = 100.0
 
 [node name="Camera" parent="SpectatorAvatar" index="0"]
-far = 2000.0
+near = 0.1
+far = 10000.0
 
 [node name="OmniLight" type="OmniLight" parent="SpectatorAvatar"]
+visible = false
 light_color = Color( 0.905882, 0.886275, 0.698039, 1 )
 omni_range = 100.462
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
-mesh = SubResource( 3 )
-material/0 = ExtResource( 2 )
+[node name="Interaction" type="Node" parent="SpectatorAvatar"]
+script = ExtResource( 6 )
 
 [node name="VoxelTerrain" type="VoxelLodTerrain" parent="."]
-stream = SubResource( 5 )
-lod_count = 8
+stream = ExtResource( 7 )
+view_distance = 2048
+lod_count = 6
 viewer_path = NodePath("../SpectatorAvatar")
 material = ExtResource( 2 )
 generate_collisions = false
-
-[node name="BlockDebug" type="Control" parent="."]
-visible = false
-modulate = Color( 1, 1, 1, 0.8 )
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -311.0
-mouse_filter = 2
-script = ExtResource( 5 )
+collision_lod_count = 1
 
 [editable path="SpectatorAvatar"]
