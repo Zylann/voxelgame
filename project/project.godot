@@ -21,7 +21,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
-DDD="*res://common/ddd.gd"
+DDD="*res://addons/zylann.debug_draw/debug_draw.gd"
 
 [physics]
 
