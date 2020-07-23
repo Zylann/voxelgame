@@ -55,6 +55,7 @@ material/0 = null
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -64,4 +65,5 @@ margin_left = 504.0
 margin_top = 292.0
 margin_right = 520.0
 margin_bottom = 308.0
+mouse_filter = 2
 texture = ExtResource( 4 )

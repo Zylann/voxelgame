@@ -80,7 +80,7 @@ func _physics_process(delta):
 	_action_remove = false
 
 
-func _input(event):
+func _unhandled_input(event):
 	if event is InputEventMouseButton:
 		if event.pressed:
 			match event.button_index:

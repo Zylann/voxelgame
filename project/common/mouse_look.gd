@@ -1,4 +1,3 @@
-
 extends Spatial
 
 export var sensitivity = 0.4
@@ -18,7 +17,7 @@ func _ready():
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 
-func _input(event):
+func _unhandled_input(event):
 	if event is InputEventMouseButton:
 		if event.pressed and Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
 			if capture_mouse:
