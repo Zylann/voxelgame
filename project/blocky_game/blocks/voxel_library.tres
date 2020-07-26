@@ -1,0 +1,72 @@
+[gd_resource type="VoxelLibrary" load_steps=18 format=2]
+
+[ext_resource path="res://blocky_game/blocks/grass/grass.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://blocky_game/blocks/dirt/dirt.obj" type="ArrayMesh" id=2]
+[ext_resource path="res://blocky_game/blocks/log/log_y.obj" type="ArrayMesh" id=3]
+[ext_resource path="res://blocky_game/blocks/log/log_x.obj" type="ArrayMesh" id=4]
+[ext_resource path="res://blocky_game/blocks/log/log_z.obj" type="ArrayMesh" id=5]
+[ext_resource path="res://blocky_game/blocks/stairs/stairs_nx.obj" type="ArrayMesh" id=6]
+[ext_resource path="res://blocky_game/blocks/planks/planks.obj" type="ArrayMesh" id=7]
+[ext_resource path="res://blocky_game/blocks/tall_grass/tall_grass.obj" type="ArrayMesh" id=8]
+
+[sub_resource type="Voxel" id=1]
+voxel_name = "air"
+
+[sub_resource type="Voxel" id=2]
+voxel_name = "dirt"
+geometry_type = 2
+custom_mesh = ExtResource( 2 )
+collision_aabbs = [ AABB( 0, 0, 0, 1, 1, 1 ) ]
+
+[sub_resource type="Voxel" id=3]
+voxel_name = "grass"
+geometry_type = 2
+custom_mesh = ExtResource( 1 )
+collision_aabbs = [ AABB( 0, 0, 0, 1, 1, 1 ) ]
+
+[sub_resource type="Voxel" id=4]
+voxel_name = "log_x"
+geometry_type = 2
+custom_mesh = ExtResource( 4 )
+collision_aabbs = [ AABB( 0, 0, 0, 1, 1, 1 ) ]
+
+[sub_resource type="Voxel" id=5]
+voxel_name = "log_y"
+geometry_type = 2
+custom_mesh = ExtResource( 3 )
+collision_aabbs = [ AABB( 0, 0, 0, 1, 1, 1 ) ]
+
+[sub_resource type="Voxel" id=6]
+voxel_name = "log_z"
+geometry_type = 2
+custom_mesh = ExtResource( 5 )
+collision_aabbs = [ AABB( 0, 0, 0, 1, 1, 1 ) ]
+
+[sub_resource type="Voxel" id=7]
+voxel_name = "stairs_nx"
+geometry_type = 2
+custom_mesh = ExtResource( 6 )
+collision_aabbs = [ AABB( 0, 0, 0, 1, 1, 1 ) ]
+
+[sub_resource type="Voxel" id=8]
+voxel_name = "planks"
+geometry_type = 2
+custom_mesh = ExtResource( 7 )
+collision_aabbs = [ AABB( 0, 0, 0, 1, 1, 1 ) ]
+
+[sub_resource type="Voxel" id=9]
+voxel_name = "tall_grass"
+material_id = 2
+geometry_type = 2
+custom_mesh = ExtResource( 8 )
+
+[resource]
+voxels/0 = SubResource( 1 )
+voxels/1 = SubResource( 2 )
+voxels/2 = SubResource( 3 )
+voxels/3 = SubResource( 4 )
+voxels/4 = SubResource( 5 )
+voxels/5 = SubResource( 6 )
+voxels/6 = SubResource( 7 )
+voxels/7 = SubResource( 8 )
+voxels/8 = SubResource( 9 )

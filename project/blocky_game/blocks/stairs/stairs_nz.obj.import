@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/stairs_nz.obj-f1157de6da15363dafb0f6c1bd9be93d.mesh"
+
+[deps]
+
+files=[ "res://.import/stairs_nz.obj-f1157de6da15363dafb0f6c1bd9be93d.mesh" ]
+
+source_file="res://blocky_game/blocks/stairs/stairs_nz.obj"
+dest_files=[ "res://.import/stairs_nz.obj-f1157de6da15363dafb0f6c1bd9be93d.mesh", "res://.import/stairs_nz.obj-f1157de6da15363dafb0f6c1bd9be93d.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/tall_grass.obj-5feedaa80f104046e6e5697ec67dccb5.mesh"
+
+[deps]
+
+files=[ "res://.import/tall_grass.obj-5feedaa80f104046e6e5697ec67dccb5.mesh" ]
+
+source_file="res://blocky_game/blocks/tall_grass/tall_grass.obj"
+dest_files=[ "res://.import/tall_grass.obj-5feedaa80f104046e6e5697ec67dccb5.mesh", "res://.import/tall_grass.obj-5feedaa80f104046e6e5697ec67dccb5.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

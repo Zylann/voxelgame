@@ -61,7 +61,8 @@ static func calculate_normals(positions, indices) -> PoolVector3Array:
 		i += 3
 		
 		# TODO does triangle area matter?
-		# If it does then we don't need to normalize in triangle calculation since it will account for its length
+		# If it does then we don't need to normalize in triangle calculation since
+		# it will account for its length
 		var n = get_triangle_normal(positions[i0], positions[i1], positions[i2])
 		
 		out_normals[i0] += n

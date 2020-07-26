@@ -1,0 +1,8 @@
+[gd_resource type="SpatialMaterial" load_steps=2 format=2]
+
+[ext_resource path="res://blocky_game/blocks/terrain.png" type="Texture" id=1]
+
+[resource]
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource( 1 )
+metallic_specular = 0.0
