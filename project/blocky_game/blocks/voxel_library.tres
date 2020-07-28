@@ -1,4 +1,4 @@
-[gd_resource type="VoxelLibrary" load_steps=24 format=2]
+[gd_resource type="VoxelLibrary" load_steps=26 format=2]
 
 [ext_resource path="res://blocky_game/blocks/grass/grass.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://blocky_game/blocks/dirt/dirt.obj" type="ArrayMesh" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://blocky_game/blocks/stairs/stairs_px.obj" type="ArrayMesh" id=9]
 [ext_resource path="res://blocky_game/blocks/stairs/stairs_pz.obj" type="ArrayMesh" id=10]
 [ext_resource path="res://blocky_game/blocks/stairs/stairs_nz.obj" type="ArrayMesh" id=11]
+[ext_resource path="res://blocky_game/blocks/glass/glass.obj" type="ArrayMesh" id=12]
 
 [sub_resource type="Voxel" id=1]
 voxel_name = "air"
@@ -31,6 +32,14 @@ collision_aabbs = [ AABB( 0, 0, 0, 1, 1, 1 ) ]
 voxel_name = "stairs_pz"
 geometry_type = 2
 custom_mesh = ExtResource( 10 )
+collision_aabbs = [ AABB( 0, 0, 0, 1, 1, 1 ) ]
+
+[sub_resource type="Voxel" id=13]
+voxel_name = "glass"
+transparent = true
+material_id = 2
+geometry_type = 2
+custom_mesh = ExtResource( 12 )
 collision_aabbs = [ AABB( 0, 0, 0, 1, 1, 1 ) ]
 
 [sub_resource type="Voxel" id=5]
@@ -98,3 +107,4 @@ voxels/8 = SubResource( 11 )
 voxels/9 = SubResource( 12 )
 voxels/10 = SubResource( 3 )
 voxels/11 = SubResource( 4 )
+voxels/12 = SubResource( 13 )

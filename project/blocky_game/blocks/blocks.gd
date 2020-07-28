@@ -86,6 +86,14 @@ func _init():
 		"transparent": true,
 		"backface_culling": false
 	})
+	_create_block({
+		"name": "glass",
+		"gui_model": "glass.obj",
+		"rotation_type": ROTATION_TYPE_NONE,
+		"voxels": ["glass"],
+		"transparent": true,
+		"backface_culling": true
+	})
 
 
 func get_block(id: int) -> Block:
