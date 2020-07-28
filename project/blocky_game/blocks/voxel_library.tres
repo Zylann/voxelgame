@@ -22,24 +22,28 @@ collision_aabbs = [ AABB( 0, 0, 0, 1, 1, 1 ) ]
 voxel_name = "grass"
 geometry_type = 2
 custom_mesh = ExtResource( 1 )
+random_tickable = true
 collision_aabbs = [ AABB( 0, 0, 0, 1, 1, 1 ) ]
 
 [sub_resource type="Voxel" id=4]
 voxel_name = "log_x"
 geometry_type = 2
 custom_mesh = ExtResource( 4 )
+random_tickable = true
 collision_aabbs = [ AABB( 0, 0, 0, 1, 1, 1 ) ]
 
 [sub_resource type="Voxel" id=5]
 voxel_name = "log_y"
 geometry_type = 2
 custom_mesh = ExtResource( 3 )
+random_tickable = true
 collision_aabbs = [ AABB( 0, 0, 0, 1, 1, 1 ) ]
 
 [sub_resource type="Voxel" id=6]
 voxel_name = "log_z"
 geometry_type = 2
 custom_mesh = ExtResource( 5 )
+random_tickable = true
 collision_aabbs = [ AABB( 0, 0, 0, 1, 1, 1 ) ]
 
 [sub_resource type="Voxel" id=7]

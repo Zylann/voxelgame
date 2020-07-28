@@ -10,3 +10,4 @@ func _unhandled_input(event):
 			if event.scancode == KEY_L:
 				# Toggle shadows
 				_light.shadow_enabled = not _light.shadow_enabled
+

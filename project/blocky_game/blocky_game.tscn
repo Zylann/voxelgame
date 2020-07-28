@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://blocky_game/blocks/voxel_library.tres" type="VoxelLibrary" id=1]
 [ext_resource path="res://blocky_game/blocks/terrain_material.tres" type="Material" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://blocky_game/blocks/stairs/stairs_nx.obj" type="ArrayMesh" id=7]
 [ext_resource path="res://blocky_terrain/debug_info.gd" type="Script" id=8]
 [ext_resource path="res://blocky_game/blocks/terrain_material_foliage.tres" type="Material" id=9]
+[ext_resource path="res://blocky_game/random_ticks.gd" type="Script" id=10]
 
 [sub_resource type="ProceduralSky" id=1]
 sky_top_color = Color( 0.268204, 0.522478, 0.847656, 1 )
@@ -52,6 +53,7 @@ environment = SubResource( 2 )
 stream = SubResource( 3 )
 voxel_library = ExtResource( 1 )
 viewer_path = NodePath("../CharacterAvatar")
+generate_collisions = false
 material/0 = ExtResource( 2 )
 material/1 = ExtResource( 3 )
 material/2 = ExtResource( 9 )
@@ -65,6 +67,7 @@ script = ExtResource( 8 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7.3175 )
+visible = false
 mesh = ExtResource( 7 )
 material/0 = null
 
@@ -74,3 +77,6 @@ gravity = 40.0
 jump_force = 8.0
 head = NodePath("../CharacterAvatar/Camera")
 terrain = NodePath("../VoxelTerrain")
+
+[node name="RandomTicks" type="Node" parent="."]
+script = ExtResource( 10 )
