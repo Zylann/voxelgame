@@ -93,6 +93,13 @@ func get_block(id: int) -> Block:
 	return _blocks[id]
 
 
+func get_raw_mapping(raw_id: int) -> RawMapping:
+	assert(raw_id >= 0)
+	var rm = _raw_mappings[raw_id]
+	assert(rm != null)
+	return rm
+
+
 func get_block_count() -> int:
 	return len(_blocks)
 
@@ -104,6 +111,9 @@ func _create_block(params: Dictionary):
 		"backface_culling": true,
 		"directory": params.name
 	})
+
+	var block = Block.new()
+	block.id = len(_blocks)
 	
 	for i in len(params.voxels):
 		var vname = params.voxels[i]
@@ -112,9 +122,13 @@ func _create_block(params: Dictionary):
 			push_error("Could not find voxel named {0}".format([vname]))
 		assert(id != -1)
 		params.voxels[i] = id
+		var rm = RawMapping.new()
+		rm.block_id = block.id
+		rm.variant_index = i
+		if id >= len(_raw_mappings):
+			_raw_mappings.resize(id + 1)
+		_raw_mappings[id] = rm
 
-	var block = Block.new()
-	block.id = len(_blocks)
 	block.name = params.name
 	block.directory = params.directory
 	block.rotation_type = params.rotation_type

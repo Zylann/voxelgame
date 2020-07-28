@@ -35,3 +35,10 @@ func select_slot(i: int):
 func get_selected_block_type() -> int:
 	return _inventory[_inventory_index]
 
+
+func try_select_slot_by_block_id(block_id: int):
+	for i in len(_inventory):
+		var id = _inventory[i]
+		if id == block_id:
+			select_slot(i)
+			break

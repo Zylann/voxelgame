@@ -29,6 +29,7 @@ var _terrain_tool = null
 var _cursor = null
 var _action_place = false
 var _action_remove = false
+var _action_pick = false
 
 
 func _ready():
@@ -72,7 +73,8 @@ func _physics_process(delta):
 	
 	# These inputs have to be in _fixed_process because they rely on collision queries
 	if hit != null:
-		var has_cube = _terrain_tool.get_voxel(hit.position) != 0
+		var hit_raw_id = _terrain_tool.get_voxel(hit.position)
+		var has_cube = hit_raw_id != 0
 		
 		if _action_remove and has_cube:
 			var pos = hit.position
@@ -89,9 +91,14 @@ func _physics_process(delta):
 					print("Place voxel at ", pos)
 			else:
 				print("Can't place here!")
+		
+		elif _action_pick:
+			var rm := Blocks.get_raw_mapping(hit_raw_id)
+			_hotbar.try_select_slot_by_block_id(rm.block_id)
 
 	_action_place = false
 	_action_remove = false
+	_action_pick = false
 
 
 func _unhandled_input(event):
@@ -102,6 +109,8 @@ func _unhandled_input(event):
 					_action_remove = true
 				BUTTON_RIGHT:
 					_action_place = true
+				BUTTON_MIDDLE:
+					_action_pick = true
 
 	elif event is InputEventKey:
 		if event.pressed:
