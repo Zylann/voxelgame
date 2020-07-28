@@ -34,49 +34,49 @@ func _init():
 		"directory": "",
 		"gui_model": "",
 		"rotation_type": ROTATION_TYPE_NONE,
-		"voxels": [0],
+		"voxels": ["air"],
 		"transparent": true
 	})
 	_create_block({
 		"name": "dirt",
 		"gui_model": "dirt.obj",
 		"rotation_type": ROTATION_TYPE_NONE,
-		"voxels": [1],
+		"voxels": ["dirt"],
 		"transparent": false
 	})
 	_create_block({
 		"name": "grass",
 		"gui_model": "grass.obj",
 		"rotation_type": ROTATION_TYPE_NONE,
-		"voxels": [2],
+		"voxels": ["grass"],
 		"transparent": false
 	})
 	_create_block({
 		"name": "log",
 		"gui_model": "log_y.obj",
-		"rotation_type": ROTATION_TYPE_NONE,
-		"voxels": [3],
+		"rotation_type": ROTATION_TYPE_AXIAL,
+		"voxels": ["log_x", "log_y", "log_z"],
 		"transparent": false
 	})
 	_create_block({
 		"name": "planks",
 		"gui_model": "planks.obj",
 		"rotation_type": ROTATION_TYPE_NONE,
-		"voxels": [7],
+		"voxels": ["planks"],
 		"transparent": false
 	})
 	_create_block({
 		"name": "stairs",
 		"gui_model": "stairs_nx.obj",
 		"rotation_type": ROTATION_TYPE_NONE,
-		"voxels": [6],
+		"voxels": ["stairs_nx"],
 		"transparent": false
 	})
 	_create_block({
 		"name": "tall_grass",
 		"gui_model": "tall_grass.obj",
 		"rotation_type": ROTATION_TYPE_NONE,
-		"voxels": [8],
+		"voxels": ["tall_grass"],
 		"transparent": true,
 		"backface_culling": false
 	})
@@ -98,6 +98,14 @@ func _create_block(params: Dictionary):
 		"backface_culling": true,
 		"directory": params.name
 	})
+	
+	for i in len(params.voxels):
+		var vname = params.voxels[i]
+		var id = _voxel_library.get_voxel_index_from_name(vname)
+		if id == -1:
+			push_error("Could not find voxel named {0}".format([vname]))
+		assert(id != -1)
+		params.voxels[i] = id
 
 	var block = Block.new()
 	block.id = len(_blocks)
@@ -114,7 +122,7 @@ func _create_block(params: Dictionary):
 	_blocks.append(block)
 
 
-func _defaults(d, defaults):
+static func _defaults(d, defaults):
 	for k in defaults:
 		if not d.has(k):
 			d[k] = defaults[k]

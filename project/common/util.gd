@@ -84,3 +84,14 @@ static func get_triangle_normal(a: Vector3, b: Vector3, c: Vector3) -> Vector3:
 	var v = (a - c).normalized()
 	return v.cross(u)
 
+
+static func get_longest_axis(v: Vector3) -> int:
+	var lx = abs(v.x)
+	var ly = abs(v.y)
+	var lz = abs(v.z)
+	if lx > ly and lx > lz:
+		return Vector3.AXIS_X
+	if ly > lx and ly > lz:
+		return Vector3.AXIS_Y
+	return Vector3.AXIS_Z
+

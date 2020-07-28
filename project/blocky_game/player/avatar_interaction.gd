@@ -21,7 +21,7 @@ export(NodePath) var terrain_path = null
 export(Material) var cursor_material = null
 
 # TODO Eventually invert these dependencies
-onready var _head = get_parent().get_node("Camera")
+onready var _head : Camera = get_parent().get_node("Camera")
 onready var _hotbar = get_node("../HotBar")
 
 var _terrain = null
@@ -50,7 +50,7 @@ func _ready():
 	_terrain_tool = _terrain.get_voxel_tool()
 
 
-func get_pointed_voxel():
+func _get_pointed_voxel():
 	var origin = _head.get_global_transform().origin
 	var forward = -_head.get_transform().basis.z.normalized()
 	var hit = _terrain_tool.raycast(origin, forward, 10)
@@ -61,7 +61,7 @@ func _physics_process(delta):
 	if _terrain == null:
 		return
 	
-	var hit = get_pointed_voxel()
+	var hit = _get_pointed_voxel()
 	if hit != null:
 		_cursor.show()
 		_cursor.set_translation(hit.position)
@@ -82,7 +82,7 @@ func _physics_process(delta):
 			var pos = hit.previous_position
 			if has_cube == false:
 				pos = hit.position
-			if can_place_voxel_at(pos):
+			if _can_place_voxel_at(pos):
 				var block_id = _hotbar.get_selected_block_type()
 				if block_id != -1:
 					_place_single_block(pos, block_id)
@@ -110,7 +110,8 @@ func _unhandled_input(event):
 				_hotbar.select_slot(slot_index)
 
 
-func can_place_voxel_at(pos: Vector3):
+func _can_place_voxel_at(pos: Vector3):
+	# TODO Is it really relevant anymore? This demo doesn't use physics
 	var space_state = get_viewport().get_world().get_direct_space_state()
 	var params = PhysicsShapeQueryParameters.new()
 	params.collision_mask = COLLISION_LAYER_AVATAR
@@ -124,14 +125,26 @@ func can_place_voxel_at(pos: Vector3):
 
 
 func _place_single_block(pos: Vector3, block_id: int):
-	var block = Blocks.get_block(block_id)
-	var voxel_id = block.voxels[0]
-	# TODO Handle rotated variants etc
+	var block := Blocks.get_block(block_id)
+	var voxel_id := 0
+	
+	match block.rotation_type:
+		Blocks.ROTATION_TYPE_NONE:
+			voxel_id = block.voxels[0]
+			
+		Blocks.ROTATION_TYPE_AXIAL:
+			var look_dir := -_head.get_transform().basis.z
+			var axis := Util.get_longest_axis(look_dir)
+			voxel_id = block.voxels[axis]
+		
+		_:
+			# Unknown value
+			assert(false)
 	
 	_place_single_voxel(pos, voxel_id)
 
 
-func _place_single_voxel(pos, type):
+func _place_single_voxel(pos: Vector3, type: int):
 	_terrain_tool.channel = VoxelBuffer.CHANNEL_TYPE
 	_terrain_tool.value = type
 	_terrain_tool.do_point(pos)
