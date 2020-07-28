@@ -124,6 +124,22 @@ func _can_place_voxel_at(pos: Vector3):
 	return hits.size() == 0
 
 
+static func _get_y_rotation(dir: Vector3) -> int:
+	var a = Util.get_direction_id4(Vector2(dir.x, dir.z))
+	match a:
+		0:
+			return Blocks.ROTATION_Y_NEGATIVE_X
+		1:
+			return Blocks.ROTATION_Y_NEGATIVE_Z
+		2:
+			return Blocks.ROTATION_Y_POSITIVE_X
+		3:
+			return Blocks.ROTATION_Y_POSITIVE_Z
+		_:
+			assert(false)
+	return -1
+
+
 func _place_single_block(pos: Vector3, block_id: int):
 	var block := Blocks.get_block(block_id)
 	var voxel_id := 0
@@ -137,6 +153,10 @@ func _place_single_block(pos: Vector3, block_id: int):
 			var axis := Util.get_longest_axis(look_dir)
 			voxel_id = block.voxels[axis]
 		
+		Blocks.ROTATION_TYPE_Y:
+			var look_dir := -_head.get_transform().basis.z
+			var rot := _get_y_rotation(look_dir)
+			voxel_id = block.voxels[rot]
 		_:
 			# Unknown value
 			assert(false)

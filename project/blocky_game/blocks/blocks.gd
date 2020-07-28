@@ -2,6 +2,12 @@ extends Resource
 
 const ROTATION_TYPE_NONE = 0
 const ROTATION_TYPE_AXIAL = 1
+const ROTATION_TYPE_Y = 2
+
+const ROTATION_Y_NEGATIVE_X = 0
+const ROTATION_Y_NEGATIVE_Z = 1
+const ROTATION_Y_POSITIVE_X = 2
+const ROTATION_Y_POSITIVE_Z = 3
 
 const ROOT = "res://blocky_game/blocks"
 
@@ -68,8 +74,8 @@ func _init():
 	_create_block({
 		"name": "stairs",
 		"gui_model": "stairs_nx.obj",
-		"rotation_type": ROTATION_TYPE_NONE,
-		"voxels": ["stairs_nx"],
+		"rotation_type": ROTATION_TYPE_Y,
+		"voxels": ["stairs_nx", "stairs_nz", "stairs_px", "stairs_pz"],
 		"transparent": false
 	})
 	_create_block({

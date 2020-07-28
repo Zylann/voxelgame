@@ -95,3 +95,6 @@ static func get_longest_axis(v: Vector3) -> int:
 		return Vector3.AXIS_Y
 	return Vector3.AXIS_Z
 
+
+static func get_direction_id4(dir: Vector2) -> int:
+	return int(4.0 * (dir.rotated(PI / 4.0).angle() + PI) / TAU)
