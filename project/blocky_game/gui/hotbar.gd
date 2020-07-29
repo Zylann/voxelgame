@@ -20,6 +20,7 @@ func _ready():
 func select_slot(i: int):
 	if _inventory_index == i:
 		return
+	assert(i >= 0 and i < len(_inventory))
 	_inventory_index = i
 	
 	var block_id = _inventory[_inventory_index]
@@ -42,3 +43,19 @@ func try_select_slot_by_block_id(block_id: int):
 		if id == block_id:
 			select_slot(i)
 			break
+
+
+func select_next_slot():
+	var i = _inventory_index + 1
+	if i >= len(_inventory):
+		i = 0
+	select_slot(i)
+
+
+func select_previous_slot():
+	var i = _inventory_index - 1
+	if i < 0:
+		i = len(_inventory) - 1
+	select_slot(i)
+
+

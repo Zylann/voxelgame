@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://blocky_game/player/character_controller.gd" type="Script" id=1]
-[ext_resource path="res://common/mouse_look.gd" type="Script" id=2]
+[ext_resource path="res://blocky_game/player/avatar_camera.gd" type="Script" id=2]
 [ext_resource path="res://blocky_game/player/avatar_interaction.gd" type="Script" id=3]
 [ext_resource path="res://blocky_terrain/crosshair.png" type="Texture" id=4]
 [ext_resource path="res://blocky_terrain/center.gd" type="Script" id=5]
@@ -23,7 +23,7 @@ near = 0.1
 far = 500.0
 script = ExtResource( 2 )
 sensitivity = 0.3
-distance = 4.0
+distance = 0.0
 
 [node name="Interaction" type="Node" parent="."]
 script = ExtResource( 3 )

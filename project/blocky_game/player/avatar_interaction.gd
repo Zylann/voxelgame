@@ -111,6 +111,10 @@ func _unhandled_input(event):
 					_action_place = true
 				BUTTON_MIDDLE:
 					_action_pick = true
+				BUTTON_WHEEL_DOWN:
+					_hotbar.select_next_slot()
+				BUTTON_WHEEL_UP:
+					_hotbar.select_previous_slot()
 
 	elif event is InputEventKey:
 		if event.pressed:
