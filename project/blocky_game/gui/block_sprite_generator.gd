@@ -1,7 +1,12 @@
 extends Node
 
 const Blocks = preload("../blocks/blocks.gd")
-const BlocksAtlasTexture = preload("../blocks/terrain.png")
+
+const _materials = [
+	preload("res://blocky_game/blocks/terrain_material.tres"),
+	preload("res://blocky_game/blocks/terrain_material_transparent.tres"),
+	preload("res://blocky_game/blocks/terrain_material_foliage.tres")
+]
 
 onready var _viewport : Viewport = $Viewport
 onready var _mesh_instance : MeshInstance = $Viewport/MeshInstance
@@ -36,13 +41,10 @@ func _process(_delta):
 		if block.directory != "":
 			var gui_mesh = load(block.gui_model_path)
 			_mesh_instance.mesh = gui_mesh
-			var mat = SpatialMaterial.new()
-			mat.albedo_texture = BlocksAtlasTexture
+			var lib := _blocks.get_model_library()
+			var model = lib.get_voxel(block.voxels[0])
+			var mat = _materials[model.material_id]
 			_mesh_instance.material_override = mat
-			if block.transparent:
-				mat.params_use_alpha_scissor = true
-			if not block.backface_culling:
-				mat.params_cull_mode = SpatialMaterial.CULL_DISABLED
 
 	else:
 		set_process(false)

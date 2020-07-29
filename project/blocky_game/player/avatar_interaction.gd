@@ -175,6 +175,9 @@ func _place_single_block(pos: Vector3, block_id: int):
 			assert(false)
 	
 	_place_single_voxel(pos, voxel_id)
+	
+	var updater = get_node("../../Water")
+	updater.schedule(pos)
 
 
 func _place_single_voxel(pos: Vector3, type: int):

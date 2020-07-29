@@ -5,7 +5,7 @@ const Blocks = preload("../blocks/blocks.tres")
 onready var _selected_frame = $HBoxContainer/HotbarSlot/HotbarSlotSelect
 onready var _slot_container = $HBoxContainer
 
-var _inventory = [1, 2, 3, 4, 5, 6, 7, -1, -1]
+var _inventory = [1, 2, 3, 4, 5, 6, 7, 8, -1]
 var _inventory_index = 0
 
 

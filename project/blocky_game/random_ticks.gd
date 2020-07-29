@@ -6,7 +6,7 @@ extends Node
 # Takes effect in a large radius around the player
 const RADIUS = 100
 # How many voxels are affected per frame
-const VOXELS_PER_FRAME = 256
+const VOXELS_PER_FRAME = 512
 
 onready var _terrain = get_node("../VoxelTerrain")
 onready var _avatar = get_node("../CharacterAvatar")
@@ -64,19 +64,28 @@ func _process(delta):
 func _random_tick_callback(pos: Vector3, value: int):
 	if value == 2:
 		# Grass
-		var attempts = 1
-		var ra = randf()
-		if ra < 0.15:
-			attempts = 2
-			if ra < 0.03:
-				attempts = 3
-
-		for i in attempts:
-			for di in len(_grass_dirs):
-				var npos = pos + _grass_dirs[di]
-				var nv = _voxel_tool.get_voxel(npos)
-				if nv == 1:
-					var above = _voxel_tool.get_voxel(npos + Vector3(0, 1, 0))
-					if above == 0:
-						_voxel_tool.set_voxel(npos, 2)
-						break
+		
+		# Dying
+		var above = pos + Vector3(0, 1, 0)
+		var above_v = _voxel_tool.get_voxel(above)
+		if above_v != 0:
+			# Turn to dirt
+			_voxel_tool.set_voxel(pos, 1)
+		else:
+			# Spread
+			var attempts = 1
+			var ra = randf()
+			if ra < 0.15:
+				attempts = 2
+				if ra < 0.03:
+					attempts = 3
+	
+			for i in attempts:
+				for di in len(_grass_dirs):
+					var npos = pos + _grass_dirs[di]
+					var nv = _voxel_tool.get_voxel(npos)
+					if nv == 1:
+						var above_neighbor = _voxel_tool.get_voxel(npos + Vector3(0, 1, 0))
+						if above_neighbor == 0:
+							_voxel_tool.set_voxel(npos, 2)
+							break

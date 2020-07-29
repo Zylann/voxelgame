@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://blocky_game/blocks/voxel_library.tres" type="VoxelLibrary" id=1]
 [ext_resource path="res://blocky_game/blocks/terrain_material.tres" type="Material" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://blocky_terrain/debug_info.gd" type="Script" id=8]
 [ext_resource path="res://blocky_game/blocks/terrain_material_foliage.tres" type="Material" id=9]
 [ext_resource path="res://blocky_game/random_ticks.gd" type="Script" id=10]
+[ext_resource path="res://blocky_game/water.gd" type="Script" id=11]
 
 [sub_resource type="ProceduralSky" id=1]
 sky_top_color = Color( 0.268204, 0.522478, 0.847656, 1 )
@@ -80,3 +81,6 @@ terrain = NodePath("../VoxelTerrain")
 
 [node name="RandomTicks" type="Node" parent="."]
 script = ExtResource( 10 )
+
+[node name="Water" type="Node" parent="."]
+script = ExtResource( 11 )

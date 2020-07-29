@@ -11,6 +11,8 @@ const ROTATION_Y_POSITIVE_Z = 3
 
 const ROOT = "res://blocky_game/blocks"
 
+const AIR_ID = 0
+
 
 class Block:
 	var id := 0
@@ -94,11 +96,30 @@ func _init():
 		"transparent": true,
 		"backface_culling": true
 	})
+	_create_block({
+		"name": "water",
+		"gui_model": "water_full.obj",
+		"rotation_type": ROTATION_TYPE_NONE,
+		"voxels": ["water_full", "water_top"],
+		"transparent": true,
+		"backface_culling": true
+	})
 
 
 func get_block(id: int) -> Block:
 	assert(id >= 0)
 	return _blocks[id]
+
+
+func get_model_library() -> VoxelLibrary:
+	return _voxel_library
+
+
+func get_block_by_name(block_name: String) -> Block:
+	for b in _blocks:
+		if b.name == block_name:
+			return b
+	return null
 
 
 func get_raw_mapping(raw_id: int) -> RawMapping:
