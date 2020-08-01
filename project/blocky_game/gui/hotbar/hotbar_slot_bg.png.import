@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/hotbar_slot_select.png-d1839f7ebeb26f284be4e0064b0730af.stex"
+path="res://.import/hotbar_slot_bg.png-16853f9bca129e40f5c7668d19a09c7c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://blocky_game/gui/hotbar_slot_select.png"
-dest_files=[ "res://.import/hotbar_slot_select.png-d1839f7ebeb26f284be4e0064b0730af.stex" ]
+source_file="res://blocky_game/gui/hotbar/hotbar_slot_bg.png"
+dest_files=[ "res://.import/hotbar_slot_bg.png-16853f9bca129e40f5c7668d19a09c7c.stex" ]
 
 [params]
 

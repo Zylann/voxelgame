@@ -1,0 +1,61 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://blocky_game/gui/hotbar/hotbar.gd" type="Script" id=1]
+[ext_resource path="res://blocky_game/gui/hotbar/hotbar_slot_select.tscn" type="PackedScene" id=2]
+[ext_resource path="res://blocky_game/gui/hotbar/hotbar_slot.tscn" type="PackedScene" id=3]
+
+[node name="HotBar" type="CenterContainer"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -97.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_left = 208.0
+margin_top = 16.0
+margin_right = 816.0
+margin_bottom = 80.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HotbarSlot" parent="HBoxContainer" instance=ExtResource( 3 )]
+
+[node name="HotbarSlotSelect" parent="HBoxContainer/HotbarSlot" instance=ExtResource( 2 )]
+show_behind_parent = true
+
+[node name="HotbarSlot2" parent="HBoxContainer" instance=ExtResource( 3 )]
+margin_left = 68.0
+margin_right = 132.0
+
+[node name="HotbarSlot3" parent="HBoxContainer" instance=ExtResource( 3 )]
+margin_left = 136.0
+margin_right = 200.0
+
+[node name="HotbarSlot4" parent="HBoxContainer" instance=ExtResource( 3 )]
+margin_left = 204.0
+margin_right = 268.0
+
+[node name="HotbarSlot5" parent="HBoxContainer" instance=ExtResource( 3 )]
+margin_left = 272.0
+margin_right = 336.0
+
+[node name="HotbarSlot6" parent="HBoxContainer" instance=ExtResource( 3 )]
+margin_left = 340.0
+margin_right = 404.0
+
+[node name="HotbarSlot7" parent="HBoxContainer" instance=ExtResource( 3 )]
+margin_left = 408.0
+margin_right = 472.0
+
+[node name="HotbarSlot8" parent="HBoxContainer" instance=ExtResource( 3 )]
+margin_left = 476.0
+margin_right = 540.0
+
+[node name="HotbarSlot9" parent="HBoxContainer" instance=ExtResource( 3 )]
+margin_left = 544.0
+margin_right = 608.0

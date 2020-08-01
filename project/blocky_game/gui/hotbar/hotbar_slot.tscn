@@ -1,9 +1,8 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://blocky_game/blocks/dirt/dirt_sprite.png" type="Texture" id=1]
-[ext_resource path="res://blocky_game/gui/hotbar_slot.gd" type="Script" id=2]
-[ext_resource path="res://blocky_game/gui/hotbar_slot_bg.png" type="Texture" id=3]
-
+[ext_resource path="res://blocky_game/gui/hotbar/hotbar_slot.gd" type="Script" id=2]
+[ext_resource path="res://blocky_game/gui/hotbar/hotbar_slot_bg.png" type="Texture" id=3]
 
 [node name="HotbarSlot" type="Control"]
 margin_right = 64.0
