@@ -46,10 +46,10 @@ func _process(delta: float):
 	_time_before_next_process -= delta
 	if _time_before_next_process <= 0.0:
 		_time_before_next_process += INTERVAL_SECONDS
-		_process_queue()
+		_do_process_queue()
 
 
-func _process_queue():
+func _do_process_queue():
 	# TODO Sometimes things don't update... of course
 	var update_count = 0
 	
