@@ -1,6 +1,6 @@
 extends CenterContainer
 
-const Blocks = preload("../blocks/blocks.tres")
+const Blocks = preload("../../blocks/blocks.tres")
 
 onready var _selected_frame = $HBoxContainer/HotbarSlot/HotbarSlotSelect
 onready var _slot_container = $HBoxContainer

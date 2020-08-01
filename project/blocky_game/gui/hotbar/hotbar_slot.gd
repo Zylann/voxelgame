@@ -1,6 +1,6 @@
 extends Control
 
-const Blocks = preload("../blocks/blocks.tres")
+const Blocks = preload("../../blocks/blocks.tres")
 
 
 onready var _texture_rect = $TextureRect
