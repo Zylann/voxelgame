@@ -16,6 +16,7 @@ var _box_mover = VoxelBoxMover.new()
 
 
 func _ready():
+	_box_mover.set_collision_mask(1) # Excludes rails
 	_head = get_node(head)
 
 

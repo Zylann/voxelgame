@@ -75,6 +75,7 @@ material_id = 2
 geometry_type = 2
 custom_mesh = ExtResource( 20 )
 collision_aabbs = [ AABB( 0, 0, 0, 1, 0.125, 1 ) ]
+collision_mask = 2
 
 [sub_resource type="Voxel" id=9]
 voxel_name = "rail_z"
@@ -83,6 +84,7 @@ material_id = 2
 geometry_type = 2
 custom_mesh = ExtResource( 21 )
 collision_aabbs = [ AABB( 0, 0, 0, 1, 0.125, 1 ) ]
+collision_mask = 2
 
 [sub_resource type="Voxel" id=10]
 voxel_name = "rail_turn_nx"
@@ -91,6 +93,7 @@ material_id = 2
 geometry_type = 2
 custom_mesh = ExtResource( 22 )
 collision_aabbs = [ AABB( 0, 0, 0, 1, 0.125, 1 ) ]
+collision_mask = 2
 
 [sub_resource type="Voxel" id=11]
 voxel_name = "rail_turn_px"
@@ -99,6 +102,7 @@ material_id = 2
 geometry_type = 2
 custom_mesh = ExtResource( 18 )
 collision_aabbs = [ AABB( 0, 0, 0, 1, 0.125, 1 ) ]
+collision_mask = 2
 
 [sub_resource type="Voxel" id=12]
 voxel_name = "rail_turn_nz"
@@ -107,6 +111,7 @@ material_id = 2
 geometry_type = 2
 custom_mesh = ExtResource( 19 )
 collision_aabbs = [ AABB( 0, 0, 0, 1, 0.125, 1 ) ]
+collision_mask = 2
 
 [sub_resource type="Voxel" id=13]
 voxel_name = "grass"
@@ -122,6 +127,7 @@ material_id = 2
 geometry_type = 2
 custom_mesh = ExtResource( 23 )
 collision_aabbs = [ AABB( 0, 0, 0, 1, 0.125, 1 ) ]
+collision_mask = 2
 
 [sub_resource type="Voxel" id=15]
 voxel_name = "rail_slope_nx"
@@ -130,6 +136,7 @@ material_id = 2
 geometry_type = 2
 custom_mesh = ExtResource( 24 )
 collision_aabbs = [ AABB( 0, 0, 0, 1, 0.125, 1 ) ]
+collision_mask = 2
 
 [sub_resource type="Voxel" id=16]
 voxel_name = "rail_slope_px"
@@ -138,6 +145,7 @@ material_id = 2
 geometry_type = 2
 custom_mesh = ExtResource( 16 )
 collision_aabbs = [ AABB( 0, 0, 0, 1, 0.125, 1 ) ]
+collision_mask = 2
 
 [sub_resource type="Voxel" id=17]
 voxel_name = "rail_slope_nz"
@@ -146,6 +154,7 @@ material_id = 2
 geometry_type = 2
 custom_mesh = ExtResource( 15 )
 collision_aabbs = [ AABB( 0, 0, 0, 1, 0.125, 1 ) ]
+collision_mask = 2
 
 [sub_resource type="Voxel" id=18]
 voxel_name = "rail_slope_pz"
@@ -154,6 +163,7 @@ material_id = 2
 geometry_type = 2
 custom_mesh = ExtResource( 17 )
 collision_aabbs = [ AABB( 0, 0, 0, 1, 0.125, 1 ) ]
+collision_mask = 2
 
 [sub_resource type="Voxel" id=19]
 voxel_name = "log_x"
