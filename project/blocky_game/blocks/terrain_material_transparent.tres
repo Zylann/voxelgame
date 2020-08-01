@@ -4,7 +4,7 @@
 
 [resource]
 flags_transparent = true
+params_cull_mode = 2
 albedo_color = Color( 0.7, 0.7, 0.7, 1 )
 albedo_texture = ExtResource( 1 )
 roughness = 0.0
-params_cull_mode = 2

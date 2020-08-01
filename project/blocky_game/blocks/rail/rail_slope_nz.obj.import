@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/rail_slope_nz.obj-8083448a760d70792773053cd1e1633a.mesh"
+
+[deps]
+
+files=[ "res://.import/rail_slope_nz.obj-8083448a760d70792773053cd1e1633a.mesh" ]
+
+source_file="res://blocky_game/blocks/rail/rail_slope_nz.obj"
+dest_files=[ "res://.import/rail_slope_nz.obj-8083448a760d70792773053cd1e1633a.mesh", "res://.import/rail_slope_nz.obj-8083448a760d70792773053cd1e1633a.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

@@ -1,13 +1,30 @@
 extends Resource
 
+const Util = preload("res://common/util.gd")
+
 const ROTATION_TYPE_NONE = 0
 const ROTATION_TYPE_AXIAL = 1
 const ROTATION_TYPE_Y = 2
+const ROTATION_TYPE_CUSTOM_BEHAVIOR = 3
 
 const ROTATION_Y_NEGATIVE_X = 0
-const ROTATION_Y_NEGATIVE_Z = 1
-const ROTATION_Y_POSITIVE_X = 2
+const ROTATION_Y_POSITIVE_X = 1
+const ROTATION_Y_NEGATIVE_Z = 2
 const ROTATION_Y_POSITIVE_Z = 3
+
+const _opposite_y_rotation = [
+	ROTATION_Y_POSITIVE_X,
+	ROTATION_Y_NEGATIVE_X,
+	ROTATION_Y_POSITIVE_Z,
+	ROTATION_Y_NEGATIVE_Z
+]
+
+const _y_dir = [
+	Vector3(-1, 0, 0),
+	Vector3(1, 0, 0),
+	Vector3(0, 0, -1),
+	Vector3(0, 0, 1)
+]
 
 const ROOT = "res://blocky_game/blocks"
 
@@ -24,6 +41,7 @@ class Block:
 	var transparent := false
 	var backface_culling := true
 	var voxels := []
+	var behavior = null
 
 
 class RawMapping:
@@ -37,6 +55,7 @@ var _raw_mappings = []
 
 
 func _init():
+	print("Constructing blocks.gd")
 	_create_block({
 		"name": "air",
 		"directory": "",
@@ -104,6 +123,20 @@ func _init():
 		"transparent": true,
 		"backface_culling": true
 	})
+	_create_block({
+		"name": "rail",
+		"gui_model": "rail_x.obj",
+		"rotation_type": ROTATION_TYPE_CUSTOM_BEHAVIOR,
+		"voxels": [
+			# Order matters, see rail.gd
+			"rail_x", "rail_z",
+			"rail_turn_nx", "rail_turn_px", "rail_turn_nz", "rail_turn_pz",
+			"rail_slope_nx", "rail_slope_px","rail_slope_nz", "rail_slope_pz"
+		],
+		"transparent": true,
+		"backface_culling": true,
+		"behavior": "rail.gd"
+	})
 
 
 func get_block(id: int) -> Block:
@@ -122,6 +155,7 @@ func get_block_by_name(block_name: String) -> Block:
 	return null
 
 
+# Gets the corresponding block ID and variant index from a raw voxel value
 func get_raw_mapping(raw_id: int) -> RawMapping:
 	assert(raw_id >= 0)
 	var rm = _raw_mappings[raw_id]
@@ -138,7 +172,8 @@ func _create_block(params: Dictionary):
 		"rotation_type": ROTATION_TYPE_NONE,
 		"transparent": false,
 		"backface_culling": true,
-		"directory": params.name
+		"directory": params.name,
+		"behavior": ""
 	})
 
 	var block = Block.new()
@@ -168,7 +203,27 @@ func _create_block(params: Dictionary):
 		block.gui_model_path = str(ROOT, "/", params.directory, "/", params.gui_model)
 		var sprite_path = str(ROOT, "/", params.directory, "/", params.name, "_sprite.png")
 		block.sprite_texture = load(sprite_path)
+
+	if params.behavior != "":
+		var behavior_path := str(ROOT, "/", params.directory, "/", params.behavior)
+		call_deferred("_load_behavior", block, behavior_path)
+
 	_blocks.append(block)
+
+
+func _notification(what):
+	match what:
+		NOTIFICATION_PREDELETE:
+			print("Deleting blocks.gd")
+
+
+# TODO Find a better design.
+# Workaround for now... Godot can't finish loading blocks.tres,
+# because it has to load and reference block behavior scripts, which themselves
+# are const-referencing blocks.gd...
+func _load_behavior(block: Block, behavior_path: String):
+	var b = load(behavior_path)
+	block.behavior = b.new(block)
 
 
 static func _defaults(d, defaults):
@@ -176,3 +231,26 @@ static func _defaults(d, defaults):
 		if not d.has(k):
 			d[k] = defaults[k]
 
+
+static func get_y_rotation_from_look_dir(dir: Vector3) -> int:
+	var a = Util.get_direction_id4(Vector2(dir.x, dir.z))
+	match a:
+		0:
+			return ROTATION_Y_NEGATIVE_X
+		1:
+			return ROTATION_Y_NEGATIVE_Z
+		2:
+			return ROTATION_Y_POSITIVE_X
+		3:
+			return ROTATION_Y_POSITIVE_Z
+		_:
+			assert(false)
+	return -1
+
+
+static func get_y_dir_vec(yid: int) -> Vector3:
+	return _y_dir[yid]
+
+
+static func get_opposite_y_dir(yid: int) -> int:
+	return _opposite_y_rotation[yid]

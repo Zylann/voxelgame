@@ -1,4 +1,4 @@
-[gd_resource type="VoxelLibrary" load_steps=30 format=2]
+[gd_resource type="VoxelLibrary" load_steps=50 format=2]
 
 [ext_resource path="res://blocky_game/blocks/grass/grass.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://blocky_game/blocks/dirt/dirt.obj" type="ArrayMesh" id=2]
@@ -14,6 +14,16 @@
 [ext_resource path="res://blocky_game/blocks/glass/glass.obj" type="ArrayMesh" id=12]
 [ext_resource path="res://blocky_game/blocks/water/water_full.obj" type="ArrayMesh" id=13]
 [ext_resource path="res://blocky_game/blocks/water/water_top.obj" type="ArrayMesh" id=14]
+[ext_resource path="res://blocky_game/blocks/rail/rail_slope_nz.obj" type="ArrayMesh" id=15]
+[ext_resource path="res://blocky_game/blocks/rail/rail_slope_px.obj" type="ArrayMesh" id=16]
+[ext_resource path="res://blocky_game/blocks/rail/rail_slope_pz.obj" type="ArrayMesh" id=17]
+[ext_resource path="res://blocky_game/blocks/rail/rail_turn_px.obj" type="ArrayMesh" id=18]
+[ext_resource path="res://blocky_game/blocks/rail/rail_turn_nz.obj" type="ArrayMesh" id=19]
+[ext_resource path="res://blocky_game/blocks/rail/rail_x.obj" type="ArrayMesh" id=20]
+[ext_resource path="res://blocky_game/blocks/rail/rail_z.obj" type="ArrayMesh" id=21]
+[ext_resource path="res://blocky_game/blocks/rail/rail_turn_nx.obj" type="ArrayMesh" id=22]
+[ext_resource path="res://blocky_game/blocks/rail/rail_turn_pz.obj" type="ArrayMesh" id=23]
+[ext_resource path="res://blocky_game/blocks/rail/rail_slope_nx.obj" type="ArrayMesh" id=24]
 
 [sub_resource type="Voxel" id=1]
 voxel_name = "air"
@@ -59,52 +69,132 @@ geometry_type = 2
 custom_mesh = ExtResource( 13 )
 
 [sub_resource type="Voxel" id=8]
+voxel_name = "rail_x"
+transparent = true
+material_id = 2
+geometry_type = 2
+custom_mesh = ExtResource( 20 )
+collision_aabbs = [ AABB( 0, 0, 0, 1, 0.125, 1 ) ]
+
+[sub_resource type="Voxel" id=9]
+voxel_name = "rail_z"
+transparent = true
+material_id = 2
+geometry_type = 2
+custom_mesh = ExtResource( 21 )
+collision_aabbs = [ AABB( 0, 0, 0, 1, 0.125, 1 ) ]
+
+[sub_resource type="Voxel" id=10]
+voxel_name = "rail_turn_nx"
+transparent = true
+material_id = 2
+geometry_type = 2
+custom_mesh = ExtResource( 22 )
+collision_aabbs = [ AABB( 0, 0, 0, 1, 0.125, 1 ) ]
+
+[sub_resource type="Voxel" id=11]
+voxel_name = "rail_turn_px"
+transparent = true
+material_id = 2
+geometry_type = 2
+custom_mesh = ExtResource( 18 )
+collision_aabbs = [ AABB( 0, 0, 0, 1, 0.125, 1 ) ]
+
+[sub_resource type="Voxel" id=12]
+voxel_name = "rail_turn_nz"
+transparent = true
+material_id = 2
+geometry_type = 2
+custom_mesh = ExtResource( 19 )
+collision_aabbs = [ AABB( 0, 0, 0, 1, 0.125, 1 ) ]
+
+[sub_resource type="Voxel" id=13]
 voxel_name = "grass"
 random_tickable = true
 geometry_type = 2
 custom_mesh = ExtResource( 1 )
 collision_aabbs = [ AABB( 0, 0, 0, 1, 1, 1 ) ]
 
-[sub_resource type="Voxel" id=9]
+[sub_resource type="Voxel" id=14]
+voxel_name = "rail_turn_pz"
+transparent = true
+material_id = 2
+geometry_type = 2
+custom_mesh = ExtResource( 23 )
+collision_aabbs = [ AABB( 0, 0, 0, 1, 0.125, 1 ) ]
+
+[sub_resource type="Voxel" id=15]
+voxel_name = "rail_slope_nx"
+transparent = true
+material_id = 2
+geometry_type = 2
+custom_mesh = ExtResource( 24 )
+collision_aabbs = [ AABB( 0, 0, 0, 1, 0.125, 1 ) ]
+
+[sub_resource type="Voxel" id=16]
+voxel_name = "rail_slope_px"
+transparent = true
+material_id = 2
+geometry_type = 2
+custom_mesh = ExtResource( 16 )
+collision_aabbs = [ AABB( 0, 0, 0, 1, 0.125, 1 ) ]
+
+[sub_resource type="Voxel" id=17]
+voxel_name = "rail_slope_nz"
+transparent = true
+material_id = 2
+geometry_type = 2
+custom_mesh = ExtResource( 15 )
+collision_aabbs = [ AABB( 0, 0, 0, 1, 0.125, 1 ) ]
+
+[sub_resource type="Voxel" id=18]
+voxel_name = "rail_slope_pz"
+transparent = true
+material_id = 2
+geometry_type = 2
+custom_mesh = ExtResource( 17 )
+collision_aabbs = [ AABB( 0, 0, 0, 1, 0.125, 1 ) ]
+
+[sub_resource type="Voxel" id=19]
 voxel_name = "log_x"
 random_tickable = true
 geometry_type = 2
 custom_mesh = ExtResource( 4 )
 collision_aabbs = [ AABB( 0, 0, 0, 1, 1, 1 ) ]
 
-[sub_resource type="Voxel" id=10]
+[sub_resource type="Voxel" id=20]
 voxel_name = "log_y"
 random_tickable = true
 geometry_type = 2
 custom_mesh = ExtResource( 3 )
 collision_aabbs = [ AABB( 0, 0, 0, 1, 1, 1 ) ]
 
-[sub_resource type="Voxel" id=11]
+[sub_resource type="Voxel" id=21]
 voxel_name = "log_z"
 random_tickable = true
 geometry_type = 2
 custom_mesh = ExtResource( 5 )
 collision_aabbs = [ AABB( 0, 0, 0, 1, 1, 1 ) ]
 
-[sub_resource type="Voxel" id=12]
+[sub_resource type="Voxel" id=22]
 voxel_name = "stairs_nx"
 geometry_type = 2
 custom_mesh = ExtResource( 6 )
 collision_aabbs = [ AABB( 0, 0, 0, 1, 1, 1 ) ]
 
-[sub_resource type="Voxel" id=13]
+[sub_resource type="Voxel" id=23]
 voxel_name = "planks"
 geometry_type = 2
 custom_mesh = ExtResource( 7 )
 collision_aabbs = [ AABB( 0, 0, 0, 1, 1, 1 ) ]
 
-[sub_resource type="Voxel" id=14]
+[sub_resource type="Voxel" id=24]
 voxel_name = "tall_grass"
 material_id = 2
 geometry_type = 2
 custom_mesh = ExtResource( 8 )
 
-[sub_resource type="Voxel" id=15]
+[sub_resource type="Voxel" id=25]
 voxel_name = "stairs_nz"
 geometry_type = 2
 custom_mesh = ExtResource( 11 )
@@ -113,16 +203,26 @@ collision_aabbs = [ AABB( 0, 0, 0, 1, 1, 1 ) ]
 [resource]
 voxels/0 = SubResource( 1 )
 voxels/1 = SubResource( 2 )
-voxels/2 = SubResource( 8 )
-voxels/3 = SubResource( 9 )
-voxels/4 = SubResource( 10 )
-voxels/5 = SubResource( 11 )
-voxels/6 = SubResource( 12 )
-voxels/7 = SubResource( 13 )
-voxels/8 = SubResource( 14 )
-voxels/9 = SubResource( 15 )
+voxels/2 = SubResource( 13 )
+voxels/3 = SubResource( 19 )
+voxels/4 = SubResource( 20 )
+voxels/5 = SubResource( 21 )
+voxels/6 = SubResource( 22 )
+voxels/7 = SubResource( 23 )
+voxels/8 = SubResource( 24 )
+voxels/9 = SubResource( 25 )
 voxels/10 = SubResource( 3 )
 voxels/11 = SubResource( 4 )
 voxels/12 = SubResource( 5 )
 voxels/13 = SubResource( 6 )
 voxels/14 = SubResource( 7 )
+voxels/15 = SubResource( 8 )
+voxels/16 = SubResource( 9 )
+voxels/17 = SubResource( 10 )
+voxels/18 = SubResource( 11 )
+voxels/19 = SubResource( 12 )
+voxels/20 = SubResource( 14 )
+voxels/21 = SubResource( 15 )
+voxels/22 = SubResource( 16 )
+voxels/23 = SubResource( 17 )
+voxels/24 = SubResource( 18 )

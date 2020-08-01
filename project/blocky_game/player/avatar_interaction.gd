@@ -49,6 +49,7 @@ func _ready():
 	
 	_terrain.add_child(_cursor)
 	_terrain_tool = _terrain.get_voxel_tool()
+	_terrain_tool.channel = VoxelBuffer.CHANNEL_TYPE
 
 
 func _get_pointed_voxel():
@@ -137,51 +138,37 @@ func _can_place_voxel_at(pos: Vector3):
 	return hits.size() == 0
 
 
-static func _get_y_rotation(dir: Vector3) -> int:
-	var a = Util.get_direction_id4(Vector2(dir.x, dir.z))
-	match a:
-		0:
-			return Blocks.ROTATION_Y_NEGATIVE_X
-		1:
-			return Blocks.ROTATION_Y_NEGATIVE_Z
-		2:
-			return Blocks.ROTATION_Y_POSITIVE_X
-		3:
-			return Blocks.ROTATION_Y_POSITIVE_Z
-		_:
-			assert(false)
-	return -1
-
-
 func _place_single_block(pos: Vector3, block_id: int):
 	var block := Blocks.get_block(block_id)
 	var voxel_id := 0
-	
+	var look_dir := -_head.get_transform().basis.z
+
 	match block.rotation_type:
 		Blocks.ROTATION_TYPE_NONE:
 			voxel_id = block.voxels[0]
-			
+		
 		Blocks.ROTATION_TYPE_AXIAL:
-			var look_dir := -_head.get_transform().basis.z
 			var axis := Util.get_longest_axis(look_dir)
 			voxel_id = block.voxels[axis]
 		
 		Blocks.ROTATION_TYPE_Y:
-			var look_dir := -_head.get_transform().basis.z
-			var rot := _get_y_rotation(look_dir)
+			var rot := Blocks.get_y_rotation_from_look_dir(look_dir)
 			voxel_id = block.voxels[rot]
+
+		Blocks.ROTATION_TYPE_CUSTOM_BEHAVIOR:
+			block.behavior.place(_terrain_tool, pos, look_dir)
 		_:
 			# Unknown value
 			assert(false)
 	
-	_place_single_voxel(pos, voxel_id)
+	if block.rotation_type != Blocks.ROTATION_TYPE_CUSTOM_BEHAVIOR:
+		_place_single_voxel(pos, voxel_id)
 	
 	var updater = get_node("../../Water")
 	updater.schedule(pos)
 
 
 func _place_single_voxel(pos: Vector3, type: int):
-	_terrain_tool.channel = VoxelBuffer.CHANNEL_TYPE
 	_terrain_tool.value = type
 	_terrain_tool.do_point(pos)
 

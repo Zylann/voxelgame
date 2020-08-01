@@ -5,5 +5,5 @@
 [resource]
 params_cull_mode = 2
 params_use_alpha_scissor = true
-params_alpha_scissor_threshold = 0.98
+params_alpha_scissor_threshold = 0.6
 albedo_texture = ExtResource( 1 )
