@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://blocky_game/generator/test_tree_generator.gd" type="Script" id=1]
+
+[node name="Node" type="Node"]
+script = ExtResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 0.655427, 0.51168, -0.555516, 0, 0.735531, 0.677491, 0.755258, -0.444046, 0.482087, -4.3852, 14.6874, 18.075 )

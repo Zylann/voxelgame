@@ -3,7 +3,7 @@
 [ext_resource path="res://blocky_game/blocks/voxel_library.tres" type="VoxelLibrary" id=1]
 [ext_resource path="res://blocky_game/blocks/terrain_material.tres" type="Material" id=2]
 [ext_resource path="res://blocky_game/blocks/terrain_material_transparent.tres" type="Material" id=3]
-[ext_resource path="res://blocky_game/voxel_generator_noise_2d_blocky.tres" type="VoxelGeneratorNoise2D" id=4]
+[ext_resource path="res://blocky_game/generator/world_generator.tres" type="VoxelGenerator" id=4]
 [ext_resource path="res://blocky_game/blocky_game.gd" type="Script" id=5]
 [ext_resource path="res://blocky_game/player/character_avatar.tscn" type="PackedScene" id=6]
 [ext_resource path="res://blocky_game/blocks/stairs/stairs_nx.obj" type="ArrayMesh" id=7]
@@ -73,6 +73,7 @@ mesh = ExtResource( 7 )
 material/0 = null
 
 [node name="CharacterAvatar" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 64, 0 )
 speed = 6.0
 gravity = 40.0
 jump_force = 8.0
