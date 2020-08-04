@@ -3,6 +3,8 @@
 
 extends Node
 
+const VoxelLibraryResource = preload("./blocks/voxel_library.tres")
+
 # Takes effect in a large radius around the player
 const RADIUS = 100
 # How many voxels are affected per frame
@@ -41,8 +43,11 @@ var _grass_dirs = [
 	Vector3(1, -1, 1)
 ]
 
+var _tall_grass_type : int
+
 
 func _ready():
+	_tall_grass_type = VoxelLibraryResource.get_voxel_index_from_name("tall_grass")
 	_voxel_tool.set_channel(VoxelBuffer.CHANNEL_TYPE)
 
 
@@ -61,6 +66,10 @@ func _process(delta):
 	#print("Spent ", time_spent)
 
 
+func _makes_grass_die(raw_type: int) -> bool:
+	return raw_type != 0 and raw_type != _tall_grass_type
+
+
 func _random_tick_callback(pos: Vector3, value: int):
 	if value == 2:
 		# Grass
@@ -68,7 +77,7 @@ func _random_tick_callback(pos: Vector3, value: int):
 		# Dying
 		var above = pos + Vector3(0, 1, 0)
 		var above_v = _voxel_tool.get_voxel(above)
-		if above_v != 0:
+		if _makes_grass_die(above_v):
 			# Turn to dirt
 			_voxel_tool.set_voxel(pos, 1)
 		else:
@@ -86,6 +95,6 @@ func _random_tick_callback(pos: Vector3, value: int):
 					var nv = _voxel_tool.get_voxel(npos)
 					if nv == 1:
 						var above_neighbor = _voxel_tool.get_voxel(npos + Vector3(0, 1, 0))
-						if above_neighbor == 0:
+						if not _makes_grass_die(above_neighbor):
 							_voxel_tool.set_voxel(npos, 2)
 							break
