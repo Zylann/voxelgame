@@ -137,6 +137,13 @@ func _init():
 		"backface_culling": true,
 		"behavior": "rail.gd"
 	})
+	_create_block({
+		"name": "leaves",
+		"gui_model": "leaves.obj",
+		"rotation_type": ROTATION_TYPE_NONE,
+		"voxels": ["leaves"],
+		"transparent": true
+	})
 
 
 func get_block(id: int) -> Block:

@@ -1,4 +1,4 @@
-[gd_resource type="VoxelLibrary" load_steps=50 format=2]
+[gd_resource type="VoxelLibrary" load_steps=52 format=2]
 
 [ext_resource path="res://blocky_game/blocks/grass/grass.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://blocky_game/blocks/dirt/dirt.obj" type="ArrayMesh" id=2]
@@ -24,6 +24,7 @@
 [ext_resource path="res://blocky_game/blocks/rail/rail_turn_nx.obj" type="ArrayMesh" id=22]
 [ext_resource path="res://blocky_game/blocks/rail/rail_turn_pz.obj" type="ArrayMesh" id=23]
 [ext_resource path="res://blocky_game/blocks/rail/rail_slope_nx.obj" type="ArrayMesh" id=24]
+[ext_resource path="res://blocky_game/blocks/leaves/leaves.obj" type="ArrayMesh" id=25]
 
 [sub_resource type="Voxel" id=1]
 voxel_name = "air"
@@ -165,6 +166,14 @@ custom_mesh = ExtResource( 17 )
 collision_aabbs = [ AABB( 0, 0, 0, 1, 0.125, 1 ) ]
 collision_mask = 2
 
+[sub_resource type="Voxel" id=26]
+voxel_name = "leaves"
+transparent = true
+material_id = 2
+geometry_type = 2
+custom_mesh = ExtResource( 25 )
+collision_aabbs = [ AABB( 0, 0, 0, 1, 1, 1 ) ]
+
 [sub_resource type="Voxel" id=19]
 voxel_name = "log_x"
 random_tickable = true
@@ -236,3 +245,4 @@ voxels/21 = SubResource( 15 )
 voxels/22 = SubResource( 16 )
 voxels/23 = SubResource( 17 )
 voxels/24 = SubResource( 18 )
+voxels/25 = SubResource( 26 )
