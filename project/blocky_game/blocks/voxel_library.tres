@@ -1,4 +1,4 @@
-[gd_resource type="VoxelLibrary" load_steps=52 format=2]
+[gd_resource type="VoxelLibrary" load_steps=54 format=2]
 
 [ext_resource path="res://blocky_game/blocks/grass/grass.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://blocky_game/blocks/dirt/dirt.obj" type="ArrayMesh" id=2]
@@ -25,6 +25,7 @@
 [ext_resource path="res://blocky_game/blocks/rail/rail_turn_pz.obj" type="ArrayMesh" id=23]
 [ext_resource path="res://blocky_game/blocks/rail/rail_slope_nx.obj" type="ArrayMesh" id=24]
 [ext_resource path="res://blocky_game/blocks/leaves/leaves.obj" type="ArrayMesh" id=25]
+[ext_resource path="res://blocky_game/blocks/dead_shrub/dead_shrub.obj" type="ArrayMesh" id=26]
 
 [sub_resource type="Voxel" id=1]
 voxel_name = "air"
@@ -166,7 +167,7 @@ custom_mesh = ExtResource( 17 )
 collision_aabbs = [ AABB( 0, 0, 0, 1, 0.125, 1 ) ]
 collision_mask = 2
 
-[sub_resource type="Voxel" id=26]
+[sub_resource type="Voxel" id=19]
 voxel_name = "leaves"
 transparent = true
 material_id = 2
@@ -174,46 +175,52 @@ geometry_type = 2
 custom_mesh = ExtResource( 25 )
 collision_aabbs = [ AABB( 0, 0, 0, 1, 1, 1 ) ]
 
-[sub_resource type="Voxel" id=19]
+[sub_resource type="Voxel" id=27]
+voxel_name = "dead_shrub"
+material_id = 2
+geometry_type = 2
+custom_mesh = ExtResource( 26 )
+
+[sub_resource type="Voxel" id=20]
 voxel_name = "log_x"
 random_tickable = true
 geometry_type = 2
 custom_mesh = ExtResource( 4 )
 collision_aabbs = [ AABB( 0, 0, 0, 1, 1, 1 ) ]
 
-[sub_resource type="Voxel" id=20]
+[sub_resource type="Voxel" id=21]
 voxel_name = "log_y"
 random_tickable = true
 geometry_type = 2
 custom_mesh = ExtResource( 3 )
 collision_aabbs = [ AABB( 0, 0, 0, 1, 1, 1 ) ]
 
-[sub_resource type="Voxel" id=21]
+[sub_resource type="Voxel" id=22]
 voxel_name = "log_z"
 random_tickable = true
 geometry_type = 2
 custom_mesh = ExtResource( 5 )
 collision_aabbs = [ AABB( 0, 0, 0, 1, 1, 1 ) ]
 
-[sub_resource type="Voxel" id=22]
+[sub_resource type="Voxel" id=23]
 voxel_name = "stairs_nx"
 geometry_type = 2
 custom_mesh = ExtResource( 6 )
 collision_aabbs = [ AABB( 0, 0, 0, 1, 1, 1 ) ]
 
-[sub_resource type="Voxel" id=23]
+[sub_resource type="Voxel" id=24]
 voxel_name = "planks"
 geometry_type = 2
 custom_mesh = ExtResource( 7 )
 collision_aabbs = [ AABB( 0, 0, 0, 1, 1, 1 ) ]
 
-[sub_resource type="Voxel" id=24]
+[sub_resource type="Voxel" id=25]
 voxel_name = "tall_grass"
 material_id = 2
 geometry_type = 2
 custom_mesh = ExtResource( 8 )
 
-[sub_resource type="Voxel" id=25]
+[sub_resource type="Voxel" id=26]
 voxel_name = "stairs_nz"
 geometry_type = 2
 custom_mesh = ExtResource( 11 )
@@ -223,13 +230,13 @@ collision_aabbs = [ AABB( 0, 0, 0, 1, 1, 1 ) ]
 voxels/0 = SubResource( 1 )
 voxels/1 = SubResource( 2 )
 voxels/2 = SubResource( 13 )
-voxels/3 = SubResource( 19 )
-voxels/4 = SubResource( 20 )
-voxels/5 = SubResource( 21 )
-voxels/6 = SubResource( 22 )
-voxels/7 = SubResource( 23 )
-voxels/8 = SubResource( 24 )
-voxels/9 = SubResource( 25 )
+voxels/3 = SubResource( 20 )
+voxels/4 = SubResource( 21 )
+voxels/5 = SubResource( 22 )
+voxels/6 = SubResource( 23 )
+voxels/7 = SubResource( 24 )
+voxels/8 = SubResource( 25 )
+voxels/9 = SubResource( 26 )
 voxels/10 = SubResource( 3 )
 voxels/11 = SubResource( 4 )
 voxels/12 = SubResource( 5 )
@@ -245,4 +252,5 @@ voxels/21 = SubResource( 15 )
 voxels/22 = SubResource( 16 )
 voxels/23 = SubResource( 17 )
 voxels/24 = SubResource( 18 )
-voxels/25 = SubResource( 26 )
+voxels/25 = SubResource( 19 )
+voxels/26 = SubResource( 27 )

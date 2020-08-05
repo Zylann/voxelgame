@@ -144,6 +144,14 @@ func _init():
 		"voxels": ["leaves"],
 		"transparent": true
 	})
+	_create_block({
+		"name": "dead_shrub",
+		"gui_model": "dead_shrub.obj",
+		"rotation_type": ROTATION_TYPE_NONE,
+		"voxels": ["dead_shrub"],
+		"transparent": true,
+		"backface_culling": false
+	})
 
 
 func get_block(id: int) -> Block:

@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/dead_shrub.obj-4db4a9c737c4cc4564f5f637fbf26f2d.mesh"
+
+[deps]
+
+files=[ "res://.import/dead_shrub.obj-4db4a9c737c4cc4564f5f637fbf26f2d.mesh" ]
+
+source_file="res://blocky_game/blocks/dead_shrub/dead_shrub.obj"
+dest_files=[ "res://.import/dead_shrub.obj-4db4a9c737c4cc4564f5f637fbf26f2d.mesh", "res://.import/dead_shrub.obj-4db4a9c737c4cc4564f5f637fbf26f2d.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true
