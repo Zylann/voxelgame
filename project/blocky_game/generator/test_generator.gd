@@ -2,12 +2,13 @@ extends Node
 
 
 const Generator = preload("./generator.gd")
+const Util = preload("res://common/util.gd")
 const VoxelLibraryResource = preload("../blocks/voxel_library.tres")
 
 const _materials = [
 	preload("../blocks/terrain_material.tres"),
-	preload("../blocks/terrain_material_foliage.tres"),
-	preload("../blocks/terrain_material_transparent.tres")
+	preload("../blocks/terrain_material_transparent.tres"),
+	preload("../blocks/terrain_material_foliage.tres")
 ]
 
 
@@ -20,6 +21,12 @@ var _generator = Generator.new()
 func _ready():
 	VoxelLibraryResource.bake()
 	_generate()
+	
+	var wireframe = Util.create_wirecube_mesh()
+	var wireframe_instance = MeshInstance.new()
+	wireframe_instance.mesh = wireframe
+	wireframe_instance.scale = Vector3(16, 16, 16)
+	add_child(wireframe_instance)
 
 
 func _input(event):
@@ -39,6 +46,12 @@ func _input(event):
 					_generate()
 				KEY_UP:
 					_origin.z += 16
+					_generate()
+				KEY_PAGEUP:
+					_origin.y += 16
+					_generate()
+				KEY_PAGEDOWN:
+					_origin.y -= 16
 					_generate()
 
 

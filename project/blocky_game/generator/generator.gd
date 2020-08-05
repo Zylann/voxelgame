@@ -3,6 +3,7 @@ extends VoxelGenerator
 
 const Structure = preload("./structure.gd")
 const TreeGenerator = preload("./tree_generator.gd")
+const HeightmapCurve = preload("./heightmap_curve.tres")
 
 # TODO Don't hardcode, get by name from library somehow
 const AIR = 0
@@ -13,6 +14,7 @@ const WATER_TOP = 13
 const LOG = 4
 const LEAVES = 25
 const TALL_GRASS = 8
+const DEAD_SHRUB = 26
 #const STONE = 8
 
 const _CHANNEL = VoxelBuffer.CHANNEL_TYPE
@@ -31,8 +33,8 @@ const _moore_dirs = [
 
 var _tree_structures := []
 
-var _heightmap_min_y := -32
-var _heightmap_max_y := 64
+var _heightmap_min_y := int(HeightmapCurve.min_value)
+var _heightmap_max_y := int(HeightmapCurve.max_value)
 var _heightmap_range := 0
 var _heightmap_noise := OpenSimplexNoise.new()
 var _trees_min_y := 0
@@ -96,21 +98,36 @@ func generate_block(buffer: VoxelBuffer, origin_in_voxels: Vector3, lod: int):
 			gx = int(origin_in_voxels.x)
 
 			for x in block_size:
-				var h := _get_height_at(gx, gz)
-				var rh := h - oy
-
-				if rh > block_size:
+				var height := _get_height_at(gx, gz)
+				var relative_height := height - oy
+				
+				# Dirt and grass
+				if relative_height > block_size:
 					buffer.fill_area(DIRT,
 						Vector3(x, 0, z), Vector3(x + 1, block_size, z + 1), _CHANNEL)
-				elif rh > 0:
+				elif relative_height > 0:
 					buffer.fill_area(DIRT,
-						Vector3(x, 0, z), Vector3(x + 1, rh, z + 1), _CHANNEL)
-					if h > 0:
-						buffer.set_voxel(GRASS, x, rh - 1, z, _CHANNEL)
-						if rh < block_size and rng.randf() < 0.2:
-							buffer.set_voxel(TALL_GRASS, x, rh, z, _CHANNEL)
-							
-					# TODO Tall grass
+						Vector3(x, 0, z), Vector3(x + 1, relative_height, z + 1), _CHANNEL)
+					if height >= 0:
+						buffer.set_voxel(GRASS, x, relative_height - 1, z, _CHANNEL)
+						if relative_height < block_size and rng.randf() < 0.2:
+							var foliage = TALL_GRASS
+							if rng.randf() < 0.1:
+								foliage = DEAD_SHRUB
+							buffer.set_voxel(foliage, x, relative_height, z, _CHANNEL)
+				
+				# Water
+				if height < 0 and oy < 0:
+					var start_relative_height := 0
+					if relative_height > 0:
+						start_relative_height = relative_height
+					buffer.fill_area(WATER_FULL,
+						Vector3(x, start_relative_height, z), 
+						Vector3(x + 1, block_size, z + 1), _CHANNEL)
+					if oy + block_size == 0:
+						# Surface block
+						buffer.set_voxel(WATER_TOP, x, block_size - 1, z, _CHANNEL)
+						
 
 				gx += 1
 
@@ -168,5 +185,5 @@ static func get_chunk_seed_2d(cpos: Vector3) -> int:
 
 
 func _get_height_at(x: int, z: int) -> int:
-	return int(_heightmap_min_y + _heightmap_range \
-		* (0.5 + 0.5 * _heightmap_noise.get_noise_2d(x, z)))
+	var t = 0.5 + 0.5 * _heightmap_noise.get_noise_2d(x, z)
+	return int(HeightmapCurve.interpolate_baked(t))
