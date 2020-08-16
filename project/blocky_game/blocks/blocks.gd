@@ -1,5 +1,10 @@
-extends Resource
+# Container for all block types.
+# It is not a resource because it references scripts that can depend on it,
+# causing cycles. So instead, it's more convenient to make it a node in the tree.
+# IMPORTANT: Needs to be first in tree. Other nodes may use it in _ready().
+extends Node
 
+const Block = preload("./block.gd")
 const Util = preload("res://common/util.gd")
 
 const ROTATION_TYPE_NONE = 0
@@ -29,20 +34,6 @@ const _y_dir = [
 const ROOT = "res://blocky_game/blocks"
 
 const AIR_ID = 0
-
-
-class Block:
-	var id := 0
-	var name := ""
-	var gui_model_path := ""
-	var directory := ""
-	var rotation_type := ROTATION_TYPE_NONE
-	var sprite_texture : Texture
-	var transparent := false
-	var backface_culling := true
-	var voxels := []
-	var behavior = null
-
 
 class RawMapping:
 	var block_id := 0
@@ -165,8 +156,9 @@ func get_model_library() -> VoxelLibrary:
 
 func get_block_by_name(block_name: String) -> Block:
 	for b in _blocks:
-		if b.name == block_name:
+		if b.base_info.name == block_name:
 			return b
+	assert(false)
 	return null
 
 
@@ -191,8 +183,19 @@ func _create_block(params: Dictionary):
 		"behavior": ""
 	})
 
-	var block = Block.new()
-	block.id = len(_blocks)
+	var block : Block
+	if params.behavior != "":
+		# Block with special behavior
+		var behavior_path := str(ROOT, "/", params.directory, "/", params.behavior)
+		var behavior = load(behavior_path)
+		block = behavior.new()
+	else:
+		# Generic
+		block = Block.new()
+
+	# Fill in base info
+	var base_info = block.base_info
+	base_info.id = len(_blocks)
 	
 	for i in len(params.voxels):
 		var vname = params.voxels[i]
@@ -202,43 +205,31 @@ func _create_block(params: Dictionary):
 		assert(id != -1)
 		params.voxels[i] = id
 		var rm = RawMapping.new()
-		rm.block_id = block.id
+		rm.block_id = base_info.id
 		rm.variant_index = i
 		if id >= len(_raw_mappings):
 			_raw_mappings.resize(id + 1)
 		_raw_mappings[id] = rm
 
-	block.name = params.name
-	block.directory = params.directory
-	block.rotation_type = params.rotation_type
-	block.voxels = params.voxels
-	block.transparent = params.transparent
-	block.backface_culling = params.backface_culling
-	if block.directory != "":
-		block.gui_model_path = str(ROOT, "/", params.directory, "/", params.gui_model)
+	base_info.name = params.name
+	base_info.directory = params.directory
+	base_info.rotation_type = params.rotation_type
+	base_info.voxels = params.voxels
+	base_info.transparent = params.transparent
+	base_info.backface_culling = params.backface_culling
+	if base_info.directory != "":
+		base_info.gui_model_path = str(ROOT, "/", params.directory, "/", params.gui_model)
 		var sprite_path = str(ROOT, "/", params.directory, "/", params.name, "_sprite.png")
-		block.sprite_texture = load(sprite_path)
-
-	if params.behavior != "":
-		var behavior_path := str(ROOT, "/", params.directory, "/", params.behavior)
-		call_deferred("_load_behavior", block, behavior_path)
+		base_info.sprite_texture = load(sprite_path)
 
 	_blocks.append(block)
+	add_child(block)
 
 
 func _notification(what):
 	match what:
 		NOTIFICATION_PREDELETE:
 			print("Deleting blocks.gd")
-
-
-# TODO Find a better design.
-# Workaround for now... Godot can't finish loading blocks.tres,
-# because it has to load and reference block behavior scripts, which themselves
-# are const-referencing blocks.gd...
-func _load_behavior(block: Block, behavior_path: String):
-	var b = load(behavior_path)
-	block.behavior = b.new(block)
 
 
 static func _defaults(d, defaults):

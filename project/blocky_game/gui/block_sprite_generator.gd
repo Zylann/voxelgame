@@ -15,6 +15,10 @@ var _current_block_id := -1
 var _blocks := Blocks.new()
 
 
+func _ready():
+	add_child(_blocks)
+
+
 func _process(_delta):
 	print("Block ", _current_block_id)
 

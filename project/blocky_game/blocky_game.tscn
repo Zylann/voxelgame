@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://blocky_game/blocks/voxel_library.tres" type="VoxelLibrary" id=1]
 [ext_resource path="res://blocky_game/blocks/terrain_material.tres" type="Material" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://blocky_game/blocks/terrain_material_foliage.tres" type="Material" id=9]
 [ext_resource path="res://blocky_game/random_ticks.gd" type="Script" id=10]
 [ext_resource path="res://blocky_game/water.gd" type="Script" id=11]
+[ext_resource path="res://blocky_game/blocks/blocks.gd" type="Script" id=12]
 
 [sub_resource type="ProceduralSky" id=1]
 sky_top_color = Color( 0.268204, 0.522478, 0.847656, 1 )
@@ -47,6 +48,9 @@ directory = "res://blocky_game/save"
 [node name="Main" type="Node"]
 script = ExtResource( 5 )
 
+[node name="Blocks" type="Node" parent="."]
+script = ExtResource( 12 )
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 2 )
 
@@ -55,6 +59,7 @@ stream = SubResource( 3 )
 voxel_library = ExtResource( 1 )
 viewer_path = NodePath("../CharacterAvatar")
 generate_collisions = false
+run_stream_in_editor = false
 material/0 = ExtResource( 2 )
 material/1 = ExtResource( 3 )
 material/2 = ExtResource( 9 )

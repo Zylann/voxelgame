@@ -1,7 +1,7 @@
+extends "../block.gd"
 
-# TODO Check if this import causes a cyclic reference, hopefully not
-const Blocks = preload("../blocks.tres")
 const Util = preload("res://common/util.gd")
+const Blocks = preload("../blocks.gd")
 
 const _STRAIGHT = 0
 const _TURN = 2
@@ -63,15 +63,8 @@ const _auto_orient_table = [               # -x | +x | -z | +z
 ]
 
 
-var _variants : Array
-var _rail_block_id : int
-
-
-func _init(b):
-	# TODO Can't store whole block info, it would cause a cyclic reference.
-	# Need to think about a better design eventually.
-	_variants = b.voxels
-	_rail_block_id = b.id
+func _get_blocks() -> Blocks:
+	return get_parent() as Blocks
 
 
 func place(voxel_tool: VoxelTool, pos: Vector3, look_dir: Vector3):
@@ -94,7 +87,7 @@ func place(voxel_tool: VoxelTool, pos: Vector3, look_dir: Vector3):
 	
 	# Orient and place rail
 	var variant_index := _get_auto_oriented_variant(pos, available_neighbors, look_dir)
-	voxel_tool.set_voxel(pos, _variants[variant_index])
+	voxel_tool.set_voxel(pos, base_info.voxels[variant_index])
 	
 	# Orient neighbors
 	for di in available_neighbors:
@@ -109,7 +102,7 @@ func place(voxel_tool: VoxelTool, pos: Vector3, look_dir: Vector3):
 
 		var nn := _find_neighbor_rails(voxel_tool, neighbor.pos, connected_dirs)
 		var neighbor_variant_index := _get_auto_oriented_variant(neighbor.pos, nn, Vector3())
-		voxel_tool.set_voxel(neighbor.pos, _variants[neighbor_variant_index])
+		voxel_tool.set_voxel(neighbor.pos, base_info.voxels[neighbor_variant_index])
 
 
 static func _get_auto_oriented_variant(
@@ -138,6 +131,7 @@ static func _get_auto_oriented_variant(
 
 func _find_neighbor_rails(voxel_tool: VoxelTool, pos: Vector3, direction_list: Array) -> Dictionary:
 	var neighbors := {}
+	var blocks := _get_blocks()
 
 	# We only want to keep one rail per direction.
 	# Priority is given to rails at the same level, then upward, then downward.
@@ -150,13 +144,13 @@ func _find_neighbor_rails(voxel_tool: VoxelTool, pos: Vector3, direction_list: A
 			var npos := pos + Blocks.get_y_dir_vec(di)
 			npos.y += dy
 			var nv := voxel_tool.get_voxel(npos)
-			var nrm := Blocks.get_raw_mapping(nv)
+			var nrm := blocks.get_raw_mapping(nv)
 
-			if nrm.block_id == _rail_block_id:
+			if nrm.block_id == base_info.id:
 				var group := _get_group_from_index(nrm.variant_index)
 				# Decode rail
 				neighbors[di] = {
-					#"id": nrm.block_id,
+					"id": nrm.block_id,
 					"group": group,
 					"rotation": nrm.variant_index - group,
 					"pos": npos

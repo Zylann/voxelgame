@@ -1,6 +1,6 @@
 extends Node
 
-const Blocks = preload("./blocks/blocks.tres")
+const Blocks = preload("./blocks/blocks.gd")
 
 const MAX_UPDATES_PER_FRAME = 64
 const INTERVAL_SECONDS = 0.2
@@ -15,8 +15,9 @@ const _spread_directions = [
 
 onready var _terrain : VoxelTerrain = get_node("../VoxelTerrain")
 onready var _terrain_tool := _terrain.get_voxel_tool()
+onready var _blocks : Blocks = get_node("../Blocks")
 
-# TODO An efficient Queue data structure would ne NICE
+# TODO An efficient Queue data structure would be NICE
 var _update_queue := []
 var _process_queue := []
 var _process_index := 0
@@ -29,7 +30,7 @@ var _time_before_next_process := 0.0
 
 func _ready():
 	_terrain_tool.set_channel(VoxelBuffer.CHANNEL_TYPE)
-	var water = Blocks.get_block_by_name("water")
+	var water = _blocks.get_block_by_name("water").base_info
 	_water_id = water.id
 	_water_full = water.voxels[0]
 	_water_top = water.voxels[1]
@@ -84,7 +85,7 @@ func _swap_queues():
 
 func _process_cell(pos: Vector3):
 	var v := _terrain_tool.get_voxel(pos)
-	var rm := Blocks.get_raw_mapping(v)
+	var rm := _blocks.get_raw_mapping(v)
 	
 	if rm.block_id != _water_id:
 		# Water got removed in the meantime
@@ -107,7 +108,7 @@ func _fill_with_water(pos: Vector3):
 	var below := pos - Vector3(0, 1, 0)
 	var above_v := _terrain_tool.get_voxel(above)
 	var below_v := _terrain_tool.get_voxel(below)
-	var above_rm := Blocks.get_raw_mapping(above_v)
+	var above_rm := _blocks.get_raw_mapping(above_v)
 	# Make sure the top has the surface model
 	if above_rm.block_id == _water_id:
 		_terrain_tool.set_voxel(pos, _water_full)

@@ -1,7 +1,7 @@
 extends Node
 
 const Util = preload("res://common/util.gd")
-const Blocks = preload("../blocks/blocks.tres")
+const Blocks = preload("../blocks/blocks.gd")
 
 const COLLISION_LAYER_AVATAR = 2
 
@@ -23,6 +23,8 @@ export(Material) var cursor_material = null
 # TODO Eventually invert these dependencies
 onready var _head : Camera = get_parent().get_node("Camera")
 onready var _hotbar = get_node("../HotBar")
+onready var _block_types : Blocks = get_node("/root/Main/Blocks")
+onready var _water_updater = get_node("../../Water")
 
 var _terrain = null
 var _terrain_tool = null
@@ -94,7 +96,7 @@ func _physics_process(delta):
 				print("Can't place here!")
 		
 		elif _action_pick:
-			var rm := Blocks.get_raw_mapping(hit_raw_id)
+			var rm := _block_types.get_raw_mapping(hit_raw_id)
 			_hotbar.try_select_slot_by_block_id(rm.block_id)
 
 	_action_place = false
@@ -139,33 +141,32 @@ func _can_place_voxel_at(pos: Vector3):
 
 
 func _place_single_block(pos: Vector3, block_id: int):
-	var block := Blocks.get_block(block_id)
+	var block := _block_types.get_block(block_id)
 	var voxel_id := 0
 	var look_dir := -_head.get_transform().basis.z
 
-	match block.rotation_type:
+	match block.base_info.rotation_type:
 		Blocks.ROTATION_TYPE_NONE:
-			voxel_id = block.voxels[0]
+			voxel_id = block.base_info.voxels[0]
 		
 		Blocks.ROTATION_TYPE_AXIAL:
 			var axis := Util.get_longest_axis(look_dir)
-			voxel_id = block.voxels[axis]
+			voxel_id = block.base_info.voxels[axis]
 		
 		Blocks.ROTATION_TYPE_Y:
 			var rot := Blocks.get_y_rotation_from_look_dir(look_dir)
-			voxel_id = block.voxels[rot]
+			voxel_id = block.base_info.voxels[rot]
 
 		Blocks.ROTATION_TYPE_CUSTOM_BEHAVIOR:
-			block.behavior.place(_terrain_tool, pos, look_dir)
+			block.place(_terrain_tool, pos, look_dir)
 		_:
 			# Unknown value
 			assert(false)
 	
-	if block.rotation_type != Blocks.ROTATION_TYPE_CUSTOM_BEHAVIOR:
+	if block.base_info.rotation_type != Blocks.ROTATION_TYPE_CUSTOM_BEHAVIOR:
 		_place_single_voxel(pos, voxel_id)
 	
-	var updater = get_node("../../Water")
-	updater.schedule(pos)
+	_water_updater.schedule(pos)
 
 
 func _place_single_voxel(pos: Vector3, type: int):

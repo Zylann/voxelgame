@@ -1,12 +1,11 @@
 extends CenterContainer
 
-const Blocks = preload("../../blocks/blocks.tres")
-
 onready var _selected_frame = $HBoxContainer/HotbarSlot/HotbarSlotSelect
 onready var _slot_container = $HBoxContainer
+onready var _block_types = get_node("/root/Main/Blocks")
 
-var _inventory = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-var _inventory_index = 0
+var _inventory := [1, 2, 3, 4, 5, 6, 7, 8, 9]
+var _inventory_index := 0
 
 
 func _ready():
@@ -25,8 +24,8 @@ func select_slot(i: int):
 	
 	var block_id = _inventory[_inventory_index]
 	if block_id != -1:
-		var block = Blocks.get_block(block_id)
-		print("Inventory select ", block.name)
+		var block = _block_types.get_block(block_id)
+		print("Inventory select ", block.base_info.name)
 	
 	_selected_frame.get_parent().remove_child(_selected_frame)
 	var slot = _slot_container.get_child(i)
