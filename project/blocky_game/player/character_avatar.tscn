@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://blocky_game/player/character_controller.gd" type="Script" id=1]
 [ext_resource path="res://blocky_game/player/avatar_camera.gd" type="Script" id=2]
@@ -6,11 +6,9 @@
 [ext_resource path="res://blocky_terrain/crosshair.png" type="Texture" id=4]
 [ext_resource path="res://blocky_terrain/center.gd" type="Script" id=5]
 [ext_resource path="res://blocky_game/gui/hotbar/hotbar.tscn" type="PackedScene" id=6]
+[ext_resource path="res://blocky_game/gui/inventory/inventory.tscn" type="PackedScene" id=7]
 
-
-
-
-[sub_resource type="CubeMesh" id=2]
+[sub_resource type="CubeMesh" id=1]
 size = Vector3( 0.8, 1.8, 0.8 )
 
 [node name="CharacterAvatar" type="Spatial"]
@@ -24,7 +22,6 @@ near = 0.1
 far = 500.0
 script = ExtResource( 2 )
 sensitivity = 0.3
-distance = 0.0
 
 [node name="Interaction" type="Node" parent="."]
 script = ExtResource( 3 )
@@ -43,7 +40,7 @@ omni_range = 10.0
 omni_attenuation = 2.54912
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-mesh = SubResource( 2 )
+mesh = SubResource( 1 )
 material/0 = null
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
@@ -63,3 +60,8 @@ mouse_filter = 2
 texture = ExtResource( 4 )
 
 [node name="HotBar" parent="." instance=ExtResource( 6 )]
+
+[node name="Inventory" parent="." instance=ExtResource( 7 )]
+visible = false
+color = Color( 0, 0, 0, 0.501961 )
+[connection signal="changed" from="Inventory" to="HotBar" method="_on_Inventory_changed"]

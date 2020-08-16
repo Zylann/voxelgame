@@ -1,0 +1,358 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://blocky_game/gui/inventory/inventory.gd" type="Script" id=1]
+[ext_resource path="res://blocky_game/gui/inventory/inventory_slot.tscn" type="PackedScene" id=2]
+[ext_resource path="res://blocky_game/gui/inventory_item_display.gd" type="Script" id=3]
+[ext_resource path="res://blocky_game/gui/inventory/dragged_item_view.gd" type="Script" id=4]
+[ext_resource path="res://blocky_game/blocks/dirt/dirt_sprite.png" type="Texture" id=5]
+
+[node name="Inventory" type="ColorRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 4.0
+margin_bottom = 4.0
+color = Color( 0, 0, 0, 0.25098 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CC" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PC" type="PanelContainer" parent="CC"]
+margin_left = 201.0
+margin_top = 142.0
+margin_right = 823.0
+margin_bottom = 458.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VB" type="VBoxContainer" parent="CC/PC"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 615.0
+margin_bottom = 309.0
+
+[node name="Label" type="Label" parent="CC/PC/VB"]
+margin_right = 608.0
+margin_bottom = 14.0
+text = "Inventory"
+
+[node name="HSeparator2" type="HSeparator" parent="CC/PC/VB"]
+margin_top = 18.0
+margin_right = 608.0
+margin_bottom = 22.0
+
+[node name="Bag" type="GridContainer" parent="CC/PC/VB"]
+margin_top = 26.0
+margin_right = 608.0
+margin_bottom = 226.0
+columns = 9
+
+[node name="InventorySlot" parent="CC/PC/VB/Bag" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 64.0
+margin_bottom = 64.0
+
+[node name="InventorySlot2" parent="CC/PC/VB/Bag" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 68.0
+margin_right = 132.0
+margin_bottom = 64.0
+
+[node name="InventorySlot3" parent="CC/PC/VB/Bag" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 136.0
+margin_right = 200.0
+margin_bottom = 64.0
+
+[node name="InventorySlot4" parent="CC/PC/VB/Bag" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 204.0
+margin_right = 268.0
+margin_bottom = 64.0
+
+[node name="InventorySlot5" parent="CC/PC/VB/Bag" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 272.0
+margin_right = 336.0
+margin_bottom = 64.0
+
+[node name="InventorySlot6" parent="CC/PC/VB/Bag" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 340.0
+margin_right = 404.0
+margin_bottom = 64.0
+
+[node name="InventorySlot7" parent="CC/PC/VB/Bag" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 408.0
+margin_right = 472.0
+margin_bottom = 64.0
+
+[node name="InventorySlot8" parent="CC/PC/VB/Bag" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 476.0
+margin_right = 540.0
+margin_bottom = 64.0
+
+[node name="InventorySlot9" parent="CC/PC/VB/Bag" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 544.0
+margin_right = 608.0
+margin_bottom = 64.0
+
+[node name="InventorySlot10" parent="CC/PC/VB/Bag" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 68.0
+margin_right = 64.0
+margin_bottom = 132.0
+
+[node name="InventorySlot11" parent="CC/PC/VB/Bag" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 68.0
+margin_top = 68.0
+margin_right = 132.0
+margin_bottom = 132.0
+
+[node name="InventorySlot12" parent="CC/PC/VB/Bag" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 136.0
+margin_top = 68.0
+margin_right = 200.0
+margin_bottom = 132.0
+
+[node name="InventorySlot13" parent="CC/PC/VB/Bag" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 204.0
+margin_top = 68.0
+margin_right = 268.0
+margin_bottom = 132.0
+
+[node name="InventorySlot14" parent="CC/PC/VB/Bag" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 272.0
+margin_top = 68.0
+margin_right = 336.0
+margin_bottom = 132.0
+
+[node name="InventorySlot15" parent="CC/PC/VB/Bag" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 340.0
+margin_top = 68.0
+margin_right = 404.0
+margin_bottom = 132.0
+
+[node name="InventorySlot16" parent="CC/PC/VB/Bag" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 408.0
+margin_top = 68.0
+margin_right = 472.0
+margin_bottom = 132.0
+
+[node name="InventorySlot17" parent="CC/PC/VB/Bag" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 476.0
+margin_top = 68.0
+margin_right = 540.0
+margin_bottom = 132.0
+
+[node name="InventorySlot18" parent="CC/PC/VB/Bag" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 544.0
+margin_top = 68.0
+margin_right = 608.0
+margin_bottom = 132.0
+
+[node name="InventorySlot19" parent="CC/PC/VB/Bag" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 136.0
+margin_right = 64.0
+margin_bottom = 200.0
+
+[node name="InventorySlot20" parent="CC/PC/VB/Bag" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 68.0
+margin_top = 136.0
+margin_right = 132.0
+margin_bottom = 200.0
+
+[node name="InventorySlot21" parent="CC/PC/VB/Bag" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 136.0
+margin_top = 136.0
+margin_right = 200.0
+margin_bottom = 200.0
+
+[node name="InventorySlot22" parent="CC/PC/VB/Bag" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 204.0
+margin_top = 136.0
+margin_right = 268.0
+margin_bottom = 200.0
+
+[node name="InventorySlot23" parent="CC/PC/VB/Bag" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 272.0
+margin_top = 136.0
+margin_right = 336.0
+margin_bottom = 200.0
+
+[node name="InventorySlot24" parent="CC/PC/VB/Bag" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 340.0
+margin_top = 136.0
+margin_right = 404.0
+margin_bottom = 200.0
+
+[node name="InventorySlot25" parent="CC/PC/VB/Bag" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 408.0
+margin_top = 136.0
+margin_right = 472.0
+margin_bottom = 200.0
+
+[node name="InventorySlot26" parent="CC/PC/VB/Bag" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 476.0
+margin_top = 136.0
+margin_right = 540.0
+margin_bottom = 200.0
+
+[node name="InventorySlot27" parent="CC/PC/VB/Bag" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 544.0
+margin_top = 136.0
+margin_right = 608.0
+margin_bottom = 200.0
+
+[node name="HSeparator" type="HSeparator" parent="CC/PC/VB"]
+margin_top = 230.0
+margin_right = 608.0
+margin_bottom = 234.0
+
+[node name="Hotbar" type="HBoxContainer" parent="CC/PC/VB"]
+margin_top = 238.0
+margin_right = 608.0
+margin_bottom = 302.0
+
+[node name="InventorySlot" parent="CC/PC/VB/Hotbar" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 64.0
+margin_bottom = 64.0
+
+[node name="InventorySlot2" parent="CC/PC/VB/Hotbar" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 68.0
+margin_right = 132.0
+margin_bottom = 64.0
+
+[node name="InventorySlot3" parent="CC/PC/VB/Hotbar" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 136.0
+margin_right = 200.0
+margin_bottom = 64.0
+
+[node name="InventorySlot4" parent="CC/PC/VB/Hotbar" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 204.0
+margin_right = 268.0
+margin_bottom = 64.0
+
+[node name="InventorySlot5" parent="CC/PC/VB/Hotbar" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 272.0
+margin_right = 336.0
+margin_bottom = 64.0
+
+[node name="InventorySlot6" parent="CC/PC/VB/Hotbar" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 340.0
+margin_right = 404.0
+margin_bottom = 64.0
+
+[node name="InventorySlot7" parent="CC/PC/VB/Hotbar" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 408.0
+margin_right = 472.0
+margin_bottom = 64.0
+
+[node name="InventorySlot8" parent="CC/PC/VB/Hotbar" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 476.0
+margin_right = 540.0
+margin_bottom = 64.0
+
+[node name="InventorySlot9" parent="CC/PC/VB/Hotbar" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 544.0
+margin_right = 608.0
+margin_bottom = 64.0
+
+[node name="DraggedItem" type="Control" parent="."]
+margin_left = 51.0
+margin_top = 47.0
+margin_right = 107.0
+margin_bottom = 103.0
+mouse_filter = 2
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="DraggedItem"]
+margin_right = 56.0
+margin_bottom = 56.0
+rect_min_size = Vector2( 56, 56 )
+mouse_filter = 2
+texture = ExtResource( 5 )
+expand = true
+stretch_mode = 1
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

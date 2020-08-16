@@ -2,6 +2,7 @@ extends Node
 
 const Util = preload("res://common/util.gd")
 const Blocks = preload("../blocks/blocks.gd")
+const InventoryItem = preload("./inventory_item.gd")
 
 const COLLISION_LAYER_AVATAR = 2
 
@@ -88,9 +89,9 @@ func _physics_process(delta):
 			if has_cube == false:
 				pos = hit.position
 			if _can_place_voxel_at(pos):
-				var block_id = _hotbar.get_selected_block_type()
-				if block_id != -1:
-					_place_single_block(pos, block_id)
+				var item = _hotbar.get_selected_item()
+				if item != null and item.type == InventoryItem.TYPE_BLOCK:
+					_place_single_block(pos, item.id)
 					print("Place voxel at ", pos)
 			else:
 				print("Can't place here!")

@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://blocky_game/gui/inventory/inventory_slot.gd" type="Script" id=1]
+[ext_resource path="res://blocky_game/gui/hotbar/hotbar_slot_bg.png" type="Texture" id=2]
+[ext_resource path="res://blocky_game/blocks/dirt/dirt_sprite.png" type="Texture" id=3]
+[ext_resource path="res://blocky_game/gui/inventory_item_display.gd" type="Script" id=4]
+
+[node name="InventorySlot" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -960.0
+margin_bottom = -536.0
+rect_min_size = Vector2( 64, 64 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BG" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 2 )
+expand = true
+
+[node name="SelectBG" type="TextureRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 2 )
+expand = true
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 4.0
+margin_right = -4.0
+margin_bottom = -4.0
+texture = ExtResource( 3 )
+expand = true
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
