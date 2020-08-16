@@ -157,6 +157,8 @@ func generate_block(buffer: VoxelBuffer, origin_in_voxels: Vector3, lod: int):
 			if aabb.intersects(block_aabb):
 				voxel_tool.paste(lower_corner_pos, structure.voxels, AIR)
 
+	buffer.optimize()
+
 
 func get_tree_instances_in_chunk(
 	cpos: Vector3, offset: Vector3, chunk_size: int, tree_instances: Array):
