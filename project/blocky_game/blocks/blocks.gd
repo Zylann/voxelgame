@@ -87,7 +87,7 @@ func _init():
 		"name": "stairs",
 		"gui_model": "stairs_nx.obj",
 		"rotation_type": ROTATION_TYPE_Y,
-		"voxels": ["stairs_nx", "stairs_nz", "stairs_px", "stairs_pz"],
+		"voxels": ["stairs_nx", "stairs_px", "stairs_nz", "stairs_pz"],
 		"transparent": false
 	})
 	_create_block({
