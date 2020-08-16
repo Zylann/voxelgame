@@ -66,6 +66,7 @@ material/2 = ExtResource( 9 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( -0.97321, 0.172326, -0.152203, -0.0478236, 0.495785, 0.867127, 0.224888, 0.851176, -0.474262, 1.51966, 19.7004, 14.0879 )
+shadow_enabled = true
 directional_shadow_normal_bias = 0.1
 
 [node name="DebugInfo" type="Node" parent="."]
