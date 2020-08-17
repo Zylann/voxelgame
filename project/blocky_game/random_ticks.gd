@@ -51,7 +51,7 @@ func _ready():
 	_voxel_tool.set_channel(VoxelBuffer.CHANNEL_TYPE)
 
 
-func _process(delta):
+func _process(_delta):
 	#var time_before = OS.get_ticks_usec()
 
 	_grass_dirs.shuffle()

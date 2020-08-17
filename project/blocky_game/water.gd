@@ -51,7 +51,6 @@ func _process(delta: float):
 
 
 func _do_process_queue():
-	# TODO Sometimes things don't update... of course
 	var update_count = 0
 	
 	if _process_index >= len(_process_queue):

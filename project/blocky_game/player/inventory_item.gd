@@ -12,4 +12,3 @@ func duplicate():
 	d.type = type
 	d.id = id
 	return d
-
