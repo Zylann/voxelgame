@@ -9,10 +9,6 @@
 [node name="Inventory" type="ColorRect"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 4.0
-margin_right = 4.0
-margin_bottom = 4.0
 color = Color( 0, 0, 0, 0.25098 )
 script = ExtResource( 1 )
 __meta__ = {
@@ -334,6 +330,7 @@ margin_right = 608.0
 margin_bottom = 64.0
 
 [node name="DraggedItem" type="Control" parent="."]
+visible = false
 margin_left = 51.0
 margin_top = 47.0
 margin_right = 107.0
