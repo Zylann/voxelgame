@@ -2,7 +2,9 @@ extends Node
 
 const Util = preload("res://common/util.gd")
 const Blocks = preload("../blocks/blocks.gd")
+const ItemDB = preload("../items/item_db.gd")
 const InventoryItem = preload("./inventory_item.gd")
+const Hotbar = preload("../gui/hotbar/hotbar.gd")
 
 const COLLISION_LAYER_AVATAR = 2
 
@@ -23,15 +25,16 @@ export(Material) var cursor_material = null
 
 # TODO Eventually invert these dependencies
 onready var _head : Camera = get_parent().get_node("Camera")
-onready var _hotbar = get_node("../HotBar")
+onready var _hotbar : Hotbar = get_node("../HotBar")
 onready var _block_types : Blocks = get_node("/root/Main/Blocks")
+onready var _item_db : ItemDB = get_node("/root/Main/Items")
 onready var _water_updater = get_node("../../Water")
 
 var _terrain = null
 var _terrain_tool = null
 var _cursor = null
 var _action_place = false
-var _action_remove = false
+var _action_use = false
 var _action_pick = false
 
 
@@ -62,7 +65,7 @@ func _get_pointed_voxel():
 	return hit
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if _terrain == null:
 		return
 	
@@ -74,34 +77,42 @@ func _physics_process(delta):
 	else:
 		_cursor.hide()
 		DDD.set_text("Pointed voxel", "---")
+
+	var inv_item := _hotbar.get_selected_item()
 	
 	# These inputs have to be in _fixed_process because they rely on collision queries
-	if hit != null:
+	if inv_item == null or inv_item.type == InventoryItem.TYPE_BLOCK:
+		if hit != null:
+			var hit_raw_id = _terrain_tool.get_voxel(hit.position)
+			var has_cube = hit_raw_id != 0
+			
+			if _action_use and has_cube:
+				var pos = hit.position
+				_place_single_block(pos, 0)
+			
+			elif _action_place:
+				var pos = hit.previous_position
+				if has_cube == false:
+					pos = hit.position
+				if _can_place_voxel_at(pos):
+					if inv_item != null:
+						_place_single_block(pos, inv_item.id)
+						print("Place voxel at ", pos)
+				else:
+					print("Can't place here!")
+				
+	elif inv_item.type == InventoryItem.TYPE_ITEM:
+		if _action_use:
+			var item = _item_db.get_item(inv_item.id)
+			item.use(_head.global_transform)
+	
+	if _action_pick and hit != null:
 		var hit_raw_id = _terrain_tool.get_voxel(hit.position)
-		var has_cube = hit_raw_id != 0
-		
-		if _action_remove and has_cube:
-			var pos = hit.position
-			_place_single_block(pos, 0)
-		
-		elif _action_place:
-			var pos = hit.previous_position
-			if has_cube == false:
-				pos = hit.position
-			if _can_place_voxel_at(pos):
-				var item = _hotbar.get_selected_item()
-				if item != null and item.type == InventoryItem.TYPE_BLOCK:
-					_place_single_block(pos, item.id)
-					print("Place voxel at ", pos)
-			else:
-				print("Can't place here!")
-		
-		elif _action_pick:
-			var rm := _block_types.get_raw_mapping(hit_raw_id)
-			_hotbar.try_select_slot_by_block_id(rm.block_id)
+		var rm := _block_types.get_raw_mapping(hit_raw_id)
+		_hotbar.try_select_slot_by_block_id(rm.block_id)
 
 	_action_place = false
-	_action_remove = false
+	_action_use = false
 	_action_pick = false
 
 
@@ -110,7 +121,7 @@ func _unhandled_input(event):
 		if event.pressed:
 			match event.button_index:
 				BUTTON_LEFT:
-					_action_remove = true
+					_action_use = true
 				BUTTON_RIGHT:
 					_action_place = true
 				BUTTON_MIDDLE:

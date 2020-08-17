@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://blocky_game/blocks/voxel_library.tres" type="VoxelLibrary" id=1]
 [ext_resource path="res://blocky_game/blocks/terrain_material.tres" type="Material" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://blocky_game/random_ticks.gd" type="Script" id=10]
 [ext_resource path="res://blocky_game/water.gd" type="Script" id=11]
 [ext_resource path="res://blocky_game/blocks/blocks.gd" type="Script" id=12]
+[ext_resource path="res://blocky_game/items/item_db.gd" type="Script" id=13]
 
 [sub_resource type="ProceduralSky" id=1]
 sky_top_color = Color( 0.268204, 0.522478, 0.847656, 1 )
@@ -50,6 +51,9 @@ script = ExtResource( 5 )
 
 [node name="Blocks" type="Node" parent="."]
 script = ExtResource( 12 )
+
+[node name="Items" type="Node" parent="."]
+script = ExtResource( 13 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 2 )

@@ -26,12 +26,16 @@ func _ready():
 	
 	# Initial contents
 	var hotbar_begin_index := BAG_WIDTH * BAG_HEIGHT
-	var hotbar_block_ids := [1, 2, 3, 4, 5, 6, 7, 8, 9]
-	for i in BAG_WIDTH:
-		var item := InventoryItem.new()
-		item.type = InventoryItem.TYPE_BLOCK
-		item.id = hotbar_block_ids[i]
-		_slots[hotbar_begin_index + i] = item
+	_slots[hotbar_begin_index + 0] = _make_item(InventoryItem.TYPE_BLOCK, 1)
+	_slots[hotbar_begin_index + 1] = _make_item(InventoryItem.TYPE_BLOCK, 2)
+	_slots[hotbar_begin_index + 2] = _make_item(InventoryItem.TYPE_BLOCK, 3)
+	_slots[hotbar_begin_index + 3] = _make_item(InventoryItem.TYPE_BLOCK, 4)
+	_slots[hotbar_begin_index + 4] = _make_item(InventoryItem.TYPE_BLOCK, 5)
+	_slots[hotbar_begin_index + 5] = _make_item(InventoryItem.TYPE_BLOCK, 6)
+	_slots[hotbar_begin_index + 6] = _make_item(InventoryItem.TYPE_BLOCK, 7)
+	_slots[hotbar_begin_index + 7] = _make_item(InventoryItem.TYPE_ITEM, 0)
+	_slots[hotbar_begin_index + 8] = _make_item(InventoryItem.TYPE_BLOCK, 9)
+	_slots[0] = _make_item(InventoryItem.TYPE_BLOCK, 8)
 
 	# Init views
 	var slot_idx := 0
@@ -43,6 +47,13 @@ func _ready():
 			slot.connect("pressed", self, "_on_slot_pressed", [slot_idx])
 			_slot_views[slot_idx] = slot
 			slot_idx += 1
+
+
+static func _make_item(type, id):
+	var i = InventoryItem.new()
+	i.id = id
+	i.type = type
+	return i
 
 
 func _update_views():
