@@ -79,6 +79,9 @@ func _unhandled_input(event):
 		if event.pressed:
 			if event.scancode == KEY_E:
 				visible = not visible
+			elif visible and event.scancode == KEY_ESCAPE:
+				visible = false
+				get_tree().set_input_as_handled()
 
 
 func _notification(what: int):
