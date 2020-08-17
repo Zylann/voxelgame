@@ -15,12 +15,12 @@
 [ext_resource path="res://blocky_game/items/item_db.gd" type="Script" id=13]
 
 [sub_resource type="ProceduralSky" id=1]
-sky_top_color = Color( 0.268204, 0.522478, 0.847656, 1 )
-sky_horizon_color = Color( 0.556863, 0.823529, 0.909804, 1 )
+sky_top_color = Color( 0.264, 0.4096, 0.6, 1 )
+sky_horizon_color = Color( 0.83, 0.954667, 1, 1 )
 sky_curve = 0.25
 ground_bottom_color = Color( 0.101961, 0.145098, 0.188235, 1 )
-ground_horizon_color = Color( 0.482353, 0.788235, 0.952941, 1 )
-ground_curve = 0.01
+ground_horizon_color = Color( 0.768627, 0.886275, 0.94902, 1 )
+ground_curve = 0.0254913
 sun_curve = 0.0176777
 sun_energy = 16.0
 
