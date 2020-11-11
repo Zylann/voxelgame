@@ -51,6 +51,7 @@ collision_aabbs = [ AABB( 0, 0, 0, 1, 1, 1 ) ]
 [sub_resource type="Voxel" id=5]
 voxel_name = "glass"
 transparent = true
+transparency_index = 2
 material_id = 2
 geometry_type = 2
 custom_mesh = ExtResource( 12 )
@@ -59,6 +60,7 @@ collision_aabbs = [ AABB( 0, 0, 0, 1, 1, 1 ) ]
 [sub_resource type="Voxel" id=6]
 voxel_name = "water_top"
 transparent = true
+transparency_index = 1
 material_id = 1
 geometry_type = 2
 custom_mesh = ExtResource( 14 )
@@ -66,6 +68,7 @@ custom_mesh = ExtResource( 14 )
 [sub_resource type="Voxel" id=7]
 voxel_name = "water_full"
 transparent = true
+transparency_index = 1
 material_id = 1
 geometry_type = 2
 custom_mesh = ExtResource( 13 )
@@ -73,6 +76,7 @@ custom_mesh = ExtResource( 13 )
 [sub_resource type="Voxel" id=8]
 voxel_name = "rail_x"
 transparent = true
+transparency_index = 1
 material_id = 2
 geometry_type = 2
 custom_mesh = ExtResource( 20 )
@@ -82,6 +86,7 @@ collision_mask = 2
 [sub_resource type="Voxel" id=9]
 voxel_name = "rail_z"
 transparent = true
+transparency_index = 1
 material_id = 2
 geometry_type = 2
 custom_mesh = ExtResource( 21 )
@@ -91,6 +96,7 @@ collision_mask = 2
 [sub_resource type="Voxel" id=10]
 voxel_name = "rail_turn_nx"
 transparent = true
+transparency_index = 1
 material_id = 2
 geometry_type = 2
 custom_mesh = ExtResource( 22 )
@@ -100,6 +106,7 @@ collision_mask = 2
 [sub_resource type="Voxel" id=11]
 voxel_name = "rail_turn_px"
 transparent = true
+transparency_index = 1
 material_id = 2
 geometry_type = 2
 custom_mesh = ExtResource( 18 )
@@ -109,6 +116,7 @@ collision_mask = 2
 [sub_resource type="Voxel" id=12]
 voxel_name = "rail_turn_nz"
 transparent = true
+transparency_index = 1
 material_id = 2
 geometry_type = 2
 custom_mesh = ExtResource( 19 )
@@ -125,6 +133,7 @@ collision_aabbs = [ AABB( 0, 0, 0, 1, 1, 1 ) ]
 [sub_resource type="Voxel" id=14]
 voxel_name = "rail_turn_pz"
 transparent = true
+transparency_index = 1
 material_id = 2
 geometry_type = 2
 custom_mesh = ExtResource( 23 )
@@ -134,6 +143,7 @@ collision_mask = 2
 [sub_resource type="Voxel" id=15]
 voxel_name = "rail_slope_nx"
 transparent = true
+transparency_index = 1
 material_id = 2
 geometry_type = 2
 custom_mesh = ExtResource( 24 )
@@ -143,6 +153,7 @@ collision_mask = 2
 [sub_resource type="Voxel" id=16]
 voxel_name = "rail_slope_px"
 transparent = true
+transparency_index = 1
 material_id = 2
 geometry_type = 2
 custom_mesh = ExtResource( 16 )
@@ -152,6 +163,7 @@ collision_mask = 2
 [sub_resource type="Voxel" id=17]
 voxel_name = "rail_slope_nz"
 transparent = true
+transparency_index = 1
 material_id = 2
 geometry_type = 2
 custom_mesh = ExtResource( 15 )
@@ -161,6 +173,7 @@ collision_mask = 2
 [sub_resource type="Voxel" id=18]
 voxel_name = "rail_slope_pz"
 transparent = true
+transparency_index = 1
 material_id = 2
 geometry_type = 2
 custom_mesh = ExtResource( 17 )
@@ -170,57 +183,58 @@ collision_mask = 2
 [sub_resource type="Voxel" id=19]
 voxel_name = "leaves"
 transparent = true
+transparency_index = 1
 material_id = 2
 geometry_type = 2
 custom_mesh = ExtResource( 25 )
 collision_aabbs = [ AABB( 0, 0, 0, 1, 1, 1 ) ]
 
-[sub_resource type="Voxel" id=27]
+[sub_resource type="Voxel" id=20]
 voxel_name = "dead_shrub"
 material_id = 2
 geometry_type = 2
 custom_mesh = ExtResource( 26 )
 
-[sub_resource type="Voxel" id=20]
+[sub_resource type="Voxel" id=21]
 voxel_name = "log_x"
 random_tickable = true
 geometry_type = 2
 custom_mesh = ExtResource( 4 )
 collision_aabbs = [ AABB( 0, 0, 0, 1, 1, 1 ) ]
 
-[sub_resource type="Voxel" id=21]
+[sub_resource type="Voxel" id=22]
 voxel_name = "log_y"
 random_tickable = true
 geometry_type = 2
 custom_mesh = ExtResource( 3 )
 collision_aabbs = [ AABB( 0, 0, 0, 1, 1, 1 ) ]
 
-[sub_resource type="Voxel" id=22]
+[sub_resource type="Voxel" id=23]
 voxel_name = "log_z"
 random_tickable = true
 geometry_type = 2
 custom_mesh = ExtResource( 5 )
 collision_aabbs = [ AABB( 0, 0, 0, 1, 1, 1 ) ]
 
-[sub_resource type="Voxel" id=23]
+[sub_resource type="Voxel" id=24]
 voxel_name = "stairs_nx"
 geometry_type = 2
 custom_mesh = ExtResource( 6 )
 collision_aabbs = [ AABB( 0, 0, 0, 1, 1, 1 ) ]
 
-[sub_resource type="Voxel" id=24]
+[sub_resource type="Voxel" id=25]
 voxel_name = "planks"
 geometry_type = 2
 custom_mesh = ExtResource( 7 )
 collision_aabbs = [ AABB( 0, 0, 0, 1, 1, 1 ) ]
 
-[sub_resource type="Voxel" id=25]
+[sub_resource type="Voxel" id=26]
 voxel_name = "tall_grass"
 material_id = 2
 geometry_type = 2
 custom_mesh = ExtResource( 8 )
 
-[sub_resource type="Voxel" id=26]
+[sub_resource type="Voxel" id=27]
 voxel_name = "stairs_nz"
 geometry_type = 2
 custom_mesh = ExtResource( 11 )
@@ -230,13 +244,13 @@ collision_aabbs = [ AABB( 0, 0, 0, 1, 1, 1 ) ]
 voxels/0 = SubResource( 1 )
 voxels/1 = SubResource( 2 )
 voxels/2 = SubResource( 13 )
-voxels/3 = SubResource( 20 )
-voxels/4 = SubResource( 21 )
-voxels/5 = SubResource( 22 )
-voxels/6 = SubResource( 23 )
-voxels/7 = SubResource( 24 )
-voxels/8 = SubResource( 25 )
-voxels/9 = SubResource( 26 )
+voxels/3 = SubResource( 21 )
+voxels/4 = SubResource( 22 )
+voxels/5 = SubResource( 23 )
+voxels/6 = SubResource( 24 )
+voxels/7 = SubResource( 25 )
+voxels/8 = SubResource( 26 )
+voxels/9 = SubResource( 27 )
 voxels/10 = SubResource( 3 )
 voxels/11 = SubResource( 4 )
 voxels/12 = SubResource( 5 )
@@ -253,4 +267,4 @@ voxels/22 = SubResource( 16 )
 voxels/23 = SubResource( 17 )
 voxels/24 = SubResource( 18 )
 voxels/25 = SubResource( 19 )
-voxels/26 = SubResource( 27 )
+voxels/26 = SubResource( 20 )
