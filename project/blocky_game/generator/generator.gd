@@ -1,5 +1,5 @@
 #tool
-extends VoxelGenerator
+extends VoxelGeneratorScript
 
 const Structure = preload("./structure.gd")
 const TreeGenerator = preload("./tree_generator.gd")
@@ -62,11 +62,11 @@ func _init():
 	_heightmap_noise.octaves = 4
 
 
-func get_used_channels_mask() -> int:
+func _get_used_channels_mask() -> int:
 	return 1 << _CHANNEL
 
 
-func generate_block(buffer: VoxelBuffer, origin_in_voxels: Vector3, lod: int):
+func _generate_block(buffer: VoxelBuffer, origin_in_voxels: Vector3, lod: int):
 	# Assuming input is cubic in our use case (it doesn't have to be!)
 	var block_size := int(buffer.get_size().x)
 	var oy := int(origin_in_voxels.y)
@@ -89,7 +89,7 @@ func generate_block(buffer: VoxelBuffer, origin_in_voxels: Vector3, lod: int):
 
 	else:
 		var rng := RandomNumberGenerator.new()
-		rng.seed = get_chunk_seed_2d(chunk_pos)
+		rng.seed = _get_chunk_seed_2d(chunk_pos)
 		
 		var gx : int
 		var gz := int(origin_in_voxels.z)
@@ -128,7 +128,6 @@ func generate_block(buffer: VoxelBuffer, origin_in_voxels: Vector3, lod: int):
 						# Surface block
 						buffer.set_voxel(WATER_TOP, x, block_size - 1, z, _CHANNEL)
 						
-
 				gx += 1
 
 			gz += 1
@@ -139,14 +138,14 @@ func generate_block(buffer: VoxelBuffer, origin_in_voxels: Vector3, lod: int):
 		var voxel_tool := buffer.get_voxel_tool()
 		var structure_instances := []
 			
-		get_tree_instances_in_chunk(chunk_pos, origin_in_voxels, block_size, structure_instances)
+		_get_tree_instances_in_chunk(chunk_pos, origin_in_voxels, block_size, structure_instances)
 	
 		# Relative to current block
 		var block_aabb := AABB(Vector3(), buffer.get_size() + Vector3(1, 1, 1))
 
 		for dir in _moore_dirs:
 			var ncpos : Vector3 = (chunk_pos + dir).round()
-			get_tree_instances_in_chunk(ncpos, origin_in_voxels, block_size, structure_instances)
+			_get_tree_instances_in_chunk(ncpos, origin_in_voxels, block_size, structure_instances)
 
 		for structure_instance in structure_instances:
 			var pos : Vector3 = structure_instance[0]
@@ -160,11 +159,11 @@ func generate_block(buffer: VoxelBuffer, origin_in_voxels: Vector3, lod: int):
 	buffer.optimize()
 
 
-func get_tree_instances_in_chunk(
+func _get_tree_instances_in_chunk(
 	cpos: Vector3, offset: Vector3, chunk_size: int, tree_instances: Array):
 		
 	var rng := RandomNumberGenerator.new()
-	rng.seed = get_chunk_seed_2d(cpos)
+	rng.seed = _get_chunk_seed_2d(cpos)
 
 	for i in 4:
 		var pos := Vector3(rng.randi() % chunk_size, 0, rng.randi() % chunk_size)
@@ -182,7 +181,7 @@ func get_tree_instances_in_chunk(
 #	return cpos.x ^ (13 * int(cpos.y)) ^ (31 * int(cpos.z))
 
 
-static func get_chunk_seed_2d(cpos: Vector3) -> int:
+static func _get_chunk_seed_2d(cpos: Vector3) -> int:
 	return int(cpos.x) ^ (31 * int(cpos.z))
 
 

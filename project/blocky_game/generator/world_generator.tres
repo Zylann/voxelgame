@@ -1,4 +1,4 @@
-[gd_resource type="VoxelGenerator" load_steps=2 format=2]
+[gd_resource type="VoxelGeneratorScript" load_steps=2 format=2]
 
 [ext_resource path="res://blocky_game/generator/generator.gd" type="Script" id=1]
 

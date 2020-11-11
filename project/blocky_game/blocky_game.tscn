@@ -3,7 +3,7 @@
 [ext_resource path="res://blocky_game/blocks/voxel_library.tres" type="VoxelLibrary" id=1]
 [ext_resource path="res://blocky_game/blocks/terrain_material.tres" type="Material" id=2]
 [ext_resource path="res://blocky_game/blocks/terrain_material_transparent.tres" type="Material" id=3]
-[ext_resource path="res://blocky_game/generator/world_generator.tres" type="VoxelGenerator" id=4]
+[ext_resource path="res://blocky_game/generator/world_generator.tres" type="VoxelGeneratorScript" id=4]
 [ext_resource path="res://blocky_game/blocky_game.gd" type="Script" id=5]
 [ext_resource path="res://blocky_game/player/character_avatar.tscn" type="PackedScene" id=6]
 [ext_resource path="res://blocky_game/blocks/stairs/stairs_nx.obj" type="ArrayMesh" id=7]
@@ -61,7 +61,6 @@ environment = SubResource( 2 )
 [node name="VoxelTerrain" type="VoxelTerrain" parent="."]
 stream = SubResource( 3 )
 voxel_library = ExtResource( 1 )
-viewer_path = NodePath("../CharacterAvatar")
 generate_collisions = false
 run_stream_in_editor = false
 material/0 = ExtResource( 2 )
