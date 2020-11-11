@@ -82,10 +82,6 @@ explosiveness = 0.95
 process_material = SubResource( 6 )
 draw_pass_1 = SubResource( 7 )
 
-[node name="DirectionalLight" type="DirectionalLight" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.790016, 0.613086, 0, -0.613086, 0.790016, 0, 3.14598, 4.16366 )
-editor_only = true
-
 [node name="Timer" type="Timer" parent="."]
 wait_time = 3.0
 autostart = true
