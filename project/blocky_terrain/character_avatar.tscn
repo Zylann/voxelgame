@@ -67,3 +67,6 @@ margin_right = 520.0
 margin_bottom = 308.0
 mouse_filter = 2
 texture = ExtResource( 4 )
+
+[node name="VoxelViewer" type="VoxelViewer" parent="."]
+view_distance = 128

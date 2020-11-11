@@ -8,7 +8,7 @@ transparent = true
 [sub_resource type="Voxel" id=2]
 geometry_type = 1
 collision_aabbs = [ AABB( 0, 0, 0, 1, 1, 1 ) ]
-cube_geometry/padding_y = 0.0
+cube_geometry/padding_y = null
 cube_tiles/left = Vector2( 0, 0 )
 cube_tiles/right = Vector2( 0, 0 )
 cube_tiles/bottom = Vector2( 0, 0 )
@@ -19,7 +19,7 @@ cube_tiles/front = Vector2( 0, 0 )
 [sub_resource type="Voxel" id=3]
 geometry_type = 1
 collision_aabbs = [ AABB( 0, 0, 0, 1, 1, 1 ) ]
-cube_geometry/padding_y = 0.0
+cube_geometry/padding_y = null
 cube_tiles/left = Vector2( 1, 0 )
 cube_tiles/right = Vector2( 1, 0 )
 cube_tiles/bottom = Vector2( 1, 0 )

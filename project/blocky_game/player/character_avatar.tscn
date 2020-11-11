@@ -64,4 +64,6 @@ texture = ExtResource( 4 )
 [node name="Inventory" parent="." instance=ExtResource( 7 )]
 visible = false
 color = Color( 0, 0, 0, 0.501961 )
+
+[node name="VoxelViewer" type="VoxelViewer" parent="."]
 [connection signal="changed" from="Inventory" to="HotBar" method="_on_Inventory_changed"]

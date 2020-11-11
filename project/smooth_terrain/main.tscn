@@ -57,7 +57,6 @@ script = ExtResource( 6 )
 stream = ExtResource( 7 )
 view_distance = 2048
 lod_count = 6
-viewer_path = NodePath("../SpectatorAvatar")
 material = ExtResource( 2 )
 generate_collisions = false
 collision_lod_count = 1

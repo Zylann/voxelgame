@@ -43,17 +43,17 @@ environment = SubResource( 2 )
 [node name="VoxelTerrain" type="VoxelTerrain" parent="."]
 stream = ExtResource( 4 )
 voxel_library = ExtResource( 1 )
-view_distance = 256
-viewer_path = NodePath("../CharacterAvatar")
+generate_collisions = false
 material/0 = ExtResource( 2 )
 material/1 = ExtResource( 3 )
+max_view_distance = 256
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( -0.985468, 0.124099, -0.11598, 0.0154004, 0.745271, 0.666584, 0.169159, 0.655111, -0.736353, 1.51966, 19.7004, 14.0879 )
 directional_shadow_normal_bias = 0.1
 
 [node name="CharacterAvatar" parent="." instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 58.0914, 17 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 28.0914, 17 )
 head = NodePath("../../Main/CharacterAvatar/Camera")
 terrain = NodePath("../../Main/VoxelTerrain")
 
