@@ -11,7 +11,12 @@ func _process(delta):
 	DDD.set_text("Static memory", _format_memory(sm))
 
 	var global_stats = VoxelServer.get_stats()
-	for p in [[global_stats.streaming, "streaming_"], [global_stats.meshing, "meshing_"]]:
+	var pairs = [
+		[global_stats.streaming, "streaming_"],
+		[global_stats.generation, "generation_"],
+		[global_stats.meshing, "meshing_"]
+	]
+	for p in pairs:
 		var pool_stats = p[0]
 		var prefix = p[1]
 		for k in pool_stats:

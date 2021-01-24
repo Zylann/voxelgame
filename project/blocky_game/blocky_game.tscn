@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=2]
 
-[ext_resource path="res://blocky_game/blocks/voxel_library.tres" type="VoxelLibrary" id=1]
+[ext_resource path="res://blocky_game/blocks/mesher.tres" type="VoxelMesherBlocky" id=1]
 [ext_resource path="res://blocky_game/blocks/terrain_material.tres" type="Material" id=2]
 [ext_resource path="res://blocky_game/blocks/terrain_material_transparent.tres" type="Material" id=3]
 [ext_resource path="res://blocky_game/generator/world_generator.tres" type="VoxelGeneratorScript" id=4]
@@ -42,8 +42,6 @@ dof_blur_far_transition = 10.0
 glow_hdr_threshold = 0.5
 
 [sub_resource type="VoxelStreamRegionFiles" id=3]
-fallback_stream = ExtResource( 4 )
-save_fallback_output = false
 directory = "res://blocky_game/save"
 
 [node name="Main" type="Node"]
@@ -60,7 +58,8 @@ environment = SubResource( 2 )
 
 [node name="VoxelTerrain" type="VoxelTerrain" parent="."]
 stream = SubResource( 3 )
-voxel_library = ExtResource( 1 )
+generator = ExtResource( 4 )
+mesher = ExtResource( 1 )
 generate_collisions = false
 run_stream_in_editor = false
 material/0 = ExtResource( 2 )

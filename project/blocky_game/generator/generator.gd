@@ -58,8 +58,14 @@ func _init():
 	_trees_min_y = _heightmap_min_y
 	_trees_max_y = _heightmap_max_y + tallest_tree_height
 
+	#_heightmap_noise.seed = 131183
 	_heightmap_noise.period = 128
 	_heightmap_noise.octaves = 4
+
+	# IMPORTANT
+	# If we don't do this `Curve` could bake itself when interpolated,
+	# and this causes crashes when used in multiple threads
+	HeightmapCurve.bake()
 
 
 func _get_used_channels_mask() -> int:
@@ -67,6 +73,9 @@ func _get_used_channels_mask() -> int:
 
 
 func _generate_block(buffer: VoxelBuffer, origin_in_voxels: Vector3, lod: int):
+	# Saves from this demo used 8-bit, which is no longer the default
+	buffer.set_channel_depth(_CHANNEL, VoxelBuffer.DEPTH_8_BIT)
+
 	# Assuming input is cubic in our use case (it doesn't have to be!)
 	var block_size := int(buffer.get_size().x)
 	var oy := int(origin_in_voxels.y)

@@ -4,6 +4,7 @@
 
 [sub_resource type="Voxel" id=1]
 transparent = true
+transparency_index = 1
 
 [sub_resource type="Voxel" id=2]
 geometry_type = 1
@@ -35,6 +36,7 @@ collision_aabbs = [ AABB( 0, 0, 0, 1, 0.8, 1 ) ]
 
 [resource]
 atlas_size = 4
+bake_tangents = false
 voxels/0 = SubResource( 1 )
 voxels/1 = SubResource( 2 )
 voxels/2 = SubResource( 3 )
