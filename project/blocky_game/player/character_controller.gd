@@ -41,17 +41,21 @@ func _physics_process(delta):
 	_velocity.z = motor.z
 	_velocity.y -= gravity * delta
 	
-	#if _grounded and Input.is_key_pressed(KEY_SPACE):
-	if Input.is_key_pressed(KEY_SPACE):
+	if _grounded and Input.is_key_pressed(KEY_SPACE):
 		_velocity.y = jump_force
-		#_grounded = false
+		_grounded = false
 	
 	var motion = _velocity * delta
 	
 	if has_node(terrain):
 		var aabb = AABB(Vector3(-0.4, -0.9, -0.4), Vector3(0.8, 1.8, 0.8))
 		var terrain_node = get_node(terrain)
+		var prev_motion = motion
 		motion = _box_mover.get_motion(get_translation(), motion, aabb, terrain_node)
+		if abs(motion.y) < 0.001 and prev_motion.y < -0.001:
+			_grounded = true
+		if abs(motion.y) > 0.001:
+			_grounded = false
 		global_translate(motion)
 
 	assert(delta > 0)
