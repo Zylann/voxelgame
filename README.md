@@ -1,7 +1,7 @@
 Voxel game demos (Godot Engine)
 ===============================
 
-This project contains several scenes to test and demo the voxel module I'm developping for Godot Engine.
+This project contains several scenes to test and demo the voxel module I'm developing for Godot Engine.
 
 ![Screenshot](screenshots/2020_05_05_1953_small.png)
 
