@@ -13,7 +13,6 @@ const _process_stat_names = [
 	"time_request_blocks_to_load",
 	"time_process_load_responses",
 	"time_request_blocks_to_update",
-	"time_process_update_responses",
 	"updated_blocks"
 ]
 
