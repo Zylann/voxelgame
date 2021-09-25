@@ -13,6 +13,10 @@ size = Vector3( 0.8, 1.8, 0.8 )
 
 [node name="CharacterAvatar" type="Spatial"]
 script = ExtResource( 1 )
+speed = 6.0
+gravity = 40.0
+jump_force = 10.0
+head = NodePath("Camera")
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.702764, 0 )

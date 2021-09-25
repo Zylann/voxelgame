@@ -82,10 +82,6 @@ material/0 = null
 
 [node name="CharacterAvatar" parent="." instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 64, 0 )
-speed = 6.0
-gravity = 40.0
-jump_force = 8.0
-head = NodePath("../CharacterAvatar/Camera")
 terrain = NodePath("../VoxelTerrain")
 
 [node name="RandomTicks" type="Node" parent="."]
