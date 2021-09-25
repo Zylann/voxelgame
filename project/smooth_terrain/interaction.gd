@@ -38,5 +38,6 @@ func do_sphere(center, fradius, add):
 		vt.mode = VoxelTool.MODE_ADD
 	else:
 		vt.mode = VoxelTool.MODE_REMOVE
+	vt.set_sdf_scale(0.1)
 	vt.do_sphere(center, fradius)
 
