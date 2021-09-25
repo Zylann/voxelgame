@@ -11,19 +11,12 @@ func _process(delta):
 	DDD.set_text("Static memory", _format_memory(sm))
 
 	var global_stats = VoxelServer.get_stats()
-	var pairs = [
-		[global_stats.streaming, "streaming_"],
-		[global_stats.generation, "generation_"],
-		[global_stats.meshing, "meshing_"]
-	]
-	for p in pairs:
-		var pool_stats = p[0]
-		var prefix = p[1]
+	for p in global_stats:
+		var pool_stats = global_stats[p]
 		for k in pool_stats:
-			DDD.set_text(str(prefix, k), pool_stats[k])
+			DDD.set_text(str(p, "_", k), pool_stats[k])
 
 	var terrain_stats = _terrain.get_statistics()
-	DDD.set_text("Main thread block updates", terrain_stats.remaining_main_thread_blocks)
 
 
 static func _format_memory(m):
