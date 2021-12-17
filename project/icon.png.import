@@ -3,26 +3,28 @@
 importer="texture"
 type="StreamTexture2D"
 uid="uid://tuitsmnvxffj"
-path="res://.godot/imported/icon.png-487276ed1e3a0c39cad0279d744ee560.stex"
+path.s3tc="res://.godot/imported/icon.png-487276ed1e3a0c39cad0279d744ee560.s3tc.stex"
+path.etc2="res://.godot/imported/icon.png-487276ed1e3a0c39cad0279d744ee560.etc2.stex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc", "etc2"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://icon.png"
-dest_files=["res://.godot/imported/icon.png-487276ed1e3a0c39cad0279d744ee560.stex"]
+dest_files=["res://.godot/imported/icon.png-487276ed1e3a0c39cad0279d744ee560.s3tc.stex", "res://.godot/imported/icon.png-487276ed1e3a0c39cad0279d744ee560.etc2.stex"]
 
 [params]
 
-compress/mode=3
+compress/mode=2
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/bptc_ldr=0
 compress/normal_map=2
 compress/channel_pack=0
 compress/streamed=false
-mipmaps/generate=false
+mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -31,5 +33,5 @@ process/premult_alpha=true
 process/normal_map_invert_y=false
 process/HDR_as_SRGB=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0
 svg/scale=1.0
