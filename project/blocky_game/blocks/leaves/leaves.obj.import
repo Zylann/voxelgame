@@ -1,19 +1,21 @@
 [remap]
 
 importer="wavefront_obj"
+importer_version=1
 type="Mesh"
-path="res://.import/leaves.obj-8d279a78d29627f7d5c67e7fbb66e433.mesh"
+uid="uid://c2lwrnrx0on2g"
+path="res://.godot/imported/leaves.obj-8d279a78d29627f7d5c67e7fbb66e433.mesh"
 
 [deps]
 
-files=[ "res://.import/leaves.obj-8d279a78d29627f7d5c67e7fbb66e433.mesh" ]
+files=["res://.godot/imported/leaves.obj-8d279a78d29627f7d5c67e7fbb66e433.mesh"]
 
 source_file="res://blocky_game/blocks/leaves/leaves.obj"
-dest_files=[ "res://.import/leaves.obj-8d279a78d29627f7d5c67e7fbb66e433.mesh", "res://.import/leaves.obj-8d279a78d29627f7d5c67e7fbb66e433.mesh" ]
+dest_files=["res://.godot/imported/leaves.obj-8d279a78d29627f7d5c67e7fbb66e433.mesh", "res://.godot/imported/leaves.obj-8d279a78d29627f7d5c67e7fbb66e433.mesh"]
 
 [params]
 
 generate_tangents=true
-scale_mesh=Vector3( 1, 1, 1 )
-offset_mesh=Vector3( 0, 0, 0 )
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
 optimize_mesh=true

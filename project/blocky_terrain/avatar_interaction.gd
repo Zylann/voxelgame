@@ -4,10 +4,10 @@ const Util = preload("res://common/util.gd")
 
 const COLLISION_LAYER_AVATAR = 2
 
-export(NodePath) var terrain_path = null
-export(Material) var cursor_material = null
+@export var terrain_path : NodePath
+@export var cursor_material : Material
 
-onready var _head = get_parent().get_node("Camera")
+@onready var _head = get_parent().get_node("Camera")
 
 var _terrain = null
 var _terrain_tool = null
@@ -27,7 +27,7 @@ func _ready():
 		_terrain = get_node(terrain_path)
 	
 	var mesh = Util.create_wirecube_mesh(Color(0,0,0))
-	var mesh_instance = MeshInstance.new()
+	var mesh_instance = MeshInstance3D.new()
 	mesh_instance.mesh = mesh
 	if cursor_material != null:
 		mesh_instance.material_override = cursor_material
@@ -52,7 +52,7 @@ func _physics_process(delta):
 	var hit = get_pointed_voxel()
 	if hit != null:
 		_cursor.show()
-		_cursor.set_translation(hit.position)
+		_cursor.set_position(hit.position)
 		DDD.set_text("Pointed voxel", str(hit.position))
 	else:
 		_cursor.hide()
@@ -84,14 +84,14 @@ func _unhandled_input(event):
 	if event is InputEventMouseButton:
 		if event.pressed:
 			match event.button_index:
-				BUTTON_LEFT:
+				MOUSE_BUTTON_LEFT:
 					_action_place = true
-				BUTTON_RIGHT:
+				MOUSE_BUTTON_RIGHT:
 					_action_remove = true
 
 	elif event is InputEventKey:
 		if event.pressed:
-			match event.scancode:
+			match event.keycode:
 				KEY_1:
 					select_inventory(0)
 				KEY_2:
@@ -109,11 +109,11 @@ func select_inventory(i):
 
 
 func can_place_voxel_at(pos):
-	var space_state = get_viewport().get_world().get_direct_space_state()
-	var params = PhysicsShapeQueryParameters.new()
+	var space_state = get_viewport().get_world_3d().get_direct_space_state()
+	var params = PhysicsShapeQueryParameters3D.new()
 	params.collision_mask = COLLISION_LAYER_AVATAR
-	params.transform = Transform(Basis(), pos + Vector3(1,1,1)*0.5)
-	var shape = BoxShape.new()
+	params.transform = Transform3D(Basis(), pos + Vector3(1,1,1)*0.5)
+	var shape = BoxShape3D.new()
 	var ex = 0.5
 	shape.extents = Vector3(ex, ex, ex)
 	params.set_shape(shape)

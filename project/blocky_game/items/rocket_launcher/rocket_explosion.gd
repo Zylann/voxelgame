@@ -1,7 +1,7 @@
-extends Spatial
+extends Node3D
 
-onready var _particles = $Particles
-onready var _animation_player = $AnimationPlayer
+@onready var _particles = $Particles
+@onready var _animation_player = $AnimationPlayer
 
 
 func _ready():

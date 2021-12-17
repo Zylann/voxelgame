@@ -12,7 +12,7 @@ const _materials = [
 ]
 
 
-onready var _mesh_instance : MeshInstance = $MeshInstance
+@onready var _mesh_instance : MeshInstance3D = $MeshInstance3D
 
 var _origin = Vector3()
 var _generator = Generator.new()
@@ -23,7 +23,7 @@ func _ready():
 	_generate()
 	
 	var wireframe = Util.create_wirecube_mesh()
-	var wireframe_instance = MeshInstance.new()
+	var wireframe_instance = MeshInstance3D.new()
 	wireframe_instance.mesh = wireframe
 	wireframe_instance.scale = Vector3(16, 16, 16)
 	add_child(wireframe_instance)
@@ -32,7 +32,7 @@ func _ready():
 func _input(event):
 	if event is InputEventKey:
 		if event.pressed:
-			match event.scancode:
+			match event.keycode:
 				KEY_SPACE:
 					_generate()
 				KEY_LEFT:

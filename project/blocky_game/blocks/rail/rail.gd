@@ -24,8 +24,9 @@ const _all_directions = [
 	Blocks.ROTATION_Y_POSITIVE_Z
 ]
 
+# TODO This should have work as `const`, it broke in Godot4
 # For each variant, what are their connection directions
-const _variant_connection_dirs = [
+var _variant_connection_dirs = [
 	[Blocks.ROTATION_Y_NEGATIVE_X, Blocks.ROTATION_Y_POSITIVE_X], # straight_x
 	[Blocks.ROTATION_Y_NEGATIVE_Z, Blocks.ROTATION_Y_POSITIVE_Z], # straight_z
 	
@@ -105,7 +106,7 @@ func place(voxel_tool: VoxelTool, pos: Vector3, look_dir: Vector3):
 		voxel_tool.set_voxel(neighbor.pos, base_info.voxels[neighbor_variant_index])
 
 
-static func _get_auto_oriented_variant(
+func _get_auto_oriented_variant(
 	pos: Vector3, neighbors: Dictionary, look_dir: Vector3) -> int:
 
 	var mask := 0

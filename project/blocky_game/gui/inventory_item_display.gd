@@ -4,8 +4,8 @@ const InventoryItem = preload("res://blocky_game/player/inventory_item.gd")
 const Blocks = preload("../blocks/blocks.gd")
 const ItemDB = preload("../items/item_db.gd")
 
-onready var _block_types : Blocks = get_node("/root/Main/Blocks")
-onready var _item_db : ItemDB = get_node("/root/Main/Items")
+@onready var _block_types : Blocks = get_node("/root/Main/Blocks")
+@onready var _item_db : ItemDB = get_node("/root/Main/Items")
 
 
 func set_item(data: InventoryItem):

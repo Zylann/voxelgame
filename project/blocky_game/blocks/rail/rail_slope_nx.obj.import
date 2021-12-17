@@ -1,19 +1,21 @@
 [remap]
 
 importer="wavefront_obj"
+importer_version=1
 type="Mesh"
-path="res://.import/rail_slope_nx.obj-90385ea2b8ff9640c73b0d01ccf384e5.mesh"
+uid="uid://c6qtk2kyul3nn"
+path="res://.godot/imported/rail_slope_nx.obj-90385ea2b8ff9640c73b0d01ccf384e5.mesh"
 
 [deps]
 
-files=[ "res://.import/rail_slope_nx.obj-90385ea2b8ff9640c73b0d01ccf384e5.mesh" ]
+files=["res://.godot/imported/rail_slope_nx.obj-90385ea2b8ff9640c73b0d01ccf384e5.mesh"]
 
 source_file="res://blocky_game/blocks/rail/rail_slope_nx.obj"
-dest_files=[ "res://.import/rail_slope_nx.obj-90385ea2b8ff9640c73b0d01ccf384e5.mesh", "res://.import/rail_slope_nx.obj-90385ea2b8ff9640c73b0d01ccf384e5.mesh" ]
+dest_files=["res://.godot/imported/rail_slope_nx.obj-90385ea2b8ff9640c73b0d01ccf384e5.mesh", "res://.godot/imported/rail_slope_nx.obj-90385ea2b8ff9640c73b0d01ccf384e5.mesh"]
 
 [params]
 
 generate_tangents=true
-scale_mesh=Vector3( 1, 1, 1 )
-offset_mesh=Vector3( 0, 0, 0 )
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
 optimize_mesh=true

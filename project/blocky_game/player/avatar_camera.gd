@@ -1,10 +1,12 @@
-extends Spatial
+extends Node3D
 
-export var sensitivity = 0.4
-export var min_angle = -90
-export var max_angle = 90
-export var capture_mouse = true
-export var distance = 0.0
+const Util = preload("res://common/util.gd")
+
+@export var sensitivity = 0.4
+@export var min_angle = -90
+@export var max_angle = 90
+@export var capture_mouse = true
+@export var distance = 0.0
 
 var _yaw = 0
 var _pitch = 0
@@ -12,7 +14,7 @@ var _offset = Vector3()
 
 
 func _ready():
-	_offset = get_translation()
+	_offset = position
 	if capture_mouse:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
@@ -25,13 +27,13 @@ func _unhandled_input(event):
 				Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		
 		# The game uses the wheel already, put that "debug" adjustment behind a modifier
-		if event.control:
-			if event.button_index == BUTTON_WHEEL_UP:
-				distance = max(distance - 1 - distance * 0.1, 0)
+		if event.ctrl_pressed:
+			if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+				distance = max(distance - 1 - distance * 0.1, 0.0)
 				update_rotations()
 			
-			elif event.button_index == BUTTON_WHEEL_DOWN:
-				distance = max(distance + 1 + distance * 0.1, 0)
+			elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+				distance = max(distance + 1 + distance * 0.1, 0.0)
 				update_rotations()
 	
 	elif event is InputEventMouseMotion:
@@ -55,20 +57,20 @@ func _unhandled_input(event):
 	
 	elif event is InputEventKey:
 		if event.pressed:
-			if event.scancode == KEY_ESCAPE:
+			if event.keycode == KEY_ESCAPE:
 				# Get the mouse back
 				Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			
-			elif event.scancode == KEY_I:
-				var pos = get_translation()
+			elif event.keycode == KEY_I:
+				var pos = position
 				var fw = -transform.basis.z
 				print("Position: ", pos, ", Forward: ", fw)
 
 
 func update_rotations():
-	set_translation(Vector3())
+	set_position(Vector3())
 	set_rotation(Vector3(0, deg2rad(_yaw), 0))
 	rotate(get_transform().basis.x.normalized(), -deg2rad(_pitch))
-	set_translation(get_transform().basis.z * distance + _offset)
+	set_position(get_transform().basis.z * distance + _offset)
 
 

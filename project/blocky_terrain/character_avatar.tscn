@@ -6,7 +6,7 @@
 [ext_resource path="res://blocky_terrain/crosshair.png" type="Texture" id=4]
 [ext_resource path="res://blocky_terrain/center.gd" type="Script" id=5]
 
-[sub_resource type="SpatialMaterial" id=1]
+[sub_resource type="StandardMaterial3D" id=1]
 vertex_color_use_as_albedo = true
 params_line_width = 2.0
 roughness = 0.0
@@ -14,14 +14,14 @@ roughness = 0.0
 [sub_resource type="CubeMesh" id=2]
 size = Vector3( 0.8, 1.8, 0.8 )
 
-[node name="CharacterAvatar" type="Spatial"]
+[node name="CharacterAvatar" type="Node3D"]
 script = ExtResource( 1 )
 speed = 10.0
 gravity = 40.0
 jump_force = 8.0
 head = NodePath("Camera")
 
-[node name="Camera" type="Camera" parent="."]
+[node name="Camera" type="Camera3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.702764, 0 )
 current = true
 fov = 90.0
@@ -35,7 +35,7 @@ distance = 4.0
 script = ExtResource( 3 )
 cursor_material = SubResource( 1 )
 
-[node name="crosshair" type="Sprite" parent="."]
+[node name="crosshair" type="Sprite2D" parent="."]
 visible = false
 position = Vector2( 510.693, 285.793 )
 texture = ExtResource( 4 )
@@ -48,7 +48,7 @@ shadow_bias = 0.1
 omni_range = 10.0
 omni_attenuation = 2.54912
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
+[node name="MeshInstance" type="MeshInstance3D" parent="."]
 mesh = SubResource( 2 )
 material/0 = null
 

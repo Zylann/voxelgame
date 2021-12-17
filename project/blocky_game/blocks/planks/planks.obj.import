@@ -1,19 +1,21 @@
 [remap]
 
 importer="wavefront_obj"
+importer_version=1
 type="Mesh"
-path="res://.import/planks.obj-d824fc3f8de0eb8dd170ec627845a579.mesh"
+uid="uid://dm05scqbatw2v"
+path="res://.godot/imported/planks.obj-d824fc3f8de0eb8dd170ec627845a579.mesh"
 
 [deps]
 
-files=[ "res://.import/planks.obj-d824fc3f8de0eb8dd170ec627845a579.mesh" ]
+files=["res://.godot/imported/planks.obj-d824fc3f8de0eb8dd170ec627845a579.mesh"]
 
 source_file="res://blocky_game/blocks/planks/planks.obj"
-dest_files=[ "res://.import/planks.obj-d824fc3f8de0eb8dd170ec627845a579.mesh", "res://.import/planks.obj-d824fc3f8de0eb8dd170ec627845a579.mesh" ]
+dest_files=["res://.godot/imported/planks.obj-d824fc3f8de0eb8dd170ec627845a579.mesh", "res://.godot/imported/planks.obj-d824fc3f8de0eb8dd170ec627845a579.mesh"]
 
 [params]
 
 generate_tangents=true
-scale_mesh=Vector3( 1, 1, 1 )
-offset_mesh=Vector3( 0, 0, 0 )
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
 optimize_mesh=true

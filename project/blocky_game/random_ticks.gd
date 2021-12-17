@@ -10,9 +10,9 @@ const RADIUS = 100
 # How many voxels are affected per frame
 const VOXELS_PER_FRAME = 512
 
-onready var _terrain = get_node("../VoxelTerrain")
-onready var _avatar = get_node("../CharacterAvatar")
-onready var _voxel_tool = _terrain.get_voxel_tool()
+@onready var _terrain = get_node("../VoxelTerrain")
+@onready var _avatar = get_node("../CharacterAvatar")
+@onready var _voxel_tool = _terrain.get_voxel_tool()
 
 var _grass_dirs = [
 	Vector3(-1, 0, 0),
@@ -60,7 +60,7 @@ func _process(_delta):
 	var r = RADIUS
 	var area = AABB(center - Vector3(r, r, r), 2 * Vector3(r, r, r))
 	_voxel_tool.run_blocky_random_tick(
-		area, VOXELS_PER_FRAME, funcref(self, "_random_tick_callback"), 16)
+		area, VOXELS_PER_FRAME, _random_tick_callback, 16)
 
 	#var time_spent = OS.get_ticks_usec() - time_before
 	#print("Spent ", time_spent)

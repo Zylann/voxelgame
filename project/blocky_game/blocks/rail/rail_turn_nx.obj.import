@@ -1,19 +1,21 @@
 [remap]
 
 importer="wavefront_obj"
+importer_version=1
 type="Mesh"
-path="res://.import/rail_turn_nx.obj-37887e8f4aa1233dac9d49034bf19dd8.mesh"
+uid="uid://gtm7tbbwvroc"
+path="res://.godot/imported/rail_turn_nx.obj-37887e8f4aa1233dac9d49034bf19dd8.mesh"
 
 [deps]
 
-files=[ "res://.import/rail_turn_nx.obj-37887e8f4aa1233dac9d49034bf19dd8.mesh" ]
+files=["res://.godot/imported/rail_turn_nx.obj-37887e8f4aa1233dac9d49034bf19dd8.mesh"]
 
 source_file="res://blocky_game/blocks/rail/rail_turn_nx.obj"
-dest_files=[ "res://.import/rail_turn_nx.obj-37887e8f4aa1233dac9d49034bf19dd8.mesh", "res://.import/rail_turn_nx.obj-37887e8f4aa1233dac9d49034bf19dd8.mesh" ]
+dest_files=["res://.godot/imported/rail_turn_nx.obj-37887e8f4aa1233dac9d49034bf19dd8.mesh", "res://.godot/imported/rail_turn_nx.obj-37887e8f4aa1233dac9d49034bf19dd8.mesh"]
 
 [params]
 
 generate_tangents=true
-scale_mesh=Vector3( 1, 1, 1 )
-offset_mesh=Vector3( 0, 0, 0 )
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
 optimize_mesh=true

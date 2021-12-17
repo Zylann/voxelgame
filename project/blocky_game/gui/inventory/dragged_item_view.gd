@@ -1,7 +1,7 @@
 extends Control
 
 
-onready var _display = $TextureRect
+@onready var _display = $TextureRect
 
 
 func _ready():

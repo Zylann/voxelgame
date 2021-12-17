@@ -1,8 +1,8 @@
 extends Node
 
-onready var _terrain = $VoxelTerrain
-onready var _avatar = $SpectatorAvatar
-onready var _light = $DirectionalLight
+@onready var _terrain = $VoxelTerrain
+@onready var _avatar = $SpectatorAvatar
+@onready var _light = $DirectionalLight
 
 var _process_stats = {}
 var _displayed_process_stats = {}
@@ -58,7 +58,7 @@ static func _format_memory(m):
 func _input(event):
 	if event is InputEventKey:
 		if event.pressed:
-			match event.scancode:
+			match event.keycode:
 				KEY_O:
 					var vp = get_viewport()
 					if vp.debug_draw == Viewport.DEBUG_DRAW_DISABLED:

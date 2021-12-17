@@ -13,9 +13,9 @@ const _spread_directions = [
 	Vector3(0, -1, 0)
 ]
 
-onready var _terrain : VoxelTerrain = get_node("../VoxelTerrain")
-onready var _terrain_tool := _terrain.get_voxel_tool()
-onready var _blocks : Blocks = get_node("../Blocks")
+@onready var _terrain : VoxelTerrain = get_node("../VoxelTerrain")
+@onready var _terrain_tool := _terrain.get_voxel_tool()
+@onready var _blocks : Blocks = get_node("../Blocks")
 
 # TODO An efficient Queue data structure would be NICE
 var _update_queue := []

@@ -1,19 +1,21 @@
 [remap]
 
 importer="wavefront_obj"
+importer_version=1
 type="Mesh"
-path="res://.import/water_full.obj-0ae40f431c707143fe36ffd16cacf254.mesh"
+uid="uid://31q4wrlmcpbj"
+path="res://.godot/imported/water_full.obj-0ae40f431c707143fe36ffd16cacf254.mesh"
 
 [deps]
 
-files=[ "res://.import/water_full.obj-0ae40f431c707143fe36ffd16cacf254.mesh" ]
+files=["res://.godot/imported/water_full.obj-0ae40f431c707143fe36ffd16cacf254.mesh"]
 
 source_file="res://blocky_game/blocks/water/water_full.obj"
-dest_files=[ "res://.import/water_full.obj-0ae40f431c707143fe36ffd16cacf254.mesh", "res://.import/water_full.obj-0ae40f431c707143fe36ffd16cacf254.mesh" ]
+dest_files=["res://.godot/imported/water_full.obj-0ae40f431c707143fe36ffd16cacf254.mesh", "res://.godot/imported/water_full.obj-0ae40f431c707143fe36ffd16cacf254.mesh"]
 
 [params]
 
 generate_tangents=true
-scale_mesh=Vector3( 1, 1, 1 )
-offset_mesh=Vector3( 0, 0, 0 )
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
 optimize_mesh=true

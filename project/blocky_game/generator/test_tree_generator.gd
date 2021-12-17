@@ -11,7 +11,7 @@ const _materials = [
 ]
 
 
-onready var _mesh_instance : MeshInstance = $MeshInstance
+@onready var _mesh_instance : MeshInstance3D = $MeshInstance3D
 
 
 func _ready():
@@ -21,7 +21,7 @@ func _ready():
 func _input(event):
 	if event is InputEventKey:
 		if event.pressed:
-			if event.scancode == KEY_SPACE:
+			if event.keycode == KEY_SPACE:
 				_generate()
 
 

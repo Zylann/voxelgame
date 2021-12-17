@@ -1,13 +1,13 @@
-extends Spatial
+extends Node3D
 
-export var speed = 5.0
-export var gravity = 9.8
-export var jump_force = 5.0
-export(NodePath) var head = null
+@export var speed = 5.0
+@export var gravity = 9.8
+@export var jump_force = 5.0
+@export var head : NodePath
 
 # Not used in this script, but might be useful for child nodes because
 # this controller will most likely be on the root
-export(NodePath) var terrain = null
+@export var terrain : NodePath
 
 var _velocity = Vector3()
 var _grounded = false
@@ -51,7 +51,7 @@ func _physics_process(delta):
 		var aabb = AABB(Vector3(-0.4, -0.9, -0.4), Vector3(0.8, 1.8, 0.8))
 		var terrain_node = get_node(terrain)
 		var prev_motion = motion
-		motion = _box_mover.get_motion(get_translation(), motion, aabb, terrain_node)
+		motion = _box_mover.get_motion(position, motion, aabb, terrain_node)
 		if abs(motion.y) < 0.001 and prev_motion.y < -0.001:
 			_grounded = true
 		if abs(motion.y) > 0.001:

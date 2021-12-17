@@ -1,7 +1,7 @@
 extends Node
 
-onready var _head = get_parent().get_node("Camera")
-onready var _terrain = get_parent().get_parent().get_node("VoxelTerrain")
+@onready var _head = get_parent().get_node("Camera")
+@onready var _terrain = get_parent().get_parent().get_node("VoxelTerrain")
 
 var _action_place = false
 var _action_remove = false

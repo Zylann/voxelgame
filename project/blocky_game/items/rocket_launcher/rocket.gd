@@ -1,12 +1,12 @@
-extends Spatial
+extends Node3D
 
 const LIFETIME = 10.0
 
 const DebrisScene = preload("./debris.tscn")
 const ExplosionScene = preload("./rocket_explosion.tscn")
 
-onready var _terrain : VoxelTerrain = get_node("../VoxelTerrain")
-onready var _terrain_tool := _terrain.get_voxel_tool()
+@onready var _terrain : VoxelTerrain = get_node("../VoxelTerrain")
+@onready var _terrain_tool := _terrain.get_voxel_tool()
 
 var _direction := Vector3(0, 0, 1)
 var _speed := 20.0
@@ -35,18 +35,18 @@ func _physics_process(delta: float):
 		# EXPLODE
 		_terrain_tool.do_sphere(hit.position, 4.0)
 		
-		var explosion = ExplosionScene.instance()
-		explosion.translation = trans.origin
+		var explosion = ExplosionScene.instantiate()
+		explosion.position = trans.origin
 		get_parent().add_child(explosion)
 
 		# Create debris
 		for i in 30:
-			var debris = DebrisScene.instance()
+			var debris = DebrisScene.instantiate()
 			var debris_velocity := \
-				Vector3(rand_range(-1, 1), rand_range(-1, 1), rand_range(-1, 1)).normalized()
-			debris_velocity *= rand_range(5.0, 30.0)
+				Vector3(randf_range(-1, 1), randf_range(-1, 1), randf_range(-1, 1)).normalized()
+			debris_velocity *= randf_range(5.0, 30.0)
 			debris.set_velocity(debris_velocity)
-			debris.translation = trans.origin
+			debris.position = trans.origin
 			get_parent().add_child(debris)
 		queue_free()
 			

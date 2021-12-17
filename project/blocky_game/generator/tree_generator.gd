@@ -14,19 +14,19 @@ func generate() -> Structure:
 	# Let's make crappy trees
 	
 	# Trunk
-	var trunk_len := int(rand_range(trunk_len_min, trunk_len_max))
+	var trunk_len := int(randf_range(trunk_len_min, trunk_len_max))
 	for y in trunk_len:
 		voxels[Vector3(0, y, 0)] = log_type
 
 	# Branches
-	var branches_start := int(rand_range(trunk_len / 3, trunk_len / 2))
+	var branches_start := int(randf_range(trunk_len / 3, trunk_len / 2))
 	for y in range(branches_start, trunk_len):
 		var t := float(y - branches_start) / float(trunk_len)
 		var branch_chance := 1.0 - pow(t - 0.5, 2)
 		if randf() < branch_chance:
 			var branch_len := int((trunk_len / 2.0) * branch_chance * randf())
 			var pos := Vector3(0, y, 0)
-			var angle := rand_range(-PI, PI)
+			var angle := randf_range(-PI, PI)
 			var dir := Vector3(cos(angle), 0.45, sin(angle))
 			for i in branch_len:
 				pos += dir

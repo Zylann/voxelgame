@@ -1,11 +1,11 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://blocky_game/gui/hotbar/hotbar_slot_select.png" type="Texture" id=1]
+[ext_resource path="res://blocky_game/gui/hotbar/hotbar_slot_select.png" type="Texture2D" id=1]
 
 [node name="HotbarSlotSelect" type="TextureRect"]
-margin_right = 64.0
-margin_bottom = 64.0
-rect_min_size = Vector2( 64, 64 )
+offset_right = 64.0
+offset_bottom = 64.0
+rect_min_size = Vector2(64, 64)
 texture = ExtResource( 1 )
 expand = true
 __meta__ = {
@@ -13,12 +13,12 @@ __meta__ = {
 }
 
 [node name="Shadow" type="TextureRect" parent="."]
-modulate = Color( 0.12549, 0.12549, 0.12549, 1 )
+modulate = Color(0.12549, 0.12549, 0.12549, 1)
 show_behind_parent = true
-margin_left = 2.0
-margin_top = 2.0
-margin_right = 66.0
-margin_bottom = 66.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 66.0
+offset_bottom = 66.0
 texture = ExtResource( 1 )
 expand = true
 __meta__ = {

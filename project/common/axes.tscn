@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[sub_resource type="CubeMesh" id=1]
+[sub_resource type="BoxMesh" id=1]
 
 custom_aabb = AABB( 0, 0, 0, 0, 0, 0 )
 flip_faces = false
@@ -9,7 +9,7 @@ subdivide_width = 0
 subdivide_height = 0
 subdivide_depth = 0
 
-[sub_resource type="SpatialMaterial" id=2]
+[sub_resource type="StandardMaterial3D" id=2]
 
 render_priority = 0
 flags_transparent = false
@@ -65,7 +65,7 @@ proximity_fade_enable = false
 distance_fade_mode = 0
 _sections_unfolded = [ "Albedo", "Vertex Color" ]
 
-[sub_resource type="SpatialMaterial" id=3]
+[sub_resource type="StandardMaterial3D" id=3]
 
 render_priority = 0
 flags_transparent = false
@@ -121,7 +121,7 @@ proximity_fade_enable = false
 distance_fade_mode = 0
 _sections_unfolded = [ "Albedo", "Vertex Color" ]
 
-[sub_resource type="SpatialMaterial" id=4]
+[sub_resource type="StandardMaterial3D" id=4]
 
 render_priority = 0
 flags_transparent = false
@@ -177,9 +177,9 @@ proximity_fade_enable = false
 distance_fade_mode = 0
 _sections_unfolded = [ "Albedo", "Vertex Color" ]
 
-[node name="Axes" type="Spatial"]
+[node name="Axes" type="Node3D"]
 
-[node name="X" type="MeshInstance" parent="."]
+[node name="X" type="MeshInstance3D" parent="."]
 transform = Transform( 0.5, 0, 0, 0, 0.02, 0, 0, 0, 0.02, 0.5, 0, 0 )
 layers = 1
 material_override = null
@@ -195,7 +195,7 @@ skeleton = NodePath("..")
 material/0 = SubResource( 2 )
 _sections_unfolded = [ "Transform", "material" ]
 
-[node name="Y" type="MeshInstance" parent="."]
+[node name="Y" type="MeshInstance3D" parent="."]
 transform = Transform( -2.18557e-08, 0, -0.02, 0, 0.02, 0, 0.5, 0, -8.74228e-10, 0, 0, 0.5 )
 layers = 1
 material_override = null
@@ -211,7 +211,7 @@ skeleton = NodePath("..")
 material/0 = SubResource( 3 )
 _sections_unfolded = [ "Transform", "material" ]
 
-[node name="Z" type="MeshInstance" parent="."]
+[node name="Z" type="MeshInstance3D" parent="."]
 transform = Transform( -2.18557e-08, 0.02, 0, -0.5, -8.74228e-10, 0, 0, 0, 0.02, 0, 0.5, 0 )
 layers = 1
 material_override = null

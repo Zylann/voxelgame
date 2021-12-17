@@ -73,8 +73,9 @@ func _get_used_channels_mask() -> int:
 
 
 func _generate_block(buffer: VoxelBuffer, origin_in_voxels: Vector3, lod: int):
+	# TODO There is an issue doing this, need to investigate why because it should be supported
 	# Saves from this demo used 8-bit, which is no longer the default
-	buffer.set_channel_depth(_CHANNEL, VoxelBuffer.DEPTH_8_BIT)
+	#buffer.set_channel_depth(_CHANNEL, VoxelBuffer.DEPTH_8_BIT)
 
 	# Assuming input is cubic in our use case (it doesn't have to be!)
 	var block_size := int(buffer.get_size().x)
@@ -150,7 +151,7 @@ func _generate_block(buffer: VoxelBuffer, origin_in_voxels: Vector3, lod: int):
 		_get_tree_instances_in_chunk(chunk_pos, origin_in_voxels, block_size, structure_instances)
 	
 		# Relative to current block
-		var block_aabb := AABB(Vector3(), buffer.get_size() + Vector3(1, 1, 1))
+		var block_aabb := AABB(Vector3(), buffer.get_size() + Vector3i(1, 1, 1))
 
 		for dir in _moore_dirs:
 			var ncpos : Vector3 = (chunk_pos + dir).round()
@@ -160,7 +161,7 @@ func _generate_block(buffer: VoxelBuffer, origin_in_voxels: Vector3, lod: int):
 			var pos : Vector3 = structure_instance[0]
 			var structure : Structure = structure_instance[1]
 			var lower_corner_pos := pos - structure.offset
-			var aabb := AABB(lower_corner_pos, structure.voxels.get_size() + Vector3(1, 1, 1))
+			var aabb := AABB(lower_corner_pos, structure.voxels.get_size() + Vector3i(1, 1, 1))
 
 			if aabb.intersects(block_aabb):
 				voxel_tool.paste(lower_corner_pos, 

@@ -1,8 +1,8 @@
 
-extends MeshInstance
+extends MeshInstance3D
 
-export var size = 4
-export var step = 16
+@export var size = 4
+@export var step = 16
 
 
 func _ready():

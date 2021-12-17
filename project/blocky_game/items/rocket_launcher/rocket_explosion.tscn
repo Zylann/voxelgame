@@ -3,7 +3,7 @@
 [ext_resource path="res://blocky_game/items/rocket_launcher/smoke_particle.png" type="Texture" id=1]
 [ext_resource path="res://blocky_game/items/rocket_launcher/rocket_explosion.gd" type="Script" id=2]
 
-[sub_resource type="SpatialMaterial" id=1]
+[sub_resource type="StandardMaterial3D" id=1]
 flags_transparent = true
 vertex_color_use_as_albedo = true
 params_billboard_mode = 3
@@ -69,7 +69,7 @@ tracks/1/keys = {
 } ]
 }
 
-[node name="RocketExplosion" type="Spatial"]
+[node name="RocketExplosion" type="Node3D"]
 script = ExtResource( 2 )
 
 [node name="Particles" type="Particles" parent="."]

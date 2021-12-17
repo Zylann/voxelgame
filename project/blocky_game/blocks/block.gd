@@ -11,7 +11,7 @@ class BaseInfo:
 	var gui_model_path := ""
 	var directory := ""
 	var rotation_type := 0
-	var sprite_texture : Texture
+	var sprite_texture : Texture2D
 	var transparent := false
 	var backface_culling := true
 	# TODO Rename `variants`

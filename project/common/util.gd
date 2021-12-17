@@ -1,6 +1,6 @@
 
 static func create_wirecube_mesh(color = Color(1,1,1)):
-	var positions = PoolVector3Array([
+	var positions = PackedVector3Array([
 		Vector3(0, 0, 0),
 		Vector3(1, 0, 0),
 		Vector3(1, 0, 1),
@@ -10,11 +10,11 @@ static func create_wirecube_mesh(color = Color(1,1,1)):
 		Vector3(1, 1, 1),
 		Vector3(0, 1, 1)
 	])
-	var colors = PoolColorArray([
+	var colors = PackedColorArray([
 		color, color, color, color,
 		color, color, color, color,
 	])
-	var indices = PoolIntArray([
+	var indices = PackedInt32Array([
 		0, 1,
 		1, 2,
 		2, 3,
@@ -40,8 +40,8 @@ static func create_wirecube_mesh(color = Color(1,1,1)):
 	return mesh
 
 
-static func calculate_normals(positions, indices) -> PoolVector3Array:
-	var out_normals = PoolVector3Array()
+static func calculate_normals(positions, indices) -> PackedVector3Array:
+	var out_normals = PackedVector3Array()
 	
 	var tcounts = []
 	tcounts.resize(positions.size())
@@ -98,3 +98,15 @@ static func get_longest_axis(v: Vector3) -> int:
 
 static func get_direction_id4(dir: Vector2) -> int:
 	return int(4.0 * (dir.rotated(PI / 4.0).angle() + PI) / TAU)
+
+
+static func vec3_has_nan(v: Vector3) -> bool:
+	return is_nan(v.x) or is_nan(v.y) or is_nan(v.z)
+
+
+static func basis_has_nan(b: Basis) -> bool:
+	return vec3_has_nan(b.x) or vec3_has_nan(b.y) or vec3_has_nan(b.z)
+
+
+static func transform_has_nan(t: Transform3D) -> bool:
+	return vec3_has_nan(t.origin) or basis_has_nan(t.basis)

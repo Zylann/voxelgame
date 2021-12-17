@@ -8,9 +8,9 @@ const HOTBAR_HEIGHT = 1
 
 const InventoryItem = preload("../../player/inventory_item.gd")
 
-onready var _bag_container = $CC/PC/VB/Bag
-onready var _hotbar_container = $CC/PC/VB/Hotbar
-onready var _dragged_item_view = $DraggedItem
+@onready var _bag_container = $CC/PC/VB/Bag
+@onready var _hotbar_container = $CC/PC/VB/Hotbar
+@onready var _dragged_item_view = $DraggedItem
 
 # TODO Is it worth having the hotbar in the first indexes instead of the last ones?
 var _slots := []
@@ -44,7 +44,7 @@ func _ready():
 		for i in container.get_child_count():
 			var slot = container.get_child(i)
 			slot.get_display().set_item(_slots[slot_idx])
-			slot.connect("pressed", self, "_on_slot_pressed", [slot_idx])
+			slot.pressed.connect(_on_slot_pressed.bind(slot_idx))
 			_slot_views[slot_idx] = slot
 			slot_idx += 1
 
@@ -77,11 +77,11 @@ func get_hotbar_slot_data(i) -> InventoryItem:
 func _unhandled_input(event):
 	if event is InputEventKey:
 		if event.pressed:
-			if event.scancode == KEY_E:
+			if event.keycode == KEY_E:
 				visible = not visible
-			elif visible and event.scancode == KEY_ESCAPE:
+			elif visible and event.keycode == KEY_ESCAPE:
 				visible = false
-				get_tree().set_input_as_handled()
+				get_viewport().set_input_as_handled()
 
 
 func _notification(what: int):

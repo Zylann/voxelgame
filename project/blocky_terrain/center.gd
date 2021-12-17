@@ -1,4 +1,4 @@
-extends Sprite
+extends Sprite2D
 
 # TODO Get rid if this once viewport modes get fixed!
 

@@ -1,13 +1,11 @@
 extends Node
 
-onready var _terrain = get_parent().get_node("VoxelTerrain")
+@onready var _terrain = get_parent().get_node("VoxelTerrain")
 
 
 func _process(delta):
-	var dm = OS.get_dynamic_memory_usage()
 	var sm = OS.get_static_memory_usage()
 
-	DDD.set_text("Dynamic memory", _format_memory(dm))
 	DDD.set_text("Static memory", _format_memory(sm))
 
 	var global_stats = VoxelServer.get_stats()

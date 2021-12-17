@@ -10,6 +10,6 @@ class BaseInfo:
 var base_info := BaseInfo.new()
 
 
-func use(_trans: Transform):
+func use(_trans: Transform3D):
 	pass
 

@@ -11,14 +11,14 @@
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 0.8, 1.8, 0.8 )
 
-[node name="CharacterAvatar" type="Spatial"]
+[node name="CharacterAvatar" type="Node3D"]
 script = ExtResource( 1 )
 speed = 6.0
 gravity = 40.0
 jump_force = 10.0
 head = NodePath("Camera")
 
-[node name="Camera" type="Camera" parent="."]
+[node name="Camera" type="Camera3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.702764, 0 )
 current = true
 fov = 90.0
@@ -30,7 +30,7 @@ sensitivity = 0.3
 [node name="Interaction" type="Node" parent="."]
 script = ExtResource( 3 )
 
-[node name="crosshair" type="Sprite" parent="."]
+[node name="crosshair" type="Sprite2D" parent="."]
 visible = false
 position = Vector2( 510.693, 285.793 )
 texture = ExtResource( 4 )
@@ -43,7 +43,7 @@ shadow_bias = 0.1
 omni_range = 10.0
 omni_attenuation = 2.54912
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
+[node name="MeshInstance" type="MeshInstance3D" parent="."]
 mesh = SubResource( 1 )
 material/0 = null
 

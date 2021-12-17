@@ -8,8 +8,8 @@ const _materials = [
 	preload("res://blocky_game/blocks/terrain_material_foliage.tres")
 ]
 
-onready var _viewport : Viewport = $Viewport
-onready var _mesh_instance : MeshInstance = $Viewport/MeshInstance
+@onready var _viewport : SubViewport = $SubViewport
+@onready var _mesh_instance : MeshInstance3D = $SubViewport/MeshInstance3D
 
 var _current_block_id := -1
 var _blocks := Blocks.new()

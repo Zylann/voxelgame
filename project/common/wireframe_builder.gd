@@ -21,9 +21,9 @@ func build(mesh):
 	var wireframe_arrays = []
 	wireframe_arrays.resize(Mesh.ARRAY_MAX)
 	wireframe_arrays[Mesh.ARRAY_VERTEX] = positions
-	wireframe_arrays[Mesh.ARRAY_INDEX] = PoolIntArray(_wireframe_indices)
+	wireframe_arrays[Mesh.ARRAY_INDEX] = PackedIntArray(_wireframe_indices)
 	
-	var colors = PoolColorArray()
+	var colors = PackedColorArray()
 	colors.resize(len(positions))
 	wireframe_arrays[Mesh.ARRAY_COLOR] = colors
 
