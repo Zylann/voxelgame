@@ -27,7 +27,7 @@ func _process(_delta):
 		if block.directory != "":
 			# Grab result of previous render
 			var viewport_texture := _viewport.get_texture()
-			var im := viewport_texture.get_data()
+			var im := viewport_texture.get_image()
 			im.convert(Image.FORMAT_RGBA8)
 			var fpath := \
 				str(Blocks.ROOT, "/", block.directory, "/", block.name, "_sprite.png")
