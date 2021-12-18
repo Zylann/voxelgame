@@ -1,64 +1,50 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=11 format=3 uid="uid://bm8lhcmbtkn7s"]
 
-[ext_resource path="res://blocky_terrain/voxel_library.tres" type="VoxelLibrary" id=1]
-[ext_resource path="res://blocky_terrain/terrain_material.tres" type="Material" id=2]
-[ext_resource path="res://blocky_terrain/terrain_material_transparent.tres" type="Material" id=3]
-[ext_resource path="res://blocky_terrain/voxel_generator_noise_2d_blocky.tres" type="VoxelGeneratorNoise2D" id=4]
-[ext_resource path="res://blocky_terrain/main.gd" type="Script" id=5]
-[ext_resource path="res://blocky_terrain/character_avatar.tscn" type="PackedScene" id=6]
-[ext_resource path="res://blocky_terrain/debug_info.gd" type="Script" id=8]
+[ext_resource type="Material" uid="uid://bi254884ikj8v" path="res://blocky_terrain/terrain_material.tres" id="2"]
+[ext_resource type="Material" uid="uid://bphtr6acywtop" path="res://blocky_terrain/terrain_material_transparent.tres" id="3"]
+[ext_resource type="VoxelGeneratorNoise2D" path="res://blocky_terrain/voxel_generator_noise_2d_blocky.tres" id="4"]
+[ext_resource type="Script" path="res://blocky_terrain/main.gd" id="5"]
+[ext_resource type="PackedScene" path="res://blocky_terrain/character_avatar.tscn" id="6"]
+[ext_resource type="Script" path="res://blocky_terrain/debug_info.gd" id="8"]
 
-[sub_resource type="ProceduralSky" id=1]
-sky_top_color = Color( 0.268204, 0.522478, 0.847656, 1 )
-sky_horizon_color = Color( 0.556863, 0.823529, 0.909804, 1 )
-sky_curve = 0.25
-ground_bottom_color = Color( 0.101961, 0.145098, 0.188235, 1 )
-ground_horizon_color = Color( 0.482353, 0.788235, 0.952941, 1 )
-ground_curve = 0.01
-sun_curve = 0.0176777
-sun_energy = 16.0
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_rxrxe"]
 
-[sub_resource type="Environment" id=2]
+[sub_resource type="Sky" id="1"]
+sky_material = SubResource( "PhysicalSkyMaterial_rxrxe" )
+
+[sub_resource type="Environment" id="2"]
 background_mode = 2
-background_sky = SubResource( 1 )
-ambient_light_color = Color( 0.0546875, 0.0546875, 0.0546875, 1 )
+sky = SubResource( "1" )
+ambient_light_color = Color(0.0546875, 0.0546875, 0.0546875, 1)
 ambient_light_sky_contribution = 0.7
-fog_color = Color( 0.552734, 0.818359, 0.908691, 1 )
-fog_depth_begin = 50.0
-fog_depth_end = 300.0
-fog_height_min = -100.0
-fog_height_max = -50.0
-fog_height_curve = 0.965937
-ssao_blur = 1
-dof_blur_far_distance = 128.0
-dof_blur_far_transition = 10.0
 glow_hdr_threshold = 0.5
+fog_enabled = true
+fog_aerial_perspective = 1.0
+volumetric_fog_anisotropy = 0.1
 
-[sub_resource type="VoxelMesherBlocky" id=3]
-library = ExtResource( 1 )
+[sub_resource type="VoxelMesherBlocky" id="3"]
 
 [node name="Main" type="Node"]
-script = ExtResource( 5 )
+script = ExtResource( "5" )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 2 )
+environment = SubResource( "2" )
 
 [node name="VoxelTerrain" type="VoxelTerrain" parent="."]
-generator = ExtResource( 4 )
-mesher = SubResource( 3 )
+generator = ExtResource( "4" )
+mesher = SubResource( "3" )
 max_view_distance = 256
 generate_collisions = false
-material/0 = ExtResource( 2 )
-material/1 = ExtResource( 3 )
+material/0 = ExtResource( "2" )
+material/1 = ExtResource( "3" )
 
-[node name="DirectionalLight" type="DirectionalLight" parent="."]
-transform = Transform( -0.985468, 0.124099, -0.11598, 0.0154004, 0.745271, 0.666584, 0.169159, 0.655111, -0.736353, 1.51966, 19.7004, 14.0879 )
-directional_shadow_normal_bias = 0.1
+[node name="DirectionalLight" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.985468, 0.124099, -0.11598, 0.0154004, 0.745271, 0.666584, 0.169159, 0.655111, -0.736353, 1.51966, 19.7004, 14.0879)
 
-[node name="CharacterAvatar" parent="." instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 28.0914, 17 )
+[node name="CharacterAvatar" parent="." instance=ExtResource( "6" )]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 28.0914, 17)
 head = NodePath("../../Main/CharacterAvatar/Camera")
 terrain = NodePath("../../Main/VoxelTerrain")
 
 [node name="DebugInfo" type="Node" parent="."]
-script = ExtResource( 8 )
+script = ExtResource( "8" )
