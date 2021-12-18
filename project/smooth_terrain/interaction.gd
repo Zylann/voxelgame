@@ -10,9 +10,9 @@ var _action_remove = false
 func _input(event):
 	if event is InputEventMouseButton:
 		if event.pressed:
-			if event.button_index == BUTTON_LEFT:
+			if event.button_index == MOUSE_BUTTON_LEFT:
 				_action_place = true
-			elif event.button_index == BUTTON_RIGHT:
+			elif event.button_index == MOUSE_BUTTON_RIGHT:
 				_action_remove = true
 
 
@@ -20,7 +20,7 @@ func _process(delta):
 	var head_trans = _head.global_transform
 	var pointed_pos = head_trans.origin - 6.0 * head_trans.basis.z
 
-	if Input.is_mouse_button_pressed(BUTTON_RIGHT):
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 		_action_remove = true
 
 	if _action_place:
