@@ -1,7 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://bm8lhcmbtkn7s"]
+[gd_scene load_steps=13 format=3 uid="uid://bm8lhcmbtkn7s"]
 
-[ext_resource type="Material" uid="uid://bi254884ikj8v" path="res://blocky_terrain/terrain_material.tres" id="2"]
-[ext_resource type="Material" uid="uid://bphtr6acywtop" path="res://blocky_terrain/terrain_material_transparent.tres" id="3"]
+[ext_resource type="Material" uid="uid://bi254884ikj8v" path="res://blocky_terrain/terrain_material.tres" id="3_mjrru"]
 [ext_resource type="VoxelGeneratorNoise2D" path="res://blocky_terrain/voxel_generator_noise_2d_blocky.tres" id="4"]
 [ext_resource type="Script" path="res://blocky_terrain/main.gd" id="5"]
 [ext_resource type="PackedScene" path="res://blocky_terrain/character_avatar.tscn" id="6"]
@@ -22,7 +21,28 @@ fog_enabled = true
 fog_aerial_perspective = 1.0
 volumetric_fog_anisotropy = 0.1
 
-[sub_resource type="VoxelMesherBlocky" id="3"]
+[sub_resource type="Voxel" id="Voxel_72xof"]
+voxel_name = &"air"
+
+[sub_resource type="Voxel" id="Voxel_wmhkh"]
+voxel_name = &"solid"
+geometry_type = 1
+collision_aabbs = [AABB(0, 0, 0, 1, 1, 1)]
+cube_geometry/padding_y = null
+cube_tiles/left = Vector2(0, 0)
+cube_tiles/right = Vector2(0, 0)
+cube_tiles/bottom = Vector2(0, 0)
+cube_tiles/top = Vector2(0, 0)
+cube_tiles/back = Vector2(0, 0)
+cube_tiles/front = Vector2(0, 0)
+
+[sub_resource type="VoxelLibrary" id="VoxelLibrary_5s00c"]
+atlas_size = 4
+voxels/0 = SubResource( "Voxel_72xof" )
+voxels/1 = SubResource( "Voxel_wmhkh" )
+
+[sub_resource type="VoxelMesherBlocky" id="VoxelMesherBlocky_dtagl"]
+library = SubResource( "VoxelLibrary_5s00c" )
 
 [node name="Main" type="Node"]
 script = ExtResource( "5" )
@@ -32,11 +52,10 @@ environment = SubResource( "2" )
 
 [node name="VoxelTerrain" type="VoxelTerrain" parent="."]
 generator = ExtResource( "4" )
-mesher = SubResource( "3" )
+mesher = SubResource( "VoxelMesherBlocky_dtagl" )
 max_view_distance = 256
 generate_collisions = false
-material/0 = ExtResource( "2" )
-material/1 = ExtResource( "3" )
+material/0 = ExtResource( "3_mjrru" )
 
 [node name="DirectionalLight" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.985468, 0.124099, -0.11598, 0.0154004, 0.745271, 0.666584, 0.169159, 0.655111, -0.736353, 1.51966, 19.7004, 14.0879)

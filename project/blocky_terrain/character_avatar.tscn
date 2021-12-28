@@ -69,4 +69,4 @@ mouse_filter = 2
 texture = ExtResource( 4 )
 
 [node name="VoxelViewer" type="VoxelViewer" parent="."]
-view_distance = 128
+view_distance = 256
