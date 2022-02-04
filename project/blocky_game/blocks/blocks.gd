@@ -150,7 +150,7 @@ func get_block(id: int) -> Block:
 	return _blocks[id]
 
 
-func get_model_library() -> VoxelLibrary:
+func get_model_library() -> VoxelBlockyLibrary:
 	return _voxel_library
 
 
