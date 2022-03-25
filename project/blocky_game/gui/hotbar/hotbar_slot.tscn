@@ -1,24 +1,20 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=5 format=3 uid="uid://b7sb3tjlrpe5j"]
 
-[ext_resource path="res://blocky_game/blocks/dirt/dirt_sprite.png" type="Texture2D" id=1]
-[ext_resource path="res://blocky_game/gui/hotbar/hotbar_slot.gd" type="Script" id=2]
-[ext_resource path="res://blocky_game/gui/hotbar/hotbar_slot_bg.png" type="Texture2D" id=3]
-[ext_resource path="res://blocky_game/gui/inventory_item_display.gd" type="Script" id=4]
+[ext_resource type="Texture2D" uid="uid://cbrlpwyada727" path="res://blocky_game/blocks/dirt/dirt_sprite.png" id="1"]
+[ext_resource type="Script" path="res://blocky_game/gui/hotbar/hotbar_slot.gd" id="2"]
+[ext_resource type="Texture2D" uid="uid://ou88l0fsjs1u" path="res://blocky_game/gui/hotbar/hotbar_slot_bg.png" id="3"]
+[ext_resource type="Script" path="res://blocky_game/gui/inventory_item_display.gd" id="4"]
 
 [node name="HotbarSlot" type="Control"]
+minimum_size = Vector2(64, 64)
 offset_right = 64.0
 offset_bottom = 64.0
-rect_min_size = Vector2(64, 64)
-script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+script = ExtResource( "2" )
 
 [node name="BG" type="TextureRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( 3 )
-expand = true
+texture = ExtResource( "3" )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -30,10 +26,10 @@ offset_left = 4.0
 offset_top = 4.0
 offset_right = -4.0
 offset_bottom = -4.0
-texture = ExtResource( 1 )
-expand = true
-stretch_mode = 1
-script = ExtResource( 4 )
+texture = ExtResource( "1" )
+ignore_texture_size = true
+stretch_mode = 4
+script = ExtResource( "4" )
 __meta__ = {
 "_edit_use_anchors_": false
 }
