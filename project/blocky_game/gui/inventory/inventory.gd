@@ -86,6 +86,10 @@ func _unhandled_input(event):
 
 func _notification(what: int):
 	if what == NOTIFICATION_VISIBILITY_CHANGED:
+		if not is_inside_tree():
+			print("Visibility changed while not in tree? Eh?")
+			return
+
 		if visible:
 			_update_views()
 			

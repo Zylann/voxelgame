@@ -72,20 +72,20 @@ func _get_used_channels_mask() -> int:
 	return 1 << _CHANNEL
 
 
-func _generate_block(buffer: VoxelBuffer, origin_in_voxels: Vector3, lod: int):
+func _generate_block(buffer: VoxelBuffer, origin_in_voxels: Vector3i, lod: int):
 	# TODO There is an issue doing this, need to investigate why because it should be supported
 	# Saves from this demo used 8-bit, which is no longer the default
 	#buffer.set_channel_depth(_CHANNEL, VoxelBuffer.DEPTH_8_BIT)
 
 	# Assuming input is cubic in our use case (it doesn't have to be!)
 	var block_size := int(buffer.get_size().x)
-	var oy := int(origin_in_voxels.y)
+	var oy := origin_in_voxels.y
 	# TODO This hardcodes a cubic block size of 16, find a non-ugly way...
 	# Dividing is a false friend because of negative values
 	var chunk_pos := Vector3(
-		int(origin_in_voxels.x) >> 4,
-		int(origin_in_voxels.y) >> 4,
-		int(origin_in_voxels.z) >> 4)
+		origin_in_voxels.x >> 4,
+		origin_in_voxels.y >> 4,
+		origin_in_voxels.z >> 4)
 
 	_heightmap_range = _heightmap_max_y - _heightmap_min_y
 
@@ -102,10 +102,10 @@ func _generate_block(buffer: VoxelBuffer, origin_in_voxels: Vector3, lod: int):
 		rng.seed = _get_chunk_seed_2d(chunk_pos)
 		
 		var gx : int
-		var gz := int(origin_in_voxels.z)
+		var gz := origin_in_voxels.z
 
 		for z in block_size:
-			gx = int(origin_in_voxels.x)
+			gx = origin_in_voxels.x
 
 			for x in block_size:
 				var height := _get_height_at(gx, gz)
@@ -167,7 +167,7 @@ func _generate_block(buffer: VoxelBuffer, origin_in_voxels: Vector3, lod: int):
 				voxel_tool.paste(lower_corner_pos, 
 					structure.voxels, 1 << VoxelBuffer.CHANNEL_TYPE, AIR)
 
-	buffer.optimize()
+	buffer.compress_uniform_channels()
 
 
 func _get_tree_instances_in_chunk(

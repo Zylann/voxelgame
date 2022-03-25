@@ -10,10 +10,9 @@ var _time_before_display_process_stats = 1.0
 
 const _process_stat_names = [
 	"time_detect_required_blocks",
-	"time_request_blocks_to_load",
-	"time_process_load_responses",
-	"time_request_blocks_to_update",
-	"updated_blocks"
+	"time_io_requests",
+	"time_mesh_requests",
+	"time_update_task"
 ]
 
 

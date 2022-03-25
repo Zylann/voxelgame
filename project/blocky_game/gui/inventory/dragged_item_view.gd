@@ -21,5 +21,5 @@ func stop():
 
 func _process(_delta):
 	var mpos = get_parent().get_local_mouse_position()
-	rect_position = mpos - rect_size / 2.0
+	position = mpos - size / 2.0
 
