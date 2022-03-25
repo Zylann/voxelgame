@@ -1,9 +1,9 @@
 [remap]
 
 importer="texture"
-type="StreamTexture2D"
+type="CompressedTexture2D"
 uid="uid://8ageflhe1c7j"
-path="res://.godot/imported/water_sprite.png-ca8a14f452451407fa5f6ba0fbd8716e.stex"
+path="res://.godot/imported/water_sprite.png-ca8a14f452451407fa5f6ba0fbd8716e.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://blocky_game/blocks/water/water_sprite.png"
-dest_files=["res://.godot/imported/water_sprite.png-ca8a14f452451407fa5f6ba0fbd8716e.stex"]
+dest_files=["res://.godot/imported/water_sprite.png-ca8a14f452451407fa5f6ba0fbd8716e.ctex"]
 
 [params]
 
@@ -29,7 +29,6 @@ roughness/src_normal=""
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false
-process/HDR_as_SRGB=false
+process/hdr_as_srgb=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0

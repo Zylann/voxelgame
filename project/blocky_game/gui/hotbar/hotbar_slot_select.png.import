@@ -1,9 +1,9 @@
 [remap]
 
 importer="texture"
-type="StreamTexture2D"
+type="CompressedTexture2D"
 uid="uid://be03qpyqu71r0"
-path="res://.godot/imported/hotbar_slot_select.png-6a8eef2cefb1dd5fd5c8a3c090e95cff.stex"
+path="res://.godot/imported/hotbar_slot_select.png-6a8eef2cefb1dd5fd5c8a3c090e95cff.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://blocky_game/gui/hotbar/hotbar_slot_select.png"
-dest_files=["res://.godot/imported/hotbar_slot_select.png-6a8eef2cefb1dd5fd5c8a3c090e95cff.stex"]
+dest_files=["res://.godot/imported/hotbar_slot_select.png-6a8eef2cefb1dd5fd5c8a3c090e95cff.ctex"]
 
 [params]
 
@@ -29,7 +29,6 @@ roughness/src_normal=""
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false
-process/HDR_as_SRGB=false
+process/hdr_as_srgb=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0

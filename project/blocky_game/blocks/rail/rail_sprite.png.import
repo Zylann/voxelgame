@@ -1,9 +1,9 @@
 [remap]
 
 importer="texture"
-type="StreamTexture2D"
+type="CompressedTexture2D"
 uid="uid://bg7wjjrdc07ak"
-path="res://.godot/imported/rail_sprite.png-07357428af1bfd45f75c5664df300c0b.stex"
+path="res://.godot/imported/rail_sprite.png-07357428af1bfd45f75c5664df300c0b.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://blocky_game/blocks/rail/rail_sprite.png"
-dest_files=["res://.godot/imported/rail_sprite.png-07357428af1bfd45f75c5664df300c0b.stex"]
+dest_files=["res://.godot/imported/rail_sprite.png-07357428af1bfd45f75c5664df300c0b.ctex"]
 
 [params]
 
@@ -29,7 +29,6 @@ roughness/src_normal=""
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false
-process/HDR_as_SRGB=false
+process/hdr_as_srgb=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0

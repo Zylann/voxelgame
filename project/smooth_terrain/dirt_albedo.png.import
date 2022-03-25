@@ -1,10 +1,10 @@
 [remap]
 
 importer="texture"
-type="StreamTexture2D"
+type="CompressedTexture2D"
 uid="uid://28diu6mhiupf"
-path.s3tc="res://.godot/imported/dirt_albedo.png-1ea566b45deb8325a8458a1304e770f2.s3tc.stex"
-path.etc2="res://.godot/imported/dirt_albedo.png-1ea566b45deb8325a8458a1304e770f2.etc2.stex"
+path.s3tc="res://.godot/imported/dirt_albedo.png-1ea566b45deb8325a8458a1304e770f2.s3tc.ctex"
+path.etc2="res://.godot/imported/dirt_albedo.png-1ea566b45deb8325a8458a1304e770f2.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc", "etc2"],
 "vram_texture": true
@@ -13,7 +13,7 @@ metadata={
 [deps]
 
 source_file="res://smooth_terrain/dirt_albedo.png"
-dest_files=["res://.godot/imported/dirt_albedo.png-1ea566b45deb8325a8458a1304e770f2.s3tc.stex", "res://.godot/imported/dirt_albedo.png-1ea566b45deb8325a8458a1304e770f2.etc2.stex"]
+dest_files=["res://.godot/imported/dirt_albedo.png-1ea566b45deb8325a8458a1304e770f2.s3tc.ctex", "res://.godot/imported/dirt_albedo.png-1ea566b45deb8325a8458a1304e770f2.etc2.ctex"]
 
 [params]
 
@@ -31,7 +31,6 @@ roughness/src_normal=""
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false
-process/HDR_as_SRGB=false
+process/hdr_as_srgb=false
 process/size_limit=0
 detect_3d/compress_to=0
-svg/scale=1.0

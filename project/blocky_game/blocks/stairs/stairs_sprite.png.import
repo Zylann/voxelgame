@@ -1,9 +1,9 @@
 [remap]
 
 importer="texture"
-type="StreamTexture2D"
+type="CompressedTexture2D"
 uid="uid://bn203t2yq4ktn"
-path="res://.godot/imported/stairs_sprite.png-f1745976e8d342a50030ccc6ec5644d4.stex"
+path="res://.godot/imported/stairs_sprite.png-f1745976e8d342a50030ccc6ec5644d4.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://blocky_game/blocks/stairs/stairs_sprite.png"
-dest_files=["res://.godot/imported/stairs_sprite.png-f1745976e8d342a50030ccc6ec5644d4.stex"]
+dest_files=["res://.godot/imported/stairs_sprite.png-f1745976e8d342a50030ccc6ec5644d4.ctex"]
 
 [params]
 
@@ -29,7 +29,6 @@ roughness/src_normal=""
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false
-process/HDR_as_SRGB=false
+process/hdr_as_srgb=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0

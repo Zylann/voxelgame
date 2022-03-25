@@ -1,9 +1,9 @@
 [remap]
 
 importer="texture"
-type="StreamTexture2D"
+type="CompressedTexture2D"
 uid="uid://ccybo5wh4vwk7"
-path="res://.godot/imported/crosshair.png-23d846f52541fa603810178ccd7b4803.stex"
+path="res://.godot/imported/crosshair.png-23d846f52541fa603810178ccd7b4803.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://blocky_game/gui/crosshair.png"
-dest_files=["res://.godot/imported/crosshair.png-23d846f52541fa603810178ccd7b4803.stex"]
+dest_files=["res://.godot/imported/crosshair.png-23d846f52541fa603810178ccd7b4803.ctex"]
 
 [params]
 
@@ -29,7 +29,6 @@ roughness/src_normal=""
 process/fix_alpha_border=false
 process/premult_alpha=false
 process/normal_map_invert_y=false
-process/HDR_as_SRGB=false
+process/hdr_as_srgb=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
