@@ -36,7 +36,7 @@ var _tree_structures := []
 var _heightmap_min_y := int(HeightmapCurve.min_value)
 var _heightmap_max_y := int(HeightmapCurve.max_value)
 var _heightmap_range := 0
-var _heightmap_noise := OpenSimplexNoise.new()
+var _heightmap_noise := FastNoiseLite.new()
 var _trees_min_y := 0
 var _trees_max_y := 0
 
@@ -59,7 +59,7 @@ func _init():
 	_trees_max_y = _heightmap_max_y + tallest_tree_height
 
 	#_heightmap_noise.seed = 131183
-	_heightmap_noise.period = 128
+	_heightmap_noise.frequency = 1.0 / 128.0
 	_heightmap_noise.octaves = 4
 
 	# IMPORTANT

@@ -2,10 +2,8 @@
 
 [ext_resource type="Curve" path="res://smooth_terrain/terrain_curve.tres" id="1"]
 
-[sub_resource type="OpenSimplexNoise" id="1"]
-octaves = 6
-period = 256.0
-persistence = 0.4
+[sub_resource type="FastNoiseLite" id="1"]
+frequency = 0.002
 
 [resource]
 height_start = -100.0

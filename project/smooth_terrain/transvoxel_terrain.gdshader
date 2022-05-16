@@ -3,6 +3,9 @@ shader_type spatial;
 
 uniform sampler2D u_texture_top : hint_albedo;
 uniform sampler2D u_texture_sides : hint_albedo;
+
+// From Voxel Tools API
+// instance uniform int u_transition_mask;
 uniform int u_transition_mask;
 
 varying vec3 v_world_pos;
@@ -28,7 +31,6 @@ float get_hash(vec2 c) {
 }
 
 vec3 get_transvoxel_position(vec3 vertex_pos, vec4 vertex_col) {
-
 	int border_mask = int(vertex_col.a);
 	int cell_border_mask = border_mask & 63; // Which sides the cell is touching
 	int vertex_border_mask = (border_mask >> 6) & 63; // Which sides the vertex is touching
@@ -53,7 +55,7 @@ void vertex() {
 	//VERTEX = (MODELVIEW_MATRIX * vec4(VERTEX, 1.0)).xyz;
 	//VERTEX = floor(VERTEX * 100.0) * 0.01;
 
-	vec3 world_pos = (WORLD_MATRIX * vec4(VERTEX, 1.0)).xyz;
+	vec3 world_pos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
 	v_world_pos = world_pos;
 	v_world_normal = NORMAL;
 
@@ -64,7 +66,6 @@ void vertex() {
 }
 
 void fragment() {
-
 	vec3 normal = v_world_normal;//normalize(v_world_normal);
 	vec3 wpos = v_world_pos * 0.2;
 	vec3 blending = get_triplanar_blend(normal);
@@ -72,6 +73,5 @@ void fragment() {
 	vec3 side_col = texture_triplanar(u_texture_sides, wpos, blending).rgb;
 	float r = top_col.r;
 	ALBEDO = mix(side_col, top_col, clamp(normal.y * 10.0 - 4.0 - 8.0*r, 0.0, 1.0));
-
 	//ALBEDO = COLOR.rgb * 0.2;
 }

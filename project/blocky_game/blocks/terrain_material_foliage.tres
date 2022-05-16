@@ -1,10 +1,13 @@
-[gd_resource type="StandardMaterial3D" load_steps=2 format=2]
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://o6pjkujm0owf"]
 
-[ext_resource path="res://blocky_game/blocks/terrain.png" type="Texture2D" id=1]
+[ext_resource type="Texture2D" uid="uid://bxo4bsw3yg42b" path="res://blocky_game/blocks/terrain.png" id="1"]
 
 [resource]
-params_cull_mode = 2
-params_alpha_scissor_threshold = 0.6
-albedo_texture = ExtResource( 1 )
-texture_filter = 0
 transparency = 2
+alpha_scissor_threshold = 0.6
+alpha_antialiasing_mode = 0
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource( "1" )
+metallic_specular = 0.0
+texture_filter = 0

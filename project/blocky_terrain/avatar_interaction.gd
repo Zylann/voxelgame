@@ -20,7 +20,7 @@ var _inventory_index = 0
 
 
 func _ready():
-	if terrain_path == null:
+	if terrain_path == NodePath():
 		_terrain = get_parent().get_node(get_parent().terrain)
 		terrain_path = _terrain.get_path() # For correctness
 	else:
@@ -38,7 +38,7 @@ func _ready():
 	_terrain_tool = _terrain.get_voxel_tool()
 
 
-func get_pointed_voxel():
+func get_pointed_voxel() -> VoxelRaycastResult:
 	var origin = _head.get_global_transform().origin
 	var forward = -_head.get_transform().basis.z.normalized()
 	var hit = _terrain_tool.raycast(origin, forward, 10)
@@ -49,7 +49,7 @@ func _physics_process(delta):
 	if _terrain == null:
 		return
 	
-	var hit = get_pointed_voxel()
+	var hit := get_pointed_voxel()
 	if hit != null:
 		_cursor.show()
 		_cursor.set_position(hit.position)
@@ -63,11 +63,11 @@ func _physics_process(delta):
 		var has_cube = _terrain_tool.get_voxel(hit.position) != 0
 		
 		if _action_place and has_cube:
-			var pos = hit.position
+			var pos := hit.position
 			do_sphere(pos, 5, 0)
 		
 		elif _action_remove:
-			var pos = hit.previous_position
+			var pos := hit.previous_position
 			if has_cube == false:
 				pos = hit.position
 			if can_place_voxel_at(pos):
@@ -108,11 +108,11 @@ func select_inventory(i):
 	print("Inventory select ", _terrain.voxel_library.get_voxel(vi).voxel_name, " (", vi, ")")
 
 
-func can_place_voxel_at(pos):
+func can_place_voxel_at(pos: Vector3i):
 	var space_state = get_viewport().get_world_3d().get_direct_space_state()
 	var params = PhysicsShapeQueryParameters3D.new()
 	params.collision_mask = COLLISION_LAYER_AVATAR
-	params.transform = Transform3D(Basis(), pos + Vector3(1,1,1)*0.5)
+	params.transform = Transform3D(Basis(), Vector3(pos + Vector3i(1,1,1)) * 0.5)
 	var shape = BoxShape3D.new()
 	var ex = 0.5
 	shape.extents = Vector3(ex, ex, ex)
