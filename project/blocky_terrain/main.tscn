@@ -21,22 +21,23 @@ fog_enabled = true
 fog_aerial_perspective = 1.0
 volumetric_fog_anisotropy = 0.1
 
-[sub_resource type="Voxel" id="Voxel_72xof"]
+[sub_resource type="VoxelBlockyModel" id="Voxel_72xof"]
 voxel_name = &"air"
 
-[sub_resource type="Voxel" id="Voxel_wmhkh"]
+[sub_resource type="VoxelBlockyModel" id="Voxel_wmhkh"]
 voxel_name = &"solid"
 geometry_type = 1
 collision_aabbs = [AABB(0, 0, 0, 1, 1, 1)]
-cube_geometry/padding_y = null
-cube_tiles/left = Vector2(0, 0)
-cube_tiles/right = Vector2(0, 0)
-cube_tiles/bottom = Vector2(0, 0)
-cube_tiles/top = Vector2(0, 0)
-cube_tiles/back = Vector2(0, 0)
-cube_tiles/front = Vector2(0, 0)
+cube_geometry_padding_y = null
+cube_tiles_left = Vector2(0, 0)
+cube_tiles_right = Vector2(0, 0)
+cube_tiles_bottom = Vector2(0, 0)
+cube_tiles_top = Vector2(0, 0)
+cube_tiles_back = Vector2(0, 0)
+cube_tiles_front = Vector2(0, 0)
+material_override_0 = ExtResource( "3_mjrru" )
 
-[sub_resource type="VoxelLibrary" id="VoxelLibrary_5s00c"]
+[sub_resource type="VoxelBlockyLibrary" id="VoxelLibrary_5s00c"]
 atlas_size = 4
 voxels/0 = SubResource( "Voxel_72xof" )
 voxels/1 = SubResource( "Voxel_wmhkh" )
@@ -55,7 +56,6 @@ generator = ExtResource( "4" )
 mesher = SubResource( "VoxelMesherBlocky_dtagl" )
 max_view_distance = 256
 generate_collisions = false
-material/0 = ExtResource( "3_mjrru" )
 
 [node name="DirectionalLight" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.985468, 0.124099, -0.11598, 0.0154004, 0.745271, 0.666584, 0.169159, 0.655111, -0.736353, 1.51966, 19.7004, 14.0879)
