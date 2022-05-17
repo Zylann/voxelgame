@@ -60,7 +60,7 @@ func _init():
 
 	#_heightmap_noise.seed = 131183
 	_heightmap_noise.frequency = 1.0 / 128.0
-	_heightmap_noise.octaves = 4
+	_heightmap_noise.fractal_octaves = 4
 
 	# IMPORTANT
 	# If we don't do this `Curve` could bake itself when interpolated,
