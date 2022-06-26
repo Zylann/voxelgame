@@ -1,8 +1,8 @@
 shader_type spatial;
 //render_mode skip_vertex_transform;
 
-uniform sampler2D u_texture_top : hint_albedo;
-uniform sampler2D u_texture_sides : hint_albedo;
+uniform sampler2D u_texture_top : source_color;
+uniform sampler2D u_texture_sides : source_color;
 
 // From Voxel Tools API
 // instance uniform int u_transition_mask;
