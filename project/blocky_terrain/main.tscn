@@ -36,6 +36,7 @@ cube_tiles_top = Vector2(0, 0)
 cube_tiles_back = Vector2(0, 0)
 cube_tiles_front = Vector2(0, 0)
 material_override_0 = ExtResource( "3_mjrru" )
+collision_enabled_0 = true
 
 [sub_resource type="VoxelBlockyLibrary" id="VoxelLibrary_5s00c"]
 atlas_size = 4

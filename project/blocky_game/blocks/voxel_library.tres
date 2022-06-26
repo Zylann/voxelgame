@@ -39,6 +39,7 @@ geometry_type = 2
 custom_mesh = ExtResource( "2" )
 collision_aabbs = [AABB(0, 0, 0, 1, 1, 1)]
 material_override_0 = ExtResource( "2_r7axq" )
+collision_enabled_0 = true
 
 [sub_resource type="VoxelBlockyModel" id="3"]
 voxel_name = &"stairs_px"
@@ -46,6 +47,7 @@ geometry_type = 2
 custom_mesh = ExtResource( "9" )
 collision_aabbs = [AABB(0, 0, 0, 1, 1, 1)]
 material_override_0 = ExtResource( "2_r7axq" )
+collision_enabled_0 = true
 
 [sub_resource type="VoxelBlockyModel" id="4"]
 voxel_name = &"stairs_pz"
@@ -53,6 +55,7 @@ geometry_type = 2
 custom_mesh = ExtResource( "10" )
 collision_aabbs = [AABB(0, 0, 0, 1, 1, 1)]
 material_override_0 = ExtResource( "2_r7axq" )
+collision_enabled_0 = true
 
 [sub_resource type="VoxelBlockyModel" id="5"]
 voxel_name = &"glass"
@@ -62,6 +65,7 @@ geometry_type = 2
 custom_mesh = ExtResource( "12" )
 collision_aabbs = [AABB(0, 0, 0, 1, 1, 1)]
 material_override_0 = ExtResource( "6_7k7uf" )
+collision_enabled_0 = true
 
 [sub_resource type="VoxelBlockyModel" id="6"]
 voxel_name = &"water_top"
@@ -70,6 +74,7 @@ transparency_index = 1
 geometry_type = 2
 custom_mesh = ExtResource( "14" )
 material_override_0 = ExtResource( "8_l6bxt" )
+collision_enabled_0 = true
 
 [sub_resource type="VoxelBlockyModel" id="7"]
 voxel_name = &"water_full"
@@ -78,6 +83,7 @@ transparency_index = 1
 geometry_type = 2
 custom_mesh = ExtResource( "13" )
 material_override_0 = ExtResource( "8_l6bxt" )
+collision_enabled_0 = true
 
 [sub_resource type="VoxelBlockyModel" id="8"]
 voxel_name = &"rail_x"
@@ -88,6 +94,7 @@ custom_mesh = ExtResource( "20" )
 collision_aabbs = [AABB(0, 0, 0, 1, 0.125, 1)]
 collision_mask = 2
 material_override_0 = ExtResource( "6_7k7uf" )
+collision_enabled_0 = true
 
 [sub_resource type="VoxelBlockyModel" id="9"]
 voxel_name = &"rail_z"
@@ -98,6 +105,7 @@ custom_mesh = ExtResource( "21" )
 collision_aabbs = [AABB(0, 0, 0, 1, 0.125, 1)]
 collision_mask = 2
 material_override_0 = ExtResource( "6_7k7uf" )
+collision_enabled_0 = true
 
 [sub_resource type="VoxelBlockyModel" id="10"]
 voxel_name = &"rail_turn_nx"
@@ -108,6 +116,7 @@ custom_mesh = ExtResource( "22" )
 collision_aabbs = [AABB(0, 0, 0, 1, 0.125, 1)]
 collision_mask = 2
 material_override_0 = ExtResource( "6_7k7uf" )
+collision_enabled_0 = true
 
 [sub_resource type="VoxelBlockyModel" id="11"]
 voxel_name = &"rail_turn_px"
@@ -118,6 +127,7 @@ custom_mesh = ExtResource( "18" )
 collision_aabbs = [AABB(0, 0, 0, 1, 0.125, 1)]
 collision_mask = 2
 material_override_0 = ExtResource( "6_7k7uf" )
+collision_enabled_0 = true
 
 [sub_resource type="VoxelBlockyModel" id="12"]
 voxel_name = &"rail_turn_nz"
@@ -128,6 +138,7 @@ custom_mesh = ExtResource( "19" )
 collision_aabbs = [AABB(0, 0, 0, 1, 0.125, 1)]
 collision_mask = 2
 material_override_0 = ExtResource( "6_7k7uf" )
+collision_enabled_0 = true
 
 [sub_resource type="VoxelBlockyModel" id="13"]
 voxel_name = &"grass"
@@ -136,6 +147,7 @@ geometry_type = 2
 custom_mesh = ExtResource( "1" )
 collision_aabbs = [AABB(0, 0, 0, 1, 1, 1)]
 material_override_0 = ExtResource( "6_7k7uf" )
+collision_enabled_0 = true
 
 [sub_resource type="VoxelBlockyModel" id="14"]
 voxel_name = &"rail_turn_pz"
@@ -146,6 +158,7 @@ custom_mesh = ExtResource( "23" )
 collision_aabbs = [AABB(0, 0, 0, 1, 0.125, 1)]
 collision_mask = 2
 material_override_0 = ExtResource( "6_7k7uf" )
+collision_enabled_0 = true
 
 [sub_resource type="VoxelBlockyModel" id="15"]
 voxel_name = &"rail_slope_nx"
@@ -156,6 +169,7 @@ custom_mesh = ExtResource( "24" )
 collision_aabbs = [AABB(0, 0, 0, 1, 0.125, 1)]
 collision_mask = 2
 material_override_0 = ExtResource( "6_7k7uf" )
+collision_enabled_0 = true
 
 [sub_resource type="VoxelBlockyModel" id="16"]
 voxel_name = &"rail_slope_px"
@@ -166,6 +180,7 @@ custom_mesh = ExtResource( "16" )
 collision_aabbs = [AABB(0, 0, 0, 1, 0.125, 1)]
 collision_mask = 2
 material_override_0 = ExtResource( "6_7k7uf" )
+collision_enabled_0 = true
 
 [sub_resource type="VoxelBlockyModel" id="17"]
 voxel_name = &"rail_slope_nz"
@@ -176,6 +191,7 @@ custom_mesh = ExtResource( "15" )
 collision_aabbs = [AABB(0, 0, 0, 1, 0.125, 1)]
 collision_mask = 2
 material_override_0 = ExtResource( "6_7k7uf" )
+collision_enabled_0 = true
 
 [sub_resource type="VoxelBlockyModel" id="18"]
 voxel_name = &"rail_slope_pz"
@@ -186,6 +202,7 @@ custom_mesh = ExtResource( "17" )
 collision_aabbs = [AABB(0, 0, 0, 1, 0.125, 1)]
 collision_mask = 2
 material_override_0 = ExtResource( "6_7k7uf" )
+collision_enabled_0 = true
 
 [sub_resource type="VoxelBlockyModel" id="19"]
 voxel_name = &"leaves"
@@ -195,12 +212,14 @@ geometry_type = 2
 custom_mesh = ExtResource( "25" )
 collision_aabbs = [AABB(0, 0, 0, 1, 1, 1)]
 material_override_0 = ExtResource( "6_7k7uf" )
+collision_enabled_0 = true
 
 [sub_resource type="VoxelBlockyModel" id="20"]
 voxel_name = &"dead_shrub"
 geometry_type = 2
 custom_mesh = ExtResource( "26" )
 material_override_0 = ExtResource( "6_7k7uf" )
+collision_enabled_0 = true
 
 [sub_resource type="VoxelBlockyModel" id="21"]
 voxel_name = &"log_x"
@@ -209,6 +228,7 @@ geometry_type = 2
 custom_mesh = ExtResource( "4" )
 collision_aabbs = [AABB(0, 0, 0, 1, 1, 1)]
 material_override_0 = ExtResource( "2_r7axq" )
+collision_enabled_0 = true
 
 [sub_resource type="VoxelBlockyModel" id="22"]
 voxel_name = &"log_y"
@@ -217,6 +237,7 @@ geometry_type = 2
 custom_mesh = ExtResource( "3" )
 collision_aabbs = [AABB(0, 0, 0, 1, 1, 1)]
 material_override_0 = ExtResource( "2_r7axq" )
+collision_enabled_0 = true
 
 [sub_resource type="VoxelBlockyModel" id="23"]
 voxel_name = &"log_z"
@@ -225,6 +246,7 @@ geometry_type = 2
 custom_mesh = ExtResource( "5" )
 collision_aabbs = [AABB(0, 0, 0, 1, 1, 1)]
 material_override_0 = ExtResource( "2_r7axq" )
+collision_enabled_0 = true
 
 [sub_resource type="VoxelBlockyModel" id="24"]
 voxel_name = &"stairs_nx"
@@ -232,6 +254,7 @@ geometry_type = 2
 custom_mesh = ExtResource( "6" )
 collision_aabbs = [AABB(0, 0, 0, 1, 1, 1)]
 material_override_0 = ExtResource( "2_r7axq" )
+collision_enabled_0 = true
 
 [sub_resource type="VoxelBlockyModel" id="25"]
 voxel_name = &"planks"
@@ -239,12 +262,14 @@ geometry_type = 2
 custom_mesh = ExtResource( "7" )
 collision_aabbs = [AABB(0, 0, 0, 1, 1, 1)]
 material_override_0 = ExtResource( "2_r7axq" )
+collision_enabled_0 = true
 
 [sub_resource type="VoxelBlockyModel" id="26"]
 voxel_name = &"tall_grass"
 geometry_type = 2
 custom_mesh = ExtResource( "8" )
 material_override_0 = ExtResource( "6_7k7uf" )
+collision_enabled_0 = true
 
 [sub_resource type="VoxelBlockyModel" id="27"]
 voxel_name = &"stairs_nz"
@@ -252,6 +277,7 @@ geometry_type = 2
 custom_mesh = ExtResource( "11" )
 collision_aabbs = [AABB(0, 0, 0, 1, 1, 1)]
 material_override_0 = ExtResource( "2_r7axq" )
+collision_enabled_0 = true
 
 [resource]
 voxels/0 = SubResource( "1" )
