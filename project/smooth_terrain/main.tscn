@@ -15,10 +15,11 @@ sky_material = SubResource("PhysicalSkyMaterial_1vceu")
 background_mode = 2
 background_color = Color(1, 1, 1, 1)
 sky = SubResource("1")
+ambient_light_color = Color(0.521569, 0.560784, 0.592157, 1)
 ambient_light_sky_contribution = 0.5
-ambient_light_energy = 0.1
+ambient_light_energy = 0.01
 fog_enabled = true
-fog_density = 0.0002
+fog_density = 0.0005
 fog_aerial_perspective = 1.0
 volumetric_fog_density = 0.005
 
@@ -33,7 +34,7 @@ environment = SubResource("2")
 [node name="DirectionalLight" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.912457, -0.352848, 0.207171, 0, 0.506317, 0.862348, -0.409172, -0.786855, 0.461992, 14.4885, 6.21497, 0)
 shadow_enabled = true
-shadow_bias = 0.05
+shadow_bias = 0.2
 directional_shadow_max_distance = 1000.0
 
 [node name="SpectatorAvatar" parent="." instance=ExtResource("3")]
