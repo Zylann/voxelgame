@@ -9,12 +9,12 @@
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_1vceu"]
 
 [sub_resource type="Sky" id="1"]
-sky_material = SubResource( "PhysicalSkyMaterial_1vceu" )
+sky_material = SubResource("PhysicalSkyMaterial_1vceu")
 
 [sub_resource type="Environment" id="2"]
 background_mode = 2
 background_color = Color(1, 1, 1, 1)
-sky = SubResource( "1" )
+sky = SubResource("1")
 ambient_light_sky_contribution = 0.5
 ambient_light_energy = 0.1
 fog_enabled = true
@@ -25,10 +25,10 @@ volumetric_fog_density = 0.005
 [sub_resource type="VoxelMesherTransvoxel" id="3"]
 
 [node name="Node" type="Node"]
-script = ExtResource( "1" )
+script = ExtResource("1")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( "2" )
+environment = SubResource("2")
 
 [node name="DirectionalLight" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.912457, -0.352848, 0.207171, 0, 0.506317, 0.862348, -0.409172, -0.786855, 0.461992, 14.4885, 6.21497, 0)
@@ -36,7 +36,7 @@ shadow_enabled = true
 shadow_bias = 0.05
 directional_shadow_max_distance = 1000.0
 
-[node name="SpectatorAvatar" parent="." instance=ExtResource( "3" )]
+[node name="SpectatorAvatar" parent="." instance=ExtResource("3")]
 transform = Transform3D(-0.386615, 0, 0.922241, 0, 1, 0, -0.922241, 0, -0.386615, 0, 0, 0)
 speed = 100.0
 
@@ -50,15 +50,15 @@ light_color = Color(0.905882, 0.886275, 0.698039, 1)
 omni_range = 100.462
 
 [node name="Interaction" type="Node" parent="SpectatorAvatar"]
-script = ExtResource( "6" )
+script = ExtResource("6")
 
 [node name="VoxelTerrain" type="VoxelLodTerrain" parent="."]
-generator = ExtResource( "7" )
-mesher = SubResource( "3" )
+generator = ExtResource("7")
+mesher = SubResource("3")
 view_distance = 1024
 lod_count = 6
-material = ExtResource( "2" )
 generate_collisions = false
 collision_lod_count = 1
+material = ExtResource("2")
 
 [editable path="SpectatorAvatar"]

@@ -8,5 +8,5 @@ frequency = 0.002
 [resource]
 height_start = -100.0
 height_range = 400.0
-noise = SubResource( "1" )
-curve = ExtResource( "1" )
+noise = SubResource("1")
+curve = ExtResource("1")

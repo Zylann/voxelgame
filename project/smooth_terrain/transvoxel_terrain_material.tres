@@ -6,7 +6,7 @@
 
 [resource]
 render_priority = 0
-shader = ExtResource( "1" )
+shader = ExtResource("1")
+shader_param/u_texture_sides = ExtResource("3")
+shader_param/u_texture_top = ExtResource("2")
 shader_param/u_transition_mask = null
-shader_param/u_texture_top = ExtResource( "2" )
-shader_param/u_texture_sides = ExtResource( "3" )
