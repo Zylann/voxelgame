@@ -1,10 +1,10 @@
 [gd_scene load_steps=12 format=3 uid="uid://d3yg8jlxa54m1"]
 
 [ext_resource type="Script" path="res://smooth_terrain/main.gd" id="1"]
-[ext_resource type="Material" path="res://smooth_terrain/transvoxel_terrain_material.tres" id="2"]
+[ext_resource type="Material" uid="uid://p7s1kd8whqab" path="res://smooth_terrain/transvoxel_terrain_material.tres" id="2"]
 [ext_resource type="PackedScene" path="res://common/spectator_avatar.tscn" id="3"]
 [ext_resource type="Script" path="res://smooth_terrain/interaction.gd" id="6"]
-[ext_resource type="VoxelGeneratorNoise2D" path="res://smooth_terrain/voxel_generator_noise_2d_smooth.tres" id="7"]
+[ext_resource type="VoxelGeneratorNoise2D" uid="uid://c2tarm5o7wox0" path="res://smooth_terrain/voxel_generator_noise_2d_smooth.tres" id="7"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_1vceu"]
 
