@@ -5,7 +5,6 @@ uniform sampler2D u_texture_top : source_color;
 uniform sampler2D u_texture_sides : source_color;
 
 // From Voxel Tools API
-// instance uniform int u_transition_mask;
 uniform int u_transition_mask;
 
 varying vec3 v_world_pos;
@@ -30,28 +29,54 @@ float get_hash(vec2 c) {
 	return fract(sin(dot(c.xy, vec2(12.9898,78.233))) * 43758.5453);
 }
 
-vec3 get_transvoxel_position(vec3 vertex_pos, vec4 vertex_col) {
-	int border_mask = int(vertex_col.a);
-	int cell_border_mask = border_mask & 63; // Which sides the cell is touching
-	int vertex_border_mask = (border_mask >> 6) & 63; // Which sides the vertex is touching
-
+float get_transvoxel_secondary_factor(int idata) {
+	int cell_border_mask = (idata >> 0) & 63; // Which sides the cell is touching
+	int vertex_border_mask = (idata >> 8) & 63; // Which sides the vertex is touching
+	//int vertex_border_mask = (idata >> 6) & 63; // Which sides the vertex is touching
 	// If the vertex is near a side where there is a low-resolution neighbor,
 	// move it to secondary position
-	int m = u_transition_mask & (cell_border_mask & 63);
+	int m = u_transition_mask & cell_border_mask;
 	float t = float(m != 0);
-
 	// If the vertex lies on one or more sides, and at least one side has no low-resolution neighbor,
 	// don't move the vertex.
 	t *= float((vertex_border_mask & ~u_transition_mask) == 0);
+	
+	// Debugging
+	//t *= 0.5 + 0.5 * sin(TIME * 4.0);
 
-	// Position to use when border mask matches
-	vec3 secondary_position = vertex_col.rgb;
-	return mix(vertex_pos, secondary_position, t);
+	//t *= 2.0;
+
+	return t;
+}
+
+vec3 get_transvoxel_position(vec3 vertex_pos, vec4 fdata) {
+	int idata = floatBitsToInt(fdata.a);
+	//int idata = int(fdata.a);
+
+	// Move vertices to smooth transitions
+	float secondary_factor = get_transvoxel_secondary_factor(idata);
+	vec3 secondary_position = fdata.xyz;
+	vec3 pos = mix(vertex_pos, secondary_position, secondary_factor);
+	//vec3 pos = vertex_pos;
+
+	// If the mesh combines transitions and the vertex belongs to a transition,
+	// when that transition isn't active we change the position of the vertices so
+	// all triangles will be degenerate and won't be visible.
+	// This is an alternative to rendering them separately,
+	// which has less draw calls and less mesh resources to create in Godot.
+	// Ideally I would tweak the index buffer like LOD does but Godot does not
+	// expose anything to use it that way.
+	int itransition = (idata >> 16) & 0xff; // Is the vertex on a transition mesh?
+	float transition_cull = float(itransition == 0 || (itransition & u_transition_mask) != 0);
+	pos *= transition_cull;
+
+	//pos *= float(itransition == 0);
+
+	return pos;
 }
 
 void vertex() {
-	//VERTEX = get_transvoxel_position(VERTEX, COLOR);
-	
+	VERTEX = get_transvoxel_position(VERTEX, CUSTOM0);
 	//VERTEX = (MODELVIEW_MATRIX * vec4(VERTEX, 1.0)).xyz;
 	//VERTEX = floor(VERTEX * 100.0) * 0.01;
 
@@ -59,10 +84,8 @@ void vertex() {
 	v_world_pos = world_pos;
 	v_world_normal = NORMAL;
 
-	// int border_mask = int(COLOR.a);
-	// int cell_border_mask = border_mask & 63; // Which sides the cell is touching
-	// int vertex_border_mask = (border_mask >> 6) & 63; // Which sides the vertex is touching
-	// COLOR = vec4(float(cell_border_mask != 0), float(vertex_border_mask != 0), 0.0, 1.0);
+	// COLOR = mix(vec4(1.0), vec4(1.0, 0.0, 0.0, 1.0), 
+	// 	get_transvoxel_secondary_factor(floatBitsToInt(CUSTOM0.a)));
 }
 
 void fragment() {
