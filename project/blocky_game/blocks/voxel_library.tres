@@ -7,7 +7,7 @@
 [ext_resource type="ArrayMesh" uid="uid://cttendrth7rqh" path="res://blocky_game/blocks/log/log_x.obj" id="4"]
 [ext_resource type="ArrayMesh" uid="uid://bur41ote1leoo" path="res://blocky_game/blocks/log/log_z.obj" id="5"]
 [ext_resource type="ArrayMesh" uid="uid://b1ip507w1anoc" path="res://blocky_game/blocks/stairs/stairs_nx.obj" id="6"]
-[ext_resource type="Material" path="res://blocky_game/blocks/terrain_material_foliage.tres" id="6_7k7uf"]
+[ext_resource type="Material" uid="uid://o6pjkujm0owf" path="res://blocky_game/blocks/terrain_material_foliage.tres" id="6_7k7uf"]
 [ext_resource type="ArrayMesh" uid="uid://dm05scqbatw2v" path="res://blocky_game/blocks/planks/planks.obj" id="7"]
 [ext_resource type="ArrayMesh" uid="uid://djfyehvrktts5" path="res://blocky_game/blocks/tall_grass/tall_grass.obj" id="8"]
 [ext_resource type="Material" path="res://blocky_game/blocks/terrain_material_transparent.tres" id="8_l6bxt"]
