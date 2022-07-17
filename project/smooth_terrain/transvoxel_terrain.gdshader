@@ -6,6 +6,7 @@ uniform sampler2D u_texture_sides : source_color;
 
 // From Voxel Tools API
 uniform int u_transition_mask;
+uniform vec2 u_lod_fade;
 
 varying vec3 v_world_pos;
 varying vec3 v_world_normal;
@@ -116,4 +117,23 @@ void fragment() {
 	ALBEDO = mix(side_col, top_col, topness);
 	//ALBEDO = top_col;
 	//ALBEDO *= COLOR.rgb;
+	
+	// Discard has to be last to workaround https://github.com/godotengine/godot/issues/34966
+	
+	// Terrible impl but can surely be optimized
+	float h = get_hash(SCREEN_UV);
+	//ALBEDO = vec3(u_lod_fade.x, u_lod_fade.y, 0.0);
+	vec2 lod_fade = u_lod_fade;
+	//lod_fade = vec2(0.0);
+	if (lod_fade.y > 0.5) {
+		// Fade in
+		if (lod_fade.x < h) {
+			discard;
+		}
+	} else {
+		// Fade out
+		if (lod_fade.x > h) {
+			discard;
+		}
+	}
 }

@@ -60,6 +60,7 @@ view_distance = 1024
 lod_count = 6
 generate_collisions = false
 collision_lod_count = 1
+lod_fade_duration = 0.3
 material = ExtResource("2")
 
 [editable path="SpectatorAvatar"]
