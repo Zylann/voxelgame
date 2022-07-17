@@ -6,18 +6,15 @@
 [ext_resource type="Script" path="res://blocky_game/gui/inventory_item_display.gd" id="4"]
 
 [node name="HotbarSlot" type="Control"]
-minimum_size = Vector2(64, 64)
+custom_minimum_size = Vector2(64, 64)
 offset_right = 64.0
 offset_bottom = 64.0
-script = ExtResource( "2" )
+script = ExtResource("2")
 
 [node name="BG" type="TextureRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( "3" )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+texture = ExtResource("3")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 anchor_right = 1.0
@@ -26,10 +23,7 @@ offset_left = 4.0
 offset_top = 4.0
 offset_right = -4.0
 offset_bottom = -4.0
-texture = ExtResource( "1" )
+texture = ExtResource("1")
 ignore_texture_size = true
 stretch_mode = 4
-script = ExtResource( "4" )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+script = ExtResource("4")
