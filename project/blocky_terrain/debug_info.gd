@@ -8,7 +8,7 @@ func _process(delta):
 
 	DDD.set_text("Static memory", _format_memory(sm))
 
-	var global_stats = VoxelServer.get_stats()
+	var global_stats = VoxelEngine.get_stats()
 	for p in global_stats:
 		var pool_stats = global_stats[p]
 		for k in pool_stats:

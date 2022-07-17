@@ -24,7 +24,7 @@ func _process(delta):
 	DDD.set_text("Blocked lods", stats.blocked_lods)
 	DDD.set_text("Position", _avatar.position)
 
-	var global_stats = VoxelServer.get_stats()
+	var global_stats = VoxelEngine.get_stats()
 	for p in global_stats:
 		var pool_stats = global_stats[p]
 		for k in pool_stats:
