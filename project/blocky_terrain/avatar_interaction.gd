@@ -7,16 +7,16 @@ const COLLISION_LAYER_AVATAR = 2
 @export var terrain_path : NodePath
 @export var cursor_material : Material
 
-@onready var _head = get_parent().get_node("Camera")
+@onready var _head : Node3D = get_parent().get_node("Camera")
 
-var _terrain = null
+var _terrain : VoxelTerrain = null
 var _terrain_tool = null
 var _cursor = null
-var _action_place = false
-var _action_remove = false
+var _action_place := false
+var _action_remove := false
 
-var _inventory = [1, 2, 3]
-var _inventory_index = 0
+var _inventory := [1, 2]
+var _inventory_index := 0
 
 
 func _ready():
@@ -45,7 +45,7 @@ func get_pointed_voxel() -> VoxelRaycastResult:
 	return hit
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if _terrain == null:
 		return
 	
@@ -60,21 +60,13 @@ func _physics_process(delta):
 	
 	# These inputs have to be in _fixed_process because they rely on collision queries
 	if hit != null:
-		var has_cube = _terrain_tool.get_voxel(hit.position) != 0
-		
-		if _action_place and has_cube:
-			var pos := hit.position
-			do_sphere(pos, 5, 0)
+		if _action_place:
+			var pos = hit.previous_position
+			if can_place_voxel_at(pos):
+				place(pos)
 		
 		elif _action_remove:
-			var pos := hit.previous_position
-			if has_cube == false:
-				pos = hit.position
-			if can_place_voxel_at(pos):
-				do_sphere(pos, 4, _inventory[_inventory_index])
-				print("Place voxel at ", pos)
-			else:
-				print("Can't place here!")
+			dig(hit.position)
 
 	_action_place = false
 	_action_remove = false
@@ -85,9 +77,9 @@ func _unhandled_input(event):
 		if event.pressed:
 			match event.button_index:
 				MOUSE_BUTTON_LEFT:
-					_action_place = true
-				MOUSE_BUTTON_RIGHT:
 					_action_remove = true
+				MOUSE_BUTTON_RIGHT:
+					_action_place = true
 
 	elif event is InputEventKey:
 		if event.pressed:
@@ -96,16 +88,15 @@ func _unhandled_input(event):
 					select_inventory(0)
 				KEY_2:
 					select_inventory(1)
-				KEY_3:
-					select_inventory(2)
 
 
-func select_inventory(i):
+func select_inventory(i: int):
 	if i < 0 or i >= len(_inventory):
 		return
 	_inventory_index = i
 	var vi = _inventory[i]
-	print("Inventory select ", _terrain.voxel_library.get_voxel(vi).voxel_name, " (", vi, ")")
+	var lib = _terrain.mesher.library
+	print("Inventory select ", lib.get_voxel(vi).voxel_name, " (", vi, ")")
 
 
 func can_place_voxel_at(pos: Vector3i):
@@ -121,8 +112,22 @@ func can_place_voxel_at(pos: Vector3i):
 	return hits.size() == 0
 
 
-func do_sphere(center, r, type):
+func place(center: Vector3i):
+	var type : int = _inventory[_inventory_index]
 	_terrain_tool.channel = VoxelBuffer.CHANNEL_TYPE
 	_terrain_tool.value = type
-	_terrain_tool.do_point(center)
+	if type == 1:
+		_terrain_tool.do_point(center)
+	else:
+		_terrain_tool.do_sphere(center, 3)
+
+
+func dig(center: Vector3i):
+	var type : int = _inventory[_inventory_index]
+	_terrain_tool.channel = VoxelBuffer.CHANNEL_TYPE
+	_terrain_tool.value = 0
+	if type == 1:
+		_terrain_tool.do_point(center)
+	else:
+		_terrain_tool.do_sphere(center, 3)
 

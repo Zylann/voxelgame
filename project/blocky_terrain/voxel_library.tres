@@ -1,43 +1,40 @@
-[gd_resource type="VoxelLibrary" load_steps=6 format=3 uid="uid://cs1bqe5vsvfls"]
+[gd_resource type="VoxelBlockyLibrary" load_steps=5 format=3 uid="uid://cs1bqe5vsvfls"]
 
-[ext_resource type="ArrayMesh" uid="uid://cdf502i64sev" path="res://blocky_terrain/custom_mesh.obj" id="1"]
+[ext_resource type="Material" uid="uid://bi254884ikj8v" path="res://blocky_terrain/terrain_material.tres" id="1_tnvpt"]
 
-[sub_resource type="Voxel" id="1"]
-transparent = true
-transparency_index = 1
+[sub_resource type="VoxelBlockyModel" id="Voxel_72xof"]
+voxel_name = &"air"
 
-[sub_resource type="Voxel" id="2"]
+[sub_resource type="VoxelBlockyModel" id="Voxel_wmhkh"]
+voxel_name = &"sand"
 geometry_type = 1
 collision_aabbs = [AABB(0, 0, 0, 1, 1, 1)]
-cube_geometry/padding_y = null
-cube_tiles/left = Vector2(0, 0)
-cube_tiles/right = Vector2(0, 0)
-cube_tiles/bottom = Vector2(0, 0)
-cube_tiles/top = Vector2(0, 0)
-cube_tiles/back = Vector2(0, 0)
-cube_tiles/front = Vector2(0, 0)
+cube_geometry_padding_y = null
+cube_tiles_left = Vector2(0, 0)
+cube_tiles_right = Vector2(0, 0)
+cube_tiles_bottom = Vector2(0, 0)
+cube_tiles_top = Vector2(0, 0)
+cube_tiles_back = Vector2(0, 0)
+cube_tiles_front = Vector2(0, 0)
+material_override_0 = ExtResource("1_tnvpt")
+collision_enabled_0 = true
 
-[sub_resource type="Voxel" id="3"]
+[sub_resource type="VoxelBlockyModel" id="VoxelBlockyModel_b3bhc"]
+voxel_name = &"dirt"
 geometry_type = 1
 collision_aabbs = [AABB(0, 0, 0, 1, 1, 1)]
-cube_geometry/padding_y = null
-cube_tiles/left = Vector2(1, 0)
-cube_tiles/right = Vector2(1, 0)
-cube_tiles/bottom = Vector2(1, 0)
-cube_tiles/top = Vector2(1, 0)
-cube_tiles/back = Vector2(1, 0)
-cube_tiles/front = Vector2(1, 0)
-
-[sub_resource type="Voxel" id="4"]
-voxel_name = &"MeshTest"
-geometry_type = 2
-custom_mesh = ExtResource( "1" )
-collision_aabbs = [AABB(0, 0, 0, 1, 0.8, 1)]
+cube_geometry_padding_y = null
+cube_tiles_left = Vector2(1, 0)
+cube_tiles_right = Vector2(1, 0)
+cube_tiles_bottom = Vector2(1, 0)
+cube_tiles_top = Vector2(1, 0)
+cube_tiles_back = Vector2(1, 0)
+cube_tiles_front = Vector2(1, 0)
+material_override_0 = ExtResource("1_tnvpt")
+collision_enabled_0 = true
 
 [resource]
 atlas_size = 4
-bake_tangents = false
-voxels/0 = SubResource( "1" )
-voxels/1 = SubResource( "2" )
-voxels/2 = SubResource( "3" )
-voxels/3 = SubResource( "4" )
+voxels/0 = SubResource("Voxel_72xof")
+voxels/1 = SubResource("Voxel_wmhkh")
+voxels/2 = SubResource("VoxelBlockyModel_b3bhc")
