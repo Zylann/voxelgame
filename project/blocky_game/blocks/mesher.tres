@@ -3,4 +3,4 @@
 [ext_resource type="VoxelBlockyLibrary" uid="uid://ctn2wqssoxvj5" path="res://blocky_game/blocks/voxel_library.tres" id="1"]
 
 [resource]
-library = ExtResource( "1" )
+library = ExtResource("1")
