@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://blocky_game/gui/inventory_item_display.gd" id="4"]
 
 [node name="InventorySlot" type="Control"]
-minimum_size = Vector2(64, 64)
+custom_minimum_size = Vector2(64, 64)
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_right = -960.0
@@ -30,6 +30,3 @@ anchor_bottom = 1.0
 texture = ExtResource("3")
 ignore_texture_size = true
 script = ExtResource("4")
-__meta__ = {
-"_edit_use_anchors_": false
-}
