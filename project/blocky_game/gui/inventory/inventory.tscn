@@ -10,7 +10,7 @@
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color(0, 0, 0, 0.25098)
-script = ExtResource( "1" )
+script = ExtResource("1")
 
 [node name="CC" type="CenterContainer" parent="."]
 anchor_right = 1.0
@@ -48,76 +48,76 @@ offset_right = 608.0
 offset_bottom = 238.0
 columns = 9
 
-[node name="InventorySlot" parent="CC/PC/VB/Bag" instance=ExtResource( "2" )]
+[node name="InventorySlot" parent="CC/PC/VB/Bag" instance=ExtResource("2")]
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_right = 64.0
 offset_bottom = 64.0
 
-[node name="InventorySlot2" parent="CC/PC/VB/Bag" instance=ExtResource( "2" )]
+[node name="InventorySlot2" parent="CC/PC/VB/Bag" instance=ExtResource("2")]
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 68.0
 offset_right = 132.0
 offset_bottom = 64.0
 
-[node name="InventorySlot3" parent="CC/PC/VB/Bag" instance=ExtResource( "2" )]
+[node name="InventorySlot3" parent="CC/PC/VB/Bag" instance=ExtResource("2")]
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 136.0
 offset_right = 200.0
 offset_bottom = 64.0
 
-[node name="InventorySlot4" parent="CC/PC/VB/Bag" instance=ExtResource( "2" )]
+[node name="InventorySlot4" parent="CC/PC/VB/Bag" instance=ExtResource("2")]
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 204.0
 offset_right = 268.0
 offset_bottom = 64.0
 
-[node name="InventorySlot5" parent="CC/PC/VB/Bag" instance=ExtResource( "2" )]
+[node name="InventorySlot5" parent="CC/PC/VB/Bag" instance=ExtResource("2")]
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 272.0
 offset_right = 336.0
 offset_bottom = 64.0
 
-[node name="InventorySlot6" parent="CC/PC/VB/Bag" instance=ExtResource( "2" )]
+[node name="InventorySlot6" parent="CC/PC/VB/Bag" instance=ExtResource("2")]
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 340.0
 offset_right = 404.0
 offset_bottom = 64.0
 
-[node name="InventorySlot7" parent="CC/PC/VB/Bag" instance=ExtResource( "2" )]
+[node name="InventorySlot7" parent="CC/PC/VB/Bag" instance=ExtResource("2")]
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 408.0
 offset_right = 472.0
 offset_bottom = 64.0
 
-[node name="InventorySlot8" parent="CC/PC/VB/Bag" instance=ExtResource( "2" )]
+[node name="InventorySlot8" parent="CC/PC/VB/Bag" instance=ExtResource("2")]
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 476.0
 offset_right = 540.0
 offset_bottom = 64.0
 
-[node name="InventorySlot9" parent="CC/PC/VB/Bag" instance=ExtResource( "2" )]
+[node name="InventorySlot9" parent="CC/PC/VB/Bag" instance=ExtResource("2")]
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 544.0
 offset_right = 608.0
 offset_bottom = 64.0
 
-[node name="InventorySlot10" parent="CC/PC/VB/Bag" instance=ExtResource( "2" )]
+[node name="InventorySlot10" parent="CC/PC/VB/Bag" instance=ExtResource("2")]
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_top = 68.0
 offset_right = 64.0
 offset_bottom = 132.0
 
-[node name="InventorySlot11" parent="CC/PC/VB/Bag" instance=ExtResource( "2" )]
+[node name="InventorySlot11" parent="CC/PC/VB/Bag" instance=ExtResource("2")]
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 68.0
@@ -125,7 +125,7 @@ offset_top = 68.0
 offset_right = 132.0
 offset_bottom = 132.0
 
-[node name="InventorySlot12" parent="CC/PC/VB/Bag" instance=ExtResource( "2" )]
+[node name="InventorySlot12" parent="CC/PC/VB/Bag" instance=ExtResource("2")]
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 136.0
@@ -133,7 +133,7 @@ offset_top = 68.0
 offset_right = 200.0
 offset_bottom = 132.0
 
-[node name="InventorySlot13" parent="CC/PC/VB/Bag" instance=ExtResource( "2" )]
+[node name="InventorySlot13" parent="CC/PC/VB/Bag" instance=ExtResource("2")]
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 204.0
@@ -141,7 +141,7 @@ offset_top = 68.0
 offset_right = 268.0
 offset_bottom = 132.0
 
-[node name="InventorySlot14" parent="CC/PC/VB/Bag" instance=ExtResource( "2" )]
+[node name="InventorySlot14" parent="CC/PC/VB/Bag" instance=ExtResource("2")]
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 272.0
@@ -149,7 +149,7 @@ offset_top = 68.0
 offset_right = 336.0
 offset_bottom = 132.0
 
-[node name="InventorySlot15" parent="CC/PC/VB/Bag" instance=ExtResource( "2" )]
+[node name="InventorySlot15" parent="CC/PC/VB/Bag" instance=ExtResource("2")]
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 340.0
@@ -157,7 +157,7 @@ offset_top = 68.0
 offset_right = 404.0
 offset_bottom = 132.0
 
-[node name="InventorySlot16" parent="CC/PC/VB/Bag" instance=ExtResource( "2" )]
+[node name="InventorySlot16" parent="CC/PC/VB/Bag" instance=ExtResource("2")]
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 408.0
@@ -165,7 +165,7 @@ offset_top = 68.0
 offset_right = 472.0
 offset_bottom = 132.0
 
-[node name="InventorySlot17" parent="CC/PC/VB/Bag" instance=ExtResource( "2" )]
+[node name="InventorySlot17" parent="CC/PC/VB/Bag" instance=ExtResource("2")]
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 476.0
@@ -173,7 +173,7 @@ offset_top = 68.0
 offset_right = 540.0
 offset_bottom = 132.0
 
-[node name="InventorySlot18" parent="CC/PC/VB/Bag" instance=ExtResource( "2" )]
+[node name="InventorySlot18" parent="CC/PC/VB/Bag" instance=ExtResource("2")]
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 544.0
@@ -181,14 +181,14 @@ offset_top = 68.0
 offset_right = 608.0
 offset_bottom = 132.0
 
-[node name="InventorySlot19" parent="CC/PC/VB/Bag" instance=ExtResource( "2" )]
+[node name="InventorySlot19" parent="CC/PC/VB/Bag" instance=ExtResource("2")]
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_top = 136.0
 offset_right = 64.0
 offset_bottom = 200.0
 
-[node name="InventorySlot20" parent="CC/PC/VB/Bag" instance=ExtResource( "2" )]
+[node name="InventorySlot20" parent="CC/PC/VB/Bag" instance=ExtResource("2")]
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 68.0
@@ -196,7 +196,7 @@ offset_top = 136.0
 offset_right = 132.0
 offset_bottom = 200.0
 
-[node name="InventorySlot21" parent="CC/PC/VB/Bag" instance=ExtResource( "2" )]
+[node name="InventorySlot21" parent="CC/PC/VB/Bag" instance=ExtResource("2")]
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 136.0
@@ -204,7 +204,7 @@ offset_top = 136.0
 offset_right = 200.0
 offset_bottom = 200.0
 
-[node name="InventorySlot22" parent="CC/PC/VB/Bag" instance=ExtResource( "2" )]
+[node name="InventorySlot22" parent="CC/PC/VB/Bag" instance=ExtResource("2")]
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 204.0
@@ -212,7 +212,7 @@ offset_top = 136.0
 offset_right = 268.0
 offset_bottom = 200.0
 
-[node name="InventorySlot23" parent="CC/PC/VB/Bag" instance=ExtResource( "2" )]
+[node name="InventorySlot23" parent="CC/PC/VB/Bag" instance=ExtResource("2")]
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 272.0
@@ -220,7 +220,7 @@ offset_top = 136.0
 offset_right = 336.0
 offset_bottom = 200.0
 
-[node name="InventorySlot24" parent="CC/PC/VB/Bag" instance=ExtResource( "2" )]
+[node name="InventorySlot24" parent="CC/PC/VB/Bag" instance=ExtResource("2")]
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 340.0
@@ -228,7 +228,7 @@ offset_top = 136.0
 offset_right = 404.0
 offset_bottom = 200.0
 
-[node name="InventorySlot25" parent="CC/PC/VB/Bag" instance=ExtResource( "2" )]
+[node name="InventorySlot25" parent="CC/PC/VB/Bag" instance=ExtResource("2")]
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 408.0
@@ -236,7 +236,7 @@ offset_top = 136.0
 offset_right = 472.0
 offset_bottom = 200.0
 
-[node name="InventorySlot26" parent="CC/PC/VB/Bag" instance=ExtResource( "2" )]
+[node name="InventorySlot26" parent="CC/PC/VB/Bag" instance=ExtResource("2")]
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 476.0
@@ -244,7 +244,7 @@ offset_top = 136.0
 offset_right = 540.0
 offset_bottom = 200.0
 
-[node name="InventorySlot27" parent="CC/PC/VB/Bag" instance=ExtResource( "2" )]
+[node name="InventorySlot27" parent="CC/PC/VB/Bag" instance=ExtResource("2")]
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 544.0
@@ -262,62 +262,62 @@ offset_top = 250.0
 offset_right = 608.0
 offset_bottom = 314.0
 
-[node name="InventorySlot" parent="CC/PC/VB/Hotbar" instance=ExtResource( "2" )]
+[node name="InventorySlot" parent="CC/PC/VB/Hotbar" instance=ExtResource("2")]
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_right = 64.0
 offset_bottom = 64.0
 
-[node name="InventorySlot2" parent="CC/PC/VB/Hotbar" instance=ExtResource( "2" )]
+[node name="InventorySlot2" parent="CC/PC/VB/Hotbar" instance=ExtResource("2")]
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 68.0
 offset_right = 132.0
 offset_bottom = 64.0
 
-[node name="InventorySlot3" parent="CC/PC/VB/Hotbar" instance=ExtResource( "2" )]
+[node name="InventorySlot3" parent="CC/PC/VB/Hotbar" instance=ExtResource("2")]
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 136.0
 offset_right = 200.0
 offset_bottom = 64.0
 
-[node name="InventorySlot4" parent="CC/PC/VB/Hotbar" instance=ExtResource( "2" )]
+[node name="InventorySlot4" parent="CC/PC/VB/Hotbar" instance=ExtResource("2")]
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 204.0
 offset_right = 268.0
 offset_bottom = 64.0
 
-[node name="InventorySlot5" parent="CC/PC/VB/Hotbar" instance=ExtResource( "2" )]
+[node name="InventorySlot5" parent="CC/PC/VB/Hotbar" instance=ExtResource("2")]
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 272.0
 offset_right = 336.0
 offset_bottom = 64.0
 
-[node name="InventorySlot6" parent="CC/PC/VB/Hotbar" instance=ExtResource( "2" )]
+[node name="InventorySlot6" parent="CC/PC/VB/Hotbar" instance=ExtResource("2")]
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 340.0
 offset_right = 404.0
 offset_bottom = 64.0
 
-[node name="InventorySlot7" parent="CC/PC/VB/Hotbar" instance=ExtResource( "2" )]
+[node name="InventorySlot7" parent="CC/PC/VB/Hotbar" instance=ExtResource("2")]
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 408.0
 offset_right = 472.0
 offset_bottom = 64.0
 
-[node name="InventorySlot8" parent="CC/PC/VB/Hotbar" instance=ExtResource( "2" )]
+[node name="InventorySlot8" parent="CC/PC/VB/Hotbar" instance=ExtResource("2")]
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 476.0
 offset_right = 540.0
 offset_bottom = 64.0
 
-[node name="InventorySlot9" parent="CC/PC/VB/Hotbar" instance=ExtResource( "2" )]
+[node name="InventorySlot9" parent="CC/PC/VB/Hotbar" instance=ExtResource("2")]
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 544.0
