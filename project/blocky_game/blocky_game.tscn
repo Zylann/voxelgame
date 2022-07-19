@@ -19,11 +19,11 @@ ground_color = Color(0.14902, 0.0901961, 0.0745098, 1)
 exposure = 0.12
 
 [sub_resource type="Sky" id="Sky_403h4"]
-sky_material = SubResource( "PhysicalSkyMaterial_ixhix" )
+sky_material = SubResource("PhysicalSkyMaterial_ixhix")
 
 [sub_resource type="Environment" id="2"]
 background_mode = 2
-sky = SubResource( "Sky_403h4" )
+sky = SubResource("Sky_403h4")
 ambient_light_color = Color(0.054902, 0.054902, 0.054902, 1)
 ambient_light_sky_contribution = 0.7
 sdfgi_enabled = true
@@ -37,21 +37,21 @@ fog_aerial_perspective = 1.0
 directory = "res://blocky_game/save"
 
 [node name="Main" type="Node"]
-script = ExtResource( "5" )
+script = ExtResource("5")
 
 [node name="Blocks" type="Node" parent="."]
-script = ExtResource( "12" )
+script = ExtResource("12")
 
 [node name="Items" type="Node" parent="."]
-script = ExtResource( "13" )
+script = ExtResource("13")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( "2" )
+environment = SubResource("2")
 
 [node name="VoxelTerrain" type="VoxelTerrain" parent="."]
-stream = SubResource( "3" )
-generator = ExtResource( "4" )
-mesher = ExtResource( "1" )
+stream = SubResource("3")
+generator = ExtResource("4")
+mesher = ExtResource("1")
 gi_mode = 1
 generate_collisions = false
 run_stream_in_editor = false
@@ -64,20 +64,20 @@ transform = Transform3D(-0.97321, 0.172326, -0.152203, -0.0478236, 0.495785, 0.8
 shadow_enabled = true
 
 [node name="DebugInfo" type="Node" parent="."]
-script = ExtResource( "8" )
+script = ExtResource("8")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7.3175)
 visible = false
-mesh = ExtResource( "7" )
+mesh = ExtResource("7")
 surface_material_override/0 = null
 
-[node name="CharacterAvatar" parent="." instance=ExtResource( "6" )]
+[node name="CharacterAvatar" parent="." instance=ExtResource("6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 64, 0)
 terrain = NodePath("../VoxelTerrain")
 
 [node name="RandomTicks" type="Node" parent="."]
-script = ExtResource( "10" )
+script = ExtResource("10")
 
 [node name="Water" type="Node" parent="."]
-script = ExtResource( "11" )
+script = ExtResource("11")
