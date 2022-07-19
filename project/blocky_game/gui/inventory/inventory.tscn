@@ -320,6 +320,7 @@ offset_bottom = 64.0
 
 [node name="DraggedItem" type="Control" parent="."]
 visible = false
+custom_minimum_size = Vector2(64, 64)
 mouse_filter = 2
 script = ExtResource("4")
 
