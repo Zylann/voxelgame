@@ -1,95 +1,30 @@
 shader_type spatial;
-//render_mode skip_vertex_transform;
+
+#include "smooth_terrain/shaders/transvoxel.gdshaderinc"
+#include "smooth_terrain/shaders/virtual_texturing.gdshaderinc"
+#include "smooth_terrain/shaders/triplanar.gdshaderinc"
+#include "smooth_terrain/shaders/lod_fade.gdshaderinc"
 
 uniform sampler2D u_texture_top : source_color;
 uniform sampler2D u_texture_sides : source_color;
 
-// From Voxel Tools API
-uniform int u_transition_mask;
-uniform vec2 u_lod_fade;
-
 varying vec3 v_world_pos;
-varying vec3 v_world_normal;
+varying vec3 v_vertex_pos_model;
 
-vec3 get_triplanar_blend(vec3 world_normal, float sharpness) {
-	vec3 blending = pow(abs(world_normal), vec3(sharpness));
-	return blending / (blending.x + blending.y + blending.z);
-}
-
-vec4 texture_triplanar(sampler2D tex, vec3 world_pos, vec3 blend) {
-	vec4 xaxis = texture(tex, world_pos.yz);
-	vec4 yaxis = texture(tex, world_pos.xz);
-	vec4 zaxis = texture(tex, world_pos.xy);
-	// blend the results of the 3 planar projections.
-	return xaxis * blend.x + yaxis * blend.y + zaxis * blend.z;
-}
-
-float get_hash(vec2 c) {
-	return fract(sin(dot(c.xy, vec2(12.9898,78.233))) * 43758.5453);
-}
-
-float get_transvoxel_secondary_factor(int idata) {
-	int cell_border_mask = (idata >> 0) & 63; // Which sides the cell is touching
-	int vertex_border_mask = (idata >> 8) & 63; // Which sides the vertex is touching
-	//int vertex_border_mask = (idata >> 6) & 63; // Which sides the vertex is touching
-	// If the vertex is near a side where there is a low-resolution neighbor,
-	// move it to secondary position
-	int m = u_transition_mask & cell_border_mask;
-	float t = float(m != 0);
-	// If the vertex lies on one or more sides, and at least one side has no low-resolution neighbor,
-	// don't move the vertex.
-	t *= float((vertex_border_mask & ~u_transition_mask) == 0);
-	
-	// Debugging
-	//t *= 0.5 + 0.5 * sin(TIME * 4.0);
-
-	//t *= 2.0;
-
-	return t;
-}
-
-vec3 get_transvoxel_position(vec3 vertex_pos, vec4 fdata) {
-	int idata = floatBitsToInt(fdata.a);
-	//int idata = int(fdata.a);
-
-	// Move vertices to smooth transitions
-	float secondary_factor = get_transvoxel_secondary_factor(idata);
-	vec3 secondary_position = fdata.xyz;
-	vec3 pos = mix(vertex_pos, secondary_position, secondary_factor);
-	//vec3 pos = vertex_pos;
-
-	// If the mesh combines transitions and the vertex belongs to a transition,
-	// when that transition isn't active we change the position of the vertices so
-	// all triangles will be degenerate and won't be visible.
-	// This is an alternative to rendering them separately,
-	// which has less draw calls and less mesh resources to create in Godot.
-	// Ideally I would tweak the index buffer like LOD does but Godot does not
-	// expose anything to use it that way.
-	int itransition = (idata >> 16) & 0xff; // Is the vertex on a transition mesh?
-	float transition_cull = float(itransition == 0 || (itransition & u_transition_mask) != 0);
-	pos *= transition_cull;
-
-	//pos *= float(itransition == 0);
-
-	return pos;
-}
 
 void vertex() {
 	VERTEX = get_transvoxel_position(VERTEX, CUSTOM0);
-	//VERTEX = (MODELVIEW_MATRIX * vec4(VERTEX, 1.0)).xyz;
-	//VERTEX = floor(VERTEX * 100.0) * 0.01;
+	v_vertex_pos_model = VERTEX;
 
-	vec3 world_pos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
-	v_world_pos = world_pos;
-	v_world_normal = NORMAL;
-
-	// COLOR = mix(vec4(1.0), vec4(1.0, 0.0, 0.0, 1.0), 
-	// 	get_transvoxel_secondary_factor(floatBitsToInt(CUSTOM0.a)));
+	v_world_pos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
 }
 
 void fragment() {
-	//vec3 normal = v_world_normal;
-	vec3 normal = normalize(v_world_normal);
+	// float nm_factor = clamp(0.5 + 0.5 * (4.0 * sin(TIME * 2.0)), 0.0, 1.0);
+	// NORMAL = mix(NORMAL, get_voxel_normal_view(NORMAL, VIEW_MATRIX * MODEL_MATRIX), nm_factor);
+	NORMAL = get_voxel_normal_view(v_vertex_pos_model, NORMAL, VIEW_MATRIX * MODEL_MATRIX);
+
+	vec3 normal = (INV_VIEW_MATRIX * vec4(NORMAL, 0.0)).xyz;
 	vec3 wpos = v_world_pos * 0.2;
 
 	float topness_midlevel = 0.5;
@@ -115,25 +50,9 @@ void fragment() {
 
 	float r = top_col.r;
 	ALBEDO = mix(side_col, top_col, topness);
-	//ALBEDO = top_col;
-	//ALBEDO *= COLOR.rgb;
-	
+
 	// Discard has to be last to workaround https://github.com/godotengine/godot/issues/34966
-	
-	// Terrible impl but can surely be optimized
-	float h = get_hash(SCREEN_UV);
-	//ALBEDO = vec3(u_lod_fade.x, u_lod_fade.y, 0.0);
-	vec2 lod_fade = u_lod_fade;
-	//lod_fade = vec2(0.0);
-	if (lod_fade.y > 0.5) {
-		// Fade in
-		if (lod_fade.x < h) {
-			discard;
-		}
-	} else {
-		// Fade out
-		if (lod_fade.x > h) {
-			discard;
-		}
+	if (get_lod_fade_discard(SCREEN_UV)) {
+		discard;
 	}
 }

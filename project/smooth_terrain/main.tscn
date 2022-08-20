@@ -56,11 +56,17 @@ script = ExtResource("6")
 [node name="VoxelTerrain" type="VoxelLodTerrain" parent="."]
 generator = ExtResource("7")
 mesher = SubResource("3")
-view_distance = 1024
-lod_count = 6
-generate_collisions = false
-collision_lod_count = 1
+view_distance = 2048
+voxel_bounds = AABB(-1024, -512, -1024, 2048, 1024, 2048)
+lod_distance = 50.0
 lod_fade_duration = 0.3
 material = ExtResource("2")
+normalmap_enabled = true
+normalmap_tile_resolution_min = 8
+normalmap_tile_resolution_max = 16
+collision_lod_count = 1
+full_load_mode_enabled = true
+threaded_update_enabled = true
+mesh_block_size = 32
 
 [editable path="SpectatorAvatar"]

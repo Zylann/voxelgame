@@ -4,6 +4,7 @@
 
 [sub_resource type="FastNoiseLite" id="1"]
 frequency = 0.002
+fractal_octaves = 6
 
 [resource]
 height_start = -100.0
