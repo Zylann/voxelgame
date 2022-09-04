@@ -65,8 +65,8 @@ func _unhandled_input(event):
 
 func update_rotations():
 	set_position(Vector3())
-	set_rotation(Vector3(0, deg2rad(_yaw), 0))
-	rotate(get_transform().basis.x.normalized(), -deg2rad(_pitch))
+	set_rotation(Vector3(0, deg_to_rad(_yaw), 0))
+	rotate(get_transform().basis.x.normalized(), -deg_to_rad(_pitch))
 	set_position(get_transform().basis.z * distance + _offset)
 
 
