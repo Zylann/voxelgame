@@ -198,4 +198,4 @@ static func _get_chunk_seed_2d(cpos: Vector3) -> int:
 
 func _get_height_at(x: int, z: int) -> int:
 	var t = 0.5 + 0.5 * _heightmap_noise.get_noise_2d(x, z)
-	return int(HeightmapCurve.interpolate_baked(t))
+	return int(HeightmapCurve.sample_baked(t))
