@@ -20,6 +20,11 @@ uniform int u_voxel_virtual_texture_tile_size;
 uniform float u_voxel_virtual_texture_fade;
 uniform float u_voxel_cell_size;
 uniform int u_voxel_block_size;
+// This is used when falling back on a virtual texture from a parent mesh.
+// The texture will cover a larger cube, so we use this information
+// to query only inside a sub-region.
+// (x, y, z) is offset, (w) is scale.
+uniform vec4 u_voxel_virtual_texture_offset_scale;
 
 
 vec2 pad_uv(vec2 uv, float amount) {
@@ -52,8 +57,10 @@ vec3 get_voxel_normal_model(vec3 vertex_pos_model, out vec3 debug) {
 	int normalmap_tile_size = u_voxel_virtual_texture_tile_size;
 #endif
 	
-	ivec3 cell_pos = ivec3(floor(vertex_pos_model / cell_size));
-	vec3 cell_fract = fract(vertex_pos_model / cell_size);
+	vec3 cell_posf = vertex_pos_model / cell_size;
+	cell_posf = cell_posf * u_voxel_virtual_texture_offset_scale.w + u_voxel_virtual_texture_offset_scale.xyz;
+	ivec3 cell_pos = ivec3(floor(cell_posf));
+	vec3 cell_fract = fract(cell_posf);
 	
 	int cell_index = cell_pos.x + cell_pos.y * block_size + cell_pos.z * block_size * block_size;
 	int lookup_sqri = textureSize(u_voxel_cell_lookup, 0).x;//int(ceil(sqrt(float(block_size * block_size * block_size))));
@@ -126,3 +133,29 @@ vec3 get_voxel_normal_view(vec3 vertex_pos_model, vec3 geometry_normal_view, mat
 	return normal;
 }
 
+vec3 get_voxel_normal_view_model(vec3 vertex_pos_model, 
+		vec3 geometry_normal_view, mat4 model_to_view, 
+		vec3 geometry_normal_model, out vec3 out_normal_model) {
+	if (u_voxel_cell_size == 0.0) {
+		// Virtual texture not available in this mesh
+		out_normal_model = geometry_normal_model;
+		return geometry_normal_view;
+	}
+	vec3 debug;
+	vec3 tile_normal_model = get_voxel_normal_model(vertex_pos_model, debug);
+	vec3 tile_normal_view = (model_to_view * vec4(tile_normal_model, 0.0)).xyz;
+	// In some edge cases the normal can be invalid (length close to zero), causing black artifacts.
+	// Workaround this by falling back on the geometry normal.
+	// Also apply fading.
+	vec3 normal = mix(geometry_normal_view, tile_normal_view, 
+		u_voxel_virtual_texture_fade * dot(tile_normal_view, tile_normal_view));
+
+	// TODO Normalize this one?
+	// The view-space normal is normalized by Godot after assigning to `NORMAL`,
+	// but the model normal is useful for other things such as texturing,
+	// and due to interpolation it may need normalization.
+	out_normal_model = mix(geometry_normal_model, tile_normal_model, 
+		u_voxel_virtual_texture_fade * dot(tile_normal_model, tile_normal_model));
+
+	return normal;
+}
