@@ -53,7 +53,7 @@ collision_enabled_0 = true
 voxel_name = &"stairs_pz"
 geometry_type = 2
 custom_mesh = ExtResource("10")
-collision_aabbs = [AABB(0, 0, 0, 1, 1, 1), AABB(0, 0.5, 0.5, 1, 0.5, 0.5)]
+collision_aabbs = [AABB(0, 0, 0, 1, 0.5, 1), AABB(0, 0.5, 0.5, 1, 0.5, 0.5)]
 material_override_0 = ExtResource("2_r7axq")
 collision_enabled_0 = true
 
