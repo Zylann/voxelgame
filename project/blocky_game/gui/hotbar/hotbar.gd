@@ -4,7 +4,7 @@ const InventoryItem = preload("../../player/inventory_item.gd")
 
 @onready var _selected_frame = $HBoxContainer/HotbarSlot/HotbarSlotSelect
 @onready var _slot_container = $HBoxContainer
-@onready var _block_types = get_node(^"/root/Main/Blocks")
+@onready var _block_types = get_node(^"/root/Main/Game/Blocks")
 @onready var _inventory = get_node(^"../Inventory")
 
 var _hotbar_index := 0

@@ -1,0 +1,91 @@
+[gd_scene load_steps=3 format=3 uid="uid://djih65ishd80"]
+
+[ext_resource type="Script" path="res://blocky_game/main.gd" id="1_33xa8"]
+[ext_resource type="Script" path="res://blocky_game/main_menu.gd" id="2_koemg"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_33xa8")
+
+[node name="MainMenu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_koemg")
+
+[node name="CenterContainer" type="CenterContainer" parent="MainMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MainMenu/CenterContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MainMenu/CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/CenterContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="GameTitle" type="Label" parent="MainMenu/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Blocky Game Demo"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="MainMenu/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="SingleplayerButton" type="Button" parent="MainMenu/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Singleplayer"
+
+[node name="HSeparator2" type="HSeparator" parent="MainMenu/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainMenu/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainMenu/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "IP:"
+
+[node name="IP" type="LineEdit" parent="MainMenu/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+text = "127.0.0.1"
+
+[node name="Label2" type="Label" parent="MainMenu/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Port: "
+
+[node name="Port" type="SpinBox" parent="MainMenu/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+max_value = 65535.0
+value = 25000.0
+
+[node name="ConnectToServerButton" type="Button" parent="MainMenu/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "Connect to server"
+
+[node name="HostServerButton" type="Button" parent="MainMenu/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "Host server"
+
+[connection signal="connect_to_server_requested" from="MainMenu" to="." method="_on_main_menu_connect_to_server_requested"]
+[connection signal="host_server_requested" from="MainMenu" to="." method="_on_main_menu_host_server_requested"]
+[connection signal="singleplayer_requested" from="MainMenu" to="." method="_on_main_menu_singleplayer_requested"]
+[connection signal="pressed" from="MainMenu/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/SingleplayerButton" to="MainMenu" method="_on_singleplayer_button_pressed"]
+[connection signal="pressed" from="MainMenu/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ConnectToServerButton" to="MainMenu" method="_on_connect_to_server_button_pressed"]
+[connection signal="pressed" from="MainMenu/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HostServerButton" to="MainMenu" method="_on_host_server_button_pressed"]

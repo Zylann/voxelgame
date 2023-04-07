@@ -1,5 +1,5 @@
 
-static func create_wirecube_mesh(color = Color(1,1,1)):
+static func create_wirecube_mesh(color = Color(1,1,1)) -> ArrayMesh:
 	var positions = PackedVector3Array([
 		Vector3(0, 0, 0),
 		Vector3(1, 0, 0),

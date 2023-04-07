@@ -26,27 +26,21 @@ const _hotbar_keys = {
 # TODO Eventually invert these dependencies
 @onready var _head : Camera3D = get_parent().get_node("Camera")
 @onready var _hotbar : Hotbar = get_node("../HotBar")
-@onready var _block_types : Blocks = get_node("/root/Main/Blocks")
-@onready var _item_db : ItemDB = get_node("/root/Main/Items")
-@onready var _water_updater = get_node("../../Water")
+@onready var _block_types : Blocks = get_node("/root/Main/Game/Blocks")
+@onready var _item_db : ItemDB = get_node("/root/Main/Game/Items")
+@onready var _water_updater = get_node("/root/Main/Game/Water")
+@onready var _terrain : VoxelTerrain = get_node("/root/Main/Game/VoxelTerrain")
 
-var _terrain = null
-var _terrain_tool = null
-var _cursor = null
-var _action_place = false
-var _action_use = false
-var _action_pick = false
+var _terrain_tool : VoxelTool = null
+var _cursor : MeshInstance3D = null
+var _action_place := false
+var _action_use := false
+var _action_pick := false
 
 
 func _ready():
-	if terrain_path == NodePath():
-		_terrain = get_parent().get_node(get_parent().terrain)
-		terrain_path = _terrain.get_path() # For correctness
-	else:
-		_terrain = get_node(terrain_path)
-	
-	var mesh = Util.create_wirecube_mesh(Color(0,0,0))
-	var mesh_instance = MeshInstance3D.new()
+	var mesh := Util.create_wirecube_mesh(Color(0,0,0))
+	var mesh_instance := MeshInstance3D.new()
 	mesh_instance.mesh = mesh
 	if cursor_material != null:
 		mesh_instance.material_override = cursor_material
@@ -58,11 +52,11 @@ func _ready():
 	_terrain_tool.channel = VoxelBuffer.CHANNEL_TYPE
 
 
-func _get_pointed_voxel():
-	var origin = _head.get_global_transform().origin
+func _get_pointed_voxel() -> VoxelRaycastResult:
+	var origin := _head.get_global_transform().origin
 	assert(not Util.vec3_has_nan(origin))
-	var forward = -_head.get_transform().basis.z.normalized()
-	var hit = _terrain_tool.raycast(origin, forward, 10)
+	var forward := -_head.get_transform().basis.z.normalized()
+	var hit := _terrain_tool.raycast(origin, forward, 10)
 	return hit
 
 
@@ -70,7 +64,7 @@ func _physics_process(_delta):
 	if _terrain == null:
 		return
 	
-	var hit = _get_pointed_voxel()
+	var hit := _get_pointed_voxel()
 	if hit != null:
 		_cursor.show()
 		_cursor.set_position(hit.position)
@@ -84,8 +78,8 @@ func _physics_process(_delta):
 	# These inputs have to be in _fixed_process because they rely on collision queries
 	if inv_item == null or inv_item.type == InventoryItem.TYPE_BLOCK:
 		if hit != null:
-			var hit_raw_id = _terrain_tool.get_voxel(hit.position)
-			var has_cube = hit_raw_id != 0
+			var hit_raw_id := _terrain_tool.get_voxel(hit.position)
+			var has_cube := hit_raw_id != 0
 			
 			if _action_use and has_cube:
 				var pos = hit.position
@@ -117,7 +111,7 @@ func _physics_process(_delta):
 	_action_pick = false
 
 
-func _unhandled_input(event):
+func _unhandled_input(event: InputEvent):
 	if event is InputEventMouseButton:
 		if event.pressed:
 			match event.button_index:
@@ -141,15 +135,14 @@ func _unhandled_input(event):
 
 func _can_place_voxel_at(pos: Vector3):
 	# TODO Is it really relevant anymore? This demo doesn't use physics
-	var space_state = get_viewport().get_world_3d().get_direct_space_state()
-	var params = PhysicsShapeQueryParameters3D.new()
+	var space_state := get_viewport().get_world_3d().get_direct_space_state()
+	var params := PhysicsShapeQueryParameters3D.new()
 	params.collision_mask = COLLISION_LAYER_AVATAR
 	params.transform = Transform3D(Basis(), pos + Vector3(1,1,1)*0.5)
-	var shape = BoxShape3D.new()
-	var ex = 0.5
-	shape.extents = Vector3(ex, ex, ex)
+	var shape := BoxShape3D.new()
+	shape.size = Vector3(1, 1, 1)
 	params.set_shape(shape)
-	var hits = space_state.intersect_shape(params)
+	var hits := space_state.intersect_shape(params)
 	return hits.size() == 0
 
 

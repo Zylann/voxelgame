@@ -1,15 +1,14 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://dljqckrx50m8t"]
 
-[ext_resource path="res://common/mouse_look.gd" type="Script" id=1]
-[ext_resource path="res://common/spectator_avatar.gd" type="Script" id=2]
+[ext_resource type="Script" path="res://common/mouse_look.gd" id="1"]
+[ext_resource type="Script" path="res://common/spectator_avatar.gd" id="2"]
 
 [node name="SpectatorAvatar" type="Node3D"]
-script = ExtResource( 2 )
+script = ExtResource("2")
 speed = 5.0
 
 [node name="Camera" type="Camera3D" parent="."]
-far = 4000.0
-script = ExtResource( 1 )
+script = ExtResource("1")
 sensitivity = 0.2
 distance = 0.0
 

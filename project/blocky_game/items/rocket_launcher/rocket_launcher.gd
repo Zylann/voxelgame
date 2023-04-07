@@ -1,15 +1,16 @@
 extends "../item.gd"
 
+const Rocket = preload("./rocket.gd")
 const RocketScene = preload("./rocket.tscn")
 
-@onready var _world = get_node("/root/Main")
+@onready var _world : Node = get_node("/root/Main/Game")
 
 
 func use(trans: Transform3D):
-	var rocket = RocketScene.instantiate()
+	var rocket : Rocket = RocketScene.instantiate()
 	rocket.position = trans.origin
 	_world.add_child(rocket)
 	print("Launch rocket at ", rocket.position)
-	var forward = -trans.basis.z.normalized()
+	var forward := -trans.basis.z.normalized()
 	rocket.set_direction(forward)
 
