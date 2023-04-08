@@ -1,25 +1,25 @@
 extends Node3D
 
-@export var speed = 5.0
-@export var gravity = 9.8
-@export var jump_force = 5.0
+@export var speed := 5.0
+@export var gravity := 9.8
+@export var jump_force := 5.0
 @export var head : NodePath
 
 # Not used in this script, but might be useful for child nodes because
 # this controller will most likely be on the root
 @export var terrain : NodePath
 
-var _velocity = Vector3()
-var _grounded = false
+var _velocity := Vector3()
+var _grounded := false
 var _head = null
-var _box_mover = VoxelBoxMover.new()
+var _box_mover := VoxelBoxMover.new()
 
 
 func _ready():
 	_head = get_node(head)
 
 
-func _physics_process(delta):
+func _physics_process(delta: float):
 	var forward = _head.get_transform().basis.z.normalized()
 	forward = Plane(Vector3(0, 1, 0), 0).project(forward)
 	var right = _head.get_transform().basis.x.normalized()
@@ -45,13 +45,18 @@ func _physics_process(delta):
 		_velocity.y = jump_force
 		#_grounded = false
 	
-	var motion = _velocity * delta
+	var motion := _velocity * delta
 	
 	if has_node(terrain):
 		var aabb = AABB(Vector3(-0.4, -0.9, -0.4), Vector3(0.8, 1.8, 0.8))
-		var terrain_node = get_node(terrain)
-		motion = _box_mover.get_motion(position, motion, aabb, terrain_node)
-		global_translate(motion)
+		var terrain_node : VoxelTerrain = get_node(terrain)
+		var vt := terrain_node.get_voxel_tool()
+		if vt.is_area_editable(AABB(aabb.position + position, aabb.size)):
+			motion = _box_mover.get_motion(position, motion, aabb, terrain_node)
+			global_translate(motion)
+		else:
+			# Area not loaded yet, don't fall to infinity, wait until it loads
+			_velocity = Vector3()
 
 	assert(delta > 0)
 	_velocity = motion / delta

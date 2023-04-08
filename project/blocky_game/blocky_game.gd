@@ -66,7 +66,13 @@ func _ready():
 		mp.peer_disconnected.connect(_on_peer_disconnected)
 		mp.multiplayer_peer = peer
 
-		# TODO Configure VoxelTerrain as server
+		# Configure VoxelTerrain as server
+		var vnt := VoxelNetworkTerrainServer.new()
+		# This uses the high-level multiplayer API with RPCs,
+		# so this node must have the same path as its client counterpart
+		vnt.name = "Network"
+		_terrain.add_child(vnt)
+		_terrain.block_enter_notification_enabled = true
 
 	elif _network_mode == NETWORK_MODE_CLIENT:
 		_logger.prefix = "Client: "
@@ -84,7 +90,12 @@ func _ready():
 		mp.server_disconnected.connect(_on_server_disconnected)
 		mp.multiplayer_peer = peer
 
-		# TODO Configure VoxelTerrain as client
+		# Configure VoxelTerrain as client
+		var vnt := VoxelNetworkTerrainClient.new()
+		vnt.name = "Network"
+		_terrain.add_child(vnt)
+		_terrain.automatic_loading_enabled = false
+		_terrain.stream = null
 
 	if _network_mode == NETWORK_MODE_HOST or _network_mode == NETWORK_MODE_SINGLEPLAYER:
 		_spawn_character(SERVER_PEER_ID, Vector3(0, 64, 0))
@@ -137,6 +148,7 @@ func _on_peer_disconnected(peer_id: int):
 
 func _on_server_disconnected():
 	_logger.debug("Server disconnected")
+	# TODO Go back to main menu, the game will spam RPC errors
 
 
 func _unhandled_input(event: InputEvent):
@@ -154,8 +166,9 @@ func _unhandled_input(event: InputEvent):
 func _notification(what: int):
 	match what:
 		NOTIFICATION_WM_CLOSE_REQUEST:
-			# Save game when the user closes the window
-			_save_world()
+			if _network_mode == NETWORK_MODE_HOST or _network_mode == NETWORK_MODE_SINGLEPLAYER:
+				# Save game when the user closes the window
+				_save_world()
 
 
 func _save_world():
@@ -193,6 +206,7 @@ func _spawn_remote_character(peer_id: int, pos: Vector3) -> Node3D:
 		viewer.requires_visuals = false
 		viewer.requires_collisions = false
 		viewer.set_network_peer_id(peer_id)
+		viewer.set_requires_data_block_notifications(true)
 		#viewer.requires_data_block_notifications = true
 		character.add_child(viewer)
 	_characters_container.add_child(character)

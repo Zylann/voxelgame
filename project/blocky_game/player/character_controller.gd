@@ -1,8 +1,8 @@
 extends Node3D
 
-@export var speed = 5.0
-@export var gravity = 9.8
-@export var jump_force = 5.0
+@export var speed := 5.0
+@export var gravity := 9.8
+@export var jump_force := 5.0
 @export var head : NodePath
 
 @export var terrain : NodePath
@@ -51,32 +51,39 @@ func _physics_process(delta: float):
 	if has_node(terrain):
 		var aabb := AABB(Vector3(-0.4, -0.9, -0.4), Vector3(0.8, 1.8, 0.8))
 		var terrain_node : VoxelTerrain = get_node(terrain)
-		var prev_motion := motion
-
-		# Modify motion taking collisions into account
-		motion = _box_mover.get_motion(position, motion, aabb, terrain_node)
-
-		# Apply motion with a raw translation.
-		global_translate(motion)
-
-		# If new motion doesnt move vertically and we were falling before, we just landed
-		if absf(motion.y) < 0.001 and prev_motion.y < -0.001:
-			_grounded = true
-
-		if _box_mover.has_stepped_up():
-			# When we step up, the motion vector will have vertical movement,
-			# however it is not caused by falling or jumping, but by snapping the body on
-			# top of the step. So after we applied motion, we consider it grounded,
-			# and we reset motion.y so we don't induce a "jump" velocity later.
-			motion.y = 0
-			_grounded = true
 		
-		# Otherwise, if new motion is moving vertically, we may not be grounded anymore
-		elif absf(motion.y) > 0.001:
-			_grounded = false
+		var vt := terrain_node.get_voxel_tool()
+		if vt.is_area_editable(AABB(aabb.position + position, aabb.size)):
+			var prev_motion := motion
 
-		# TODO Stepping up stairs is quite janky. Minecraft seems to smooth it out a little.
-		# That would be a visual-only trick to apply it seems.
+			# Modify motion taking collisions into account
+			motion = _box_mover.get_motion(position, motion, aabb, terrain_node)
+
+			# Apply motion with a raw translation.
+			global_translate(motion)
+
+			# If new motion doesnt move vertically and we were falling before, we just landed
+			if absf(motion.y) < 0.001 and prev_motion.y < -0.001:
+				_grounded = true
+
+			if _box_mover.has_stepped_up():
+				# When we step up, the motion vector will have vertical movement,
+				# however it is not caused by falling or jumping, but by snapping the body on
+				# top of the step. So after we applied motion, we consider it grounded,
+				# and we reset motion.y so we don't induce a "jump" velocity later.
+				motion.y = 0
+				_grounded = true
+			
+			# Otherwise, if new motion is moving vertically, we may not be grounded anymore
+			elif absf(motion.y) > 0.001:
+				_grounded = false
+
+			# TODO Stepping up stairs is quite janky. Minecraft seems to smooth it out a little.
+			# That would be a visual-only trick to apply it seems.
+		
+		else:
+			# Don't fall to infinity, wait until terrain loads
+			motion = Vector3()
 
 	assert(delta > 0)
 	# Re-inject velocity from resulting motion
