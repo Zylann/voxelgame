@@ -7,10 +7,10 @@ extends Node3D
 
 @export var terrain : NodePath
 
-var _velocity = Vector3()
-var _grounded = false
-var _head = null
-var _box_mover = VoxelBoxMover.new()
+var _velocity := Vector3()
+var _grounded := false
+var _head : Node3D = null
+var _box_mover := VoxelBoxMover.new()
 
 
 func _ready():
@@ -21,7 +21,7 @@ func _ready():
 	_head = get_node(head)
 
 
-func _physics_process(delta):
+func _physics_process(delta: float):
 	var forward = _head.get_transform().basis.z.normalized()
 	forward = Plane(Vector3(0, 1, 0), 0).project(forward)
 	var right = _head.get_transform().basis.x.normalized()
@@ -46,12 +46,12 @@ func _physics_process(delta):
 		_velocity.y = jump_force
 		_grounded = false
 	
-	var motion = _velocity * delta
+	var motion := _velocity * delta
 	
 	if has_node(terrain):
-		var aabb = AABB(Vector3(-0.4, -0.9, -0.4), Vector3(0.8, 1.8, 0.8))
+		var aabb := AABB(Vector3(-0.4, -0.9, -0.4), Vector3(0.8, 1.8, 0.8))
 		var terrain_node : VoxelTerrain = get_node(terrain)
-		var prev_motion = motion
+		var prev_motion := motion
 
 		# Modify motion taking collisions into account
 		motion = _box_mover.get_motion(position, motion, aabb, terrain_node)
@@ -60,7 +60,7 @@ func _physics_process(delta):
 		global_translate(motion)
 
 		# If new motion doesnt move vertically and we were falling before, we just landed
-		if abs(motion.y) < 0.001 and prev_motion.y < -0.001:
+		if absf(motion.y) < 0.001 and prev_motion.y < -0.001:
 			_grounded = true
 
 		if _box_mover.has_stepped_up():
@@ -72,7 +72,7 @@ func _physics_process(delta):
 			_grounded = true
 		
 		# Otherwise, if new motion is moving vertically, we may not be grounded anymore
-		elif abs(motion.y) > 0.001:
+		elif absf(motion.y) > 0.001:
 			_grounded = false
 
 		# TODO Stepping up stairs is quite janky. Minecraft seems to smooth it out a little.
@@ -82,5 +82,19 @@ func _physics_process(delta):
 	# Re-inject velocity from resulting motion
 	_velocity = motion / delta
 
+	var mp := get_tree().get_multiplayer()
+	if mp.has_multiplayer_peer():
+		# Broadcast our position to other peers.
+		# Note, for other peers, this is a different script (remote_character.gd).
+		# Each peer is authoritative of its own position for now.
+		# TODO Make sure this RPC is not sent when we are not connected
+		rpc(&"receive_position", position)
+
+
+@rpc("authority", "call_remote", "unreliable")
+func receive_position(pos: Vector3):
+	# We currently don't expect this to be called. The actual targetted script is different.
+	# I had to define it otherwise Godot throws a lot of errors everytime I call the RPC...
+	print("CharacterController received RPC position??")
 
 

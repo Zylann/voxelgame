@@ -1,73 +1,66 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=9 format=3 uid="uid://ojfpybxqac1f"]
 
-[ext_resource path="res://blocky_game/player/character_controller.gd" type="Script" id=1]
-[ext_resource path="res://blocky_game/player/avatar_camera.gd" type="Script" id=2]
-[ext_resource path="res://blocky_game/player/avatar_interaction.gd" type="Script" id=3]
-[ext_resource path="res://blocky_terrain/crosshair.png" type="Texture" id=4]
-[ext_resource path="res://blocky_terrain/center.gd" type="Script" id=5]
-[ext_resource path="res://blocky_game/gui/hotbar/hotbar.tscn" type="PackedScene" id=6]
-[ext_resource path="res://blocky_game/gui/inventory/inventory.tscn" type="PackedScene" id=7]
-
-[sub_resource type="CubeMesh" id=1]
-size = Vector3( 0.8, 1.8, 0.8 )
+[ext_resource type="Script" path="res://blocky_game/player/character_controller.gd" id="1"]
+[ext_resource type="Script" path="res://blocky_game/player/avatar_camera.gd" id="2"]
+[ext_resource type="Script" path="res://blocky_game/player/avatar_interaction.gd" id="3"]
+[ext_resource type="Texture2D" uid="uid://c0wr4bmx2e43l" path="res://blocky_terrain/crosshair.png" id="4"]
+[ext_resource type="Script" path="res://blocky_terrain/center.gd" id="5"]
+[ext_resource type="PackedScene" path="res://blocky_game/gui/hotbar/hotbar.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://bm2v4asqyh6a" path="res://blocky_game/player/character_visual.tscn" id="6_peahy"]
+[ext_resource type="PackedScene" uid="uid://cg54toj1o7c2u" path="res://blocky_game/gui/inventory/inventory.tscn" id="7"]
 
 [node name="CharacterAvatar" type="Node3D"]
-script = ExtResource( 1 )
+script = ExtResource("1")
 speed = 6.0
 gravity = 40.0
 jump_force = 10.0
 head = NodePath("Camera")
 
 [node name="Camera" type="Camera3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.702764, 0 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.702764, 0)
 current = true
 fov = 90.0
 near = 0.1
 far = 500.0
-script = ExtResource( 2 )
+script = ExtResource("2")
 sensitivity = 0.3
 
 [node name="Interaction" type="Node" parent="."]
-script = ExtResource( 3 )
+script = ExtResource("3")
 
 [node name="crosshair" type="Sprite2D" parent="."]
 visible = false
-position = Vector2( 510.693, 285.793 )
-texture = ExtResource( 4 )
-script = ExtResource( 5 )
+position = Vector2(510.693, 285.793)
+texture = ExtResource("4")
+script = ExtResource("5")
 
-[node name="OmniLight" type="OmniLight" parent="."]
+[node name="OmniLight" type="OmniLight3D" parent="."]
 visible = false
-light_color = Color( 1, 1, 0.533333, 1 )
-shadow_bias = 0.1
+light_color = Color(1, 1, 0.533333, 1)
 omni_range = 10.0
 omni_attenuation = 2.54912
 
-[node name="MeshInstance" type="MeshInstance3D" parent="."]
-mesh = SubResource( 1 )
-material/0 = null
+[node name="CharacterVisual" parent="." instance=ExtResource("6_peahy")]
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="TextureRect" type="TextureRect" parent="CenterContainer"]
-margin_left = 504.0
-margin_top = 292.0
-margin_right = 520.0
-margin_bottom = 308.0
+layout_mode = 2
 mouse_filter = 2
-texture = ExtResource( 4 )
+texture = ExtResource("4")
 
-[node name="HotBar" parent="." instance=ExtResource( 6 )]
+[node name="HotBar" parent="." instance=ExtResource("6")]
+anchors_preset = 12
 
-[node name="Inventory" parent="." instance=ExtResource( 7 )]
+[node name="Inventory" parent="." instance=ExtResource("7")]
 visible = false
-color = Color( 0, 0, 0, 0.501961 )
+anchors_preset = 15
+color = Color(0, 0, 0, 0.501961)
 
 [node name="VoxelViewer" type="VoxelViewer" parent="."]
+
 [connection signal="changed" from="Inventory" to="HotBar" method="_on_Inventory_changed"]

@@ -75,12 +75,10 @@ value = 25000.0
 
 [node name="ConnectToServerButton" type="Button" parent="MainMenu/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-disabled = true
 text = "Connect to server"
 
 [node name="HostServerButton" type="Button" parent="MainMenu/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-disabled = true
 text = "Host server"
 
 [connection signal="connect_to_server_requested" from="MainMenu" to="." method="_on_main_menu_connect_to_server_requested"]
