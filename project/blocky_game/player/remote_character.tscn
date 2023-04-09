@@ -1,9 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://dk46tnshcae6y"]
+[gd_scene load_steps=4 format=3 uid="uid://dk46tnshcae6y"]
 
 [ext_resource type="PackedScene" uid="uid://bm2v4asqyh6a" path="res://blocky_game/player/character_visual.tscn" id="1_js55o"]
 [ext_resource type="Script" path="res://blocky_game/player/remote_character.gd" id="1_ysitv"]
+[ext_resource type="Script" path="res://blocky_game/player/remote_interaction.gd" id="3_v4bpm"]
 
 [node name="RemoteCharacter" type="Node3D"]
 script = ExtResource("1_ysitv")
 
 [node name="CharacterVisual" parent="." instance=ExtResource("1_js55o")]
+
+[node name="Interaction" type="Node" parent="."]
+script = ExtResource("3_v4bpm")

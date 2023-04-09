@@ -1,11 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://dtfktti54mneg"]
+[gd_scene load_steps=11 format=3 uid="uid://dtfktti54mneg"]
 
 [ext_resource type="VoxelMesherBlocky" uid="uid://c6l3pdnhmvhqp" path="res://blocky_game/blocks/mesher.tres" id="1"]
 [ext_resource type="VoxelGeneratorScript" path="res://blocky_game/generator/world_generator.tres" id="4"]
 [ext_resource type="Script" path="res://blocky_game/blocky_game.gd" id="5"]
-[ext_resource type="Script" path="res://blocky_terrain/debug_info.gd" id="8"]
-[ext_resource type="Script" path="res://blocky_game/random_ticks.gd" id="10"]
-[ext_resource type="Script" path="res://blocky_game/water.gd" id="11"]
+[ext_resource type="Script" path="res://blocky_game/debug_info.gd" id="8"]
 [ext_resource type="Script" path="res://blocky_game/blocks/blocks.gd" id="12"]
 [ext_resource type="Script" path="res://blocky_game/items/item_db.gd" id="13"]
 
@@ -55,11 +53,5 @@ shadow_enabled = true
 
 [node name="DebugInfo" type="Node" parent="."]
 script = ExtResource("8")
-
-[node name="RandomTicks" type="Node" parent="."]
-script = ExtResource("10")
-
-[node name="Water" type="Node" parent="."]
-script = ExtResource("11")
 
 [node name="Players" type="Node" parent="."]

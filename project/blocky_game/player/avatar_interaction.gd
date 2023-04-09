@@ -5,8 +5,11 @@ const Blocks = preload("../blocks/blocks.gd")
 const ItemDB = preload("../items/item_db.gd")
 const InventoryItem = preload("./inventory_item.gd")
 const Hotbar = preload("../gui/hotbar/hotbar.gd")
+const WaterUpdater = preload("./../water.gd")
+const InteractionCommon = preload("./interaction_common.gd")
 
 const COLLISION_LAYER_AVATAR = 2
+const SERVER_PEER_ID = 1
 
 const _hotbar_keys = {
 	KEY_1: 0,
@@ -28,7 +31,7 @@ const _hotbar_keys = {
 @onready var _hotbar : Hotbar = get_node("../HotBar")
 @onready var _block_types : Blocks = get_node("/root/Main/Game/Blocks")
 @onready var _item_db : ItemDB = get_node("/root/Main/Game/Items")
-@onready var _water_updater = get_node("/root/Main/Game/Water")
+@onready var _water_updater : WaterUpdater
 @onready var _terrain : VoxelTerrain = get_node("/root/Main/Game/VoxelTerrain")
 
 var _terrain_tool : VoxelTool = null
@@ -50,6 +53,10 @@ func _ready():
 	_terrain.add_child(_cursor)
 	_terrain_tool = _terrain.get_voxel_tool()
 	_terrain_tool.channel = VoxelBuffer.CHANNEL_TYPE
+
+	var mp := get_tree().get_multiplayer()
+	if mp.has_multiplayer_peer() == false or mp.is_server():
+		_water_updater = get_node("/root/Main/Game/Water")
 
 
 func _get_pointed_voxel() -> VoxelRaycastResult:
@@ -147,35 +154,18 @@ func _can_place_voxel_at(pos: Vector3):
 
 
 func _place_single_block(pos: Vector3, block_id: int):
-	var block := _block_types.get_block(block_id)
-	var voxel_id := 0
 	var look_dir := -_head.get_transform().basis.z
-
-	match block.base_info.rotation_type:
-		Blocks.ROTATION_TYPE_NONE:
-			voxel_id = block.base_info.voxels[0]
-		
-		Blocks.ROTATION_TYPE_AXIAL:
-			var axis := Util.get_longest_axis(look_dir)
-			voxel_id = block.base_info.voxels[axis]
-		
-		Blocks.ROTATION_TYPE_Y:
-			var rot := Blocks.get_y_rotation_from_look_dir(look_dir)
-			voxel_id = block.base_info.voxels[rot]
-
-		Blocks.ROTATION_TYPE_CUSTOM_BEHAVIOR:
-			block.place(_terrain_tool, pos, look_dir)
-		_:
-			# Unknown value
-			assert(false)
-	
-	if block.base_info.rotation_type != Blocks.ROTATION_TYPE_CUSTOM_BEHAVIOR:
-		_place_single_voxel(pos, voxel_id)
-	
-	_water_updater.schedule(pos)
+	var mp := get_tree().get_multiplayer()
+	if mp.has_multiplayer_peer() and not mp.is_server():
+		rpc_id(SERVER_PEER_ID, &"receive_place_single_block", pos, look_dir, block_id)
+	else:
+		InteractionCommon.place_single_block(_terrain_tool, pos, look_dir,
+			block_id, _block_types, _water_updater)
 
 
-func _place_single_voxel(pos: Vector3, type: int):
-	_terrain_tool.value = type
-	_terrain_tool.do_point(pos)
+# TODO Maybe use `rpc_config` so this would be less awkward?
+@rpc("any_peer", "call_remote", "reliable", 0)
+func receive_place_single_block(pos: Vector3, look_dir: Vector3, block_id: int):
+	# The server has a different script for remote players
+	push_error("Didn't expect this method to be called")
 

@@ -30,6 +30,9 @@ func _create_item(d: Dictionary):
 	else:
 		item = Item.new()
 	
+	# Give the node a deterministic name for networking
+	item.name = d.name
+	
 	var base_info = item.base_info
 	base_info.id = len(_items)
 	base_info.name = d.name

@@ -8,6 +8,8 @@ const SERVER_PEER_ID = 1
 
 const CharacterScene = preload("./player/character_avatar.tscn")
 const RemoteCharacterScene = preload("./player/remote_character.tscn")
+const RandomTicks = preload("./random_ticks.gd")
+const WaterUpdater = preload("./water.gd")
 
 @onready var _light : DirectionalLight3D = $DirectionalLight3D
 @onready var _terrain : VoxelTerrain = $VoxelTerrain
@@ -17,8 +19,8 @@ var _network_mode := NETWORK_MODE_SINGLEPLAYER
 var _ip := ""
 var _port := -1
 
-# Initially needed because Godot is mixing up the outputs of server and clients in the same output
-# console...
+# Initially needed because when running multiple instances in the editor, Godot is mixing up the
+# outputs of server and clients in the same output console...
 class Logger:
 	var prefix := ""
 	
@@ -55,7 +57,8 @@ func set_port(port: int):
 func _ready():
 	if _network_mode == NETWORK_MODE_HOST:
 		_logger.prefix = "Server: "
-	
+		
+		# Configure multiplayer API as server
 		var peer := ENetMultiplayerPeer.new()
 		var err := peer.create_server(_port, 32, 0, 0, 0)
 		if err != OK:
@@ -77,6 +80,7 @@ func _ready():
 	elif _network_mode == NETWORK_MODE_CLIENT:
 		_logger.prefix = "Client: "
 		
+		# Configure multiplayer API as client
 		var peer := ENetMultiplayerPeer.new()
 		var err := peer.create_client(_ip, _port, 0, 0, 0, 0)
 		if err != OK:
@@ -98,6 +102,13 @@ func _ready():
 		_terrain.stream = null
 
 	if _network_mode == NETWORK_MODE_HOST or _network_mode == NETWORK_MODE_SINGLEPLAYER:
+		add_child(RandomTicks.new())
+		
+		var water_updater := WaterUpdater.new()
+		# Current code grabs this node by name, so must be named for now...
+		water_updater.name = "Water"
+		add_child(water_updater)
+		
 		_spawn_character(SERVER_PEER_ID, Vector3(0, 64, 0))
 
 

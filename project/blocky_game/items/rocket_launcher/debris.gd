@@ -41,7 +41,7 @@ func _process(delta: float):
 	var hit := _terrain_tool.raycast(trans.origin, motion.normalized(), motion.length() * 1.01)
 	if hit != null:
 		# BOUNCE
-		var normal = hit.previous_position - hit.position
+		var normal := hit.previous_position - hit.position
 		_velocity = _velocity.bounce(normal)
 		# Damp on impact
 		_velocity *= 0.5
