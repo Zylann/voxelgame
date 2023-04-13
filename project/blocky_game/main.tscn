@@ -81,9 +81,15 @@ text = "Connect to server"
 layout_mode = 2
 text = "Host server"
 
+[node name="UPNPCheckbox" type="CheckBox" parent="MainMenu/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Use UPnP"
+
 [connection signal="connect_to_server_requested" from="MainMenu" to="." method="_on_main_menu_connect_to_server_requested"]
 [connection signal="host_server_requested" from="MainMenu" to="." method="_on_main_menu_host_server_requested"]
 [connection signal="singleplayer_requested" from="MainMenu" to="." method="_on_main_menu_singleplayer_requested"]
+[connection signal="upnp_toggled" from="MainMenu" to="." method="_on_main_menu_upnp_toggled"]
 [connection signal="pressed" from="MainMenu/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/SingleplayerButton" to="MainMenu" method="_on_singleplayer_button_pressed"]
 [connection signal="pressed" from="MainMenu/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ConnectToServerButton" to="MainMenu" method="_on_connect_to_server_button_pressed"]
 [connection signal="pressed" from="MainMenu/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HostServerButton" to="MainMenu" method="_on_host_server_button_pressed"]
+[connection signal="toggled" from="MainMenu/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/UPNPCheckbox" to="MainMenu" method="_on_upnp_checkbox_toggled"]

@@ -8,6 +8,7 @@ extends Control
 signal singleplayer_requested()
 signal connect_to_server_requested(ip, port)
 signal host_server_requested(port)
+signal upnp_toggled(pressed)
 
 
 func _on_singleplayer_button_pressed():
@@ -27,3 +28,6 @@ func _on_host_server_button_pressed():
 	var port : int = _port_spinbox.value
 	host_server_requested.emit(port)
 
+
+func _on_upnp_checkbox_toggled(button_pressed: bool):
+	upnp_toggled.emit(button_pressed)
