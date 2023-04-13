@@ -75,7 +75,7 @@ func _get_used_channels_mask() -> int:
 func _generate_block(buffer: VoxelBuffer, origin_in_voxels: Vector3i, lod: int):
 	# TODO There is an issue doing this, need to investigate why because it should be supported
 	# Saves from this demo used 8-bit, which is no longer the default
-	#buffer.set_channel_depth(_CHANNEL, VoxelBuffer.DEPTH_8_BIT)
+	# buffer.set_channel_depth(_CHANNEL, VoxelBuffer.DEPTH_8_BIT)
 
 	# Assuming input is cubic in our use case (it doesn't have to be!)
 	var block_size := int(buffer.get_size().x)
