@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dafv2yjsfwvrg"
+path="res://.godot/imported/cube.obj-6233a636814796b10565abc7e45527b3.mesh"
+
+[deps]
+
+files=["res://.godot/imported/cube.obj-6233a636814796b10565abc7e45527b3.mesh"]
+
+source_file="res://smooth_terrain/cube.obj"
+dest_files=["res://.godot/imported/cube.obj-6233a636814796b10565abc7e45527b3.mesh", "res://.godot/imported/cube.obj-6233a636814796b10565abc7e45527b3.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

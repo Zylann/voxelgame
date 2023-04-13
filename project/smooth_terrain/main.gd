@@ -46,6 +46,9 @@ func _process(delta):
 	for k in _displayed_process_stats:
 		DDD.set_text(k, _displayed_process_stats[k])
 
+	_terrain.debug_set_draw_enabled(true)
+	_terrain.debug_set_draw_flag(VoxelLodTerrain.DEBUG_DRAW_MESH_UPDATES, true)
+
 
 static func _format_memory(m):
 	var mb = m / 1000000

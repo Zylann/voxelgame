@@ -1,9 +1,9 @@
 shader_type spatial;
 
-#include "smooth_terrain/shaders/transvoxel.gdshaderinc"
-#include "smooth_terrain/shaders/virtual_texturing.gdshaderinc"
-#include "smooth_terrain/shaders/triplanar.gdshaderinc"
-#include "smooth_terrain/shaders/lod_fade.gdshaderinc"
+#include "res://addons/zylann.voxel/shaders/transvoxel.gdshaderinc"
+#include "res://addons/zylann.voxel/shaders/virtual_texturing.gdshaderinc"
+#include "res://addons/zylann.voxel/shaders/triplanar.gdshaderinc"
+#include "res://addons/zylann.voxel/shaders/lod_fade.gdshaderinc"
 
 uniform sampler2D u_texture_top : source_color;
 uniform sampler2D u_texture_sides : source_color;

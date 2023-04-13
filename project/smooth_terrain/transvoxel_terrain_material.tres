@@ -7,11 +7,12 @@
 [resource]
 render_priority = 0
 shader = ExtResource("1")
-shader_parameter/u_lod_fade = null
-shader_parameter/u_texture_sides = ExtResource("3")
-shader_parameter/u_texture_top = ExtResource("2")
 shader_parameter/u_transition_mask = null
-shader_parameter/u_voxel_block_size = null
-shader_parameter/u_voxel_cell_size = null
-shader_parameter/u_voxel_virtual_texture_fade = null
 shader_parameter/u_voxel_virtual_texture_tile_size = null
+shader_parameter/u_voxel_virtual_texture_fade = null
+shader_parameter/u_voxel_cell_size = null
+shader_parameter/u_voxel_block_size = null
+shader_parameter/u_voxel_virtual_texture_offset_scale = null
+shader_parameter/u_lod_fade = null
+shader_parameter/u_texture_top = ExtResource("2")
+shader_parameter/u_texture_sides = ExtResource("3")

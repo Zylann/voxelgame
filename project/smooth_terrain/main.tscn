@@ -2,9 +2,11 @@
 
 [ext_resource type="Script" path="res://smooth_terrain/main.gd" id="1"]
 [ext_resource type="Material" uid="uid://p7s1kd8whqab" path="res://smooth_terrain/transvoxel_terrain_material.tres" id="2"]
-[ext_resource type="PackedScene" path="res://common/spectator_avatar.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://dljqckrx50m8t" path="res://common/spectator_avatar.tscn" id="3"]
+[ext_resource type="Script" path="res://smooth_terrain/rigidbody_spawner.gd" id="4_kbary"]
+[ext_resource type="Script" path="res://smooth_terrain/sdf_stamper.gd" id="5_7e8re"]
 [ext_resource type="Script" path="res://smooth_terrain/interaction.gd" id="6"]
-[ext_resource type="VoxelGeneratorNoise2D" uid="uid://c2tarm5o7wox0" path="res://smooth_terrain/voxel_generator_noise_2d_smooth.tres" id="7"]
+[ext_resource type="VoxelGeneratorGraph" uid="uid://ceuo4kmmqfhi2" path="res://local_tests/distant_normals_gpu/graph_generator_noise_2d.tres" id="7"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_1vceu"]
 
@@ -38,7 +40,7 @@ shadow_bias = 0.2
 directional_shadow_max_distance = 1000.0
 
 [node name="SpectatorAvatar" parent="." instance=ExtResource("3")]
-transform = Transform3D(-0.386615, 0, 0.922241, 0, 1, 0, -0.922241, 0, -0.386615, 0, 0, 0)
+transform = Transform3D(-0.386615, 0, 0.922241, 0, 1, 0, -0.922241, 0, -0.386615, 10, 400, -10)
 speed = 100.0
 
 [node name="Camera" parent="SpectatorAvatar" index="0"]
@@ -53,6 +55,12 @@ omni_range = 100.462
 [node name="Interaction" type="Node" parent="SpectatorAvatar"]
 script = ExtResource("6")
 
+[node name="CubeSpawner" type="Node" parent="SpectatorAvatar"]
+script = ExtResource("4_kbary")
+
+[node name="SdfStamper" type="Node" parent="SpectatorAvatar"]
+script = ExtResource("5_7e8re")
+
 [node name="VoxelTerrain" type="VoxelLodTerrain" parent="."]
 generator = ExtResource("7")
 mesher = SubResource("3")
@@ -64,9 +72,10 @@ material = ExtResource("2")
 normalmap_enabled = true
 normalmap_tile_resolution_min = 8
 normalmap_tile_resolution_max = 16
+normalmap_use_gpu = true
 collision_lod_count = 1
+mesh_block_size = 32
 full_load_mode_enabled = true
 threaded_update_enabled = true
-mesh_block_size = 32
 
 [editable path="SpectatorAvatar"]

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://ncerawdlb21c"
+path="res://.godot/imported/weird_rock.obj-777efe8b4bcc24ead0498cf21e75aa27.mesh"
+
+[deps]
+
+files=["res://.godot/imported/weird_rock.obj-777efe8b4bcc24ead0498cf21e75aa27.mesh"]
+
+source_file="res://smooth_terrain/weird_rock.obj"
+dest_files=["res://.godot/imported/weird_rock.obj-777efe8b4bcc24ead0498cf21e75aa27.mesh", "res://.godot/imported/weird_rock.obj-777efe8b4bcc24ead0498cf21e75aa27.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
