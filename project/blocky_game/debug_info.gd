@@ -67,6 +67,10 @@ func _show_network_stats(mp: MultiplayerAPI):
 
 
 func _gather_and_send_network_stats(mp: MultiplayerAPI):
+	# Godot still has a peer assigned even when you don't setup multiplayer at all...
+	if mp.multiplayer_peer is OfflineMultiplayerPeer:
+		return
+
 	var stats := []
 	
 	var peer_ids := mp.get_peers()
