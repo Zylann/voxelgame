@@ -70,12 +70,8 @@ func _ready():
 		mp.multiplayer_peer = peer
 
 		# Configure VoxelTerrain as server
-		var vnt := VoxelNetworkTerrainServer.new()
-		# This uses the high-level multiplayer API with RPCs,
-		# so this node must have the same path as its client counterpart
-		vnt.name = "Network"
-		_terrain.add_child(vnt)
-		_terrain.block_enter_notification_enabled = true
+		var synchronizer := VoxelTerrainMultiplayerSynchronizer.new()
+		_terrain.add_child(synchronizer)
 
 	elif _network_mode == NETWORK_MODE_CLIENT:
 		_logger.prefix = "Client: "
@@ -95,10 +91,8 @@ func _ready():
 		mp.multiplayer_peer = peer
 
 		# Configure VoxelTerrain as client
-		var vnt := VoxelNetworkTerrainClient.new()
-		vnt.name = "Network"
-		_terrain.add_child(vnt)
-		_terrain.automatic_loading_enabled = false
+		var synchronizer := VoxelTerrainMultiplayerSynchronizer.new()
+		_terrain.add_child(synchronizer)
 		_terrain.stream = null
 
 	if _network_mode == NETWORK_MODE_HOST or _network_mode == NETWORK_MODE_SINGLEPLAYER:
