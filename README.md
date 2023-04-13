@@ -21,3 +21,12 @@ Runnable scenes
 - `blocky_game/blocky_game.tscn`: sort of Minecraft clone with random features.
 - `blocky_terrain/main.tscn`: simple test for blocky terrain
 - `smooth_terrain/main.tscn`: simple test for Transvoxel smooth terrain
+
+
+Blocky Game
+------------
+
+This game is a demo meant to be a practical example of using `VoxelTerrain` with a blocky look. It is not complete, some features might be incomplete, but it doesn't aim to be a finished game.
+
+It can be played in multiplayer. You can either host a game, join a game, or play without multiplayer.
+Synchronization is very basic: players are authoritative of their physics, but voxels are sent by the server, and edited on the server.
