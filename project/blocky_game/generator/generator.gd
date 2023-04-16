@@ -164,8 +164,10 @@ func _generate_block(buffer: VoxelBuffer, origin_in_voxels: Vector3i, lod: int):
 			var aabb := AABB(lower_corner_pos, structure.voxels.get_size() + Vector3i(1, 1, 1))
 
 			if aabb.intersects(block_aabb):
-				voxel_tool.paste(lower_corner_pos, 
-					structure.voxels, 1 << VoxelBuffer.CHANNEL_TYPE, AIR)
+				voxel_tool.paste_masked(lower_corner_pos, 
+					structure.voxels, 1 << VoxelBuffer.CHANNEL_TYPE,
+					# Masking
+					VoxelBuffer.CHANNEL_TYPE, AIR)
 
 	buffer.compress_uniform_channels()
 
