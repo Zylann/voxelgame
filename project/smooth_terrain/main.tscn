@@ -1,12 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://d3yg8jlxa54m1"]
+[gd_scene load_steps=11 format=3 uid="uid://d3yg8jlxa54m1"]
 
 [ext_resource type="Script" path="res://smooth_terrain/main.gd" id="1"]
 [ext_resource type="Material" uid="uid://p7s1kd8whqab" path="res://smooth_terrain/transvoxel_terrain_material.tres" id="2"]
 [ext_resource type="PackedScene" uid="uid://dljqckrx50m8t" path="res://common/spectator_avatar.tscn" id="3"]
-[ext_resource type="Script" path="res://smooth_terrain/rigidbody_spawner.gd" id="4_kbary"]
 [ext_resource type="Script" path="res://smooth_terrain/sdf_stamper.gd" id="5_7e8re"]
 [ext_resource type="Script" path="res://smooth_terrain/interaction.gd" id="6"]
-[ext_resource type="VoxelGeneratorGraph" uid="uid://ceuo4kmmqfhi2" path="res://local_tests/distant_normals_gpu/graph_generator_noise_2d.tres" id="7"]
+[ext_resource type="VoxelGeneratorNoise2D" uid="uid://c2tarm5o7wox0" path="res://smooth_terrain/voxel_generator_noise_2d_smooth.tres" id="6_vyjoc"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_1vceu"]
 
@@ -55,24 +54,19 @@ omni_range = 100.462
 [node name="Interaction" type="Node" parent="SpectatorAvatar"]
 script = ExtResource("6")
 
-[node name="CubeSpawner" type="Node" parent="SpectatorAvatar"]
-script = ExtResource("4_kbary")
-
 [node name="SdfStamper" type="Node" parent="SpectatorAvatar"]
 script = ExtResource("5_7e8re")
 
 [node name="VoxelTerrain" type="VoxelLodTerrain" parent="."]
-generator = ExtResource("7")
+generator = ExtResource("6_vyjoc")
 mesher = SubResource("3")
 view_distance = 2048
 voxel_bounds = AABB(-1024, -512, -1024, 2048, 1024, 2048)
 lod_distance = 50.0
 lod_fade_duration = 0.3
 material = ExtResource("2")
-normalmap_enabled = true
 normalmap_tile_resolution_min = 8
 normalmap_tile_resolution_max = 16
-normalmap_use_gpu = true
 collision_lod_count = 1
 mesh_block_size = 32
 full_load_mode_enabled = true
