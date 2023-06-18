@@ -2,39 +2,24 @@
 
 [ext_resource type="Material" uid="uid://bi254884ikj8v" path="res://blocky_terrain/terrain_material.tres" id="1_tnvpt"]
 
-[sub_resource type="VoxelBlockyModel" id="Voxel_72xof"]
-voxel_name = &"air"
+[sub_resource type="VoxelBlockyModelEmpty" id="VoxelBlockyModelEmpty_38whk"]
+resource_name = "air"
 
-[sub_resource type="VoxelBlockyModel" id="Voxel_wmhkh"]
-voxel_name = &"sand"
-geometry_type = 1
-collision_aabbs = [AABB(0, 0, 0, 1, 1, 1)]
-cube_geometry_padding_y = null
-cube_tiles_left = Vector2(0, 0)
-cube_tiles_right = Vector2(0, 0)
-cube_tiles_bottom = Vector2(0, 0)
-cube_tiles_top = Vector2(0, 0)
-cube_tiles_back = Vector2(0, 0)
-cube_tiles_front = Vector2(0, 0)
+[sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_n1jnm"]
+resource_name = "sand"
 material_override_0 = ExtResource("1_tnvpt")
-collision_enabled_0 = true
+atlas_size_in_tiles = Vector2i(4, 4)
 
-[sub_resource type="VoxelBlockyModel" id="VoxelBlockyModel_b3bhc"]
-voxel_name = &"dirt"
-geometry_type = 1
-collision_aabbs = [AABB(0, 0, 0, 1, 1, 1)]
-cube_geometry_padding_y = null
-cube_tiles_left = Vector2(1, 0)
-cube_tiles_right = Vector2(1, 0)
-cube_tiles_bottom = Vector2(1, 0)
-cube_tiles_top = Vector2(1, 0)
-cube_tiles_back = Vector2(1, 0)
-cube_tiles_front = Vector2(1, 0)
+[sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_pwqip"]
+resource_name = "dirt"
 material_override_0 = ExtResource("1_tnvpt")
-collision_enabled_0 = true
+atlas_size_in_tiles = Vector2i(4, 4)
+tile_left = Vector2i(1, 0)
+tile_right = Vector2i(1, 0)
+tile_bottom = Vector2i(1, 0)
+tile_top = Vector2i(1, 0)
+tile_back = Vector2i(1, 0)
+tile_front = Vector2i(1, 0)
 
 [resource]
-atlas_size = 4
-voxels/0 = SubResource("Voxel_72xof")
-voxels/1 = SubResource("Voxel_wmhkh")
-voxels/2 = SubResource("VoxelBlockyModel_b3bhc")
+models = Array[VoxelBlockyModel]([SubResource("VoxelBlockyModelEmpty_38whk"), SubResource("VoxelBlockyModelCube_n1jnm"), SubResource("VoxelBlockyModelCube_pwqip")])

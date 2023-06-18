@@ -30,280 +30,228 @@
 [ext_resource type="ArrayMesh" uid="uid://c2lwrnrx0on2g" path="res://blocky_game/blocks/leaves/leaves.obj" id="25"]
 [ext_resource type="ArrayMesh" uid="uid://bhkxvih1xa2a0" path="res://blocky_game/blocks/dead_shrub/dead_shrub.obj" id="26"]
 
-[sub_resource type="VoxelBlockyModel" id="1"]
-voxel_name = &"air"
+[sub_resource type="VoxelBlockyModelEmpty" id="VoxelBlockyModelEmpty_mk2sr"]
+resource_name = "air"
 
-[sub_resource type="VoxelBlockyModel" id="2"]
-voxel_name = &"dirt"
-geometry_type = 2
-custom_mesh = ExtResource("2")
+[sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_7h3nj"]
+resource_name = "dirt"
 collision_aabbs = Array[AABB]([AABB(0, 0, 0, 1, 1, 1)])
 material_override_0 = ExtResource("2_r7axq")
 collision_enabled_0 = true
+mesh = ExtResource("2")
 
-[sub_resource type="VoxelBlockyModel" id="3"]
-voxel_name = &"stairs_px"
-geometry_type = 2
-custom_mesh = ExtResource("9")
-collision_aabbs = Array[AABB]([AABB(0, 0, 0, 1, 0.5, 1), AABB(0.5, 0.5, 0, 0.5, 0.5, 1)])
-material_override_0 = ExtResource("2_r7axq")
-collision_enabled_0 = true
-
-[sub_resource type="VoxelBlockyModel" id="4"]
-voxel_name = &"stairs_pz"
-geometry_type = 2
-custom_mesh = ExtResource("10")
-collision_aabbs = Array[AABB]([AABB(0, 0, 0, 1, 0.5, 1), AABB(0, 0.5, 0.5, 1, 0.5, 0.5)])
-material_override_0 = ExtResource("2_r7axq")
-collision_enabled_0 = true
-
-[sub_resource type="VoxelBlockyModel" id="5"]
-voxel_name = &"glass"
-transparent = true
-transparency_index = 2
-geometry_type = 2
-custom_mesh = ExtResource("12")
-collision_aabbs = Array[AABB]([AABB(0, 0, 0, 1, 0.5, 1)])
-material_override_0 = ExtResource("6_7k7uf")
-collision_enabled_0 = true
-
-[sub_resource type="VoxelBlockyModel" id="6"]
-voxel_name = &"water_top"
-transparent = true
-transparency_index = 1
-geometry_type = 2
-custom_mesh = ExtResource("14")
-material_override_0 = ExtResource("8_l6bxt")
-collision_enabled_0 = true
-
-[sub_resource type="VoxelBlockyModel" id="7"]
-voxel_name = &"water_full"
-transparent = true
-transparency_index = 1
-geometry_type = 2
-custom_mesh = ExtResource("13")
-material_override_0 = ExtResource("8_l6bxt")
-collision_enabled_0 = true
-
-[sub_resource type="VoxelBlockyModel" id="8"]
-voxel_name = &"rail_x"
-transparent = true
-transparency_index = 1
-geometry_type = 2
-custom_mesh = ExtResource("20")
-collision_aabbs = Array[AABB]([AABB(0, 0, 0, 1, 0.125, 1)])
-collision_mask = 2
-material_override_0 = ExtResource("6_7k7uf")
-collision_enabled_0 = true
-
-[sub_resource type="VoxelBlockyModel" id="9"]
-voxel_name = &"rail_z"
-transparent = true
-transparency_index = 1
-geometry_type = 2
-custom_mesh = ExtResource("21")
-collision_aabbs = Array[AABB]([AABB(0, 0, 0, 1, 0.125, 1)])
-collision_mask = 2
-material_override_0 = ExtResource("6_7k7uf")
-collision_enabled_0 = true
-
-[sub_resource type="VoxelBlockyModel" id="10"]
-voxel_name = &"rail_turn_nx"
-transparent = true
-transparency_index = 1
-geometry_type = 2
-custom_mesh = ExtResource("22")
-collision_aabbs = Array[AABB]([AABB(0, 0, 0, 1, 0.125, 1)])
-collision_mask = 2
-material_override_0 = ExtResource("6_7k7uf")
-collision_enabled_0 = true
-
-[sub_resource type="VoxelBlockyModel" id="11"]
-voxel_name = &"rail_turn_px"
-transparent = true
-transparency_index = 1
-geometry_type = 2
-custom_mesh = ExtResource("18")
-collision_aabbs = Array[AABB]([AABB(0, 0, 0, 1, 0.125, 1)])
-collision_mask = 2
-material_override_0 = ExtResource("6_7k7uf")
-collision_enabled_0 = true
-
-[sub_resource type="VoxelBlockyModel" id="12"]
-voxel_name = &"rail_turn_nz"
-transparent = true
-transparency_index = 1
-geometry_type = 2
-custom_mesh = ExtResource("19")
-collision_aabbs = Array[AABB]([AABB(0, 0, 0, 1, 0.125, 1)])
-collision_mask = 2
-material_override_0 = ExtResource("6_7k7uf")
-collision_enabled_0 = true
-
-[sub_resource type="VoxelBlockyModel" id="13"]
-voxel_name = &"grass"
+[sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_7ws3s"]
+resource_name = "grass"
 random_tickable = true
-geometry_type = 2
-custom_mesh = ExtResource("1")
 collision_aabbs = Array[AABB]([AABB(0, 0, 0, 1, 1, 1)])
 material_override_0 = ExtResource("6_7k7uf")
 collision_enabled_0 = true
+mesh = ExtResource("1")
 
-[sub_resource type="VoxelBlockyModel" id="14"]
-voxel_name = &"rail_turn_pz"
-transparent = true
-transparency_index = 1
-geometry_type = 2
-custom_mesh = ExtResource("23")
-collision_aabbs = Array[AABB]([AABB(0, 0, 0, 1, 0.125, 1)])
-collision_mask = 2
-material_override_0 = ExtResource("6_7k7uf")
-collision_enabled_0 = true
-
-[sub_resource type="VoxelBlockyModel" id="15"]
-voxel_name = &"rail_slope_nx"
-transparent = true
-transparency_index = 1
-geometry_type = 2
-custom_mesh = ExtResource("24")
-collision_aabbs = Array[AABB]([AABB(0, 0, 0, 1, 0.125, 1)])
-collision_mask = 2
-material_override_0 = ExtResource("6_7k7uf")
-collision_enabled_0 = true
-
-[sub_resource type="VoxelBlockyModel" id="16"]
-voxel_name = &"rail_slope_px"
-transparent = true
-transparency_index = 1
-geometry_type = 2
-custom_mesh = ExtResource("16")
-collision_aabbs = Array[AABB]([AABB(0, 0, 0, 1, 0.125, 1)])
-collision_mask = 2
-material_override_0 = ExtResource("6_7k7uf")
-collision_enabled_0 = true
-
-[sub_resource type="VoxelBlockyModel" id="17"]
-voxel_name = &"rail_slope_nz"
-transparent = true
-transparency_index = 1
-geometry_type = 2
-custom_mesh = ExtResource("15")
-collision_aabbs = Array[AABB]([AABB(0, 0, 0, 1, 0.125, 1)])
-collision_mask = 2
-material_override_0 = ExtResource("6_7k7uf")
-collision_enabled_0 = true
-
-[sub_resource type="VoxelBlockyModel" id="18"]
-voxel_name = &"rail_slope_pz"
-transparent = true
-transparency_index = 1
-geometry_type = 2
-custom_mesh = ExtResource("17")
-collision_aabbs = Array[AABB]([AABB(0, 0, 0, 1, 0.125, 1)])
-collision_mask = 2
-material_override_0 = ExtResource("6_7k7uf")
-collision_enabled_0 = true
-
-[sub_resource type="VoxelBlockyModel" id="19"]
-voxel_name = &"leaves"
-transparent = true
-transparency_index = 1
-geometry_type = 2
-custom_mesh = ExtResource("25")
-collision_aabbs = Array[AABB]([AABB(0, 0, 0, 1, 1, 1)])
-material_override_0 = ExtResource("6_7k7uf")
-collision_enabled_0 = true
-
-[sub_resource type="VoxelBlockyModel" id="20"]
-voxel_name = &"dead_shrub"
-geometry_type = 2
-custom_mesh = ExtResource("26")
-material_override_0 = ExtResource("6_7k7uf")
-collision_enabled_0 = true
-
-[sub_resource type="VoxelBlockyModel" id="21"]
-voxel_name = &"log_x"
+[sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_dgg18"]
+resource_name = "log_x"
 random_tickable = true
-geometry_type = 2
-custom_mesh = ExtResource("4")
 collision_aabbs = Array[AABB]([AABB(0, 0, 0, 1, 1, 1)])
 material_override_0 = ExtResource("2_r7axq")
 collision_enabled_0 = true
+mesh = ExtResource("4")
 
-[sub_resource type="VoxelBlockyModel" id="22"]
-voxel_name = &"log_y"
+[sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_82a53"]
+resource_name = "log_y"
 random_tickable = true
-geometry_type = 2
-custom_mesh = ExtResource("3")
 collision_aabbs = Array[AABB]([AABB(0, 0, 0, 1, 1, 1)])
 material_override_0 = ExtResource("2_r7axq")
 collision_enabled_0 = true
+mesh = ExtResource("3")
 
-[sub_resource type="VoxelBlockyModel" id="23"]
-voxel_name = &"log_z"
+[sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_rid6c"]
+resource_name = "log_z"
 random_tickable = true
-geometry_type = 2
-custom_mesh = ExtResource("5")
 collision_aabbs = Array[AABB]([AABB(0, 0, 0, 1, 1, 1)])
 material_override_0 = ExtResource("2_r7axq")
 collision_enabled_0 = true
+mesh = ExtResource("5")
 
-[sub_resource type="VoxelBlockyModel" id="24"]
-voxel_name = &"stairs_nx"
-geometry_type = 2
-custom_mesh = ExtResource("6")
+[sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_w6frs"]
+resource_name = "stairs_nx"
 collision_aabbs = Array[AABB]([AABB(0, 0, 0, 1, 0.5, 1), AABB(0, 0.5, 0, 0.5, 0.5, 1)])
 material_override_0 = ExtResource("2_r7axq")
 collision_enabled_0 = true
+mesh = ExtResource("6")
 
-[sub_resource type="VoxelBlockyModel" id="25"]
-voxel_name = &"planks"
-geometry_type = 2
-custom_mesh = ExtResource("7")
+[sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_b3d46"]
+resource_name = "planks"
 collision_aabbs = Array[AABB]([AABB(0, 0, 0, 1, 1, 1)])
 material_override_0 = ExtResource("2_r7axq")
 collision_enabled_0 = true
+mesh = ExtResource("7")
 
-[sub_resource type="VoxelBlockyModel" id="26"]
-voxel_name = &"tall_grass"
-geometry_type = 2
-custom_mesh = ExtResource("8")
+[sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_ilklx"]
+resource_name = "tall_grass"
 material_override_0 = ExtResource("6_7k7uf")
 collision_enabled_0 = true
+mesh = ExtResource("8")
 
-[sub_resource type="VoxelBlockyModel" id="27"]
-voxel_name = &"stairs_nz"
-geometry_type = 2
-custom_mesh = ExtResource("11")
+[sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_8o2q5"]
+resource_name = "stairs_nz"
 collision_aabbs = Array[AABB]([AABB(0, 0, 0, 1, 0.5, 1), AABB(0, 0.5, 0, 1, 0.5, 0.5)])
 material_override_0 = ExtResource("2_r7axq")
 collision_enabled_0 = true
+mesh = ExtResource("11")
+
+[sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_dos6x"]
+resource_name = "stairs_px"
+collision_aabbs = Array[AABB]([AABB(0, 0, 0, 1, 0.5, 1), AABB(0.5, 0.5, 0, 0.5, 0.5, 1)])
+material_override_0 = ExtResource("2_r7axq")
+collision_enabled_0 = true
+mesh = ExtResource("9")
+
+[sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_ldqsp"]
+resource_name = "stairs_pz"
+collision_aabbs = Array[AABB]([AABB(0, 0, 0, 1, 0.5, 1), AABB(0, 0.5, 0.5, 1, 0.5, 0.5)])
+material_override_0 = ExtResource("2_r7axq")
+collision_enabled_0 = true
+mesh = ExtResource("10")
+
+[sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_rqv2x"]
+resource_name = "glass"
+transparent = true
+transparency_index = 2
+collision_aabbs = Array[AABB]([AABB(0, 0, 0, 1, 0.5, 1)])
+material_override_0 = ExtResource("6_7k7uf")
+collision_enabled_0 = true
+mesh = ExtResource("12")
+
+[sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_lt74g"]
+resource_name = "water_top"
+transparent = true
+transparency_index = 1
+material_override_0 = ExtResource("8_l6bxt")
+collision_enabled_0 = true
+mesh = ExtResource("14")
+
+[sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_rydis"]
+resource_name = "water_full"
+transparent = true
+transparency_index = 1
+material_override_0 = ExtResource("8_l6bxt")
+collision_enabled_0 = true
+mesh = ExtResource("13")
+
+[sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_k70eq"]
+resource_name = "rail_x"
+transparent = true
+transparency_index = 1
+collision_aabbs = Array[AABB]([AABB(0, 0, 0, 1, 0.125, 1)])
+collision_mask = 2
+material_override_0 = ExtResource("6_7k7uf")
+collision_enabled_0 = true
+mesh = ExtResource("20")
+
+[sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_7pgsh"]
+resource_name = "rail_z"
+transparent = true
+transparency_index = 1
+collision_aabbs = Array[AABB]([AABB(0, 0, 0, 1, 0.125, 1)])
+collision_mask = 2
+material_override_0 = ExtResource("6_7k7uf")
+collision_enabled_0 = true
+mesh = ExtResource("21")
+
+[sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_qbgg8"]
+resource_name = "rail_turn_nx"
+transparent = true
+transparency_index = 1
+collision_aabbs = Array[AABB]([AABB(0, 0, 0, 1, 0.125, 1)])
+collision_mask = 2
+material_override_0 = ExtResource("6_7k7uf")
+collision_enabled_0 = true
+mesh = ExtResource("22")
+
+[sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_iqgm8"]
+resource_name = "rail_turn_px"
+transparent = true
+transparency_index = 1
+collision_aabbs = Array[AABB]([AABB(0, 0, 0, 1, 0.125, 1)])
+collision_mask = 2
+material_override_0 = ExtResource("6_7k7uf")
+collision_enabled_0 = true
+mesh = ExtResource("18")
+
+[sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_1mglx"]
+resource_name = "rail_turn_nz"
+transparent = true
+transparency_index = 1
+collision_aabbs = Array[AABB]([AABB(0, 0, 0, 1, 0.125, 1)])
+collision_mask = 2
+material_override_0 = ExtResource("6_7k7uf")
+collision_enabled_0 = true
+mesh = ExtResource("19")
+
+[sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_udleu"]
+resource_name = "rail_turn_pz"
+transparent = true
+transparency_index = 1
+collision_aabbs = Array[AABB]([AABB(0, 0, 0, 1, 0.125, 1)])
+collision_mask = 2
+material_override_0 = ExtResource("6_7k7uf")
+collision_enabled_0 = true
+mesh = ExtResource("23")
+
+[sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_p61kv"]
+resource_name = "rail_slope_nx"
+transparent = true
+transparency_index = 1
+collision_aabbs = Array[AABB]([AABB(0, 0, 0, 1, 0.125, 1)])
+collision_mask = 2
+material_override_0 = ExtResource("6_7k7uf")
+collision_enabled_0 = true
+mesh = ExtResource("24")
+
+[sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_txenr"]
+resource_name = "rail_slope_px"
+transparent = true
+transparency_index = 1
+collision_aabbs = Array[AABB]([AABB(0, 0, 0, 1, 0.125, 1)])
+collision_mask = 2
+material_override_0 = ExtResource("6_7k7uf")
+collision_enabled_0 = true
+mesh = ExtResource("16")
+
+[sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_ruhud"]
+resource_name = "rail_slope_nz"
+transparent = true
+transparency_index = 1
+collision_aabbs = Array[AABB]([AABB(0, 0, 0, 1, 0.125, 1)])
+collision_mask = 2
+material_override_0 = ExtResource("6_7k7uf")
+collision_enabled_0 = true
+mesh = ExtResource("15")
+
+[sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_5qhvr"]
+resource_name = "rail_slope_pz"
+transparent = true
+transparency_index = 1
+collision_aabbs = Array[AABB]([AABB(0, 0, 0, 1, 0.125, 1)])
+collision_mask = 2
+material_override_0 = ExtResource("6_7k7uf")
+collision_enabled_0 = true
+mesh = ExtResource("17")
+
+[sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_g6mep"]
+resource_name = "leaves"
+transparent = true
+transparency_index = 1
+collision_aabbs = Array[AABB]([AABB(0, 0, 0, 1, 1, 1)])
+material_override_0 = ExtResource("6_7k7uf")
+collision_enabled_0 = true
+mesh = ExtResource("25")
+
+[sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_kcviq"]
+resource_name = "dead_shrub"
+material_override_0 = ExtResource("6_7k7uf")
+collision_enabled_0 = true
+mesh = ExtResource("26")
 
 [resource]
-voxels/0 = SubResource("1")
-voxels/1 = SubResource("2")
-voxels/2 = SubResource("13")
-voxels/3 = SubResource("21")
-voxels/4 = SubResource("22")
-voxels/5 = SubResource("23")
-voxels/6 = SubResource("24")
-voxels/7 = SubResource("25")
-voxels/8 = SubResource("26")
-voxels/9 = SubResource("27")
-voxels/10 = SubResource("3")
-voxels/11 = SubResource("4")
-voxels/12 = SubResource("5")
-voxels/13 = SubResource("6")
-voxels/14 = SubResource("7")
-voxels/15 = SubResource("8")
-voxels/16 = SubResource("9")
-voxels/17 = SubResource("10")
-voxels/18 = SubResource("11")
-voxels/19 = SubResource("12")
-voxels/20 = SubResource("14")
-voxels/21 = SubResource("15")
-voxels/22 = SubResource("16")
-voxels/23 = SubResource("17")
-voxels/24 = SubResource("18")
-voxels/25 = SubResource("19")
-voxels/26 = SubResource("20")
+models = Array[VoxelBlockyModel]([SubResource("VoxelBlockyModelEmpty_mk2sr"), SubResource("VoxelBlockyModelMesh_7h3nj"), SubResource("VoxelBlockyModelMesh_7ws3s"), SubResource("VoxelBlockyModelMesh_dgg18"), SubResource("VoxelBlockyModelMesh_82a53"), SubResource("VoxelBlockyModelMesh_rid6c"), SubResource("VoxelBlockyModelMesh_w6frs"), SubResource("VoxelBlockyModelMesh_b3d46"), SubResource("VoxelBlockyModelMesh_ilklx"), SubResource("VoxelBlockyModelMesh_8o2q5"), SubResource("VoxelBlockyModelMesh_dos6x"), SubResource("VoxelBlockyModelMesh_ldqsp"), SubResource("VoxelBlockyModelMesh_rqv2x"), SubResource("VoxelBlockyModelMesh_lt74g"), SubResource("VoxelBlockyModelMesh_rydis"), SubResource("VoxelBlockyModelMesh_k70eq"), SubResource("VoxelBlockyModelMesh_7pgsh"), SubResource("VoxelBlockyModelMesh_qbgg8"), SubResource("VoxelBlockyModelMesh_iqgm8"), SubResource("VoxelBlockyModelMesh_1mglx"), SubResource("VoxelBlockyModelMesh_udleu"), SubResource("VoxelBlockyModelMesh_p61kv"), SubResource("VoxelBlockyModelMesh_txenr"), SubResource("VoxelBlockyModelMesh_ruhud"), SubResource("VoxelBlockyModelMesh_5qhvr"), SubResource("VoxelBlockyModelMesh_g6mep"), SubResource("VoxelBlockyModelMesh_kcviq")])
