@@ -18,7 +18,7 @@ For the old (unmaintained) pure-GDScript version, checkout the branch `full_gdsc
 Runnable scenes
 -----------------
 
-- `blocky_game/blocky_game.tscn`: sort of Minecraft clone with random features.
+- `blocky_game/main.tscn`: sort of Minecraft clone with random features.
 - `blocky_terrain/main.tscn`: simple test for blocky terrain
 - `smooth_terrain/main.tscn`: simple test for Transvoxel smooth terrain
 
