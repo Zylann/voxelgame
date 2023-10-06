@@ -34,6 +34,8 @@ const _hotbar_keys = {
 @onready var _water_updater : WaterUpdater
 @onready var _terrain : VoxelTerrain = get_node("/root/Main/Game/VoxelTerrain")
 
+const _library := preload("res://blocky_game/blocks/voxel_library.tres")
+
 var _terrain_tool : VoxelTool = null
 var _cursor : MeshInstance3D = null
 var _action_place := false
@@ -42,12 +44,10 @@ var _action_pick := false
 
 
 func _ready():
-	var mesh := Util.create_wirecube_mesh(Color(0,0,0))
 	var mesh_instance := MeshInstance3D.new()
-	mesh_instance.mesh = mesh
 	if cursor_material != null:
 		mesh_instance.material_override = cursor_material
-	mesh_instance.set_scale(Vector3(1,1,1)*1.01)
+	mesh_instance.set_scale(Vector3(1,1,1)*1.001)
 	_cursor = mesh_instance
 	
 	_terrain.add_child(_cursor)
@@ -73,6 +73,9 @@ func _physics_process(_delta):
 	
 	var hit := _get_pointed_voxel()
 	if hit != null:
+		var hit_raw_id := _terrain_tool.get_voxel(hit.position)
+		var model := _library.get_model(hit_raw_id)
+		_cursor.mesh = Util.create_wireframe_mesh(model)
 		_cursor.show()
 		_cursor.set_position(hit.position)
 		DDD.set_text("Pointed voxel", str(hit.position))
