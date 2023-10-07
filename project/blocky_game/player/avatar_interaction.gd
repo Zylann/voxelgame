@@ -34,14 +34,12 @@ const _hotbar_keys = {
 @onready var _water_updater : WaterUpdater
 @onready var _terrain : VoxelTerrain = get_node("/root/Main/Game/VoxelTerrain")
 
-const _library := preload("res://blocky_game/blocks/voxel_library.tres")
-
 var _terrain_tool : VoxelTool = null
 var _cursor : MeshInstance3D = null
 var _action_place := false
 var _action_use := false
 var _action_pick := false
-
+var _pointed_voxel_id := 0
 
 func _ready():
 	var mesh_instance := MeshInstance3D.new()
@@ -73,9 +71,11 @@ func _physics_process(_delta):
 	
 	var hit := _get_pointed_voxel()
 	if hit != null:
-		var hit_raw_id := _terrain_tool.get_voxel(hit.position)
-		var model := _library.get_model(hit_raw_id)
-		_cursor.mesh = Util.create_wireframe_mesh(model)
+		var hit_raw_id = _terrain_tool.get_voxel(hit.position)
+		if _pointed_voxel_id != hit_raw_id:
+			var model := _block_types.get_model_library().get_model(hit_raw_id)
+			_cursor.mesh = Util.create_wireframe_mesh(model)
+			_pointed_voxel_id = hit_raw_id
 		_cursor.show()
 		_cursor.set_position(hit.position)
 		DDD.set_text("Pointed voxel", str(hit.position))
@@ -88,8 +88,7 @@ func _physics_process(_delta):
 	# These inputs have to be in _fixed_process because they rely on collision queries
 	if inv_item == null or inv_item.type == InventoryItem.TYPE_BLOCK:
 		if hit != null:
-			var hit_raw_id := _terrain_tool.get_voxel(hit.position)
-			var has_cube := hit_raw_id != 0
+			var has_cube := _pointed_voxel_id != 0
 			
 			if _action_use and has_cube:
 				var pos = hit.position
