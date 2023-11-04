@@ -1,0 +1,80 @@
+[gd_scene load_steps=12 format=3 uid="uid://cliwi34yk5hra"]
+
+[ext_resource type="Script" path="res://smooth_terrain/main.gd" id="1_u04kx"]
+[ext_resource type="PackedScene" path="res://common/spectator_avatar.tscn" id="2_7v3sv"]
+[ext_resource type="Script" path="res://smooth_terrain/interaction.gd" id="3_y28lg"]
+[ext_resource type="Script" path="res://smooth_terrain/rigidbody_spawner.gd" id="4_03ngp"]
+[ext_resource type="Script" path="res://smooth_terrain/sdf_stamper.gd" id="5_ao6xu"]
+[ext_resource type="VoxelGeneratorNoise2D" uid="uid://c2tarm5o7wox0" path="res://smooth_terrain/voxel_generator_noise_2d_smooth.tres" id="6_wrdog"]
+[ext_resource type="Material" uid="uid://p7s1kd8whqab" path="res://smooth_terrain/transvoxel_terrain_material.tres" id="7_nipxs"]
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_1vceu"]
+
+[sub_resource type="Sky" id="1"]
+sky_material = SubResource("PhysicalSkyMaterial_1vceu")
+
+[sub_resource type="Environment" id="2"]
+background_mode = 2
+background_color = Color(1, 1, 1, 1)
+sky = SubResource("1")
+ambient_light_color = Color(0.521569, 0.560784, 0.592157, 1)
+ambient_light_sky_contribution = 0.5
+ambient_light_energy = 0.01
+fog_density = 0.0005
+fog_aerial_perspective = 1.0
+volumetric_fog_density = 0.005
+
+[sub_resource type="VoxelMesherTransvoxel" id="3"]
+
+[node name="Node" type="Node"]
+script = ExtResource("1_u04kx")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("2")
+
+[node name="DirectionalLight" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.912457, -0.352848, 0.207171, 0, 0.506317, 0.862348, -0.409172, -0.786855, 0.461992, 14.4885, 6.21497, 0)
+shadow_enabled = true
+shadow_bias = 0.2
+directional_shadow_max_distance = 1000.0
+
+[node name="SpectatorAvatar" parent="." instance=ExtResource("2_7v3sv")]
+transform = Transform3D(-0.386615, 0, 0.922241, 0, 1, 0, -0.922241, 0, -0.386615, 10, 400, -10)
+speed = 100.0
+
+[node name="Camera" parent="SpectatorAvatar" index="0"]
+near = 0.1
+far = 10000.0
+
+[node name="OmniLight" type="OmniLight3D" parent="SpectatorAvatar"]
+visible = false
+light_color = Color(0.905882, 0.886275, 0.698039, 1)
+omni_range = 100.462
+
+[node name="Interaction" type="Node" parent="SpectatorAvatar"]
+script = ExtResource("3_y28lg")
+
+[node name="CubeSpawner" type="Node" parent="SpectatorAvatar"]
+script = ExtResource("4_03ngp")
+
+[node name="SdfStamper" type="Node" parent="SpectatorAvatar"]
+script = ExtResource("5_ao6xu")
+
+[node name="VoxelTerrain" type="VoxelLodTerrain" parent="."]
+generator = ExtResource("6_wrdog")
+mesher = SubResource("3")
+view_distance = 1000000
+voxel_bounds = AABB(-8192, -8192, -8192, 16384, 16384, 16384)
+lod_count = 8
+lod_distance = 50.0
+lod_fade_duration = 0.3
+material = ExtResource("7_nipxs")
+normalmap_enabled = true
+normalmap_tile_resolution_min = 8
+normalmap_tile_resolution_max = 16
+collision_lod_count = 1
+mesh_block_size = 32
+full_load_mode_enabled = true
+threaded_update_enabled = true
+
+[editable path="SpectatorAvatar"]

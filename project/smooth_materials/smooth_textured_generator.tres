@@ -1,0 +1,42 @@
+[gd_resource type="VoxelGeneratorGraph" load_steps=2 format=3 uid="uid://b1dejnck20at8"]
+
+[sub_resource type="ZN_FastNoiseLite" id="ZN_FastNoiseLite_8jq5e"]
+fractal_octaves = 5
+
+[resource]
+graph_data = {
+"connections": [[5, 0, 8, 1], [7, 0, 8, 0], [8, 0, 4, 0], [9, 0, 7, 0]],
+"nodes": {
+"4": {
+"auto_connect": true,
+"gui_position": Vector2(980, 60),
+"type": "OutputSDF"
+},
+"5": {
+"auto_connect": true,
+"gui_position": Vector2(540, 160),
+"height": 0.0,
+"type": "SdfPlane",
+"y": 0.0
+},
+"7": {
+"b": 30.0,
+"gui_position": Vector2(640, 40),
+"type": "Multiply"
+},
+"8": {
+"gui_position": Vector2(840, 60),
+"type": "Add"
+},
+"9": {
+"auto_connect": true,
+"gui_position": Vector2(460, 20),
+"noise": SubResource("ZN_FastNoiseLite_8jq5e"),
+"type": "FastNoise3D",
+"x": 0.0,
+"y": 0.0,
+"z": 0.0
+}
+},
+"version": 2
+}

@@ -1,0 +1,112 @@
+[gd_scene load_steps=11 format=3 uid="uid://ct3c7fmvwwa8h"]
+
+[ext_resource type="Material" uid="uid://crm5bn4mubcny" path="res://smooth_materials/smooth_texture_array_material.tres" id="1_70lhy"]
+[ext_resource type="Script" path="res://smooth_materials/smooth_materials_demo.gd" id="1_byxln"]
+[ext_resource type="VoxelGeneratorGraph" uid="uid://b1dejnck20at8" path="res://smooth_materials/smooth_textured_generator.tres" id="1_kaat1"]
+[ext_resource type="Script" path="res://smooth_materials/hud.gd" id="4_t67fl"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5edv4"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_atg5m"]
+sky_material = SubResource("ProceduralSkyMaterial_5edv4")
+
+[sub_resource type="Environment" id="Environment_elqc8"]
+background_mode = 2
+sky = SubResource("Sky_atg5m")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="VoxelMesherTransvoxel" id="VoxelMesherTransvoxel_710yc"]
+texturing_mode = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qnave"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(1, 1, 1, 0.0745098)
+
+[sub_resource type="SphereMesh" id="SphereMesh_5aykm"]
+
+[node name="Node" type="Node"]
+script = ExtResource("1_byxln")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_elqc8")
+
+[node name="VoxelTerrain" type="VoxelTerrain" parent="."]
+generator = ExtResource("1_kaat1")
+mesher = SubResource("VoxelMesherTransvoxel_710yc")
+material_override = ExtResource("1_70lhy")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.950504, 0.175786, -0.256207, 0, 0.824577, 0.56575, 0.310713, -0.537748, 0.783764, 30.5385, 15.1039, 8.2761)
+
+[node name="VoxelViewer" type="VoxelViewer" parent="Camera3D"]
+
+[node name="Cursor" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_qnave")
+mesh = SubResource("SphereMesh_5aykm")
+
+[node name="HUD" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("4_t67fl")
+
+[node name="MC" type="MarginContainer" parent="HUD"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="HB" type="HBoxContainer" parent="HUD/MC"]
+layout_mode = 2
+
+[node name="PC" type="PanelContainer" parent="HUD/MC/HB"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="VB" type="VBoxContainer" parent="HUD/MC/HB/PC"]
+layout_mode = 2
+
+[node name="ItemList" type="ItemList" parent="HUD/MC/HB/PC/VB"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VB" type="VBoxContainer" parent="HUD/MC/HB"]
+layout_mode = 2
+
+[node name="Spacer" type="Control" parent="HUD/MC/HB/VB"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+
+[node name="PC" type="PanelContainer" parent="HUD/MC/HB/VB"]
+layout_mode = 2
+
+[node name="MC" type="MarginContainer" parent="HUD/MC/HB/VB/PC"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_right = 4
+
+[node name="PointedLabel" type="Label" parent="HUD/MC/HB/VB/PC/MC"]
+layout_mode = 2
+text = "Pointed: ---"
+
+[connection signal="material_selected" from="HUD" to="." method="_on_hud_material_selected"]
+[connection signal="item_selected" from="HUD/MC/HB/PC/VB/ItemList" to="HUD" method="_on_item_list_item_selected"]

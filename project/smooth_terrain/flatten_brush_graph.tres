@@ -1,0 +1,60 @@
+[gd_resource type="VoxelGeneratorGraph" format=3 uid="uid://bmf6akawc75ny"]
+
+[resource]
+graph_data = {
+"connections": [[12, 0, 11, 1], [6, 0, 10, 1], [6, 0, 11, 0], [7, 0, 10, 0], [8, 0, 12, 0], [9, 0, 4, 0], [9, 0, 13, 0], [10, 0, 9, 0], [11, 0, 9, 1]],
+"nodes": {
+"10": {
+"gui_position": Vector2(580, 60),
+"smoothness": 0.0,
+"type": "SdfSmoothSubtract"
+},
+"11": {
+"gui_position": Vector2(580, 160),
+"smoothness": 0.0,
+"type": "SdfSmoothSubtract"
+},
+"12": {
+"b": -1.0,
+"gui_position": Vector2(420, 320),
+"type": "Multiply"
+},
+"13": {
+"gui_position": Vector2(920, 120),
+"max_value": 1.0,
+"min_value": -1.0,
+"type": "SdfPreview"
+},
+"4": {
+"auto_connect": true,
+"gui_position": Vector2(960, 60),
+"type": "OutputSDF"
+},
+"6": {
+"auto_connect": true,
+"gui_position": Vector2(340, 160),
+"radius": 1.0,
+"type": "SdfSphere",
+"x": 0.0,
+"y": 0.0,
+"z": 0.0
+},
+"7": {
+"gui_position": Vector2(400, 60),
+"type": "InputSDF"
+},
+"8": {
+"auto_connect": true,
+"gui_position": Vector2(240, 320),
+"height": 0.0,
+"type": "SdfPlane",
+"y": 0.0
+},
+"9": {
+"gui_position": Vector2(780, 60),
+"smoothness": 0.0,
+"type": "SdfSmoothUnion"
+}
+},
+"version": 2
+}
