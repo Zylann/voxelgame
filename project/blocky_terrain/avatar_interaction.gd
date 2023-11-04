@@ -96,7 +96,7 @@ func select_inventory(i: int):
 	_inventory_index = i
 	var vi = _inventory[i]
 	var lib = _terrain.mesher.library
-	print("Inventory select ", lib.get_voxel(vi).voxel_name, " (", vi, ")")
+	print("Inventory select ", lib.get_model(vi).resource_name, " (", vi, ")")
 
 
 func can_place_voxel_at(pos: Vector3i):
