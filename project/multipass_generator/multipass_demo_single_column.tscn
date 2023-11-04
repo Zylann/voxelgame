@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://c1axjmomlc7hv"]
+
+[ext_resource type="Script" path="res://multipass_generator/multipass_demo_single_column.gd" id="1_0w0kl"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rd8xx"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_gyxt2"]
+sky_material = SubResource("ProceduralSkyMaterial_rd8xx")
+
+[sub_resource type="Environment" id="Environment_fngcp"]
+background_mode = 2
+sky = SubResource("Sky_gyxt2")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Node" type="Node"]
+script = ExtResource("1_0w0kl")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_fngcp")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.48255, 0.449767, -0.751568, 0, 0.858084, 0.51351, 0.875869, 0.247794, -0.414068, -33.3619, 27.9191, -17.7105)

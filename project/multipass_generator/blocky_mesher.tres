@@ -1,0 +1,6 @@
+[gd_resource type="VoxelMesherBlocky" load_steps=2 format=3 uid="uid://m85p22yb1ft0"]
+
+[ext_resource type="VoxelBlockyLibrary" uid="uid://5nm1ee5xpocl" path="res://multipass_generator/blocky_library.tres" id="1_djp1m"]
+
+[resource]
+library = ExtResource("1_djp1m")

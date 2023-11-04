@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://d0dodvwrj0biu"]
+
+[ext_resource type="VoxelGeneratorMultipassCB" uid="uid://dqgjcqp0m4ae2" path="res://multipass_generator/multipass_generator.tres" id="1_bubjg"]
+[ext_resource type="VoxelMesherBlocky" uid="uid://m85p22yb1ft0" path="res://multipass_generator/blocky_mesher.tres" id="2_pgkoq"]
+[ext_resource type="PackedScene" uid="uid://dljqckrx50m8t" path="res://common/spectator_avatar.tscn" id="3_tecxx"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8h45h"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_rv3jx"]
+sky_material = SubResource("ProceduralSkyMaterial_8h45h")
+
+[sub_resource type="Environment" id="Environment_vdnyq"]
+background_mode = 2
+sky = SubResource("Sky_rv3jx")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Node" type="Node"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_vdnyq")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="VoxelTerrain" type="VoxelTerrain" parent="."]
+generator = ExtResource("1_bubjg")
+mesher = ExtResource("2_pgkoq")
+generate_collisions = false
+run_stream_in_editor = false
+
+[node name="SpectatorAvatar" parent="." instance=ExtResource("3_tecxx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15.1602, 0)

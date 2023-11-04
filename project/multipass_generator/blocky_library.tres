@@ -1,0 +1,35 @@
+[gd_resource type="VoxelBlockyLibrary" load_steps=6 format=3 uid="uid://5nm1ee5xpocl"]
+
+[ext_resource type="Material" uid="uid://l26jp5hcwveg" path="res://multipass_generator/opaque_material.tres" id="1_xlckp"]
+
+[sub_resource type="VoxelBlockyModelEmpty" id="VoxelBlockyModelEmpty_7i052"]
+
+[sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_hrrub"]
+resource_name = "stone"
+material_override_0 = ExtResource("1_xlckp")
+atlas_size_in_tiles = Vector2i(8, 8)
+
+[sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_fehag"]
+resource_name = "log"
+material_override_0 = ExtResource("1_xlckp")
+atlas_size_in_tiles = Vector2i(8, 8)
+tile_left = Vector2i(2, 0)
+tile_right = Vector2i(2, 0)
+tile_bottom = Vector2i(3, 0)
+tile_top = Vector2i(3, 0)
+tile_back = Vector2i(2, 0)
+tile_front = Vector2i(2, 0)
+
+[sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_7mjab"]
+resource_name = "leaves"
+material_override_0 = ExtResource("1_xlckp")
+atlas_size_in_tiles = Vector2i(8, 8)
+tile_left = Vector2i(0, 2)
+tile_right = Vector2i(0, 2)
+tile_bottom = Vector2i(0, 2)
+tile_top = Vector2i(0, 2)
+tile_back = Vector2i(0, 2)
+tile_front = Vector2i(0, 2)
+
+[resource]
+models = Array[VoxelBlockyModel]([SubResource("VoxelBlockyModelEmpty_7i052"), SubResource("VoxelBlockyModelCube_hrrub"), SubResource("VoxelBlockyModelCube_fehag"), SubResource("VoxelBlockyModelCube_7mjab")])

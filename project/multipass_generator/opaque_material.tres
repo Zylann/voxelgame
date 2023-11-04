@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://l26jp5hcwveg"]
+
+[ext_resource type="Texture2D" uid="uid://bgxqjxpjjrbug" path="res://multipass_generator/terrain.png" id="1_2tubt"]
+
+[resource]
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_2tubt")
+texture_filter = 0
