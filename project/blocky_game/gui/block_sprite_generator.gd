@@ -31,7 +31,7 @@ func _process(_delta):
 			var im := viewport_texture.get_image()
 			im.convert(Image.FORMAT_RGBA8)
 			var fpath := \
-				str(Blocks.ROOT, "/", block.directory, "/", block.name, "_sprite2.png")
+				str(Blocks.ROOT, "/", block.directory, "/", block.name, "_sprite.png")
 			var err := im.save_png(fpath)
 			if err != OK:
 				push_error(str("Could not save ", fpath, ", error ", err))
