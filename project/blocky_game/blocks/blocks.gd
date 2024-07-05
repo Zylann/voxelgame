@@ -17,14 +17,14 @@ const ROTATION_Y_POSITIVE_X = 1
 const ROTATION_Y_NEGATIVE_Z = 2
 const ROTATION_Y_POSITIVE_Z = 3
 
-const _opposite_y_rotation = [
+const _opposite_y_rotation : Array[int] = [
 	ROTATION_Y_POSITIVE_X,
 	ROTATION_Y_NEGATIVE_X,
 	ROTATION_Y_POSITIVE_Z,
 	ROTATION_Y_NEGATIVE_Z
 ]
 
-const _y_dir = [
+const _y_dir : Array[Vector3] = [
 	Vector3(-1, 0, 0),
 	Vector3(1, 0, 0),
 	Vector3(0, 0, -1),
@@ -194,17 +194,17 @@ func _create_block(params: Dictionary):
 		block = Block.new()
 
 	# Fill in base info
-	var base_info = block.base_info
+	var base_info := block.base_info
 	base_info.id = len(_blocks)
 	
 	for i in len(params.voxels):
-		var vname = params.voxels[i]
-		var id = _voxel_library.get_voxel_index_from_name(vname)
+		var vname : String = params.voxels[i]
+		var id := _voxel_library.get_voxel_index_from_name(vname)
 		if id == -1:
 			push_error("Could not find voxel named {0}".format([vname]))
 		assert(id != -1)
 		params.voxels[i] = id
-		var rm = RawMapping.new()
+		var rm := RawMapping.new()
 		rm.block_id = base_info.id
 		rm.variant_index = i
 		if id >= len(_raw_mappings):
@@ -219,7 +219,7 @@ func _create_block(params: Dictionary):
 	base_info.backface_culling = params.backface_culling
 	if base_info.directory != "":
 		base_info.gui_model_path = str(ROOT, "/", params.directory, "/", params.gui_model)
-		var sprite_path = str(ROOT, "/", params.directory, "/", params.name, "_sprite.png")
+		var sprite_path := str(ROOT, "/", params.directory, "/", params.name, "_sprite.png")
 		base_info.sprite_texture = load(sprite_path)
 
 	_blocks.append(block)
@@ -232,7 +232,7 @@ func _notification(what):
 			print("Deleting blocks.gd")
 
 
-static func _defaults(d, defaults):
+static func _defaults(d: Dictionary, defaults: Dictionary):
 	for k in defaults:
 		if not d.has(k):
 			d[k] = defaults[k]

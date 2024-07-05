@@ -15,7 +15,7 @@ class BaseInfo:
 	var transparent := false
 	var backface_culling := true
 	# TODO Rename `variants`
-	var voxels := []
+	var voxels := PackedInt32Array()
 
 
 var base_info := BaseInfo.new()
