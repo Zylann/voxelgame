@@ -199,7 +199,7 @@ func _create_block(params: Dictionary):
 	
 	for i in len(params.voxels):
 		var vname : String = params.voxels[i]
-		var id := _voxel_library.get_voxel_index_from_name(vname)
+		var id := _voxel_library.get_model_index_from_resource_name(vname)
 		if id == -1:
 			push_error("Could not find voxel named {0}".format([vname]))
 		assert(id != -1)

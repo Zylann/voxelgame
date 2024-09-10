@@ -47,7 +47,7 @@ var _tall_grass_type : int
 
 
 func _ready():
-	_tall_grass_type = VoxelLibraryResource.get_voxel_index_from_name("tall_grass")
+	_tall_grass_type = VoxelLibraryResource.get_model_index_from_resource_name("tall_grass")
 	_voxel_tool.set_channel(VoxelBuffer.CHANNEL_TYPE)
 
 
