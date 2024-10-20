@@ -1,7 +1,8 @@
 
 // This uniform is assigned internally by the voxel engine.
+group_uniforms voxel;
 uniform int u_transition_mask;
-
+group_uniforms;
 
 float get_transvoxel_secondary_factor(int idata) {
 	int cell_border_mask = (idata >> 0) & 63; // Which sides the cell is touching
