@@ -3,6 +3,7 @@
 //#define VOXEL_VIRTUAL_TEXTURE_USE_TEXTURE_ARRAY
 
 // These uniforms are assigned internally by the voxel engine.
+group_uniforms voxel;
 // TODO Godot is not binding integer samplers properly.
 // See https://github.com/godotengine/godot/issues/57841
 // TODO Workaround using float texelFetch doesnt't work either...
@@ -25,7 +26,7 @@ uniform int u_voxel_block_size;
 // to query only inside a sub-region.
 // (x, y, z) is offset, (w) is scale.
 uniform vec4 u_voxel_virtual_texture_offset_scale;
-
+group_uniforms;
 
 vec2 pad_uv(vec2 uv, float amount) {
 	return uv * (1.0 - 2.0 * amount) + vec2(amount);

@@ -1,7 +1,8 @@
 
 // These uniforms are assigned internally by the voxel engine.
+group_uniforms voxel;
 uniform vec2 u_lod_fade;
-
+group_uniforms;
 
 float get_hash(vec2 c) {
 	return fract(sin(dot(c.xy, vec2(12.9898,78.233))) * 43758.5453);
