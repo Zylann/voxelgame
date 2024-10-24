@@ -16,9 +16,9 @@ dest_files=["res://.godot/imported/water_sprite.png-ca8a14f452451407fa5f6ba0fbd8
 [params]
 
 compress/mode=0
+compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/bptc_ldr=0
 compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=false
