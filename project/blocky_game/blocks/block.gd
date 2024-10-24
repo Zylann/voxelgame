@@ -23,4 +23,3 @@ var base_info := BaseInfo.new()
 
 func place(_voxel_tool: VoxelTool, _pos: Vector3, _look_dir: Vector3):
 	pass
-

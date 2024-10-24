@@ -228,4 +228,3 @@ func receive_remote_character(peer_id: int, pos: Vector3):
 func receive_own_character(peer_id: int, pos: Vector3):
 	_logger.debug(str("receive_own_character ", peer_id, " at ", pos))
 	_spawn_character(peer_id, pos)
-

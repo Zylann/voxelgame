@@ -54,6 +54,3 @@ func _on_main_menu_upnp_toggled(pressed: bool):
 		if _upnp_helper != null:
 			_upnp_helper.queue_free()
 			_upnp_helper = null
-
-
-

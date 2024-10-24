@@ -54,4 +54,3 @@ func _process(_delta):
 	else:
 		set_process(false)
 		print("Done!")
-
