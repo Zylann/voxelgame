@@ -40,3 +40,5 @@ func _physics_process(delta):
 		
 		translate(motor)
 
+	DDD.set_text("Position", global_position)
+
