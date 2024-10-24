@@ -1,19 +1,25 @@
 
 // This uniform is assigned internally by the voxel engine.
+// Layout: 00000000 00000000 00000000 00xxyyzz
+// Where:
+// - xx are respectively -x and x transitions,
+// - yy are respectively -y and y transitions,
+// - zz are respectively -z and z transitions,
 uniform int u_transition_mask;
 
 
 float get_transvoxel_secondary_factor(int idata) {
+	int transition_mask = u_transition_mask & 0xff;
+
 	int cell_border_mask = (idata >> 0) & 63; // Which sides the cell is touching
 	int vertex_border_mask = (idata >> 8) & 63; // Which sides the vertex is touching
-	//int vertex_border_mask = (idata >> 6) & 63; // Which sides the vertex is touching
 	// If the vertex is near a side where there is a low-resolution neighbor,
 	// move it to secondary position
-	int m = u_transition_mask & cell_border_mask;
+	int m = transition_mask & cell_border_mask;
 	float t = float(m != 0);
 	// If the vertex lies on one or more sides, and at least one side has no low-resolution neighbor,
 	// don't move the vertex.
-	t *= float((vertex_border_mask & ~u_transition_mask) == 0);
+	t *= float((vertex_border_mask & ~transition_mask) == 0);
 	
 	// Debugging
 	//t *= 0.5 + 0.5 * sin(TIME * 4.0);
@@ -49,3 +55,6 @@ vec3 get_transvoxel_position(vec3 vertex_pos, vec4 fdata) {
 	return pos;
 }
 
+int get_mesh_lod_index() {
+	return u_transition_mask >> 8;
+}
