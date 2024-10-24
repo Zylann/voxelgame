@@ -1,4 +1,6 @@
 
+group_uniforms voxel;
+
 // This uniform is assigned internally by the voxel engine.
 // Layout: 00000000 00000000 00000000 00xxyyzz
 // Where:
@@ -7,6 +9,7 @@
 // - zz are respectively -z and z transitions,
 uniform int u_transition_mask;
 
+group_uniforms;
 
 float get_transvoxel_secondary_factor(int idata) {
 	int transition_mask = u_transition_mask & 0xff;
