@@ -17,7 +17,7 @@ void vertex() {
 	VERTEX = get_transvoxel_position(VERTEX, CUSTOM0);
 
 	v_world_pos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
-	
+
     // Indices are integer values so we can decode them as-is
     v_material_indices = decode_8bit_vec4(CUSTOM1.x);
 
@@ -49,10 +49,10 @@ void fragment() {
     weights /= (weights.x + weights.y + weights.z + weights.w + 0.00001);
 
     // Calculate albedo
-    vec3 col = 
-        col0 * weights.r + 
-        col1 * weights.g + 
-        col2 * weights.b + 
+    vec3 col =
+        col0 * weights.r +
+        col1 * weights.g +
+        col2 * weights.b +
         col3 * weights.a;
 
     ALBEDO = col;
