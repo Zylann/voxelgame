@@ -27,8 +27,8 @@ func _input(event):
 
 func _generate():
 	var tree_generator := TreeGenerator.new()
-	tree_generator.log_type = VoxelLibraryResource.get_voxel_index_from_name("log_y")
-	tree_generator.leaves_type = VoxelLibraryResource.get_voxel_index_from_name("dirt")
+	tree_generator.log_type = VoxelLibraryResource.get_model_index_from_resource_name("log_y")
+	tree_generator.leaves_type = VoxelLibraryResource.get_model_index_from_resource_name("dirt")
 	
 	var s = tree_generator.generate()
 
