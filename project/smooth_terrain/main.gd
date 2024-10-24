@@ -70,5 +70,3 @@ func _input(event):
 				KEY_L:
 					# Toggle shadows
 					_light.shadow_enabled = not _light.shadow_enabled
-
-
