@@ -1,4 +1,4 @@
-Voxel game demos (Godot Engine 4.3)
+Voxel game demos (Godot Engine 4.4)
 ====================================
 
 This project contains several scenes to test and demo the voxel module I'm developing for Godot Engine.
