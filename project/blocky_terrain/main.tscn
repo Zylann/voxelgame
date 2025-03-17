@@ -2,9 +2,9 @@
 
 [ext_resource type="VoxelBlockyLibrary" uid="uid://cs1bqe5vsvfls" path="res://blocky_terrain/voxel_library.tres" id="3_gss5y"]
 [ext_resource type="VoxelGeneratorNoise2D" path="res://blocky_terrain/voxel_generator_noise_2d_blocky.tres" id="4"]
-[ext_resource type="Script" path="res://blocky_terrain/main.gd" id="5"]
+[ext_resource type="Script" uid="uid://b5i2wbc7kmykg" path="res://blocky_terrain/main.gd" id="5"]
 [ext_resource type="PackedScene" path="res://blocky_terrain/character_avatar.tscn" id="6"]
-[ext_resource type="Script" path="res://blocky_terrain/debug_info.gd" id="8"]
+[ext_resource type="Script" uid="uid://cj7ysuetmmvxn" path="res://blocky_terrain/debug_info.gd" id="8"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_rxrxe"]
 

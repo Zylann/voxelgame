@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="New Game Project"
-config/features=PackedStringArray("4.3")
+config/features=PackedStringArray("4.4")
 config/icon="res://icon.png"
 
 [autoload]
@@ -26,6 +26,10 @@ window/stretch/aspect="expand"
 [filesystem]
 
 import/blender/enabled=false
+
+[physics]
+
+3d/physics_engine="Jolt Physics"
 
 [rendering]
 

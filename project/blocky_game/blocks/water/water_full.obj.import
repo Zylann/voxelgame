@@ -16,7 +16,10 @@ dest_files=["res://.godot/imported/water_full.obj-0ae40f431c707143fe36ffd16cacf2
 [params]
 
 generate_tangents=true
+generate_lods=false
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
 scale_mesh=Vector3(1, 1, 1)
 offset_mesh=Vector3(0, 0, 0)
-optimize_mesh=true
 force_disable_mesh_compression=false
