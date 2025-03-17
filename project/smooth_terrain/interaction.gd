@@ -1,6 +1,7 @@
 extends Node
 
 const SDFStamper = preload("./sdf_stamper.gd")
+const VoxelVersion = preload("res://addons/zylann.voxel/version.gd")
 
 @onready var _head : Node3D = get_parent().get_node("Camera")
 @onready var _terrain : VoxelLodTerrain = get_parent().get_parent().get_node("VoxelTerrain")
@@ -75,11 +76,10 @@ func do_sphere(center: Vector3, radius: float, add: bool):
 		vt.mode = VoxelTool.MODE_ADD
 	else:
 		vt.mode = VoxelTool.MODE_REMOVE
-	vt.set_sdf_scale(0.002)
-	# vt.sdf_strength = 1.0
-	# vt.mode = VoxelTool.MODE_REMOVE
-	# vt.do_hemisphere(center, fradius, Vector3(0,1,0), 1.0)
-	# vt.mode = VoxelTool.MODE_ADD
-	# vt.do_hemisphere(center, fradius, Vector3(0,-1,0), 1.0)
-	vt.do_sphere(center, radius)
 
+	if VoxelVersion.get_major() == 1 and VoxelVersion.get_minor() == 1:
+		# Version prior to 1.2 did not expose consistent SDF due to internal quantization,
+		# so scaling had to be done by the user
+		vt.set_sdf_scale(0.002)
+
+	vt.do_sphere(center, radius)
