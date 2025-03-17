@@ -1,0 +1,7 @@
+[gd_resource type="VoxelBlockyFluid" load_steps=2 format=3 uid="uid://c6vx5y5jeyonp"]
+
+[ext_resource type="Material" uid="uid://cq0sacnrv2ux3" path="res://blocky_fluid/water_material.tres" id="1_1dhh6"]
+
+[resource]
+material = ExtResource("1_1dhh6")
+dip_when_flowing_down = true

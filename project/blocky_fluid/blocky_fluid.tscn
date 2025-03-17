@@ -1,0 +1,114 @@
+[gd_scene load_steps=22 format=3 uid="uid://gvlr8skmdhd6"]
+
+[ext_resource type="VoxelBlockyFluid" uid="uid://c6vx5y5jeyonp" path="res://blocky_fluid/fluid.tres" id="1_c10fk"]
+[ext_resource type="Script" path="res://blocky_fluid/blocky_fluid_demo.gd" id="1_d8b43"]
+[ext_resource type="PackedScene" uid="uid://dljqckrx50m8t" path="res://common/spectator_avatar.tscn" id="3_wl5l8"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_npdw6"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_c7ore"]
+sky_material = SubResource("ProceduralSkyMaterial_npdw6")
+
+[sub_resource type="Environment" id="Environment_gsflr"]
+background_mode = 2
+sky = SubResource("Sky_c7ore")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_7ea4s"]
+
+[sub_resource type="VoxelGeneratorNoise2D" id="VoxelGeneratorNoise2D_c52iw"]
+channel = 0
+height_start = -20.0
+height_range = 40.0
+noise = SubResource("FastNoiseLite_7ea4s")
+
+[sub_resource type="VoxelBlockyModelEmpty" id="VoxelBlockyModelEmpty_afgoq"]
+resource_name = "air"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5d2cy"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.47, 0.286804, 0.186337, 1)
+
+[sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_lgrc3"]
+resource_name = "solid"
+material_override_0 = SubResource("StandardMaterial3D_5d2cy")
+
+[sub_resource type="VoxelBlockyModelFluid" id="VoxelBlockyModelFluid_ulc2g"]
+resource_name = "water0"
+transparent = true
+transparency_index = 2
+fluid = ExtResource("1_c10fk")
+
+[sub_resource type="VoxelBlockyModelFluid" id="VoxelBlockyModelFluid_7lj5l"]
+resource_name = "water1"
+transparent = true
+transparency_index = 2
+fluid = ExtResource("1_c10fk")
+level = 1
+
+[sub_resource type="VoxelBlockyModelFluid" id="VoxelBlockyModelFluid_uk5c7"]
+resource_name = "water2"
+transparent = true
+transparency_index = 2
+fluid = ExtResource("1_c10fk")
+level = 2
+
+[sub_resource type="VoxelBlockyModelFluid" id="VoxelBlockyModelFluid_rmd35"]
+resource_name = "water3"
+transparent = true
+transparency_index = 2
+fluid = ExtResource("1_c10fk")
+level = 3
+
+[sub_resource type="VoxelBlockyModelFluid" id="VoxelBlockyModelFluid_4dbdm"]
+resource_name = "water4"
+transparent = true
+transparency_index = 2
+fluid = ExtResource("1_c10fk")
+level = 4
+
+[sub_resource type="VoxelBlockyModelFluid" id="VoxelBlockyModelFluid_tivkx"]
+resource_name = "water5"
+transparent = true
+transparency_index = 2
+fluid = ExtResource("1_c10fk")
+level = 5
+
+[sub_resource type="VoxelBlockyModelFluid" id="VoxelBlockyModelFluid_rql34"]
+resource_name = "water6"
+transparent = true
+transparency_index = 2
+fluid = ExtResource("1_c10fk")
+level = 6
+
+[sub_resource type="VoxelBlockyModelFluid" id="VoxelBlockyModelFluid_cikgi"]
+resource_name = "water7"
+transparent = true
+transparency_index = 2
+fluid = ExtResource("1_c10fk")
+level = 7
+
+[sub_resource type="VoxelBlockyLibrary" id="VoxelBlockyLibrary_5pto5"]
+models = Array[VoxelBlockyModel]([SubResource("VoxelBlockyModelEmpty_afgoq"), SubResource("VoxelBlockyModelCube_lgrc3"), SubResource("VoxelBlockyModelFluid_ulc2g"), SubResource("VoxelBlockyModelFluid_7lj5l"), SubResource("VoxelBlockyModelFluid_uk5c7"), SubResource("VoxelBlockyModelFluid_rmd35"), SubResource("VoxelBlockyModelFluid_4dbdm"), SubResource("VoxelBlockyModelFluid_tivkx"), SubResource("VoxelBlockyModelFluid_rql34"), SubResource("VoxelBlockyModelFluid_cikgi")])
+
+[sub_resource type="VoxelMesherBlocky" id="VoxelMesherBlocky_754fg"]
+library = SubResource("VoxelBlockyLibrary_5pto5")
+
+[node name="Node" type="Node"]
+script = ExtResource("1_d8b43")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_gsflr")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="VoxelTerrain" type="VoxelTerrain" parent="."]
+generator = SubResource("VoxelGeneratorNoise2D_c52iw")
+mesher = SubResource("VoxelMesherBlocky_754fg")
+
+[node name="SpectatorAvatar" parent="." instance=ExtResource("3_wl5l8")]

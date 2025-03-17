@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://cq0sacnrv2ux3"]
+
+[ext_resource type="Shader" path="res://blocky_fluid/fluid.gdshader" id="1_dpluo"]
+[ext_resource type="Texture2D" uid="uid://bdk1bwrcjxdky" path="res://blocky_fluid/water.png" id="2_o8bj1"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_dpluo")
+shader_parameter/u_albedo = ExtResource("2_o8bj1")
