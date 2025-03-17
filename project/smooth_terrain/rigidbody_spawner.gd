@@ -2,9 +2,9 @@ extends Node
 
 
 func _input(event):
-	if event is InputEventMouseButton:
+	if event is InputEventKey:
 		if event.pressed:
-			if event.button_index == MOUSE_BUTTON_LEFT:
+			if event.keycode == KEY_B:
 				spawn()
 
 
@@ -19,6 +19,8 @@ func spawn():
 	mesh_instance.mesh = mesh
 	body.add_child(mesh_instance)
 	body.transform = get_parent().transform
-	body.linear_velocity = -10.0*get_viewport().get_camera_3d().transform.basis.z
-	get_parent().get_parent().add_child(body)
-	
+	var camera := get_viewport().get_camera_3d()
+	body.linear_velocity = -10.0 * camera.global_transform.basis.z
+	var parent := get_parent().get_parent()
+	print(parent)
+	parent.add_child(body)
