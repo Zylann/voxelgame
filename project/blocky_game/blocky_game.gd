@@ -21,7 +21,8 @@ var _port := -1
 
 # Initially needed because when running multiple instances in the editor, Godot is mixing up the
 # outputs of server and clients in the same output console...
-class Logger:
+# 2025/05/01: had to prefix because Godot now has a Logger class
+class BG_Logger:
 	var prefix := ""
 	
 	func debug(msg: String):
@@ -31,7 +32,7 @@ class Logger:
 		push_error(prefix, msg)
 
 
-var _logger := Logger.new()
+var _logger := BG_Logger.new()
 
 
 func get_terrain() -> VoxelTerrain:
