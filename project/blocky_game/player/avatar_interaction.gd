@@ -36,18 +36,17 @@ const _hotbar_keys = {
 
 var _terrain_tool : VoxelTool = null
 var _cursor : MeshInstance3D = null
+var _cursor_margin := 0.005
 var _action_place := false
 var _action_use := false
 var _action_pick := false
-
+var _pointed_voxel_id := 0
 
 func _ready():
-	var mesh := Util.create_wirecube_mesh(Color(0,0,0))
 	var mesh_instance := MeshInstance3D.new()
-	mesh_instance.mesh = mesh
 	if cursor_material != null:
 		mesh_instance.material_override = cursor_material
-	mesh_instance.set_scale(Vector3(1,1,1)*1.01)
+	mesh_instance.set_scale(Vector3(1,1,1) * (1 + _cursor_margin * 2))
 	_cursor = mesh_instance
 	
 	_terrain.add_child(_cursor)
@@ -73,8 +72,13 @@ func _physics_process(_delta):
 	
 	var hit := _get_pointed_voxel()
 	if hit != null:
+		var hit_raw_id = _terrain_tool.get_voxel(hit.position)
+		if _pointed_voxel_id != hit_raw_id:
+			var model := _block_types.get_model_library().get_model(hit_raw_id)
+			_cursor.mesh = Util.create_wireframe_mesh(model)
+			_pointed_voxel_id = hit_raw_id
 		_cursor.show()
-		_cursor.set_position(hit.position)
+		_cursor.set_position(Vector3(hit.position) - Vector3(1, 1, 1) * _cursor_margin)
 		DDD.set_text("Pointed voxel", str(hit.position))
 	else:
 		_cursor.hide()
@@ -85,8 +89,7 @@ func _physics_process(_delta):
 	# These inputs have to be in _fixed_process because they rely on collision queries
 	if inv_item == null or inv_item.type == InventoryItem.TYPE_BLOCK:
 		if hit != null:
-			var hit_raw_id := _terrain_tool.get_voxel(hit.position)
-			var has_cube := hit_raw_id != 0
+			var has_cube := _pointed_voxel_id != 0
 			
 			if _action_use and has_cube:
 				var pos = hit.position
