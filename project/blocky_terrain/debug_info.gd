@@ -1,9 +1,9 @@
 extends Node
 
-@onready var _terrain = get_parent().get_node("VoxelTerrain")
+#@onready var _terrain : VoxelTerrain = get_parent().get_node("VoxelTerrain")
 
 
-func _process(delta):
+func _process(_unused_delta):
 	var sm = OS.get_static_memory_usage()
 
 	DDD.set_text("Static memory", _format_memory(sm))

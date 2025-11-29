@@ -3,7 +3,7 @@ extends Node3D
 const GRAVITY = Vector3(0, -14, 0)
 const LIFETIME = 3.0
 
-@onready var _mesh_instance = $MeshInstance
+#@onready var _mesh_instance = $MeshInstance
 @onready var _terrain : VoxelTerrain = get_node("/root/Main/Game/VoxelTerrain")
 @onready var _terrain_tool := _terrain.get_voxel_tool()
 

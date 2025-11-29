@@ -72,7 +72,7 @@ func _get_used_channels_mask() -> int:
 	return 1 << _CHANNEL
 
 
-func _generate_block(buffer: VoxelBuffer, origin_in_voxels: Vector3i, lod: int):
+func _generate_block(buffer: VoxelBuffer, origin_in_voxels: Vector3i, _unused_lod: int):
 	# TODO There is an issue doing this, need to investigate why because it should be supported
 	# Saves from this demo used 8-bit, which is no longer the default
 	# buffer.set_channel_depth(_CHANNEL, VoxelBuffer.DEPTH_8_BIT)

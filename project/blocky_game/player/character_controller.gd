@@ -99,7 +99,7 @@ func _physics_process(delta: float):
 
 
 @rpc("authority", "call_remote", "unreliable")
-func receive_position(pos: Vector3):
+func receive_position(_unused_pos: Vector3):
 	# We currently don't expect this to be called. The actual targetted script is different.
 	# I had to define it otherwise Godot throws a lot of errors everytime I call the RPC...
 	push_error("Didn't expect to receive RPC position")

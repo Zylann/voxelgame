@@ -1,6 +1,6 @@
 extends Node
 
-@onready var _terrain : VoxelTerrain = get_parent().get_node(^"VoxelTerrain")
+#@onready var _terrain : VoxelTerrain = get_parent().get_node(^"VoxelTerrain")
 
 const NETWORK_REPORT_INTERVAL = 1.0
 

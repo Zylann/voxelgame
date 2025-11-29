@@ -20,7 +20,7 @@ func _ready():
 	_hud.set_selected_material_index(_voxel_tool.texture_index)
 
 
-func _physics_process(delta):
+func _physics_process(_unused_delta: float):
 	var camera := get_viewport().get_camera_3d()
 	var mouse_pos := get_viewport().get_mouse_position()
 	var ray_origin := camera.project_ray_origin(mouse_pos)

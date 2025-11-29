@@ -10,7 +10,7 @@ extends Node3D
 @export var terrain : NodePath
 
 var _velocity := Vector3()
-var _grounded := false
+#var _grounded := false
 var _head = null
 var _box_mover := VoxelBoxMover.new()
 
