@@ -20,12 +20,12 @@ func _on_connect_to_server_button_pressed():
 	if ip == "":
 		return
 	# TODO Do more validation on the syntax of IP address
-	var port : int = _port_spinbox.value
+	var port := int(_port_spinbox.value)
 	connect_to_server_requested.emit(ip, port)
 
 
 func _on_host_server_button_pressed():
-	var port : int = _port_spinbox.value
+	var port := int(_port_spinbox.value)
 	host_server_requested.emit(port)
 
 

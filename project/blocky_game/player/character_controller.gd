@@ -14,7 +14,7 @@ var _box_mover := VoxelBoxMover.new()
 
 
 func _ready():
-	_box_mover.set_collision_mask(1) # Excludes rails
+	_box_mover.set_collision_mask(1) # Excludes rails and grass
 	_box_mover.set_step_climbing_enabled(true)
 	_box_mover.set_max_step_height(0.5)
 

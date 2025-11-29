@@ -15,7 +15,7 @@ func generate() -> Structure:
 	# Trunk
 	var trunk_len := int(randf_range(trunk_len_min, trunk_len_max))
 	for y in trunk_len:
-		voxels[Vector3(0, y, 0)] = log_type
+		voxels[Vector3i(0, y, 0)] = log_type
 
 	# Branches
 	var branches_start := int(randf_range(trunk_len / 3, trunk_len / 2))
@@ -29,7 +29,7 @@ func generate() -> Structure:
 			var dir := Vector3(cos(angle), 0.45, sin(angle))
 			for i in branch_len:
 				pos += dir
-				var ipos = pos.round()
+				var ipos := Vector3i(pos.round())
 				voxels[ipos] = log_type
 
 	# Leaves
@@ -38,12 +38,12 @@ func generate() -> Structure:
 	var leaf_count := int(0.75 * len(log_positions))
 	log_positions.resize(leaf_count)
 	var dirs := [
-		Vector3(-1, 0, 0),
-		Vector3(1, 0, 0),
-		Vector3(0, 0, -1),
-		Vector3(0, 0, 1),
-		Vector3(0, 1, 0),
-		Vector3(0, -1, 0)
+		Vector3i(-1, 0, 0),
+		Vector3i(1, 0, 0),
+		Vector3i(0, 0, -1),
+		Vector3i(0, 0, 1),
+		Vector3i(0, 1, 0),
+		Vector3i(0, -1, 0)
 	]
 	for c in leaf_count:
 		var pos = log_positions[c]

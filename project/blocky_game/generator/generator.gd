@@ -19,15 +19,15 @@ const DEAD_SHRUB = 26
 
 const _CHANNEL = VoxelBuffer.CHANNEL_TYPE
 
-const _moore_dirs = [
-	Vector3(-1, 0, -1),
-	Vector3(0, 0, -1),
-	Vector3(1, 0, -1),
-	Vector3(-1, 0, 0),
-	Vector3(1, 0, 0),
-	Vector3(-1, 0, 1),
-	Vector3(0, 0, 1),
-	Vector3(1, 0, 1)
+const _moore_dirs: Array[Vector3i] = [
+	Vector3i(-1, 0, -1),
+	Vector3i(0, 0, -1),
+	Vector3i(1, 0, -1),
+	Vector3i(-1, 0, 0),
+	Vector3i(1, 0, 0),
+	Vector3i(-1, 0, 1),
+	Vector3i(0, 0, 1),
+	Vector3i(1, 0, 1)
 ]
 
 
@@ -81,7 +81,7 @@ func _generate_block(buffer: VoxelBuffer, origin_in_voxels: Vector3i, _unused_lo
 	var oy := origin_in_voxels.y
 	# TODO This hardcodes a cubic block size of 16, find a non-ugly way...
 	# Dividing is a false friend because of negative values
-	var chunk_pos := Vector3(
+	var chunk_pos := Vector3i(
 		origin_in_voxels.x >> 4,
 		origin_in_voxels.y >> 4,
 		origin_in_voxels.z >> 4)
@@ -113,10 +113,10 @@ func _generate_block(buffer: VoxelBuffer, origin_in_voxels: Vector3i, _unused_lo
 				# Dirt and grass
 				if relative_height > block_size:
 					buffer.fill_area(DIRT,
-						Vector3(x, 0, z), Vector3(x + 1, block_size, z + 1), _CHANNEL)
+						Vector3i(x, 0, z), Vector3i(x + 1, block_size, z + 1), _CHANNEL)
 				elif relative_height > 0:
 					buffer.fill_area(DIRT,
-						Vector3(x, 0, z), Vector3(x + 1, relative_height, z + 1), _CHANNEL)
+						Vector3i(x, 0, z), Vector3i(x + 1, relative_height, z + 1), _CHANNEL)
 					if height >= 0:
 						buffer.set_voxel(GRASS, x, relative_height - 1, z, _CHANNEL)
 						if relative_height < block_size and rng.randf() < 0.2:
@@ -131,8 +131,8 @@ func _generate_block(buffer: VoxelBuffer, origin_in_voxels: Vector3i, _unused_lo
 					if relative_height > 0:
 						start_relative_height = relative_height
 					buffer.fill_area(WATER_FULL,
-						Vector3(x, start_relative_height, z), 
-						Vector3(x + 1, block_size, z + 1), _CHANNEL)
+						Vector3i(x, start_relative_height, z),
+						Vector3i(x + 1, block_size, z + 1), _CHANNEL)
 					if oy + block_size == 0:
 						# Surface block
 						buffer.set_voxel(WATER_TOP, x, block_size - 1, z, _CHANNEL)
@@ -145,7 +145,7 @@ func _generate_block(buffer: VoxelBuffer, origin_in_voxels: Vector3i, _unused_lo
 
 	if origin_in_voxels.y <= _trees_max_y and origin_in_voxels.y + block_size >= _trees_min_y:
 		var voxel_tool := buffer.get_voxel_tool()
-		var structure_instances := []
+		var structure_instances := [] # Array of [Vector3i, Structure]
 			
 		_get_tree_instances_in_chunk(chunk_pos, origin_in_voxels, block_size, structure_instances)
 	
@@ -153,17 +153,17 @@ func _generate_block(buffer: VoxelBuffer, origin_in_voxels: Vector3i, _unused_lo
 		var block_aabb := AABB(Vector3(), buffer.get_size() + Vector3i(1, 1, 1))
 
 		for dir in _moore_dirs:
-			var ncpos : Vector3 = (chunk_pos + dir).round()
+			var ncpos := chunk_pos + dir
 			_get_tree_instances_in_chunk(ncpos, origin_in_voxels, block_size, structure_instances)
 
 		for structure_instance in structure_instances:
-			var pos : Vector3 = structure_instance[0]
-			var structure : Structure = structure_instance[1]
+			var pos: Vector3i = structure_instance[0]
+			var structure: Structure = structure_instance[1]
 			var lower_corner_pos := pos - structure.offset
 			var aabb := AABB(lower_corner_pos, structure.voxels.get_size() + Vector3i(1, 1, 1))
 
 			if aabb.intersects(block_aabb):
-				voxel_tool.paste_masked(lower_corner_pos, 
+				voxel_tool.paste_masked(lower_corner_pos,
 					structure.voxels, 1 << VoxelBuffer.CHANNEL_TYPE,
 					# Masking
 					VoxelBuffer.CHANNEL_TYPE, AIR)
@@ -172,13 +172,12 @@ func _generate_block(buffer: VoxelBuffer, origin_in_voxels: Vector3i, _unused_lo
 
 
 func _get_tree_instances_in_chunk(
-	cpos: Vector3, offset: Vector3, chunk_size: int, tree_instances: Array):
-		
+	cpos: Vector3i, offset: Vector3i, chunk_size: int, tree_instances: Array):
 	var rng := RandomNumberGenerator.new()
 	rng.seed = _get_chunk_seed_2d(cpos)
 
 	for i in 4:
-		var pos := Vector3(rng.randi() % chunk_size, 0, rng.randi() % chunk_size)
+		var pos := Vector3i(rng.randi() % chunk_size, 0, rng.randi() % chunk_size)
 		pos += cpos * chunk_size
 		pos.y = _get_height_at(pos.x, pos.z)
 		
@@ -186,14 +185,14 @@ func _get_tree_instances_in_chunk(
 			pos -= offset
 			var si := rng.randi() % len(_tree_structures)
 			var structure: Structure = _tree_structures[si]
-			tree_instances.append([pos.round(), structure])
+			tree_instances.append([pos, structure])
 
 
 #static func get_chunk_seed(cpos: Vector3) -> int:
 #	return cpos.x ^ (13 * int(cpos.y)) ^ (31 * int(cpos.z))
 
 
-static func _get_chunk_seed_2d(cpos: Vector3) -> int:
+static func _get_chunk_seed_2d(cpos: Vector3i) -> int:
 	return int(cpos.x) ^ (31 * int(cpos.z))
 
 

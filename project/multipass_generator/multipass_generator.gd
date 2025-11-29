@@ -30,7 +30,7 @@ func _generate_pass(voxel_tool: VoxelToolMultipassGenerator, pass_index: int):
 			for gx in range(min_pos.x, max_pos.x):
 				var height := 20.0 * _noise.get_noise_2d(gx, gz)
 				voxel_tool.value = STONE
-				voxel_tool.do_box(Vector3i(gx, min_pos.y, gz), Vector3i(gx, height, gz))
+				voxel_tool.do_box(Vector3i(gx, min_pos.y, gz), Vector3i(gx, int(height), gz))
 		
 		# This is just for testing do_path, also creating overhangs that show how tree generation
 		# benefits from multipass. In practice it's quite slow without checking boundaries.

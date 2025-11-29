@@ -165,6 +165,7 @@ func _place_single_block(pos: Vector3, block_id: int):
 
 # TODO Maybe use `rpc_config` so this would be less awkward?
 @rpc("any_peer", "call_remote", "reliable", 0)
-func receive_place_single_block(pos: Vector3, look_dir: Vector3, block_id: int):
+func receive_place_single_block(
+		_unused_pos: Vector3, _unused_look_dir: Vector3, _unused_block_id: int):
 	# The server has a different script for remote players
 	push_error("Didn't expect this method to be called")

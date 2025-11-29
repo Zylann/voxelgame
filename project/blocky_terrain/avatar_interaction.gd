@@ -9,9 +9,9 @@ const COLLISION_LAYER_AVATAR = 2
 
 @onready var _head : Node3D = get_parent().get_node("Camera")
 
-var _terrain : VoxelTerrain = null
-var _terrain_tool = null
-var _cursor = null
+var _terrain : VoxelNode = null
+var _terrain_tool : VoxelTool = null
+var _cursor : MeshInstance3D = null
 var _action_place := false
 var _action_remove := false
 
@@ -61,7 +61,7 @@ func _physics_process(_delta):
 	# These inputs have to be in _fixed_process because they rely on collision queries
 	if hit != null:
 		if _action_place:
-			var pos = hit.previous_position
+			var pos := hit.previous_position
 			if can_place_voxel_at(pos):
 				place(pos)
 		
@@ -73,21 +73,25 @@ func _physics_process(_delta):
 
 
 func _unhandled_input(event):
-	if event is InputEventMouseButton:
-		if event.pressed:
-			match event.button_index:
+	var mouse_button_event := event as InputEventMouseButton
+	if mouse_button_event != null:
+		if mouse_button_event.pressed:
+			match mouse_button_event.button_index:
 				MOUSE_BUTTON_LEFT:
 					_action_remove = true
 				MOUSE_BUTTON_RIGHT:
 					_action_place = true
+		return
 
-	elif event is InputEventKey:
-		if event.pressed:
-			match event.keycode:
+	var key_event := event as InputEventKey
+	if key_event != null:
+		if key_event.pressed:
+			match key_event.keycode:
 				KEY_1:
 					select_inventory(0)
 				KEY_2:
 					select_inventory(1)
+		return
 
 
 func select_inventory(i: int):
@@ -95,38 +99,38 @@ func select_inventory(i: int):
 		return
 	_inventory_index = i
 	var vi = _inventory[i]
-	var lib = _terrain.mesher.library
+	var mesher : VoxelMesherBlocky = _terrain.mesher
+	var lib : VoxelBlockyLibrary = mesher.library
 	print("Inventory select ", lib.get_model(vi).resource_name, " (", vi, ")")
 
 
 func can_place_voxel_at(pos: Vector3i):
-	var space_state = get_viewport().get_world_3d().get_direct_space_state()
-	var params = PhysicsShapeQueryParameters3D.new()
+	var space_state := get_viewport().get_world_3d().get_direct_space_state()
+	var params := PhysicsShapeQueryParameters3D.new()
 	params.collision_mask = COLLISION_LAYER_AVATAR
 	params.transform = Transform3D(Basis(), Vector3(pos + Vector3i(1,1,1)) * 0.5)
-	var shape = BoxShape3D.new()
-	var ex = 0.5
-	shape.extents = Vector3(ex, ex, ex)
+	var shape := BoxShape3D.new()
+	shape.size = Vector3(1.0, 1.0, 1.0)
 	params.set_shape(shape)
 	var hits = space_state.intersect_shape(params)
 	return hits.size() == 0
 
 
-func place(center: Vector3i):
+func place(center: Vector3i) -> void:
 	var type : int = _inventory[_inventory_index]
 	_terrain_tool.channel = VoxelBuffer.CHANNEL_TYPE
 	_terrain_tool.value = type
-	if type == 1:
+	if type != 2:
 		_terrain_tool.do_point(center)
 	else:
 		_terrain_tool.do_sphere(center, 3)
 
 
-func dig(center: Vector3i):
+func dig(center: Vector3i) -> void:
 	var type : int = _inventory[_inventory_index]
 	_terrain_tool.channel = VoxelBuffer.CHANNEL_TYPE
 	_terrain_tool.value = 0
-	if type == 1:
+	if type != 2:
 		_terrain_tool.do_point(center)
 	else:
 		_terrain_tool.do_sphere(center, 3)

@@ -49,8 +49,8 @@ func _physics_process(delta: float):
 	
 	if has_node(terrain):
 		var aabb = AABB(Vector3(-0.4, -0.9, -0.4), Vector3(0.8, 1.8, 0.8))
-		var terrain_node : VoxelTerrain = get_node(terrain)
-		var vt := terrain_node.get_voxel_tool()
+		var terrain_node : VoxelNode = get_node(terrain)
+		var vt : VoxelTool = terrain_node.get_voxel_tool()
 		if vt.is_area_editable(AABB(aabb.position + position, aabb.size)):
 			motion = _box_mover.get_motion(position, motion, aabb, terrain_node)
 			global_translate(motion)
