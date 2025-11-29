@@ -103,5 +103,3 @@ func receive_position(pos: Vector3):
 	# We currently don't expect this to be called. The actual targetted script is different.
 	# I had to define it otherwise Godot throws a lot of errors everytime I call the RPC...
 	push_error("Didn't expect to receive RPC position")
-
-

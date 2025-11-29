@@ -76,7 +76,6 @@ func _generate_block(buffer: VoxelBuffer, origin_in_voxels: Vector3i, lod: int):
 	# TODO There is an issue doing this, need to investigate why because it should be supported
 	# Saves from this demo used 8-bit, which is no longer the default
 	# buffer.set_channel_depth(_CHANNEL, VoxelBuffer.DEPTH_8_BIT)
-
 	# Assuming input is cubic in our use case (it doesn't have to be!)
 	var block_size := int(buffer.get_size().x)
 	var oy := origin_in_voxels.y
@@ -101,7 +100,7 @@ func _generate_block(buffer: VoxelBuffer, origin_in_voxels: Vector3i, lod: int):
 		var rng := RandomNumberGenerator.new()
 		rng.seed = _get_chunk_seed_2d(chunk_pos)
 		
-		var gx : int
+		var gx: int
 		var gz := origin_in_voxels.z
 
 		for z in block_size:
@@ -186,7 +185,7 @@ func _get_tree_instances_in_chunk(
 		if pos.y > 0:
 			pos -= offset
 			var si := rng.randi() % len(_tree_structures)
-			var structure : Structure = _tree_structures[si]
+			var structure: Structure = _tree_structures[si]
 			tree_instances.append([pos.round(), structure])
 
 

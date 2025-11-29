@@ -9,7 +9,7 @@ const LEAVES = 3
 
 const SEED = 1337
 
-var _noise : FastNoiseLite
+var _noise: FastNoiseLite
 
 
 func _init():
@@ -40,7 +40,7 @@ func _generate_pass(voxel_tool: VoxelToolMultipassGenerator, pass_index: int):
 		var rng := RandomNumberGenerator.new()
 		rng.seed = hash(Vector2i(min_pos.x, min_pos.z)) + SEED
 		
-		var tree_count := 3#rng.randi_range(0, 3)
+		var tree_count := 3 # rng.randi_range(0, 3)
 		
 		for tree_index in tree_count:
 			try_plant_tree(voxel_tool, rng)

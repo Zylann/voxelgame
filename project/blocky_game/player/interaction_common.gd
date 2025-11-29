@@ -33,4 +33,3 @@ static func place_single_block(terrain_tool: VoxelTool, pos: Vector3, look_dir: 
 		terrain_tool.do_point(pos)
 	
 	water_updater.schedule(pos)
-

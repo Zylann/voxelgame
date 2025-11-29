@@ -77,5 +77,3 @@ func _create_explosion_vfx(explosion_pos: Vector3):
 		debris.set_velocity(debris_velocity)
 		debris.position = explosion_pos
 		get_parent().add_child(debris)
-
-

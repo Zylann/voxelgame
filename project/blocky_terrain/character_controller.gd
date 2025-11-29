@@ -60,6 +60,3 @@ func _physics_process(delta: float):
 
 	assert(delta > 0)
 	_velocity = motion / delta
-
-
-

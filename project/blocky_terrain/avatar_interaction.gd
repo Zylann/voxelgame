@@ -130,4 +130,3 @@ func dig(center: Vector3i):
 		_terrain_tool.do_point(center)
 	else:
 		_terrain_tool.do_sphere(center, 3)
-

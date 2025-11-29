@@ -1,4 +1,3 @@
-
 const Structure = preload("./structure.gd")
 
 
@@ -61,7 +60,7 @@ func generate() -> Structure:
 		aabb = aabb.expand(pos)
 
 	var structure := Structure.new()
-	structure.offset = -aabb.position
+	structure.offset = - aabb.position
 
 	var buffer := structure.voxels
 	buffer.create(int(aabb.size.x) + 1, int(aabb.size.y) + 1, int(aabb.size.z) + 1)
@@ -72,4 +71,3 @@ func generate() -> Structure:
 		buffer.set_voxel(v, rpos.x, rpos.y, rpos.z, channel)
 
 	return structure
-

@@ -14,7 +14,7 @@ var _cmd_paint := false
 func _ready():
 	_voxel_tool = _terrain.get_voxel_tool()
 	_voxel_tool.texture_index = 1
-	
+
 	_cursor.scale = Vector3(_brush_radius, _brush_radius, _brush_radius)
 	
 	_hud.set_selected_material_index(_voxel_tool.texture_index)

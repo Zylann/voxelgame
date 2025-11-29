@@ -57,4 +57,3 @@ func receive_spawn_rocket(id: int, position: Vector3, direction: Vector3):
 
 	# We could also play some effects when shooting so the player can have immediate feedback,
 	# and would help hiding the fact the rocket is spawning a bit late?
-

@@ -168,4 +168,3 @@ func _place_single_block(pos: Vector3, block_id: int):
 func receive_place_single_block(pos: Vector3, look_dir: Vector3, block_id: int):
 	# The server has a different script for remote players
 	push_error("Didn't expect this method to be called")
-

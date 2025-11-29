@@ -113,4 +113,3 @@ static func _format_result(result: int) -> String:
 static func _get_result_as_string(result: int) -> String:
 	var items := ClassDB.class_get_enum_constants(&"UPNP", &"UPNPResult")
 	return items[result]
-

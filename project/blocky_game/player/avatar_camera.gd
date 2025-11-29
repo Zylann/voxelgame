@@ -72,5 +72,3 @@ func update_rotations():
 	set_rotation(Vector3(0, deg_to_rad(_yaw), 0))
 	rotate(get_transform().basis.x.normalized(), -deg_to_rad(_pitch))
 	set_position(get_transform().basis.z * distance + _offset)
-
-

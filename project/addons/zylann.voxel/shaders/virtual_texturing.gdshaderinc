@@ -57,12 +57,12 @@ vec3 get_voxel_normal_model(vec3 vertex_pos_model, out vec3 debug) {
 #else
 	int normalmap_tile_size = u_voxel_virtual_texture_tile_size;
 #endif
-	
+
 	vec3 cell_posf = vertex_pos_model / cell_size;
 	cell_posf = cell_posf * u_voxel_virtual_texture_offset_scale.w + u_voxel_virtual_texture_offset_scale.xyz;
 	ivec3 cell_pos = ivec3(floor(cell_posf));
 	vec3 cell_fract = fract(cell_posf);
-	
+
 	int cell_index = cell_pos.x + cell_pos.y * block_size + cell_pos.z * block_size * block_size;
 	int lookup_sqri = textureSize(u_voxel_cell_lookup, 0).x;//int(ceil(sqrt(float(block_size * block_size * block_size))));
 	ivec2 lookup_pos = ivec2(cell_index % lookup_sqri, cell_index / lookup_sqri);
@@ -72,7 +72,7 @@ vec3 get_voxel_normal_model(vec3 vertex_pos_model, out vec3 debug) {
 	ivec2 lookup_value = ivec2(round(lookup_valuef * 255.0));
 	int tile_index = lookup_value.r | ((lookup_value.g & 0x3f) << 8);
 	int tile_direction = lookup_value.g >> 6;
-	
+
 	vec2 tile_texcoord = vec2(0.0);
 	// TODO Could do it non-branching with weighted addition
 	switch(tile_direction) {
@@ -129,13 +129,13 @@ vec3 get_voxel_normal_view(vec3 vertex_pos_model, vec3 geometry_normal_view, mat
 	// In some edge cases the normal can be invalid (length close to zero), causing black artifacts.
 	// Workaround this by falling back on the geometry normal.
 	// Also apply fading.
-	vec3 normal = mix(geometry_normal_view, tile_normal_view, 
+	vec3 normal = mix(geometry_normal_view, tile_normal_view,
 		u_voxel_virtual_texture_fade * dot(tile_normal_view, tile_normal_view));
 	return normal;
 }
 
-vec3 get_voxel_normal_view_model(vec3 vertex_pos_model, 
-		vec3 geometry_normal_view, mat4 model_to_view, 
+vec3 get_voxel_normal_view_model(vec3 vertex_pos_model,
+		vec3 geometry_normal_view, mat4 model_to_view,
 		vec3 geometry_normal_model, out vec3 out_normal_model) {
 	if (u_voxel_cell_size == 0.0) {
 		// Virtual texture not available in this mesh
@@ -148,14 +148,14 @@ vec3 get_voxel_normal_view_model(vec3 vertex_pos_model,
 	// In some edge cases the normal can be invalid (length close to zero), causing black artifacts.
 	// Workaround this by falling back on the geometry normal.
 	// Also apply fading.
-	vec3 normal = mix(geometry_normal_view, tile_normal_view, 
+	vec3 normal = mix(geometry_normal_view, tile_normal_view,
 		u_voxel_virtual_texture_fade * dot(tile_normal_view, tile_normal_view));
 
 	// TODO Normalize this one?
 	// The view-space normal is normalized by Godot after assigning to `NORMAL`,
 	// but the model normal is useful for other things such as texturing,
 	// and due to interpolation it may need normalization.
-	out_normal_model = mix(geometry_normal_model, tile_normal_model, 
+	out_normal_model = mix(geometry_normal_model, tile_normal_model,
 		u_voxel_virtual_texture_fade * dot(tile_normal_model, tile_normal_model));
 
 	return normal;
