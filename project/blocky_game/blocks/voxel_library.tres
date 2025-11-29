@@ -88,6 +88,8 @@ mesh = ExtResource("7")
 
 [sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_ilklx"]
 resource_name = "tall_grass"
+collision_aabbs = Array[AABB]([AABB(0.1, 0, 0.1, 0.8, 0.8, 0.8)])
+collision_mask = 2
 material_override_0 = ExtResource("6_7k7uf")
 collision_enabled_0 = true
 mesh = ExtResource("8")
@@ -235,6 +237,8 @@ mesh = ExtResource("25")
 
 [sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_kcviq"]
 resource_name = "dead_shrub"
+collision_aabbs = Array[AABB]([AABB(0.1, 0, 0.1, 0.8, 0.8, 0.8)])
+collision_mask = 2
 material_override_0 = ExtResource("6_7k7uf")
 collision_enabled_0 = true
 mesh = ExtResource("26")
