@@ -1,0 +1,96 @@
+[gd_scene load_steps=16 format=3 uid="uid://b8thvapn6u843"]
+
+[ext_resource type="Script" uid="uid://ck3vi2ocqxlyu" path="res://grid_pathfinding/test_grid_pathfinding.gd" id="1_p2f1r"]
+[ext_resource type="Script" uid="uid://bpka7crmtfsvb" path="res://grid_pathfinding/track_camera.gd" id="2_7gprk"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_j8q0h"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_w204r"]
+sky_material = SubResource("ProceduralSkyMaterial_j8q0h")
+
+[sub_resource type="Environment" id="Environment_lr4uj"]
+background_mode = 2
+sky = SubResource("Sky_w204r")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_6knhw"]
+
+[sub_resource type="VoxelGeneratorNoise" id="VoxelGeneratorNoise_00hhh"]
+channel = 0
+noise = SubResource("FastNoiseLite_6knhw")
+height_start = -50.0
+height_range = 100.0
+
+[sub_resource type="VoxelBlockyModelEmpty" id="VoxelBlockyModelEmpty_umwym"]
+
+[sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_fn3bw"]
+
+[sub_resource type="VoxelBlockyLibrary" id="VoxelBlockyLibrary_3dvrb"]
+models = Array[VoxelBlockyModel]([SubResource("VoxelBlockyModelEmpty_umwym"), SubResource("VoxelBlockyModelCube_fn3bw")])
+
+[sub_resource type="VoxelMesherBlocky" id="VoxelMesherBlocky_vhl0x"]
+library = SubResource("VoxelBlockyLibrary_3dvrb")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4dkiq"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.43413687, 0.37621203, 0.29091015, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wvy3b"]
+albedo_color = Color(1, 0.396078, 0.14902, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_3gwrp"]
+size = Vector3(1.1, 1.1, 1.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5n1ng"]
+albedo_color = Color(0.321569, 1, 0.258824, 1)
+
+[node name="Node" type="Node" unique_id=1505514289]
+script = ExtResource("1_p2f1r")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1277366878]
+environment = SubResource("Environment_lr4uj")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1544680167]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+directional_shadow_max_distance = 500.0
+
+[node name="VoxelTerrain" type="VoxelTerrain" parent="." unique_id=1811125857]
+generator = SubResource("VoxelGeneratorNoise_00hhh")
+mesher = SubResource("VoxelMesherBlocky_vhl0x")
+generate_collisions = false
+material_override = SubResource("StandardMaterial3D_4dkiq")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=176062254]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 0, 18)
+script = ExtResource("2_7gprk")
+
+[node name="CursorFrom" type="MeshInstance3D" parent="." unique_id=1492297952]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 32.6757, 0)
+material_override = SubResource("StandardMaterial3D_wvy3b")
+mesh = SubResource("BoxMesh_3gwrp")
+
+[node name="CursorTo" type="MeshInstance3D" parent="." unique_id=428682179]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 32.6757, -2)
+material_override = SubResource("StandardMaterial3D_5n1ng")
+mesh = SubResource("BoxMesh_3gwrp")
+
+[node name="VoxelViewer" type="VoxelViewer" parent="." unique_id=1630034465]
+
+[node name="HUD" type="VBoxContainer" parent="." unique_id=640281326]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="HUD" unique_id=1959304697]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HUD/PanelContainer" unique_id=111178433]
+layout_mode = 2
+text = "Mouse Right: place start | Mouse Left: place destination | Space: find path
+Middle Mouse, Shift, Space, WASD: camera control"
