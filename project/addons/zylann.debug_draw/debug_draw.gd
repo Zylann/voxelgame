@@ -21,11 +21,13 @@ const TEXT_BG_COLOR = Color(0.3, 0.3, 0.3, 0.8)
 ## @brief font size used for debug text
 const TEXT_SIZE = 12
 
+# Can't use `Engine.get_frames_drawn` because it is always zero in headless mode.
+var _frame_counter := 0
+
 # 2D
 
 var _canvas_item : CanvasItem = null
 var _texts := {}
-var _font : Font = null
 
 # 3D
 
@@ -36,6 +38,10 @@ var _line_material_pool := []
 
 var _lines := []
 var _line_immediate_mesh : ImmediateMesh
+
+var _mesh_instances := []
+var _mesh_instance_pool := []
+var _mesh_material_pool := []
 
 
 func _ready():
@@ -73,7 +79,7 @@ func draw_box(position: Vector3, size: Vector3, color: Color = Color.WHITE, ling
 	mi.scale = size
 	_boxes.append({
 		"node": mi,
-		"frame": Engine.get_frames_drawn() + LINES_LINGER_FRAMES + linger_frames
+		"frame": _frame_counter + LINES_LINGER_FRAMES + linger_frames
 	})
 
 
@@ -88,18 +94,51 @@ func draw_transformed_cube(trans: Transform3D, color: Color = Color.WHITE):
 	mi.transform = Transform3D(trans.basis, trans.origin)
 	_boxes.append({
 		"node": mi,
-		"frame": Engine.get_frames_drawn() + LINES_LINGER_FRAMES
+		"frame": _frame_counter + LINES_LINGER_FRAMES
 	})
 
 
 ## @brief Draws the basis of the given transform using 3 lines
 ##        of color red for X, green for Y, and blue for Z.
-## @param transform
-## @param scale: extra scale applied on top of the transform
-func draw_axes(transform: Transform3D, scale = 1.0):
-	draw_ray_3d(transform.origin, transform.basis.x, scale, Color(1,0,0))
-	draw_ray_3d(transform.origin, transform.basis.y, scale, Color(0,1,0))
-	draw_ray_3d(transform.origin, transform.basis.z, scale, Color(0,0,1))
+## @param transform_
+## @param scale_: extra scale applied on top of the transform
+func draw_axes(transform_: Transform3D, scale_ = 1.0):
+	draw_ray_3d(transform_.origin, transform_.basis.x, scale_, Color(1,0,0))
+	draw_ray_3d(transform_.origin, transform_.basis.y, scale_, Color(0,1,0))
+	draw_ray_3d(transform_.origin, transform_.basis.z, scale_, Color(0,0,1))
+
+
+## @brief Draws a mesh at the specified transform.
+##        If the mesh's first surface uses line or point primitive,
+##        it is drawn using an unshaded material.
+## @param transform_
+## @param color: tint of the mesh.
+func draw_mesh(mesh: Mesh, transform_: Transform3D, color := Color.WHITE):
+	var mi := _get_mesh_instance()
+	# TODO How do I get the primitive type used by the mesh?
+	# Why can Mesh have virtual methods to implement that,
+	# but no callable method to actually GET that?
+	var mat : Material
+	var uses_lines = false
+	if mesh is ArrayMesh:
+		var pt : int = mesh.surface_get_primitive_type(0)
+		if pt == Mesh.PRIMITIVE_LINES or pt == Mesh.PRIMITIVE_LINE_STRIP or \
+		pt == Mesh.PRIMITIVE_POINTS:
+			mat = _get_line_material()
+			uses_lines = true
+		else:
+			mat = _get_mesh_material()
+	else:
+		mat = _get_mesh_material()
+	mat.albedo_color = color
+	mi.material_override = mat
+	mi.transform = transform_
+	mi.mesh = mesh
+	_mesh_instances.append({
+		"node": mi,
+		"uses_lines": uses_lines,
+		"frame": _frame_counter + LINES_LINGER_FRAMES
+	})
 
 
 ## @brief Draws the unshaded outline of a 3D box.
@@ -111,11 +150,11 @@ func draw_box_aabb(aabb: AABB, color = Color.WHITE, linger_frames = 0):
 	var mat := _get_line_material()
 	mat.albedo_color = color
 	mi.material_override = mat
-	mi.position = aabb.position
+	mi.position = aabb.get_center()
 	mi.scale = aabb.size
 	_boxes.append({
 		"node": mi,
-		"frame": Engine.get_frames_drawn() + LINES_LINGER_FRAMES + linger_frames
+		"frame": _frame_counter + LINES_LINGER_FRAMES + linger_frames
 	})
 
 
@@ -126,7 +165,7 @@ func draw_box_aabb(aabb: AABB, color = Color.WHITE, linger_frames = 0):
 func draw_line_3d(a: Vector3, b: Vector3, color: Color):
 	_lines.append([
 		a, b, color,
-		Engine.get_frames_drawn() + LINES_LINGER_FRAMES,
+		_frame_counter + LINES_LINGER_FRAMES,
 	])
 
 
@@ -147,7 +186,7 @@ func draw_ray_3d(origin: Vector3, direction: Vector3, length: float, color : Col
 func set_text(key: String, value=""):
 	_texts[key] = {
 		"text": value if typeof(value) == TYPE_STRING else str(value),
-		"frame": Engine.get_frames_drawn() + TEXT_LINGER_FRAMES
+		"frame": _frame_counter + TEXT_LINGER_FRAMES
 	}
 
 
@@ -186,17 +225,50 @@ func _recycle_line_material(mat: StandardMaterial3D):
 	_line_material_pool.append(mat)
 
 
-func _process(delta: float):
+func _get_mesh_instance() -> MeshInstance3D:
+	var mi : MeshInstance3D
+	if len(_mesh_instance_pool) == 0:
+		mi = MeshInstance3D.new()
+		add_child(mi)
+	else:
+		mi = _mesh_instance_pool[-1]
+		_mesh_instance_pool.pop_back()
+	return mi
+
+
+func _recycle_mesh_instance(mi: MeshInstance3D):
+	mi.hide()
+	_mesh_instance_pool.append(mi)
+
+
+func _get_mesh_material() -> StandardMaterial3D:
+	var mat : StandardMaterial3D
+	if len(_mesh_material_pool) == 0:
+		mat = StandardMaterial3D.new()
+	else:
+		mat = _mesh_material_pool[-1]
+		_mesh_material_pool.pop_back()
+	return mat
+
+
+func _recycle_mesh_material(mat: StandardMaterial3D):
+	_mesh_material_pool.append(mat)
+
+
+func _process(_unused_delta: float):
+	_frame_counter += 1
+	
 	_process_boxes()
 	_process_lines()
 	_process_canvas()
+	_process_meshes()
 
 
 func _process_3d_boxes_delayed_free(items: Array):
 	var i := 0
 	while i < len(items):
 		var d = items[i]
-		if d.frame <= Engine.get_frames_drawn():
+		if d.frame <= _frame_counter:
 			_recycle_line_material(d.node.material_override)
 			d.node.queue_free()
 			items[i] = items[len(items) - 1]
@@ -213,6 +285,26 @@ func _process_boxes():
 		var last = _box_pool[-1]
 		_box_pool.pop_back()
 		last.queue_free()
+
+
+func _process_mesh_instance_delayed_free(items: Array):
+	var i := 0
+	while i < len(items):
+		var d = items[i]
+		if d.frame <= _frame_counter:
+			if d.uses_lines:
+				_recycle_line_material(d.node.material_override)
+			else:
+				_recycle_mesh_material(d.node.material_override)
+			d.node.queue_free()
+			items[i] = items[len(items) - 1]
+			items.pop_back()
+		else:
+			i += 1
+
+
+func _process_meshes():
+	_process_mesh_instance_delayed_free(_mesh_instances)
 
 
 func _process_lines():
@@ -240,7 +332,7 @@ func _process_lines():
 	while i < len(_lines):
 		var item = _lines[i]
 		var frame = item[3]
-		if frame <= Engine.get_frames_drawn():
+		if frame <= _frame_counter:
 			_lines[i] = _lines[len(_lines) - 1]
 			_lines.pop_back()
 		else:
@@ -251,7 +343,7 @@ func _process_canvas():
 	# Remove text lines after some time
 	for key in _texts.keys():
 		var t = _texts[key]
-		if t.frame <= Engine.get_frames_drawn():
+		if t.frame <= _frame_counter:
 			_texts.erase(key)
 
 	# Update canvas
@@ -326,4 +418,3 @@ static func _create_wirecube_mesh(color := Color.WHITE) -> ArrayMesh:
 	var mesh := ArrayMesh.new()
 	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_LINES, arrays)
 	return mesh
-
